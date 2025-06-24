@@ -6,7 +6,7 @@
 
 <p align="center">
     <strong>Website Company Profile Resmi PDAM Tirta Perwira Purbalingga</strong><br>
-    Dibangun dengan Laravel 11 + Tailwind CSS + Filament Admin Panel
+    Dibangun dengan Laravel 12 + Tailwind CSS + Filament Admin Panel
 </p>
 
 ---
