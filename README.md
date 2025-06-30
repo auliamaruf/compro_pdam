@@ -6,7 +6,7 @@
 
 <p align="center">
     <strong>Website Company Profile Resmi PDAM Tirta Perwira Purbalingga</strong><br>
-    Dibangun dengan Laravel 11 + Tailwind CSS + Filament Admin Panel
+    Dibangun dengan Laravel 12 + Tailwind CSS + Filament Admin Panel
 </p>
 
 ---
@@ -29,9 +29,9 @@ Website company profile modern untuk **PDAM Tirta Perwira Purbalingga** yang men
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Laravel 11
+- **Framework:** Laravel 12
 - **Frontend:** Tailwind CSS v4 (Latest)
-- **Admin Panel:** Filament v3
+- **Admin Panel:** Filament v3.3
 - **Database:** MySQL
 - **Icons:** Heroicons
 - **Build Tool:** Vite
@@ -225,16 +225,14 @@ Project ini menggunakan lisensi MIT. Lihat file `LICENSE` untuk detail lengkap.
 ## 📞 Support
 
 Untuk pertanyaan teknis atau support:
-- 📧 **Email:** [email-admin]
-- 📱 **WhatsApp:** [nomor-whatsapp]
-- 🌐 **Website:** [website-pdam]
+- 📧 **Email:** workspace.auliamaruf@gmail.com
 
 ---
 
 ## 📋 Changelog
 
 ### v2.0.0 (Juni 2025)
-- ✅ Refactor lengkap dengan Laravel 11
+- ✅ Refactor lengkap dengan Laravel 12
 - ✅ UI/UX modern dengan Tailwind CSS v4
 - ✅ Admin panel dengan Filament v3
 - ✅ Responsive design yang lebih baik
