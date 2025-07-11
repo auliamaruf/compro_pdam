@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $service->name . ' - Layanan ' . $company->name)
+@section('title', $service->name . ' - Layanan ' . ($company->company_name ?? 'Tirta Perwira'))
 
 @section('meta')
 <meta name="description" content="{{ Str::limit(strip_tags($service->description), 160) }}">
-<meta name="keywords" content="{{ $service->name }}, layanan, PDAM, {{ $company->name }}">
+<meta name="keywords" content="{{ $service->name }}, layanan, PDAM, {{ $company->company_name ?? 'Tirta Perwira' }}">
 <meta property="og:title" content="{{ $service->name }}">
 <meta property="og:description" content="{{ Str::limit(strip_tags($service->description), 160) }}">
 <meta property="og:type" content="service">

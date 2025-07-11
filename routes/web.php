@@ -8,6 +8,38 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\FilamentTestController;
+
+// Test routes
+Route::get('/test/company-setting', [TestController::class, 'testCompanySetting'])->name('test.company-setting');
+Route::get('/test/filament-resource', [FilamentTestController::class, 'testResource'])->name('test.filament-resource');
+
+// Admin test route
+Route::get('/test/admin-user', function() {
+    $user = App\Models\User::first();
+    if (!$user) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'No admin user found. Please run seeder.',
+            'suggestion' => 'php artisan db:seed --class=DatabaseSeeder'
+        ]);
+    }
+    
+    return response()->json([
+        'status' => 'success',
+        'admin_user' => [
+            'email' => $user->email,
+            'name' => $user->name,
+            'created_at' => $user->created_at
+        ],
+        'login_info' => [
+            'url' => url('/admin'),
+            'email' => $user->email,
+            'password' => 'password (default)'
+        ]
+    ]);
+})->name('test.admin-user');
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -17,6 +49,7 @@ Route::get('/tentang', [HomeController::class, 'about'])->name('about');
 Route::get('/tentang/sejarah', [HomeController::class, 'aboutHistory'])->name('about.history');
 Route::get('/tentang/visi-misi', [HomeController::class, 'aboutVisionMission'])->name('about.vision-mission');
 Route::get('/tentang/struktur-organisasi', [HomeController::class, 'aboutOrganization'])->name('about.organization');
+Route::get('/tentang/cabang', [HomeController::class, 'branches'])->name('about.branches');
 
 // Services
 Route::prefix('layanan')->group(function () {
@@ -61,3 +94,58 @@ Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('searc
 
 // Comments
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+// Debug route
+Route::get('/debug-hero', function () {
+    $company = App\Models\CompanySetting::first();
+    if (!$company) {
+        return 'No company setting found';
+    }
+    
+    return [
+        'hero_slides_raw' => $company->getAttributes()['hero_slides'] ?? null,
+        'hero_slides_cast' => $company->hero_slides,
+        'is_array' => is_array($company->hero_slides),
+        'count' => is_array($company->hero_slides) ? count($company->hero_slides) : 0,
+        'active_slides' => is_array($company->hero_slides) ? 
+            array_filter($company->hero_slides, fn($slide) => $slide['is_active'] ?? false) : [],
+    ];
+});
+
+// Test frontend data route
+Route::get('/test-frontend-data', function () {
+    $company = App\Models\CompanySetting::current();
+    if (!$company) {
+        return 'No company setting found';
+    }
+    
+    return [
+        'hero_section' => [
+            'hero_slides_count' => is_array($company->hero_slides) ? count($company->hero_slides) : 0,
+            'active_slides' => is_array($company->hero_slides) ? 
+                array_filter($company->hero_slides, fn($slide) => $slide['is_active'] ?? false) : [],
+        ],
+        'statistics' => [
+            'years_experience' => $company->years_experience,
+            'customers_served' => $company->customers_served,
+            'water_quality_percentage' => $company->water_quality_percentage,
+            'service_availability' => $company->service_availability,
+        ],
+        'organization' => [
+            'organization_structure_count' => is_array($company->organization_structure) ? count($company->organization_structure) : 0,
+            'has_organization_description' => !empty($company->organization_structure_description),
+        ],
+        'company_info' => [
+            'name' => $company->company_name,
+            'tagline' => $company->company_tagline,
+            'vision' => $company->vision,
+            'mission_points_count' => is_array($company->mission_points) ? count($company->mission_points) : 0,
+            'core_values_count' => is_array($company->core_values) ? count($company->core_values) : 0,
+        ],
+        'contact' => [
+            'phone' => $company->phone,
+            'email' => $company->email,
+            'address' => $company->address,
+        ]
+    ];
+});

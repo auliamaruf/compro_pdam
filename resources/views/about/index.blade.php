@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang Kami - {{ $company->company_name                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 119.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-blue-600 mb-2">{{ number_format($company->customers_served / 1000) }}K+</h3>irta Perwira" }}')
+@section('title', 'Tentang Kami - {{ $company->company_name ?? "PDAM Tirta Perwira" }}')
 @section('description', 'Profil perusahaan {{ $company->company_name ?? "PDAM Tirta Perwira" }} - {{ $company->company_tagline ?? "Air Bersih Untuk Kehidupan Yang Lebih Baik" }}')
 
 @section('content')
@@ -123,18 +118,21 @@
                 </div>
                 @endif
 
-                <!-- Company Values -->
-                @if($company->company_values && count($company->company_values) > 0)
+                <!-- Company Values - Now using core_values instead of company_values -->
+                @if($company->core_values && count($company->core_values) > 0)
                 <div class="mb-12">
                     <div class="text-center mb-8">
                         <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">Nilai-nilai Perusahaan</h3>
                         <p class="text-lg text-gray-600">Prinsip dasar yang menjadi pedoman dalam setiap kegiatan</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        @foreach($company->company_values as $value)
-                        <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-shadow">
-                            <h4 class="text-lg font-bold text-gray-900 mb-3">{{ $value['title'] }}</h4>
-                            <p class="text-gray-600 leading-relaxed">{{ $value['description'] }}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach($company->core_values as $value)
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-blue-100 hover:shadow-xl transition-shadow">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                {!! $value['icon'] ?? '<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' !!}
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-3">{{ strtoupper($value['name'] ?? '') }}</h4>
+                            <p class="text-gray-600 leading-relaxed">{{ $value['description'] ?? '' }}</p>
                         </div>
                         @endforeach
                     </div>

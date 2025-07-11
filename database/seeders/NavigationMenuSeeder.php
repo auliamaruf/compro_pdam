@@ -125,6 +125,70 @@ class NavigationMenuSeeder extends Seeder
             NavigationMenu::create($menu);
         }
 
+        // Sub-menu untuk Tentang Kami
+        $aboutParent = NavigationMenu::where('title', 'Tentang Kami')->first();
+        $aboutSubMenus = [
+            [
+                'title' => 'Profil Perusahaan',
+                'url' => '/tentang',
+                'position' => 'main',
+                'parent_id' => $aboutParent->id,
+                'sort_order' => 1,
+                'is_active' => true,
+                'is_external' => false,
+                'target' => '_self',
+                'description' => 'Profil dan informasi umum perusahaan'
+            ],
+            [
+                'title' => 'Visi & Misi',
+                'url' => '/tentang/visi-misi',
+                'position' => 'main',
+                'parent_id' => $aboutParent->id,
+                'sort_order' => 2,
+                'is_active' => true,
+                'is_external' => false,
+                'target' => '_self',
+                'description' => 'Visi dan misi perusahaan'
+            ],
+            [
+                'title' => 'Sejarah Perusahaan',
+                'url' => '/tentang/sejarah',
+                'position' => 'main',
+                'parent_id' => $aboutParent->id,
+                'sort_order' => 3,
+                'is_active' => true,
+                'is_external' => false,
+                'target' => '_self',
+                'description' => 'Sejarah perjalanan perusahaan'
+            ],
+            [
+                'title' => 'Struktur Organisasi',
+                'url' => '/tentang/struktur-organisasi',
+                'position' => 'main',
+                'parent_id' => $aboutParent->id,
+                'sort_order' => 4,
+                'is_active' => true,
+                'is_external' => false,
+                'target' => '_self',
+                'description' => 'Struktur organisasi perusahaan'
+            ],
+            [
+                'title' => 'Cabang & Unit IKK',
+                'url' => '/tentang/cabang',
+                'position' => 'main',
+                'parent_id' => $aboutParent->id,
+                'sort_order' => 5,
+                'is_active' => true,
+                'is_external' => false,
+                'target' => '_self',
+                'description' => 'Informasi cabang dan unit IKK PDAM Tirta Perwira'
+            ],
+        ];
+
+        foreach ($aboutSubMenus as $menu) {
+            NavigationMenu::create($menu);
+        }
+
         // Menu Footer
         $footerMenus = [
             [

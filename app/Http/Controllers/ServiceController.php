@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
-use App\Models\CompanySetting;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $services = Service::active()->orderBy('sort_order')->get();
 
         // Group services by category
         $servicesByCategory = $services->groupBy('category');
 
-        return view('services.index', compact('company', 'services', 'servicesByCategory'));
+        return view('services.index', compact('services', 'servicesByCategory'));
     }
 
     public function show($slug)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $service = Service::where('slug', $slug)->active()->firstOrFail();
 
         // Get related services
@@ -31,24 +30,24 @@ class ServiceController extends Controller
             ->take(3)
             ->get();
 
-        return view('services.show', compact('company', 'service', 'relatedServices'));
+        return view('services.show', compact('service', 'relatedServices'));
     }
 
     public function sambunganBaru()
     {
-        $company = CompanySetting::current();
-        return view('services.sambungan-baru', compact('company'));
+        // Company data is now provided globally by CompanyDataServiceProvider
+        return view('services.sambungan-baru');
     }
 
     public function pengaduan()
     {
-        $company = CompanySetting::current();
-        return view('services.pengaduan', compact('company'));
+        // Company data is now provided globally by CompanyDataServiceProvider
+        return view('services.pengaduan');
     }
 
     public function pembayaran()
     {
-        $company = CompanySetting::current();
-        return view('services.pembayaran', compact('company'));
+        // Company data is now provided globally by CompanyDataServiceProvider
+        return view('services.pembayaran');
     }
 }

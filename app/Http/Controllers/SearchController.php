@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Service;
-use App\Models\CompanySetting;
 use App\Models\Page;
 
 class SearchController extends Controller
 {
     public function index(Request $request)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $query = $request->get('q', '');
         $type = $request->get('type', 'all'); // all, news, services, pages
         $perPage = 10; // Results per page
@@ -130,7 +129,6 @@ class SearchController extends Controller
         }
 
         return view('search.index', compact(
-            'company',
             'query',
             'type',
             'results',

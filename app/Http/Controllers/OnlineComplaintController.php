@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OnlineComplaint;
-use App\Models\CompanySetting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -13,9 +12,8 @@ class OnlineComplaintController extends Controller
 {
     public function index()
     {
-        $company = CompanySetting::current();
-
-        return view('complaint.index', compact('company'));
+        // Company data is now provided globally by CompanyDataServiceProvider
+        return view('complaint.index');
     }
 
     public function store(Request $request)
@@ -105,15 +103,15 @@ class OnlineComplaintController extends Controller
 
     public function success($ticketNumber)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $complaint = OnlineComplaint::where('ticket_number', $ticketNumber)->firstOrFail();
 
-        return view('complaint.success', compact('company', 'complaint'));
+        return view('complaint.success', compact('complaint'));
     }
 
     public function track(Request $request)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $complaint = null;
 
         if ($request->has('ticket_number')) {
@@ -125,18 +123,19 @@ class OnlineComplaintController extends Controller
             }
         }
 
-        return view('complaint.track', compact('company', 'complaint'));
+        return view('complaint.track', compact('complaint'));
     }
 
     private function sendNotificationEmail($complaint)
     {
-        $company = CompanySetting::current();
+        // Use global $company data available through CompanyDataServiceProvider
+        $company = app('view')->getShared()['company'] ?? null;
 
-        if (!$company->email) {
+        if (!$company || !$company->email) {
             return;
         }
 
-        $subject = "[{$company->name}] Keluhan Baru: {$complaint->ticket_number}";
+        $subject = "[{$company->company_name}] Keluhan Baru: {$complaint->ticket_number}";
 
         $emailData = [
             'complaint' => $complaint,

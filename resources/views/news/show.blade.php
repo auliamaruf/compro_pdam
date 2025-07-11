@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $article->title . ' - ' . $company->name)
+@section('title', $article->title . ' - ' . ($company->company_name ?? 'Tirta Perwira'))
 
 @section('meta')
 <meta name="description" content="{{ Str::limit(strip_tags($article->excerpt), 160) }}">
@@ -15,6 +15,116 @@
 @endsection
 
 @section('content')
+<!-- Add CSS for share buttons -->
+<style>
+.share-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.share-button.facebook {
+    background-color: #1877f2;
+    color: white;
+}
+
+.share-button.facebook:hover {
+    background-color: #166fe5;
+    transform: translateY(-1px);
+}
+
+.share-button.twitter {
+    background-color: #1da1f2;
+    color: white;
+}
+
+.share-button.twitter:hover {
+    background-color: #1a91da;
+    transform: translateY(-1px);
+}
+
+.share-button.whatsapp {
+    background-color: #25d366;
+    color: white;
+}
+
+.share-button.whatsapp:hover {
+    background-color: #128c7e;
+    transform: translateY(-1px);
+}
+
+.share-button.linkedin {
+    background-color: #0a66c2;
+    color: white;
+}
+
+.share-button.linkedin:hover {
+    background-color: #004182;
+    transform: translateY(-1px);
+}
+
+.share-button.copy {
+    background-color: #6b7280;
+    color: white;
+}
+
+.share-button.copy:hover {
+    background-color: #4b5563;
+    transform: translateY(-1px);
+}
+
+.gallery-item {
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    position: relative;
+    aspect-ratio: 1;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-icon {
+    color: white;
+    font-size: 1.5rem;
+}
+</style>
+
 <!-- Breadcrumb -->
 <nav class="bg-blue-50 py-4" aria-label="Breadcrumb">
     <div class="container mx-auto px-4">
@@ -163,30 +273,30 @@
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
                                        target="_blank"
                                        class="share-button facebook">
-                                        <i class="fab fa-facebook-f mr-3"></i>
+                                        <i class="fab fa-facebook-f mr-2"></i>
                                         Facebook
                                     </a>
                                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($article->title) }}"
                                        target="_blank"
                                        class="share-button twitter">
-                                        <i class="fab fa-twitter mr-3"></i>
+                                        <i class="fab fa-twitter mr-2"></i>
                                         Twitter
                                     </a>
                                     <a href="https://wa.me/?text={{ urlencode($article->title . ' - ' . request()->url()) }}"
                                        target="_blank"
                                        class="share-button whatsapp">
-                                        <i class="fab fa-whatsapp mr-3"></i>
+                                        <i class="fab fa-whatsapp mr-2"></i>
                                         WhatsApp
                                     </a>
                                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
                                        target="_blank"
                                        class="share-button linkedin">
-                                        <i class="fab fa-linkedin-in mr-3"></i>
+                                        <i class="fab fa-linkedin-in mr-2"></i>
                                         LinkedIn
                                     </a>
                                     <button onclick="copyToClipboard('{{ request()->url() }}')"
                                             class="share-button copy">
-                                        <i class="fas fa-link mr-3"></i>
+                                        <i class="fas fa-link mr-2"></i>
                                         Salin Link
                                     </button>
                                 </div>
@@ -289,232 +399,9 @@
                         </div>
                     </div>
 
-                    <!-- Quick Contact Card -->
-                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl p-6 text-white">
-                        <div class="flex items-center mb-6">
-                            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                <i class="fas fa-phone-alt text-xl text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-1 text-white">Hubungi Kami</h3>
-                                <p class="text-blue-100 text-sm">Customer Service 24/7</p>
-                            </div>
-                        </div>
 
-                        <p class="text-blue-100 mb-6 text-sm leading-relaxed">
-                            Ada pertanyaan seputar layanan air minum? Tim customer service kami siap membantu Anda kapan saja.
-                        </p>
 
-                        <div class="space-y-4">
-                            <!-- Phone Contact -->
-                            @if($company && $company->phone && is_string($company->phone))
-                            <div class="bg-blue-700 bg-opacity-50 rounded-xl p-4 border border-blue-400 border-opacity-30">
-                                <a href="tel:{{ $company->phone }}"
-                                   class="flex items-center text-white hover:text-blue-100 transition-colors group">
-                                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-400 transition-all shadow-md">
-                                        <i class="fas fa-phone text-lg text-white"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-white text-base">{{ $company->phone }}</p>
-                                        <p class="text-sm text-blue-200">Telepon Langsung</p>
-                                    </div>
-                                </a>
-                            </div>
-                            @endif
 
-                            <!-- Email Contact -->
-                            @if($company && $company->email && is_string($company->email))
-                            <div class="bg-blue-700 bg-opacity-50 rounded-xl p-4 border border-blue-400 border-opacity-30">
-                                <a href="mailto:{{ $company->email }}"
-                                   class="flex items-center text-white hover:text-blue-100 transition-colors group">
-                                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-400 transition-all shadow-md">
-                                        <i class="fas fa-envelope text-lg text-white"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-white text-base">{{ $company->email }}</p>
-                                        <p class="text-sm text-blue-200">Email Resmi</p>
-                                    </div>
-                                </a>
-                            </div>
-                            @endif
-
-                            <!-- Operating Hours -->
-                            @if($company && $company->office_hours)
-                            <div class="bg-blue-700 bg-opacity-50 rounded-xl p-4 border border-blue-400 border-opacity-30">
-                                <div class="flex items-center text-white">
-                                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4 shadow-md">
-                                        <i class="fas fa-clock text-lg text-white"></i>
-                                    </div>
-                                    <div>
-                                        @if(is_array($company->office_hours))
-                                            <p class="font-semibold text-white text-base">
-                                                {{ $company->office_hours['days'] ?? 'Senin - Jumat' }}
-                                            </p>
-                                            <p class="text-sm text-blue-200">
-                                                {{ $company->office_hours['hours'] ?? '07:30 - 16:00 WIB' }}
-                                            </p>
-                                        @elseif(is_string($company->office_hours))
-                                            <p class="font-semibold text-white text-base">
-                                                {{ $company->office_hours }}
-                                            </p>
-                                        @else
-                                            <p class="font-semibold text-white text-base">Senin - Jumat</p>
-                                            <p class="text-sm text-blue-200">07:30 - 16:00 WIB</p>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-
-                            <!-- WhatsApp Contact -->
-                            @if($company && $company->whatsapp_cs && is_string($company->whatsapp_cs))
-                            <div class="bg-blue-700 bg-opacity-50 rounded-xl p-4 border border-blue-400 border-opacity-30">
-                                <a href="https://wa.me/{{ str_replace(['+', '-', ' '], '', $company->whatsapp_cs) }}"
-                                   target="_blank"
-                                   class="flex items-center text-white hover:text-blue-100 transition-colors group">
-                                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-400 transition-all shadow-md">
-                                        <i class="fab fa-whatsapp text-lg text-white"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-white text-base">{{ $company->whatsapp_cs }}</p>
-                                        <p class="text-sm text-blue-200">WhatsApp CS</p>
-                                    </div>
-                                </a>
-                            </div>
-                            @endif
-                        </div>
-
-                        <div class="mt-6 pt-6 border-t border-blue-400">
-                            <a href="{{ route('complaint') }}"
-                               class="inline-flex items-center justify-center w-full px-4 py-3 bg-white text-blue-700 rounded-xl hover:bg-blue-50 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                                <i class="fas fa-headset mr-2 text-blue-700"></i>
-                                Pengaduan Online
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Social Media Follow -->
-                    <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-                        <div class="flex items-center mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                <i class="fas fa-users text-xl text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-1">Ikuti Kami</h3>
-                                <p class="text-gray-600 text-sm">Tetap terhubung dengan {{ ($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM' }}</p>
-                            </div>
-                        </div>
-
-                        <p class="text-gray-700 text-sm mb-6 leading-relaxed">
-                            Dapatkan update terbaru tentang layanan air minum, pengumuman penting, dan tips hemat air melalui media sosial kami.
-                        </p>
-
-                        @if($company->social_media && is_array($company->social_media))
-                        <div class="grid grid-cols-2 gap-4">
-                            <!-- Facebook -->
-                            @if(isset($company->social_media['facebook']) && $company->social_media['facebook'])
-                            <a href="{{ $company->social_media['facebook'] }}"
-                               target="_blank"
-                               class="flex flex-col items-center p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition-all group border-2 border-blue-200 hover:border-blue-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-facebook-f text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-blue-700">Facebook</span>
-                                <span class="text-xs text-blue-600 mt-1 font-medium">
-                                    {{ $company->social_media['facebook_username'] ?? '@' . (($company && $company->company_name && is_string($company->company_name)) ? Str::slug($company->company_name) : 'pdam') }}
-                                </span>
-                            </a>
-                            @endif
-
-                            <!-- Instagram -->
-                            @if(isset($company->social_media['instagram']) && $company->social_media['instagram'])
-                            <a href="{{ $company->social_media['instagram'] }}"
-                               target="_blank"
-                               class="flex flex-col items-center p-4 bg-pink-50 hover:bg-pink-100 rounded-xl transition-all group border-2 border-pink-200 hover:border-pink-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-instagram text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-pink-700">Instagram</span>
-                                <span class="text-xs text-pink-600 mt-1 font-medium">
-                                    {{ $company->social_media['instagram_username'] ?? '@' . (($company && $company->company_name && is_string($company->company_name)) ? Str::slug($company->company_name) : 'pdam') }}
-                                </span>
-                            </a>
-                            @endif
-
-                            <!-- YouTube -->
-                            @if(isset($company->social_media['youtube']) && $company->social_media['youtube'])
-                            <a href="{{ $company->social_media['youtube'] }}"
-                               target="_blank"
-                               class="flex flex-col items-center p-4 bg-red-50 hover:bg-red-100 rounded-xl transition-all group border-2 border-red-200 hover:border-red-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-youtube text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-red-700">YouTube</span>
-                                <span class="text-xs text-red-600 mt-1 font-medium">
-                                    {{ $company->social_media['youtube_username'] ?? (($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM Channel') }}
-                                </span>
-                            </a>
-                            @endif
-
-                            <!-- Twitter/X -->
-                            @if(isset($company->social_media['twitter']) && $company->social_media['twitter'])
-                            <a href="{{ $company->social_media['twitter'] }}"
-                               target="_blank"
-                               class="flex flex-col items-center p-4 bg-sky-50 hover:bg-sky-100 rounded-xl transition-all group border-2 border-sky-200 hover:border-sky-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-sky-500 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-twitter text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-sky-700">Twitter</span>
-                                <span class="text-xs text-sky-600 mt-1 font-medium">
-                                    {{ $company->social_media['twitter_username'] ?? '@' . (($company && $company->company_name && is_string($company->company_name)) ? Str::slug($company->company_name) : 'pdam') }}
-                                </span>
-                            </a>
-                            @endif
-
-                            <!-- WhatsApp (if different from CS) -->
-                            @if(isset($company->social_media['whatsapp']) && $company->social_media['whatsapp'] && $company->social_media['whatsapp'] !== $company->whatsapp_cs)
-                            <a href="https://wa.me/{{ str_replace(['+', '-', ' '], '', $company->social_media['whatsapp']) }}"
-                               target="_blank"
-                               class="flex flex-col items-center p-4 bg-green-50 hover:bg-green-100 rounded-xl transition-all group border-2 border-green-200 hover:border-green-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-whatsapp text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-green-700">WhatsApp</span>
-                                <span class="text-xs text-green-600 mt-1 font-medium">Chat Langsung</span>
-                            </a>
-                            @endif
-                        </div>
-                        @else
-                        <!-- Fallback static social media jika data tidak ada -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <a href="#" class="flex flex-col items-center p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition-all group border-2 border-blue-200 hover:border-blue-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-facebook-f text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-blue-700">Facebook</span>
-                                <span class="text-xs text-blue-600 mt-1 font-medium">@pdampurbalingga</span>
-                            </a>
-
-                            <a href="#" class="flex flex-col items-center p-4 bg-pink-50 hover:bg-pink-100 rounded-xl transition-all group border-2 border-pink-200 hover:border-pink-300 hover:shadow-lg">
-                                <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg">
-                                    <i class="fab fa-instagram text-2xl text-white"></i>
-                                </div>
-                                <span class="text-sm font-bold text-pink-700">Instagram</span>
-                                <span class="text-xs text-pink-600 mt-1 font-medium">@pdampurbalingga</span>
-                            </a>
-                        </div>
-                        @endif
-
-                        <div class="mt-6 pt-6 border-t border-gray-300">
-                            <div class="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-gray-200">
-                                <p class="text-sm text-gray-700 mb-2 font-medium">Bergabunglah dengan</p>
-                                <p class="text-2xl font-bold text-gray-900 mb-1">
-                                    {{ number_format($company->customers_served ?? 5000) }}+ Pelanggan
-                                </p>
-                                <p class="text-sm text-gray-600">yang sudah mengikuti kami</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
-use App\Models\CompanySetting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -13,9 +12,8 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $company = CompanySetting::current();
-
-        return view('contact', compact('company'));
+        // Company data is now provided globally by CompanyDataServiceProvider
+        return view('contact');
     }
 
     public function store(Request $request)
@@ -78,13 +76,15 @@ class ContactController extends Controller
 
     private function sendNotificationEmail($contactMessage)
     {
-        $company = CompanySetting::current();
+        // Use global $company data available through CompanyDataServiceProvider
+        // This method needs access to company data, so we'll get it from view data
+        $company = app('view')->getShared()['company'] ?? null;
 
-        if (!$company->email) {
+        if (!$company || !$company->email) {
             return;
         }
 
-        $subject = "[{$company->name}] Pesan Kontak Baru: {$contactMessage->subject}";
+        $subject = "[{$company->company_name}] Pesan Kontak Baru: {$contactMessage->subject}";
 
         $emailData = [
             'contactMessage' => $contactMessage,

@@ -3,6 +3,141 @@
 @section('title', 'Sejarah - Tirta Perwira')
 @section('description', 'Sejarah perjalanan PDAM Tirta Perwira Purbalingga dalam melayani masyarakat dengan air bersih berkualitas')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
+@push('styles')
+<style>
+    /* Compact Timeline Styles */
+    .timeline-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease-out;
+        margin-bottom: 3rem;
+    }
+    
+    .timeline-item.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .timeline-content {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #3b82f6;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .timeline-content:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: -12px;
+        top: 1.5rem;
+        width: 24px;
+        height: 24px;
+        background: #3b82f6;
+        border: 3px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+    
+    .timeline-year {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .timeline-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #1f2937;
+        line-height: 1.3;
+    }
+    
+    .timeline-description {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .timeline-image {
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .timeline-image img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .timeline-image:hover img {
+        transform: scale(1.02);
+    }
+    
+    .timeline-highlight {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(6, 182, 212, 0.05));
+        border-left: 3px solid #3b82f6;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-top: 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .timeline-line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #3b82f6, #06b6d4);
+        margin-left: -1px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .timeline-content {
+            margin-left: 2rem;
+            padding: 1rem;
+        }
+        
+        .timeline-dot {
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.125rem;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
     <!-- Hero Section -->
@@ -22,131 +157,178 @@
         </div>
     </section>
 
-    <!-- Timeline Section -->
-    <section class="section-padding">
+    <!-- Compact Timeline Section -->
+    <section class="section-padding bg-white">
         <div class="container-custom">
-            <div class="max-w-6xl mx-auto">
+            <div class="max-w-4xl mx-auto">
                 <!-- Section Title -->
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Perjalanan Historis</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                        Dari awal berdiri hingga menjadi perusahaan daerah yang terpercaya dalam penyediaan air bersih
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Perjalanan Sejarah</h2>
+                    <p class="text-base text-gray-600 max-w-2xl mx-auto">
+                        Kronologi perjalanan Tirta Perwira dalam melayani masyarakat Purbalingga
                     </p>
                 </div>
 
-                <!-- Timeline -->
+                <!-- Timeline Container -->
                 <div class="relative">
                     <!-- Timeline Line -->
-                    <div class="absolute left-8 lg:left-1/2 transform lg:-translate-x-px top-0 bottom-0 w-0.5 bg-blue-200"></div>
+                    <div class="timeline-line"></div>
 
                     <!-- Timeline Items -->
-                    <div class="space-y-12">
+                    <div class="space-y-4">
                         @if($company && $company->history_timeline)
                             @foreach($company->history_timeline as $index => $timeline)
-                                <div class="relative flex items-center lg:justify-center">
-                                    @if($index % 2 == 0)
-                                        <!-- Left side timeline items -->
-                                        <div class="lg:w-1/2 lg:pr-8 lg:text-right">
-                                            <div class="bg-white rounded-lg shadow-lg p-6 ml-16 lg:ml-0 {{ $loop->last ? 'border-2 border-blue-200' : '' }}">
-                                                <div class="text-blue-600 font-semibold text-lg mb-2">{{ $timeline['year'] ?? '' }}</div>
-                                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $timeline['title'] ?? '' }}</h3>
-                                                <p class="text-gray-600 leading-relaxed">{{ $timeline['description'] ?? '' }}</p>
-                                            </div>
+                                <div class="timeline-item relative pl-8" data-aos="fade-up" data-aos-delay="{{ $index * 150 }}">
+                                    <!-- Timeline Dot -->
+                                    <div class="timeline-dot">
+                                        <i class="{{ $timeline['icon'] ?? 'fas fa-calendar-alt' }}"></i>
+                                    </div>
+                                    
+                                    <!-- Timeline Content -->
+                                    <div class="timeline-content">
+                                        <!-- Year Badge -->
+                                        <div class="timeline-year">
+                                            <i class="fas fa-calendar-alt mr-1"></i>{{ $timeline['year'] ?? '' }}
                                         </div>
-                                    @else
-                                        <!-- Right side timeline items -->
-                                        <div class="lg:w-1/2 lg:pl-8">
-                                            <div class="bg-white rounded-lg shadow-lg p-6 ml-16 lg:ml-0 {{ $loop->last ? 'border-2 border-blue-200' : '' }}">
-                                                <div class="text-blue-600 font-semibold text-lg mb-2">{{ $timeline['year'] ?? '' }}</div>
-                                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $timeline['title'] ?? '' }}</h3>
-                                                <p class="text-gray-600 leading-relaxed">{{ $timeline['description'] ?? '' }}</p>
+                                        
+                                        <!-- Content Grid -->
+                                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                            <!-- Text Content -->
+                                            <div class="lg:col-span-2">
+                                                <h3 class="timeline-title">{{ $timeline['title'] ?? '' }}</h3>
+                                                <p class="timeline-description">{{ $timeline['description'] ?? '' }}</p>
+                                                
+                                                <!-- Impact/Achievement -->
+                                                @if(isset($timeline['impact']))
+                                                <div class="timeline-highlight">
+                                                    <div class="flex items-start">
+                                                        <i class="fas fa-lightbulb text-blue-600 mt-0.5 mr-2 flex-shrink-0"></i>
+                                                        <div>
+                                                            <strong class="text-blue-900">Dampak:</strong>
+                                                            <span class="text-blue-700">{{ $timeline['impact'] }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                
+                                                @if(isset($timeline['achievement']))
+                                                <div class="timeline-highlight">
+                                                    <div class="flex items-start">
+                                                        <i class="fas fa-trophy text-amber-600 mt-0.5 mr-2 flex-shrink-0"></i>
+                                                        <div>
+                                                            <strong class="text-amber-900">Pencapaian:</strong>
+                                                            <span class="text-amber-700">{{ $timeline['achievement'] }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
                                             </div>
+                                            
+                                            <!-- Image -->
+                                            @if(isset($timeline['image']) && !empty($timeline['image']))
+                                            <div class="lg:col-span-1">
+                                                <div class="timeline-image">
+                                                    <img src="{{ Storage::url($timeline['image']) }}" 
+                                                         alt="{{ $timeline['title'] ?? 'Timeline Image' }}"
+                                                         class="w-full h-32 object-cover">
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
-                                    @endif
-                                    <div class="absolute left-6 lg:left-1/2 lg:transform lg:-translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow {{ $loop->last ? 'animate-pulse' : '' }}"></div>
+                                    </div>
                                 </div>
                             @endforeach
                         @else
-                            <!-- Default timeline if no data -->
-                            <div class="relative flex items-center lg:justify-center">
-                                <div class="lg:w-1/2 lg:pr-8 lg:text-right">
-                                    <div class="bg-white rounded-lg shadow-lg p-6 ml-16 lg:ml-0">
-                                        <div class="text-blue-600 font-semibold text-lg mb-2">1970-an</div>
-                                        <h3 class="text-xl font-bold text-gray-900 mb-3">Awal Mula Berdiri</h3>
-                                        <p class="text-gray-600 leading-relaxed">
-                                            PDAM Tirta Perwira Purbalingga didirikan sebagai bagian dari upaya pemerintah daerah
-                                            untuk menyediakan akses air bersih bagi masyarakat Kabupaten Purbalingga.
-                                        </p>
+                            <!-- Default Timeline -->
+                            @php
+                                $defaultTimeline = [
+                                    [
+                                        'year' => '1970-an',
+                                        'title' => 'Pendirian PDAM',
+                                        'description' => 'PDAM Tirta Perwira Purbalingga didirikan sebagai bagian dari upaya pemerintah daerah untuk menyediakan akses air bersih bagi masyarakat.',
+                                        'icon' => 'fas fa-seedling',
+                                        'impact' => 'Memulai pelayanan air bersih untuk ribuan keluarga di Purbalingga'
+                                    ],
+                                    [
+                                        'year' => '1980-an',
+                                        'title' => 'Ekspansi Jaringan',
+                                        'description' => 'Perluasan jaringan distribusi air ke berbagai kecamatan dengan peningkatan kualitas infrastruktur dan teknologi pengolahan.',
+                                        'icon' => 'fas fa-rocket',
+                                        'achievement' => 'Cakupan pelayanan meningkat hingga 60% wilayah kabupaten'
+                                    ],
+                                    [
+                                        'year' => '1990-an',
+                                        'title' => 'Modernisasi Sistem',
+                                        'description' => 'Implementasi sistem manajemen modern dan peningkatan kualitas pelayanan dengan teknologi terdepan.',
+                                        'icon' => 'fas fa-chart-line',
+                                        'impact' => 'Efisiensi operasional meningkat 40% dan kepuasan pelanggan mencapai 85%'
+                                    ],
+                                    [
+                                        'year' => '2000-an',
+                                        'title' => 'Era Digital',
+                                        'description' => 'Transformasi digital dalam pelayanan dan penerapan sistem informasi terintegrasi untuk kemudahan pelanggan.',
+                                        'icon' => 'fas fa-lightbulb',
+                                        'achievement' => 'Menjadi PDAM terdepan di Jawa Tengah dalam inovasi teknologi'
+                                    ],
+                                    [
+                                        'year' => '2020-sekarang',
+                                        'title' => 'Sustainability & Innovation',
+                                        'description' => 'Komitmen pada pembangunan berkelanjutan, inovasi hijau, dan smart water management untuk masa depan yang lebih baik.',
+                                        'icon' => 'fas fa-star',
+                                        'impact' => 'Target Universal Water Access 2030 dan Zero Waste Operations'
+                                    ]
+                                ];
+                            @endphp
+                            
+                            @foreach($defaultTimeline as $index => $timeline)
+                                <div class="timeline-item relative pl-8" data-aos="fade-up" data-aos-delay="{{ $index * 150 }}">
+                                    <!-- Timeline Dot -->
+                                    <div class="timeline-dot">
+                                        <i class="{{ $timeline['icon'] }}"></i>
+                                    </div>
+                                    
+                                    <!-- Timeline Content -->
+                                    <div class="timeline-content">
+                                        <!-- Year Badge -->
+                                        <div class="timeline-year">
+                                            <i class="fas fa-calendar-alt mr-1"></i>{{ $timeline['year'] }}
+                                        </div>
+                                        
+                                        <!-- Content -->
+                                        <div>
+                                            <h3 class="timeline-title">{{ $timeline['title'] }}</h3>
+                                            <p class="timeline-description">{{ $timeline['description'] }}</p>
+                                            
+                                            <!-- Impact/Achievement -->
+                                            @if(isset($timeline['impact']))
+                                            <div class="timeline-highlight">
+                                                <div class="flex items-start">
+                                                    <i class="fas fa-lightbulb text-blue-600 mt-0.5 mr-2 flex-shrink-0"></i>
+                                                    <div>
+                                                        <strong class="text-blue-900">Dampak:</strong>
+                                                        <span class="text-blue-700">{{ $timeline['impact'] }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            
+                                            @if(isset($timeline['achievement']))
+                                            <div class="timeline-highlight">
+                                                <div class="flex items-start">
+                                                    <i class="fas fa-trophy text-amber-600 mt-0.5 mr-2 flex-shrink-0"></i>
+                                                    <div>
+                                                        <strong class="text-amber-900">Pencapaian:</strong>
+                                                        <span class="text-amber-700">{{ $timeline['achievement'] }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="absolute left-6 lg:left-1/2 lg:transform lg:-translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow"></div>
-                            </div>
+                            @endforeach
                         @endif
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section class="section-padding bg-white">
-        <div class="container-custom">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Pencapaian Bersejarah</h2>
-                    <p class="text-lg text-gray-600">Prestasi yang telah diraih dalam perjalanan melayani masyarakat</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    @if($company && $company->achievements)
-                        @foreach($company->achievements as $achievement)
-                            <div class="text-center group">
-                                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                    {!! $achievement['icon'] ?? '<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' !!}
-                                </div>
-                                <h3 class="text-2xl font-bold text-blue-600 mb-2">{{ $achievement['value'] ?? '' }}</h3>
-                                <p class="text-gray-600">{{ $achievement['label'] ?? '' }}</p>
-                            </div>
-                        @endforeach
-                    @else
-                        <!-- Default achievements if no data -->
-                        <div class="text-center group">
-                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">50+</h3>
-                            <p class="text-gray-600">Tahun Pengalaman</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">150K+</h3>
-                            <p class="text-gray-600">Pelanggan Dilayani</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">99%</h3>
-                            <p class="text-gray-600">Kualitas Air Terjamin</p>
-                        </div>
-                        <div class="text-center group">
-                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">24/7</h3>
-                            <p class="text-gray-600">Pelayanan Siaga</p>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
@@ -158,7 +340,7 @@
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-6">Warisan untuk Masa Depan</h2>
                 <p class="text-xl text-blue-100 leading-relaxed mb-8">
-                    {{ $company->legacy_description ?? 'Dengan pengalaman puluhan tahun, PDAM Tirta Perwira terus berkomitmen memberikan pelayanan terbaik dan berkontribusi dalam pembangunan Kabupaten Purbalingga yang berkelanjutan.' }}
+                    Dengan pengalaman puluhan tahun, PDAM Tirta Perwira terus berkomitmen memberikan pelayanan terbaik dan berkontribusi dalam pembangunan Kabupaten Purbalingga yang berkelanjutan.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('about.vision-mission') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
@@ -179,3 +361,73 @@
     </section>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS (Animate On Scroll)
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+                offset: 50
+            });
+        }
+
+        // Timeline animation observer
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // Image lazy loading with intersection observer
+        const timelineImages = document.querySelectorAll('.timeline-image img');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        timelineImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Timeline dots hover effect
+        const timelineDots = document.querySelectorAll('.timeline-dot');
+        timelineDots.forEach(dot => {
+            dot.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2)';
+                this.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.3)';
+            });
+            
+            dot.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            });
+        });
+    });
+</script>
+@endpush

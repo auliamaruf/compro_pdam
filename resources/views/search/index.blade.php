@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pencarian: ' . $query . ' - ' . $company->name)
+@section('title', 'Pencarian: ' . $query . ' - ' . ($company->company_name ?? 'Tirta Perwira'))
 
 @section('meta')
 <meta name="description" content="Hasil pencarian untuk: {{ $query }}">

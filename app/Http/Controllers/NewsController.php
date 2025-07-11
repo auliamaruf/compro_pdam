@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
-use App\Models\CompanySetting;
 
 class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $type = $request->get('type', 'all');
 
         $query = News::published()->latest();
@@ -21,12 +20,12 @@ class NewsController extends Controller
 
         $news = $query->paginate(12);
 
-        return view('news.index', compact('company', 'news', 'type'));
+        return view('news.index', compact('news', 'type'));
     }
 
     public function show($slug)
     {
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
         $article = News::where('slug', $slug)->published()->firstOrFail();
 
         // Increment views
@@ -43,6 +42,6 @@ class NewsController extends Controller
             ->take(4)
             ->get();
 
-        return view('news.show', compact('company', 'article', 'relatedNews', 'comments'));
+        return view('news.show', compact('article', 'relatedNews', 'comments'));
     }
 }

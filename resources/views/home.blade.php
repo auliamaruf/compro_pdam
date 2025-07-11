@@ -6,21 +6,20 @@
 
 @section('content')
 <!-- Hero Section -->
-@if($company && $company->hero_slides && is_array($company->hero_slides) && count($company->hero_slides) > 0)
+@if($herobanners && $herobanners->count() > 0)
     <!-- Multiple Hero Slides -->
     <section class="relative min-h-screen overflow-hidden">
         <div class="hero-carousel relative min-h-screen">
-            @foreach($company->hero_slides as $index => $slide)
-                @if(isset($slide['is_active']) && $slide['is_active'])
+            @foreach($herobanners as $index => $banner)
                 <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 min-h-screen flex items-center transition-all duration-1000 ease-in-out"
                      data-slide="{{ $index }}"
-                     data-overlay-color="{{ $slide['overlay_color'] ?? '#1e3a8a' }}"
-                     data-overlay-opacity="{{ $slide['overlay_opacity'] ?? 80 }}">
+                     data-overlay-color="{{ $banner->overlay_color ?? '#1e3a8a' }}"
+                     data-overlay-opacity="{{ $banner->overlay_opacity ?? 80 }}">
 
                     <!-- Background Image -->
-                    @if(isset($slide['background_image']) && $slide['background_image'])
+                    @if($banner->getFirstMediaUrl('hero_backgrounds'))
                         <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                             style="background-image: url('{{ Storage::url($slide['background_image']) }}');">
+                             style="background-image: url('{{ $banner->getFirstMediaUrl('hero_backgrounds') }}');">
                         </div>
                     @else
                         <div class="absolute inset-0 hero-gradient"></div>
@@ -28,32 +27,34 @@
 
                     <!-- Overlay -->
                     <div class="absolute inset-0 hero-overlay"
-                         style="background-color: {{ $slide['overlay_color'] ?? '#1e3a8a' }}; opacity: {{ ($slide['overlay_opacity'] ?? 80) / 100 }};"></div>
+                         style="background-color: {{ $banner->overlay_color ?? '#1e3a8a' }}; opacity: {{ ($banner->overlay_opacity ?? 80) / 100 }};"></div>
 
                     <!-- Content -->
                     <div class="relative z-10 container-custom text-white">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                            <div class="text-{{ $slide['text_position'] ?? 'left' }} {{ ($slide['text_position'] ?? 'left') === 'center' ? 'lg:text-center col-span-2' : (($slide['text_position'] ?? 'left') === 'right' ? 'lg:text-right lg:order-2' : 'lg:text-left') }}">
+                            <div class="text-{{ $banner->text_position ?? 'left' }} {{ ($banner->text_position ?? 'left') === 'center' ? 'lg:text-center col-span-2' : (($banner->text_position ?? 'left') === 'right' ? 'lg:text-right lg:order-2' : 'lg:text-left') }}">
                                 <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp">
-                                    {{ $slide['title'] ?? 'Default Title' }}
+                                    {{ $banner->title ?? 'Default Title' }}
                                 </h1>
+                                @if($banner->subtitle)
                                 <p class="text-xl lg:text-2xl mb-4 text-blue-100 leading-relaxed animate-fadeInUp animation-delay-200">
-                                    {{ $slide['subtitle'] ?? '' }}
-                                </p>
-                                @if(isset($slide['description']) && $slide['description'])
-                                <p class="text-lg mb-8 text-blue-200 leading-relaxed animate-fadeInUp animation-delay-400">
-                                    {{ $slide['description'] }}
+                                    {{ $banner->subtitle }}
                                 </p>
                                 @endif
-                                <div class="flex flex-col sm:flex-row gap-4 justify-{{ $slide['text_position'] ?? 'left' === 'center' ? 'center' : (($slide['text_position'] ?? 'left') === 'right' ? 'end' : 'start') }} animate-fadeInUp animation-delay-600">
-                                    @if(isset($slide['primary_cta_text']) && $slide['primary_cta_text'])
-                                    <a href="{{ $slide['primary_cta_link'] ?? '#' }}" class="btn-primary">
-                                        {{ $slide['primary_cta_text'] }}
+                                @if($banner->description)
+                                <p class="text-lg mb-8 text-blue-200 leading-relaxed animate-fadeInUp animation-delay-400">
+                                    {{ $banner->description }}
+                                </p>
+                                @endif
+                                <div class="flex flex-col sm:flex-row gap-4 justify-{{ $banner->text_position ?? 'left' === 'center' ? 'center' : (($banner->text_position ?? 'left') === 'right' ? 'end' : 'start') }} animate-fadeInUp animation-delay-600">
+                                    @if($banner->primary_cta_text)
+                                    <a href="{{ $banner->primary_cta_link ?? '#' }}" class="btn-primary">
+                                        {{ $banner->primary_cta_text }}
                                     </a>
                                     @endif
-                                    @if(isset($slide['secondary_cta_text']) && $slide['secondary_cta_text'])
-                                    <a href="{{ $slide['secondary_cta_link'] ?? '#' }}" class="btn-secondary">
-                                        {{ $slide['secondary_cta_text'] }}
+                                    @if($banner->secondary_cta_text)
+                                    <a href="{{ $banner->secondary_cta_link ?? '#' }}" class="btn-secondary">
+                                        {{ $banner->secondary_cta_text }}
                                     </a>
                                     @endif
                                 </div>
@@ -61,12 +62,11 @@
                         </div>
                     </div>
                 </div>
-                @endif
             @endforeach
         </div>
 
         <!-- Navigation Arrows -->
-        @if(count(array_filter($company->hero_slides, fn($slide) => $slide['is_active'] ?? false)) > 1)
+        @if($herobanners->count() > 1)
         <button class="hero-nav hero-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-200 text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -80,11 +80,9 @@
 
         <!-- Dots Indicator -->
         <div class="hero-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-            @foreach($company->hero_slides as $index => $slide)
-                @if(isset($slide['is_active']) && $slide['is_active'])
+            @foreach($herobanners as $index => $banner)
                 <button class="hero-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
                         data-slide="{{ $index }}"></button>
-                @endif
             @endforeach
         </div>
         @endif
@@ -122,61 +120,99 @@
         <!-- Quick Services -->
         <div class="absolute -bottom-28 lg:-bottom-32 left-0 right-0 px-4 z-20">
             <div class="container-custom">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Cek Tagihan Service -->
-                    <a href="https://tagihan.pdampurbalingga.co.id/"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                        <div class="flex-shrink-0">
-                            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                @if($company && $company->quick_services && count($company->quick_services) > 0)
+                    <div class="grid grid-cols-1 md:grid-cols-{{ min(count($company->quick_services), 3) }} gap-8 max-w-4xl mx-auto">
+                        @foreach($company->quick_services as $service)
+                        <a href="{{ $service['url'] ?? '#' }}"
+                           @if($service['external_link'] ?? false) target="_blank" rel="noopener noreferrer" @endif
+                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 {{ $service['bg_color'] ?? 'bg-blue-600' }} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        @if(str_contains($service['title'] ?? '', 'Tagihan'))
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        @elseif(str_contains($service['title'] ?? '', 'Pengaduan'))
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                        @else
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
+                                        @endif
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:{{ $service['hover_color'] ?? 'text-blue-600' }} transition-colors">
+                                    {{ $service['title'] }}
+                                </h3>
+                                <p class="text-base text-gray-600">
+                                    {{ $service['description'] }}
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 text-gray-400 group-hover:{{ $service['hover_color'] ?? 'text-blue-600' }} transition-colors">
+                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </div>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                                Cek Tagihan
-                            </h3>
-                            <p class="text-base text-gray-600">
-                                Cek tagihan air bulanan Anda secara online dengan mudah
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors">
-                            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </a>
+                        </a>
+                        @endforeach
+                    </div>
+                @else
+                    {{-- Fallback: Default Quick Services --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <!-- Cek Tagihan Service -->
+                        <a href="https://tagihan.pdampurbalingga.co.id/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                                    Cek Tagihan
+                                </h3>
+                                <p class="text-base text-gray-600">
+                                    Cek tagihan air bulanan Anda secara online dengan mudah
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors">
+                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </a>
 
-                    <!-- Pengaduan Online Service -->
-                    <a href="https://pengaduan.pdampurbalingga.co.id/"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                        <div class="flex-shrink-0">
-                            <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        <!-- Pengaduan Online Service -->
+                        <a href="https://pengaduan.pdampurbalingga.co.id/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
+                                    Pengaduan Online
+                                </h3>
+                                <p class="text-base text-gray-600">
+                                    Sampaikan keluhan atau saran Anda secara online
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 text-gray-400 group-hover:text-red-600 transition-colors">
+                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </div>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
-                                Pengaduan Online
-                            </h3>
-                            <p class="text-base text-gray-600">
-                                Sampaikan keluhan atau saran Anda secara online
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0 text-gray-400 group-hover:text-red-600 transition-colors">
-                            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -189,67 +225,6 @@
     </section>
 @endif
 
-<!-- Section Quick Card Layanan Utama -->
-<section class="relative z-20 -mt-12 mb-16">
-    <div class="container-custom px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <!-- Cek Tagihan Card -->
-            <a href="https://tagihan.pdampurbalingga.co.id/"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                        Cek Tagihan
-                    </h3>
-                    <p class="text-base text-gray-600">
-                        Cek tagihan air bulanan Anda secara online dengan mudah
-                    </p>
-                </div>
-                <div class="flex-shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors">
-                    <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
-
-            <!-- Pengaduan Online Card -->
-            <a href="https://pengaduan.pdampurbalingga.co.id/"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
-                        Pengaduan Online
-                    </h3>
-                    <p class="text-base text-gray-600">
-                        Sampaikan keluhan atau saran Anda secara online
-                    </p>
-                </div>
-                <div class="flex-shrink-0 text-gray-400 group-hover:text-red-600 transition-colors">
-                    <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
-
 <!-- About Preview Section -->
 <section id="about-preview" class="bg-gradient-to-br from-blue-50 to-cyan-50 section-padding pt-40 lg:pt-48">
     <div class="container-custom">
@@ -261,64 +236,84 @@
                         Tentang Kami
                     </span>
                     <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                        PDAM Tirta Perwira Purbalingga
+                        {{ $company->about_preview_title ?? 'PDAM Tirta Perwira Purbalingga' }}
                     </h2>
                 </div>
 
-                <div class="space-y-4 text-gray-600 leading-relaxed">
-                    <p class="text-lg">
-                        <strong class="text-gray-900">PDAM Tirta Perwira</strong> telah mengabdi kepada masyarakat Purbalingga selama lebih dari 50 tahun dalam menyediakan air bersih berkualitas. Kami berkomitmen melayani dengan hati dan memberikan pelayanan terbaik.
-                    </p>
-                    <p>
-                        Dengan teknologi modern dan SDM yang kompeten, kami terus berinovasi untuk meningkatkan kualitas pelayanan. Saat ini kami melayani lebih dari <strong class="text-blue-600">150.000 pelanggan</strong> di seluruh Kabupaten Purbalingga.
-                    </p>
-                    <p>
-                        Visi kami adalah menjadi perusahaan air minum terdepan yang memberikan pelayanan prima dan berkontribusi pada pembangunan daerah yang berkelanjutan.
-                    </p>
-                </div>
+                @if($company->about_preview_content)
+                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                        {!! $company->about_preview_content !!}
+                    </div>
+                @else
+                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                        <p class="text-lg">
+                            <strong class="text-gray-900">PDAM Tirta Perwira</strong> telah mengabdi kepada masyarakat Purbalingga selama lebih dari 50 tahun dalam menyediakan air bersih berkualitas. Kami berkomitmen melayani dengan hati dan memberikan pelayanan terbaik.
+                        </p>
+                        <p>
+                            Dengan teknologi modern dan SDM yang kompeten, kami terus berinovasi untuk meningkatkan kualitas pelayanan. Saat ini kami melayani lebih dari <strong class="text-blue-600">150.000 pelanggan</strong> di seluruh Kabupaten Purbalingga.
+                        </p>
+                        <p>
+                            Visi kami adalah menjadi perusahaan air minum terdepan yang memberikan pelayanan prima dan berkontribusi pada pembangunan daerah yang berkelanjutan.
+                        </p>
+                    </div>
+                @endif
 
                 <!-- Key Features -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                    @if($company && $company->key_features && count($company->key_features) > 0)
+                        @foreach($company->key_features as $feature)
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 {{ $feature['bg_color'] ?? 'bg-blue-100' }} rounded-full flex items-center justify-center">
+                                <svg class="{{ $feature['icon'] ?? 'w-5 h-5 text-blue-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">{{ $feature['title'] }}</span>
                         </div>
-                        <span class="text-gray-700 font-medium">Air Berkualitas Tinggi</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                        @endforeach
+                    @else
+                        {{-- Fallback: Default Key Features --}}
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">Air Berkualitas Tinggi</span>
                         </div>
-                        <span class="text-gray-700 font-medium">Pelayanan 24/7</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">Pelayanan 24/7</span>
                         </div>
-                        <span class="text-gray-700 font-medium">150K+ Pelanggan</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">150K+ Pelanggan</span>
                         </div>
-                        <span class="text-gray-700 font-medium">Teknologi Terdepan</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">Teknologi Terdepan</span>
                         </div>
-                        <span class="text-gray-700 font-medium">99% Kualitas Air</span>
-                    </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-gray-700 font-medium">99% Kualitas Air</span>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Action Buttons - Perfect Balanced Layout -->
@@ -386,9 +381,9 @@
 <section class="bg-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Prestasi Kami</h2>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->stats_section_title ?? 'Prestasi Kami' }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Komitmen nyata dalam memberikan pelayanan air bersih berkualitas untuk masyarakat Purbalingga
+                {{ $company->stats_section_description ?? 'Komitmen nyata dalam memberikan pelayanan air bersih berkualitas untuk masyarakat Purbalingga' }}
             </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -398,7 +393,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                 </div>
-                <div class="stat-number text-3xl font-bold text-blue-600 mb-2" data-count="150000">0</div>
+                <div class="stat-number text-3xl font-bold text-blue-600 mb-2" data-count="{{ $company->customers_served ?? 45000 }}">0</div>
                 <div class="stat-label text-gray-600 font-medium">Pelanggan Aktif</div>
             </div>
             <div class="stat-item text-center group">
@@ -407,7 +402,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
                     </svg>
                 </div>
-                <div class="stat-number text-3xl font-bold text-green-600 mb-2" data-count="50">0</div>
+                <div class="stat-number text-3xl font-bold text-green-600 mb-2" data-count="{{ $company->years_experience ?? 38 }}">0</div>
                 <div class="stat-label text-gray-600 font-medium">Tahun Pengalaman</div>
             </div>
             <div class="stat-item text-center group">
@@ -416,8 +411,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
                     </svg>
                 </div>
-                <div class="stat-number text-3xl font-bold text-cyan-600 mb-2" data-count="500">0</div>
-                <div class="stat-label text-gray-600 font-medium">Liter/Detik Kapasitas</div>
+                <div class="stat-number text-3xl font-bold text-cyan-600 mb-2" data-count="{{ $company->service_availability ?? 99.5 }}">0</div>
+                <div class="stat-label text-gray-600 font-medium">% Ketersediaan Layanan</div>
             </div>
             <div class="stat-item text-center group">
                 <div class="w-20 h-20 mx-auto mb-4 bg-yellow-100 rounded-full flex items-center justify-center group-hover:bg-yellow-200 transition-colors duration-200">
@@ -425,7 +420,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <div class="stat-number text-3xl font-bold text-yellow-600 mb-2" data-count="99">0</div>
+                <div class="stat-number text-3xl font-bold text-yellow-600 mb-2" data-count="{{ $company->water_quality_percentage ?? 99.8 }}">0</div>
                 <div class="stat-label text-gray-600 font-medium">% Kualitas Air</div>
             </div>
         </div>
@@ -436,14 +431,14 @@
 <section id="services-preview" class="bg-gray-50 section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Layanan Utama</h2>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->services_section_title ?? 'Layanan Utama' }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Kami menyediakan berbagai layanan air bersih berkualitas untuk memenuhi kebutuhan masyarakat Purbalingga
+                {{ $company->services_section_description ?? 'Kami menyediakan berbagai layanan air bersih berkualitas untuk memenuhi kebutuhan masyarakat Purbalingga' }}
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             @forelse($services->take(6) as $service)
-            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden">
+            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden h-full flex flex-col">
                 @if($service->getFirstMediaUrl('featured_image'))
                     <img data-src="{{ $service->getFirstMediaUrl('featured_image') }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy">
                 @else
@@ -453,10 +448,10 @@
                         </svg>
                     </div>
                 @endif
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200">{{ $service->name }}</h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{ Str::limit(strip_tags($service->description), 100) }}</p>
-                    <a href="{{ route('services.show', $service->slug) }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">{{ $service->name }}</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">{{ Str::limit(strip_tags($service->description), 120) }}</p>
+                    <a href="{{ route('services.show', $service->slug) }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mt-auto">
                         Selengkapnya
                         <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -489,9 +484,9 @@
 <section id="news-preview" class="bg-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Berita Terkini</h2>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->news_section_title ?? 'Berita Terkini' }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Dapatkan informasi terbaru seputar pelayanan dan perkembangan PDAM Purbalingga
+                {{ $company->news_section_description ?? 'Dapatkan informasi terbaru seputar pelayanan dan perkembangan PDAM Purbalingga' }}
             </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

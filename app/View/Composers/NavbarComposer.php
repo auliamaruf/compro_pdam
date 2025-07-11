@@ -4,7 +4,6 @@ namespace App\View\Composers;
 
 use App\Models\Service;
 use App\Models\WaterTariff;
-use App\Models\CompanySetting;
 use Illuminate\View\View;
 
 class NavbarComposer
@@ -21,12 +20,12 @@ class NavbarComposer
             ->get()
             ->groupBy('customer_type');
 
-        $company = CompanySetting::current();
+        // Company data is now provided globally by CompanyDataServiceProvider
+        // No need to manually fetch it here
 
         $view->with([
             'navbarServices' => $navbarServices,
             'navbarTariffs' => $navbarTariffs,
-            'company' => $company
         ]);
     }
 }

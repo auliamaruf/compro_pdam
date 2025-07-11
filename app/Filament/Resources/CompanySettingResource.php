@@ -9,573 +9,399 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class CompanySettingResource extends Resource
 {
     protected static ?string $model = CompanySetting::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
-    protected static ?string $navigationGroup = 'Pengaturan';
+    
     protected static ?string $navigationLabel = 'Pengaturan Perusahaan';
-    protected static ?string $pluralLabel = 'Pengaturan Perusahaan';
+    
+    protected static ?string $modelLabel = 'Pengaturan Perusahaan';
+    
+    protected static ?string $pluralModelLabel = 'Pengaturan Perusahaan';
+    
+    protected static ?string $navigationGroup = 'Pengaturan';
+    
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('company_settings')
-                    ->persistTabInQueryString()
+                Tabs::make('Tabs')
                     ->tabs([
-                        // TAB 1: INFORMASI DASAR
-                        Forms\Components\Tabs\Tab::make('🏢 Informasi Dasar')
+                        // Tab 1: Identitas Perusahaan
+                        Tabs\Tab::make('Identitas Perusahaan')
                             ->icon('heroicon-o-building-office')
                             ->schema([
-                                Forms\Components\Section::make('Identitas Perusahaan')
-                                    ->description('Informasi dasar perusahaan yang akan tampil di seluruh website')
+                                Section::make('Informasi Dasar')
                                     ->schema([
                                         Forms\Components\TextInput::make('company_name')
                                             ->label('Nama Perusahaan')
                                             ->required()
+                                            ->default('PDAM Tirta Perwira')
                                             ->maxLength(255),
-
                                         Forms\Components\TextInput::make('company_tagline')
-                                            ->label('Tagline/Slogan')
-                                            ->maxLength(255),
-
-                                        Forms\Components\Textarea::make('address')
-                                            ->label('Alamat Lengkap')
-                                            ->rows(3),
-                                    ]),
-
-                                Forms\Components\Section::make('Kontak')
-                                    ->description('Informasi kontak yang dapat dihubungi')
+                                            ->label('Tagline Perusahaan')
+                                            ->maxLength(255)
+                                            ->placeholder('Air Bersih Untuk Kehidupan Yang Lebih Baik'),
+                                        Forms\Components\RichEditor::make('company_description')
+                                            ->label('Deskripsi Perusahaan')
+                                            ->columnSpanFull()
+                                            ->toolbarButtons([
+                                                'bold', 'italic', 'underline', 'bulletList', 'orderedList', 'link'
+                                            ]),
+                                    ])->columns(2),
+                                    
+                                Section::make('Visi & Misi')
                                     ->schema([
-                                        Forms\Components\Grid::make(2)
+                                        Forms\Components\Textarea::make('vision')
+                                            ->label('Visi')
+                                            ->rows(3)
+                                            ->placeholder('Visi perusahaan...'),
+                                        Forms\Components\Textarea::make('vision_description')
+                                            ->label('Deskripsi Visi')
+                                            ->rows(3),
+                                        Forms\Components\Textarea::make('mission')
+                                            ->label('Misi Utama')
+                                            ->rows(3),
+                                        Forms\Components\Repeater::make('mission_points')
+                                            ->label('Poin-Poin Misi')
                                             ->schema([
-                                                Forms\Components\TextInput::make('phone')
-                                                    ->label('Telepon')
-                                                    ->tel()
-                                                    ->maxLength(20),
-
-                                                Forms\Components\TextInput::make('email')
-                                                    ->label('Email')
-                                                    ->email()
-                                                    ->maxLength(255),
-                                            ]),
-
-                                        Forms\Components\Grid::make(2)
-                                            ->schema([
-                                                Forms\Components\TextInput::make('emergency_phone')
-                                                    ->label('Telepon Darurat')
-                                                    ->tel()
-                                                    ->maxLength(20),
-
-                                                Forms\Components\TextInput::make('whatsapp_cs')
-                                                    ->label('WhatsApp Customer Service')
-                                                    ->tel()
-                                                    ->maxLength(20),
-                                            ]),
-
-                                        Forms\Components\TextInput::make('website')
-                                            ->label('Website')
-                                            ->url()
-                                            ->maxLength(255),
-                                    ]),
-
-                                Forms\Components\Section::make('Jam Operasional & Media Sosial')
+                                                Forms\Components\TextInput::make('title')
+                                                    ->label('Judul Misi')
+                                                    ->required()
+                                                    ->placeholder('Contoh: Penyediaan Air Berkualitas'),
+                                                Forms\Components\Textarea::make('description')
+                                                    ->label('Deskripsi Misi')
+                                                    ->rows(2)
+                                                    ->required()
+                                                    ->placeholder('Contoh: Menyediakan air bersih yang memenuhi standar kesehatan dan kualitas nasional...')
+                                            ])
+                                            ->columnSpanFull()
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Tambah Poin Misi')
+                                            ->collapsible()
+                                    ])->columns(2),
+                            ]),
+                            
+                        // Tab 2: Kontak & Media
+                        Tabs\Tab::make('Kontak & Media')
+                            ->icon('heroicon-o-phone')
+                            ->schema([
+                                Section::make('Informasi Kontak')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('phone')
+                                            ->label('Nomor Telepon')
+                                            ->tel()
+                                            ->placeholder('0281-123456'),
+                                        Forms\Components\TextInput::make('email')
+                                            ->label('Email')
+                                            ->email()
+                                            ->placeholder('info@pdamtirtaperwira.com'),
+                                        Forms\Components\TextInput::make('whatsapp_cs')
+                                            ->label('WhatsApp Customer Service')
+                                            ->placeholder('628123456789'),
+                                        Forms\Components\Textarea::make('address')
+                                            ->label('Alamat')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                    ])->columns(3),
+                                    
+                                Section::make('Jam Operasional')
                                     ->schema([
                                         Forms\Components\KeyValue::make('office_hours')
                                             ->label('Jam Operasional')
                                             ->keyLabel('Hari')
                                             ->valueLabel('Jam')
                                             ->default([
-                                                'senin_jumat' => '07:30 - 16:00 WIB',
-                                                'sabtu' => '07:30 - 12:00 WIB',
-                                                'minggu' => 'Tutup',
-                                                'emergency' => '24 Jam'
-                                            ]),
-
-                                        Forms\Components\KeyValue::make('social_media')
-                                            ->label('Tautan Media Sosial')
-                                            ->keyLabel('Platform')
-                                            ->valueLabel('URL')
-                                            ->default([
-                                                'facebook' => '',
-                                                'instagram' => '',
-                                                'twitter' => '',
-                                                'youtube' => ''
-                                            ]),
-                                    ])
-                                    ->collapsible(),
-                            ]),
-
-                        // TAB 2: BRANDING & VISUAL
-                        Forms\Components\Tabs\Tab::make('🎨 Branding & Visual')
-                            ->icon('heroicon-o-photo')
-                            ->schema([
-                                Forms\Components\Section::make('Logo & Assets')
-                                    ->description('Upload logo dan visual branding perusahaan')
-                                    ->schema([
-                                        Forms\Components\FileUpload::make('logo')
-                                            ->label('Logo Perusahaan')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('branding')
-                                            ->imageEditor()
-                                            ->imageResizeMode('contain')
-                                            ->imageResizeTargetWidth('300')
-                                            ->imageResizeTargetHeight('100')
-                                            ->acceptedFileTypes(['image/png', 'image/svg+xml', 'image/jpeg'])
-                                            ->helperText('Format: PNG/SVG/JPG. Ukuran optimal: 300x100px. Background transparan disarankan untuk PNG/SVG.')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\FileUpload::make('logo_white')
-                                            ->label('Logo Putih (untuk background gelap)')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('branding')
-                                            ->imageEditor()
-                                            ->imageResizeMode('contain')
-                                            ->imageResizeTargetWidth('300')
-                                            ->imageResizeTargetHeight('100')
-                                            ->acceptedFileTypes(['image/png', 'image/svg+xml'])
-                                            ->helperText('Opsional. Logo putih untuk digunakan pada background gelap. Format: PNG/SVG dengan background transparan.')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\FileUpload::make('favicon')
-                                            ->label('Favicon')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('branding')
-                                            ->imageEditor()
-                                            ->imageResizeMode('cover')
-                                            ->imageCropAspectRatio('1:1')
-                                            ->imageResizeTargetWidth('512')
-                                            ->imageResizeTargetHeight('512')
-                                            ->acceptedFileTypes(['image/png', 'image/ico', 'image/svg+xml'])
-                                            ->helperText('Format: PNG/ICO/SVG. Ukuran: 512x512px (rasio 1:1). File akan otomatis di-resize untuk berbagai ukuran favicon.')
-                                            ->columnSpanFull(),
+                                                'senin_kamis' => '07:00 - 16:00',
+                                                'jumat' => '07:00 - 11:30',
+                                                'sabtu_minggu' => 'Tutup'
+                                            ])
                                     ]),
-
-                                Forms\Components\Section::make('Tema Warna')
-                                    ->description('Pengaturan warna tema website')
+                                    
+                                Section::make('Media')
                                     ->schema([
-                                        Forms\Components\Grid::make(3)
-                                            ->schema([
-                                                Forms\Components\ColorPicker::make('primary_color')
-                                                    ->label('Warna Utama Brand')
-                                                    ->default('#2563eb')
-                                                    ->helperText('Warna utama yang digunakan untuk branding'),
-
-                                                Forms\Components\ColorPicker::make('secondary_color')
-                                                    ->label('Warna Sekunder Brand')
-                                                    ->default('#1e40af')
-                                                    ->helperText('Warna sekunder untuk aksen'),
-
-                                                Forms\Components\ColorPicker::make('accent_color')
-                                                    ->label('Warna Aksen')
-                                                    ->default('#10B981'),
-                                            ]),
-
-                                        Forms\Components\Textarea::make('brand_description')
-                                            ->label('Deskripsi Brand')
-                                            ->placeholder('Perumda Air Minum Tirta Perwira adalah perusahaan daerah yang bergerak di bidang penyediaan air bersih...')
-                                            ->rows(3)
-                                            ->helperText('Deskripsi singkat tentang perusahaan untuk meta description dan SEO'),
-                                    ])
-                                    ->collapsible(),
+                                        SpatieMediaLibraryFileUpload::make('logo')
+                                            ->label('Logo Perusahaan')
+                                            ->collection('logo')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(2048),
+                                        SpatieMediaLibraryFileUpload::make('logo_white')
+                                            ->label('Logo Putih (untuk background gelap)')
+                                            ->collection('logo_white')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(2048),
+                                        SpatieMediaLibraryFileUpload::make('favicon')
+                                            ->label('Favicon')
+                                            ->collection('favicon')
+                                            ->image()
+                                            ->acceptedFileTypes(['image/x-icon', 'image/png'])
+                                            ->maxSize(512),
+                                    ])->columns(3),
                             ]),
-
-                        // TAB 3: HERO SECTION
-                        Forms\Components\Tabs\Tab::make('🚀 Hero Section')
-                            ->icon('heroicon-o-star')
+                            
+                        // Tab 3: Statistik & Data
+                        Tabs\Tab::make('Statistik & Data')
+                            ->icon('heroicon-o-chart-bar')
                             ->schema([
-                                Forms\Components\Section::make('Hero Slides (Rekomendasi)')
-                                    ->description('Hero section dengan multiple slides, gambar, dan custom links untuk experience yang lebih menarik')
+                                Section::make('Statistik Perusahaan')
                                     ->schema([
-                                        Forms\Components\Repeater::make('hero_slides')
-                                            ->label('Hero Slides')
-                                            ->schema([
-                                                Forms\Components\Grid::make(2)
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('title')
-                                                            ->label('Judul')
-                                                            ->placeholder('Melayani dengan Hati')
-                                                            ->required()
-                                                            ->maxLength(255),
-
-                                                        Forms\Components\Toggle::make('is_active')
-                                                            ->label('Aktif')
-                                                            ->default(true),
-                                                    ]),
-
-                                                Forms\Components\Textarea::make('subtitle')
-                                                    ->label('Subtitle')
-                                                    ->placeholder('Memberikan yang terbaik untuk air bersih berkualitas...')
-                                                    ->rows(2)
-                                                    ->maxLength(500),
-
-                                                Forms\Components\FileUpload::make('background_image')
-                                                    ->label('Gambar Background')
-                                                    ->image()
-                                                    ->disk('public')
-                                                    ->directory('hero-slides')
-                                                    ->imageEditor()
-                                                    ->imageResizeMode('cover')
-                                                    ->imageCropAspectRatio('16:9')
-                                                    ->imageResizeTargetWidth('1920')
-                                                    ->imageResizeTargetHeight('1080')
-                                                    ->helperText('Resolusi optimal: 1920x1080px, Ratio 16:9'),
-
-                                                Forms\Components\Grid::make(2)
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('primary_cta_text')
-                                                            ->label('Text Button Utama')
-                                                            ->placeholder('Layanan Kami')
-                                                            ->maxLength(50),
-
-                                                        Forms\Components\TextInput::make('primary_cta_link')
-                                                            ->label('Link Button Utama')
-                                                            ->placeholder('/layanan atau https://example.com')
-                                                            ->maxLength(255),
-                                                    ]),
-
-                                                Forms\Components\Grid::make(2)
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('secondary_cta_text')
-                                                            ->label('Text Button Kedua')
-                                                            ->placeholder('Cek Tagihan')
-                                                            ->maxLength(50),
-
-                                                        Forms\Components\TextInput::make('secondary_cta_link')
-                                                            ->label('Link Button Kedua')
-                                                            ->placeholder('/cek-tagihan')
-                                                            ->maxLength(255),
-                                                    ]),
-
-                                                Forms\Components\Grid::make(3)
-                                                    ->schema([
-                                                        Forms\Components\Select::make('text_position')
-                                                            ->label('Posisi Text')
-                                                            ->options([
-                                                                'left' => 'Kiri',
-                                                                'center' => 'Tengah',
-                                                                'right' => 'Kanan',
-                                                            ])
-                                                            ->default('left'),
-
-                                                        Forms\Components\ColorPicker::make('overlay_color')
-                                                            ->label('Warna Overlay')
-                                                            ->default('#1e3a8a'),
-
-                                                        Forms\Components\TextInput::make('overlay_opacity')
-                                                            ->label('Opacity Overlay (%)')
-                                                            ->numeric()
-                                                            ->minValue(0)
-                                                            ->maxValue(100)
-                                                            ->default(80)
-                                                            ->suffix('%')
-                                                            ->helperText('Nilai antara 0-100'),
-                                                    ]),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible()
-                                            ->itemLabel(fn (array $state): ?string => $state['title'] ?? 'Hero Slide')
-                                            ->addActionLabel('Tambah Slide')
-                                            ->defaultItems(1),
-                                    ])
-                                    ->collapsible(),
-
-                                Forms\Components\Section::make('Hero Section (Legacy)')
-                                    ->description('Hero section sederhana (untuk kompatibilitas mundur)')
+                                        Forms\Components\TextInput::make('years_experience')
+                                            ->label('Tahun Pengalaman')
+                                            ->numeric()
+                                            ->suffix('tahun'),
+                                        Forms\Components\TextInput::make('customers_served')
+                                            ->label('Jumlah Pelanggan')
+                                            ->numeric()
+                                            ->suffix('pelanggan'),
+                                        Forms\Components\TextInput::make('water_quality_percentage')
+                                            ->label('Persentase Kualitas Air')
+                                            ->numeric()
+                                            ->suffix('%')
+                                            ->step(0.1)
+                                            ->minValue(0)
+                                            ->maxValue(100),
+                                        Forms\Components\TextInput::make('service_availability')
+                                            ->label('Ketersediaan Layanan')
+                                            ->numeric()
+                                            ->suffix('%')
+                                            ->step(0.1)
+                                            ->minValue(0)
+                                            ->maxValue(100),
+                                    ])->columns(2),
+                                    
+                                Section::make('Nilai-Nilai Perusahaan')
                                     ->schema([
-                                        Forms\Components\TextInput::make('hero_title')
-                                            ->label('Judul Hero Section')
-                                            ->placeholder('Melayani dengan Hati')
-                                            ->helperText('Gunakan \n untuk baris baru. Contoh: Melayani dengan\nHati')
-                                            ->maxLength(255),
-
-                                        Forms\Components\Textarea::make('hero_subtitle')
-                                            ->label('Subtitle Hero Section')
-                                            ->placeholder('Memberikan yang terbaik untuk air bersih berkualitas bagi masyarakat Purbalingga')
-                                            ->rows(3)
-                                            ->maxLength(500),
-
-                                        Forms\Components\Grid::make(2)
-                                            ->schema([
-                                                Forms\Components\TextInput::make('hero_cta_primary')
-                                                    ->label('Text Button Utama')
-                                                    ->placeholder('Layanan Kami')
-                                                    ->maxLength(50),
-
-                                                Forms\Components\TextInput::make('hero_cta_secondary')
-                                                    ->label('Text Button Kedua')
-                                                    ->placeholder('Cek Tagihan')
-                                                    ->maxLength(50),
-                                            ]),
-
-                                        Forms\Components\Textarea::make('hero_description')
-                                            ->label('Deskripsi Tambahan (Opsional)')
-                                            ->placeholder('Deskripsi tambahan yang akan ditampilkan di hero section')
-                                            ->rows(2)
-                                            ->maxLength(300),
-                                    ])
-                                    ->collapsed(),
-                            ]),
-
-                        // TAB 4: PROFIL & KONTEN PERUSAHAAN (Menggabungkan beberapa tab)
-                        Forms\Components\Tabs\Tab::make('📋 Profil & Konten')
-                            ->icon('heroicon-o-building-office-2')
-                            ->schema([
-                                Forms\Components\Section::make('Konten Homepage')
-                                    ->description('Konten ringkas yang tampil di halaman utama')
-                                    ->schema([
-                                        Forms\Components\RichEditor::make('about_us')
-                                            ->label('Tentang Kami (Ringkas)')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\Grid::make(2)
-                                            ->schema([
-                                                Forms\Components\Textarea::make('vision')
-                                                    ->label('Visi (Ringkas)')
-                                                    ->rows(3),
-
-                                                Forms\Components\Textarea::make('mission')
-                                                    ->label('Misi (Ringkas)')
-                                                    ->rows(4),
-                                            ]),
-                                    ])
-                                    ->collapsible(),
-
-                                Forms\Components\Section::make('Profil Detail')
-                                    ->description('Konten detail untuk halaman profil')
-                                    ->schema([
-                                        Forms\Components\RichEditor::make('company_description')
-                                            ->label('Deskripsi Perusahaan Detail')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\RichEditor::make('company_history')
-                                            ->label('Sejarah Perusahaan')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\RichEditor::make('vision_description')
-                                            ->label('Deskripsi Visi Detail')
-                                            ->columnSpanFull(),
-                                    ])
-                                    ->collapsible(),
-
-                                Forms\Components\Section::make('Nilai-Nilai Perusahaan')
-                                    ->schema([
-                                        Forms\Components\Repeater::make('company_values')
-                                            ->label('Nilai-nilai Perusahaan')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Judul Nilai')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi')
-                                                    ->required(),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
                                         Forms\Components\Repeater::make('core_values')
-                                            ->label('Nilai-nilai Inti')
+                                            ->label('Core Values')
                                             ->schema([
                                                 Forms\Components\TextInput::make('name')
                                                     ->label('Nama Nilai')
-                                                    ->required(),
+                                                    ->required()
+                                                    ->placeholder('Contoh: PEDULI'),
                                                 Forms\Components\Textarea::make('description')
                                                     ->label('Deskripsi')
-                                                    ->required(),
+                                                    ->rows(2)
+                                                    ->required()
+                                                    ->placeholder('Contoh: Mengutamakan kepentingan masyarakat dan lingkungan...'),
                                                 Forms\Components\TextInput::make('icon')
-                                                    ->label('Icon (heroicon name)')
-                                                    ->placeholder('heroicon-o-heart'),
+                                                    ->label('Icon HTML')
+                                                    ->placeholder('<i class="fas fa-heart"></i>')
+                                                    ->helperText('HTML untuk icon Font Awesome atau SVG')
                                             ])
                                             ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\Repeater::make('mission_points')
-                                            ->label('Poin-poin Misi')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Judul Misi')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi')
-                                                    ->required(),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Tambah Nilai')
+                                            ->collapsible()
                                     ])
-                                    ->collapsible(),
                             ]),
-
-                        // TAB 5: SEJARAH & ORGANISASI (Menggabungkan Timeline, Struktur Org, dll)
-                        Forms\Components\Tabs\Tab::make('🏛️ Sejarah & Organisasi')
-                            ->icon('heroicon-o-clock')
+                            
+                        // Tab 4: Media Sosial
+                        Tabs\Tab::make('Media Sosial')
+                            ->icon('heroicon-o-share')
                             ->schema([
-                                Forms\Components\Section::make('Timeline & Pencapaian')
+                                Section::make('Social Media Links')
                                     ->schema([
-                                        Forms\Components\Repeater::make('history_timeline')
-                                            ->label('Timeline Sejarah')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('period')
-                                                    ->label('Periode (contoh: 1970-an)')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Judul Era')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi')
-                                                    ->required(),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\Repeater::make('milestones')
-                                            ->label('Milestone Penting')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('year')
-                                                    ->label('Tahun')
-                                                    ->numeric(),
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Judul'),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi'),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\Repeater::make('achievements')
-                                            ->label('Pencapaian Bersejarah')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('metric')
-                                                    ->label('Metrik (contoh: 50+)')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('label')
-                                                    ->label('Label (contoh: Tahun Pengalaman)')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('icon')
-                                                    ->label('Icon (heroicon name)')
-                                                    ->placeholder('heroicon-o-building-office'),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\RichEditor::make('legacy_description')
-                                            ->label('Deskripsi Warisan untuk Masa Depan')
-                                            ->columnSpanFull(),
-                                    ])
-                                    ->collapsible(),
-
-                                Forms\Components\Section::make('Struktur Organisasi')
-                                    ->schema([
-                                        Forms\Components\Repeater::make('organization_structure')
-                                            ->label('Struktur Organisasi')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('position')
-                                                    ->label('Jabatan')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('name')
-                                                    ->label('Nama (opsional)'),
-                                                Forms\Components\TextInput::make('level')
-                                                    ->label('Level (1=tertinggi)')
-                                                    ->numeric()
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('parent_id')
-                                                    ->label('ID Atasan (opsional)')
-                                                    ->numeric(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi Tugas'),
-                                                Forms\Components\TextInput::make('icon')
-                                                    ->label('Icon (heroicon name)')
-                                                    ->placeholder('heroicon-o-user'),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\Repeater::make('leadership_team')
-                                            ->label('Tim Kepemimpinan')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('name')
-                                                    ->label('Nama')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('position')
-                                                    ->label('Jabatan')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi/Bio'),
-                                                Forms\Components\Repeater::make('qualifications')
-                                                    ->label('Kualifikasi')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('qualification')
-                                                            ->label('Kualifikasi')
-                                                            ->required(),
-                                                    ]),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-
-                                        Forms\Components\Repeater::make('organizational_culture')
-                                            ->label('Budaya Organisasi')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('name')
-                                                    ->label('Nama Budaya')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi')
-                                                    ->required(),
-                                                Forms\Components\TextInput::make('icon')
-                                                    ->label('Icon (heroicon name)')
-                                                    ->placeholder('heroicon-o-star'),
-                                            ])
-                                            ->columnSpanFull()
-                                            ->collapsible(),
-                                    ])
-                                    ->collapsible(),
+                                        Forms\Components\TextInput::make('social_media.facebook')
+                                            ->label('Facebook URL')
+                                            ->url()
+                                            ->placeholder('https://facebook.com/pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.facebook_username')
+                                            ->label('Facebook Username')
+                                            ->placeholder('@pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.instagram')
+                                            ->label('Instagram URL')
+                                            ->url()
+                                            ->placeholder('https://instagram.com/pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.instagram_username')
+                                            ->label('Instagram Username')
+                                            ->placeholder('@pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.youtube')
+                                            ->label('YouTube URL')
+                                            ->url()
+                                            ->placeholder('https://youtube.com/@pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.youtube_username')
+                                            ->label('YouTube Channel Name')
+                                            ->placeholder('PDAM Tirta Perwira Official'),
+                                        Forms\Components\TextInput::make('social_media.twitter')
+                                            ->label('Twitter URL')
+                                            ->url()
+                                            ->placeholder('https://twitter.com/pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.twitter_username')
+                                            ->label('Twitter Username')
+                                            ->placeholder('@pdamtirtaperwira'),
+                                        Forms\Components\TextInput::make('social_media.whatsapp')
+                                            ->label('WhatsApp URL')
+                                            ->url()
+                                            ->placeholder('https://wa.me/6281234567890')
+                                    ])->columns(2)
                             ]),
-
-                        // TAB 6: STATISTIK & METRIK
-                        Forms\Components\Tabs\Tab::make('📊 Statistik & Metrik')
-                            ->icon('heroicon-o-chart-bar')
+                            
+                        // Tab 5: Home Page Content
+                        Tabs\Tab::make('Konten Home Page')
+                            ->icon('heroicon-o-home')
                             ->schema([
-                                Forms\Components\Section::make('Metrik Perusahaan')
-                                    ->description('Data dan statistik penting untuk ditampilkan di website')
+                                Section::make('About Preview Section')
                                     ->schema([
-                                        Forms\Components\Grid::make(2)
+                                        Forms\Components\TextInput::make('about_preview_title')
+                                            ->label('Judul About Preview')
+                                            ->placeholder('PDAM Tirta Perwira Purbalingga'),
+                                        Forms\Components\Textarea::make('about_preview_description')
+                                            ->label('Deskripsi Singkat')
+                                            ->rows(2)
+                                            ->placeholder('Deskripsi singkat untuk section about di home'),
+                                        Forms\Components\RichEditor::make('about_preview_content')
+                                            ->label('Konten About Preview')
+                                            ->columnSpanFull()
+                                            ->toolbarButtons(['bold', 'italic', 'bulletList', 'orderedList'])
+                                            ->placeholder('Konten lengkap untuk ditampilkan di section about preview'),
+                                    ])->columns(2),
+                                    
+                                Section::make('Key Features')
+                                    ->schema([
+                                        Forms\Components\Repeater::make('key_features')
+                                            ->label('Fitur Utama')
                                             ->schema([
-                                                Forms\Components\TextInput::make('years_experience')
-                                                    ->label('Tahun Pengalaman')
-                                                    ->numeric()
-                                                    ->placeholder('50'),
-
-                                                Forms\Components\TextInput::make('customers_served')
-                                                    ->label('Jumlah Pelanggan')
-                                                    ->numeric()
-                                                    ->placeholder('150000'),
-                                            ]),
-
-                                        Forms\Components\Grid::make(2)
-                                            ->schema([
-                                                Forms\Components\TextInput::make('water_quality_percentage')
-                                                    ->label('Persentase Kualitas Air')
-                                                    ->numeric()
-                                                    ->step(0.01)
-                                                    ->placeholder('99.00'),
-
-                                                Forms\Components\TextInput::make('service_availability')
-                                                    ->label('Ketersediaan Layanan')
-                                                    ->placeholder('24/7'),
-                                            ]),
+                                                Forms\Components\TextInput::make('title')
+                                                    ->label('Judul Fitur')
+                                                    ->required()
+                                                    ->placeholder('Air Berkualitas Tinggi'),
+                                                Forms\Components\TextInput::make('icon')
+                                                    ->label('Icon CSS Class')
+                                                    ->placeholder('w-5 h-5 text-blue-600')
+                                                    ->helperText('CSS class untuk icon SVG'),
+                                                Forms\Components\ColorPicker::make('bg_color')
+                                                    ->label('Background Color')
+                                                    ->helperText('Warna background untuk fitur'),
+                                                Forms\Components\ColorPicker::make('icon_color')
+                                                    ->label('Icon Color')
+                                                    ->helperText('Warna icon untuk fitur'),
+                                            ])
+                                            ->columnSpanFull()
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Tambah Fitur')
+                                            ->collapsible()
                                     ]),
+                                    
+                                Section::make('Quick Services')
+                                    ->schema([
+                                        Forms\Components\Repeater::make('quick_services')
+                                            ->label('Layanan Cepat')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title')
+                                                    ->label('Judul Layanan')
+                                                    ->required()
+                                                    ->placeholder('Cek Tagihan'),
+                                                Forms\Components\Textarea::make('description')
+                                                    ->label('Deskripsi')
+                                                    ->rows(2)
+                                                    ->placeholder('Cek tagihan air bulanan Anda secara online'),
+                                                Forms\Components\TextInput::make('url')
+                                                    ->label('URL Link')
+                                                    ->url()
+                                                    ->placeholder('https://tagihan.pdampurbalingga.co.id/'),
+                                                Forms\Components\ColorPicker::make('bg_color')
+                                                    ->label('Background Color Icon')
+                                                    ->helperText('Warna background icon'),
+                                                Forms\Components\ColorPicker::make('hover_color')
+                                                    ->label('Hover Color')
+                                                    ->helperText('Warna untuk efek hover'),
+                                                Forms\Components\Checkbox::make('external_link')
+                                                    ->label('Link Eksternal')
+                                                    ->helperText('Centang jika link menuju website eksternal'),
+                                            ])
+                                            ->columnSpanFull()
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Tambah Layanan Cepat')
+                                            ->collapsible()
+                                    ]),
+                                    
+                                Section::make('Section Titles & Descriptions')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('stats_section_title')
+                                            ->label('Judul Section Statistik')
+                                            ->placeholder('Prestasi Kami'),
+                                        Forms\Components\Textarea::make('stats_section_description')
+                                            ->label('Deskripsi Section Statistik')
+                                            ->rows(2),
+                                        Forms\Components\TextInput::make('services_section_title')
+                                            ->label('Judul Section Layanan')
+                                            ->placeholder('Layanan Utama'),
+                                        Forms\Components\Textarea::make('services_section_description')
+                                            ->label('Deskripsi Section Layanan')
+                                            ->rows(2),
+                                        Forms\Components\TextInput::make('news_section_title')
+                                            ->label('Judul Section Berita')
+                                            ->placeholder('Berita Terkini'),
+                                        Forms\Components\Textarea::make('news_section_description')
+                                            ->label('Deskripsi Section Berita')
+                                            ->rows(2),
+                                    ])->columns(2),
+                                    
+                                Section::make('Quick Actions Section')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('quick_actions_title')
+                                            ->label('Judul Quick Actions')
+                                            ->placeholder('Hubungi Kami'),
+                                        Forms\Components\Textarea::make('quick_actions_description')
+                                            ->label('Deskripsi Quick Actions')
+                                            ->rows(2),
+                                        Forms\Components\Repeater::make('quick_actions_items')
+                                            ->label('Item Quick Actions')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title')
+                                                    ->label('Judul')
+                                                    ->required(),
+                                                Forms\Components\Textarea::make('description')
+                                                    ->label('Deskripsi')
+                                                    ->rows(2),
+                                                Forms\Components\TextInput::make('url')
+                                                    ->label('URL')
+                                                    ->url(),
+                                                Forms\Components\TextInput::make('icon')
+                                                    ->label('Icon CSS Class')
+                                                    ->placeholder('heroicon-o-phone'),
+                                                Forms\Components\Select::make('type')
+                                                    ->label('Tipe')
+                                                    ->options([
+                                                        'phone' => 'Telepon',
+                                                        'email' => 'Email',
+                                                        'whatsapp' => 'WhatsApp',
+                                                        'link' => 'Link'
+                                                    ])
+                                                    ->default('link')
+                                            ])
+                                            ->columnSpanFull()
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Tambah Quick Action')
+                                            ->collapsible()
+                                    ])
                             ]),
+                            
+                        // Tab 6: Status
+                        Tabs\Tab::make('Status')
+                            ->icon('heroicon-o-cog-6-tooth')
+                            ->schema([
+                                Section::make('Pengaturan')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('is_active')
+                                            ->label('Aktif')
+                                            ->default(true)
+                                            ->helperText('Hanya satu pengaturan perusahaan yang dapat aktif pada satu waktu')
+                                    ])
+                            ])
                     ])
-                    ->columnSpanFull(),
-
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Aktif')
-                    ->default(true),
+                    ->columnSpanFull()
+                    ->persistTabInQueryString()
             ]);
     }
 
@@ -587,31 +413,45 @@ class CompanySettingResource extends Resource
                     ->label('Nama Perusahaan')
                     ->searchable()
                     ->sortable(),
-
+                Tables\Columns\TextColumn::make('company_tagline')
+                    ->label('Tagline')
+                    ->limit(50)
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Telepon'),
-
+                    ->label('Telepon')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email'),
-
+                    ->label('Email')
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
-                    ->boolean(),
-
+                    ->boolean()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Terakhir Diupdate')
-                    ->dateTime('d M Y H:i')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Status')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                //
-            ]);
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ])
+            ->defaultSort('is_active', 'desc');
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
@@ -621,5 +461,15 @@ class CompanySettingResource extends Resource
             'create' => Pages\CreateCompanySetting::route('/create'),
             'edit' => Pages\EditCompanySetting::route('/{record}/edit'),
         ];
+    }
+    
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('is_active', true)->count();
+    }
+    
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return static::getModel()::where('is_active', true)->count() > 0 ? 'success' : 'danger';
     }
 }

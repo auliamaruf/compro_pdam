@@ -157,8 +157,8 @@
                     @if($company && $company->core_values)
                         @foreach($company->core_values as $value)
                             <div class="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
-                                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                                    {!! $value['icon'] ?? '<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' !!}
+                                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors text-blue-600 text-2xl">
+                                    {!! $value['icon'] ?? '<i class="fas fa-check"></i>' !!}
                                 </div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ strtoupper($value['name'] ?? '') }}</h3>
                                 <p class="text-gray-600 leading-relaxed">{{ $value['description'] ?? '' }}</p>

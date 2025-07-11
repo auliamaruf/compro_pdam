@@ -23,12 +23,17 @@ class DatabaseSeeder extends Seeder
         // Run seeders
         $this->call([
             CompanySettingSeeder::class,
+            HomeContentSeeder::class,
+            OrganizationStructureSeeder::class,
+            BranchSeeder::class,
             NewsSeeder::class,
             ServiceSeeder::class,
             WaterTariffSeeder::class,
-            PageSeeder::class,
             CommentSeeder::class,
             MediaSeeder::class,
+            NavigationMenuSeeder::class,
+            TimelineHistorySeeder::class,
+            HeroBannerSeeder::class,
         ]);
     }
 }
