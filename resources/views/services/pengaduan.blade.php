@@ -64,7 +64,7 @@
                             Notifikasi otomatis
                         </div>
                     </div>
-                    <a href="{{ route('complaint') }}" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors w-full justify-center">
+                    <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors w-full justify-center">
                         <span>Buat Pengaduan Online</span>
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -374,7 +374,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('complaint') }}" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors">
+                    <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors">
                         <span>Buat Pengaduan Baru</span>
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>

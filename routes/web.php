@@ -92,6 +92,9 @@ Route::prefix('pengaduan-online')->group(function () {
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('search.suggest');
 
+// API Routes untuk AJAX
+Route::post('/search/api', [SearchController::class, 'api'])->name('search.api');
+
 // Comments
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
@@ -149,3 +152,6 @@ Route::get('/test-frontend-data', function () {
         ]
     ];
 });
+
+// Dynamic Pages (harus di akhir agar tidak mengganggu route lain)
+Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->name('page.show');

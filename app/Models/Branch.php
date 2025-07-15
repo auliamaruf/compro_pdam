@@ -16,10 +16,12 @@ class Branch extends Model
         'address',
         'phone',
         'email',
-        'latitude',
-        'longitude',
+        'google_maps_url',
         'head_of_branch_id',
-        'office_hours',
+        'office_hours_weekday',
+        'office_hours_friday',
+        'office_hours_saturday',
+        'office_hours_sunday',
         'description',
         'services',
         'coverage_areas',
@@ -28,12 +30,9 @@ class Branch extends Model
     ];
 
     protected $casts = [
-        'office_hours' => 'array',
         'services' => 'array',
         'coverage_areas' => 'array',
-        'is_active' => 'boolean',
-        'latitude' => 'decimal:8',
-        'longitude' => 'decimal:8'
+        'is_active' => 'boolean'
     ];
 
     /**
@@ -89,9 +88,32 @@ class Branch extends Model
      */
     public function getGoogleMapsUrlAttribute()
     {
-        if ($this->latitude && $this->longitude) {
-            return "https://www.google.com/maps?q=" . $this->latitude . "," . $this->longitude;
+        return $this->attributes['google_maps_url'] ?? null;
+    }
+
+    /**
+     * Get formatted office hours
+     */
+    public function getFormattedOfficeHoursAttribute()
+    {
+        $hours = [];
+        
+        if ($this->office_hours_weekday) {
+            $hours['Senin - Kamis'] = $this->office_hours_weekday;
         }
-        return "https://www.google.com/maps/search/" . urlencode($this->address);
+        
+        if ($this->office_hours_friday) {
+            $hours['Jumat'] = $this->office_hours_friday;
+        }
+        
+        if ($this->office_hours_saturday) {
+            $hours['Sabtu'] = $this->office_hours_saturday;
+        }
+        
+        if ($this->office_hours_sunday) {
+            $hours['Minggu'] = $this->office_hours_sunday;
+        }
+        
+        return $hours;
     }
 }

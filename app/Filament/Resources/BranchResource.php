@@ -93,52 +93,35 @@ class BranchResource extends Resource
 
                 Forms\Components\Section::make('Lokasi')
                     ->schema([
-                        Forms\Components\Grid::make(2)
-                            ->schema([
-                                Forms\Components\TextInput::make('latitude')
-                                    ->label('Latitude')
-                                    ->numeric()
-                                    ->placeholder('contoh: -7.386626')
-                                    ->step('any'),
-                                Forms\Components\TextInput::make('longitude')
-                                    ->label('Longitude')
-                                    ->numeric()
-                                    ->placeholder('contoh: 109.366837')
-                                    ->step('any'),
-                            ]),
+                        Forms\Components\TextInput::make('google_maps_url')
+                            ->label('URL Google Maps')
+                            ->url()
+                            ->placeholder('https://goo.gl/maps/...')
+                            ->helperText('Masukkan URL Google Maps lokasi cabang'),
                     ])
                     ->collapsible(),
 
                 Forms\Components\Section::make('Operasional')
                     ->schema([
-                        Forms\Components\Repeater::make('office_hours')
-                            ->label('Jam Operasional')
+                        Forms\Components\Grid::make(2)
                             ->schema([
-                                Forms\Components\Grid::make(3)
-                                    ->schema([
-                                        Forms\Components\Select::make('day')
-                                            ->label('Hari')
-                                            ->options([
-                                                'monday' => 'Senin',
-                                                'tuesday' => 'Selasa',
-                                                'wednesday' => 'Rabu',
-                                                'thursday' => 'Kamis',
-                                                'friday' => 'Jumat',
-                                                'saturday' => 'Sabtu',
-                                                'sunday' => 'Minggu',
-                                            ])
-                                            ->required(),
-                                        Forms\Components\TimePicker::make('open')
-                                            ->label('Jam Buka')
-                                            ->required(),
-                                        Forms\Components\TimePicker::make('close')
-                                            ->label('Jam Tutup')
-                                            ->required(),
-                                    ]),
-                            ])
-                            ->columnSpanFull()
-                            ->defaultItems(0)
-                            ->collapsible(),
+                                Forms\Components\TextInput::make('office_hours_weekday')
+                                    ->label('Senin - Kamis')
+                                    ->placeholder('07:30 - 15:00')
+                                    ->helperText('Format: 07:30 - 15:00'),
+                                Forms\Components\TextInput::make('office_hours_friday')
+                                    ->label('Jumat')
+                                    ->placeholder('07:30 - 11:00')
+                                    ->helperText('Format: 07:30 - 11:00'),
+                                Forms\Components\TextInput::make('office_hours_saturday')
+                                    ->label('Sabtu')
+                                    ->placeholder('07:30 - 13:00')
+                                    ->helperText('Format: 07:30 - 13:00'),
+                                Forms\Components\TextInput::make('office_hours_sunday')
+                                    ->label('Minggu')
+                                    ->placeholder('Tutup')
+                                    ->helperText('Format: 08:00 - 12:00 atau "Tutup"'),
+                            ]),
                             
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi Cabang')

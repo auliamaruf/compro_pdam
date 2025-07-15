@@ -87,11 +87,12 @@
     position: relative;
     aspect-ratio: 1;
     transition: all 0.3s ease;
+    background: #f3f4f6;
 }
 
 .gallery-item:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .gallery-item img {
@@ -101,13 +102,17 @@
     transition: transform 0.3s ease;
 }
 
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
 .gallery-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(45deg, rgba(59, 130, 246, 0.8), rgba(16, 185, 129, 0.8));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,7 +126,47 @@
 
 .gallery-icon {
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-navigation:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-navigation.prev {
+    left: 1rem;
+}
+
+.lightbox-navigation.next {
+    right: 1rem;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
 }
 </style>
 
@@ -227,10 +272,10 @@
                                 <i class="fas fa-images text-2xl text-blue-600 mr-3"></i>
                                 <h3 class="text-2xl font-bold text-gray-900">Galeri Foto</h3>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                                @foreach($article->getMedia('gallery') as $media)
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                @foreach($article->getMedia('gallery') as $index => $media)
                                 <div class="gallery-item"
-                                     onclick="openLightbox('{{ $media->getUrl() }}', '{{ $media->name }}')">
+                                     onclick="openLightbox({{ $index }})">
                                     <img src="{{ $media->getUrl('medium') }}"
                                          alt="{{ $media->name }}"
                                          loading="lazy">
@@ -409,38 +454,91 @@
 </div>
 
 <!-- Lightbox Modal -->
-<div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 p-4">
-    <div class="flex items-center justify-center h-full">
-        <div class="relative max-w-5xl max-h-full">
-            <button onclick="closeLightbox()"
-                    class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <div class="bg-white rounded-2xl p-2 shadow-2xl">
-                <img id="lightbox-image"
-                     src=""
-                     alt=""
-                     class="max-w-full max-h-[80vh] object-contain rounded-xl mx-auto block">
-            </div>
+<div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-95 p-4">
+    <div class="flex items-center justify-center h-full relative">
+        <!-- Close Button -->
+        <button onclick="closeLightbox()"
+                class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-20 bg-black bg-opacity-50 rounded-full p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <!-- Navigation Buttons -->
+        <button class="lightbox-navigation prev" onclick="previousImage()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        
+        <button class="lightbox-navigation next" onclick="nextImage()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+        
+        <!-- Image Container -->
+        <div class="relative max-w-6xl max-h-full w-full">
+            <img id="lightbox-image"
+                 src=""
+                 alt=""
+                 class="max-w-full max-h-[85vh] object-contain mx-auto block rounded-lg shadow-2xl">
+        </div>
+        
+        <!-- Caption and Counter -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
             <p id="lightbox-caption"
-               class="text-white text-center mt-6 text-lg font-medium bg-black bg-opacity-50 rounded-lg px-4 py-2"></p>
+               class="text-white text-lg font-medium bg-black bg-opacity-70 rounded-lg px-6 py-3 mb-2 max-w-2xl"></p>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
         </div>
     </div>
 </div>
 
 <script>
-function openLightbox(imageUrl, caption) {
+// Gallery data
+const galleryImages = [
+    @if($article->getMedia('gallery')->count() > 0)
+        @foreach($article->getMedia('gallery') as $media)
+        {
+            url: '{{ $media->getUrl() }}',
+            name: '{{ $media->name }}',
+            alt: '{{ $media->alt_text ?? $media->name }}'
+        },
+        @endforeach
+    @endif
+];
+
+let currentImageIndex = 0;
+
+function openLightbox(index) {
+    if (galleryImages.length === 0) return;
+    
+    currentImageIndex = index;
     const modal = document.getElementById('lightbox-modal');
     const image = document.getElementById('lightbox-image');
     const captionEl = document.getElementById('lightbox-caption');
+    const counterEl = document.getElementById('lightbox-counter');
 
-    image.src = imageUrl;
-    captionEl.textContent = caption;
+    image.src = galleryImages[currentImageIndex].url;
+    image.alt = galleryImages[currentImageIndex].alt;
+    captionEl.textContent = galleryImages[currentImageIndex].name;
+    counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+    
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
+    
+    // Show/hide navigation buttons
+    const prevBtn = modal.querySelector('.prev');
+    const nextBtn = modal.querySelector('.next');
+    
+    if (galleryImages.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
 }
 
 function closeLightbox() {
@@ -448,6 +546,27 @@ function closeLightbox() {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = 'auto';
+}
+
+function previousImage() {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateLightboxImage();
+}
+
+function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    updateLightboxImage();
+}
+
+function updateLightboxImage() {
+    const image = document.getElementById('lightbox-image');
+    const captionEl = document.getElementById('lightbox-caption');
+    const counterEl = document.getElementById('lightbox-counter');
+    
+    image.src = galleryImages[currentImageIndex].url;
+    image.alt = galleryImages[currentImageIndex].alt;
+    captionEl.textContent = galleryImages[currentImageIndex].name;
+    counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
 }
 
 function copyToClipboard(text) {
@@ -476,17 +595,28 @@ function copyToClipboard(text) {
     });
 }
 
-// Close on background click
+// Event listeners
 document.getElementById('lightbox-modal').addEventListener('click', function(e) {
     if (e.target === this || e.target.classList.contains('flex')) {
         closeLightbox();
     }
 });
 
-// Close on Escape key
+// Keyboard navigation
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeLightbox();
+    const modal = document.getElementById('lightbox-modal');
+    if (!modal.classList.contains('hidden')) {
+        switch(e.key) {
+            case 'Escape':
+                closeLightbox();
+                break;
+            case 'ArrowLeft':
+                previousImage();
+                break;
+            case 'ArrowRight':
+                nextImage();
+                break;
+        }
     }
 });
 
@@ -495,9 +625,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('error', function() {
-            this.src = '/images/placeholder.jpg'; // Add a fallback image
+            this.src = '/images/placeholder.jpg';
             this.alt = 'Image not available';
         });
+    });
+    
+    // Add loading animation for gallery images
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+    galleryItems.forEach(img => {
+        img.addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
     });
 });
 </script>

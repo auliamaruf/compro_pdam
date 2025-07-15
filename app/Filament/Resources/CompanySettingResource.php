@@ -346,45 +346,7 @@ class CompanySettingResource extends Resource
                                             ->label('Deskripsi Section Berita')
                                             ->rows(2),
                                     ])->columns(2),
-                                    
-                                Section::make('Quick Actions Section')
-                                    ->schema([
-                                        Forms\Components\TextInput::make('quick_actions_title')
-                                            ->label('Judul Quick Actions')
-                                            ->placeholder('Hubungi Kami'),
-                                        Forms\Components\Textarea::make('quick_actions_description')
-                                            ->label('Deskripsi Quick Actions')
-                                            ->rows(2),
-                                        Forms\Components\Repeater::make('quick_actions_items')
-                                            ->label('Item Quick Actions')
-                                            ->schema([
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Judul')
-                                                    ->required(),
-                                                Forms\Components\Textarea::make('description')
-                                                    ->label('Deskripsi')
-                                                    ->rows(2),
-                                                Forms\Components\TextInput::make('url')
-                                                    ->label('URL')
-                                                    ->url(),
-                                                Forms\Components\TextInput::make('icon')
-                                                    ->label('Icon CSS Class')
-                                                    ->placeholder('heroicon-o-phone'),
-                                                Forms\Components\Select::make('type')
-                                                    ->label('Tipe')
-                                                    ->options([
-                                                        'phone' => 'Telepon',
-                                                        'email' => 'Email',
-                                                        'whatsapp' => 'WhatsApp',
-                                                        'link' => 'Link'
-                                                    ])
-                                                    ->default('link')
-                                            ])
-                                            ->columnSpanFull()
-                                            ->defaultItems(0)
-                                            ->addActionLabel('Tambah Quick Action')
-                                            ->collapsible()
-                                    ])
+                              
                             ]),
                             
                         // Tab 6: Status

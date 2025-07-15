@@ -144,13 +144,13 @@
                                     </a>
 
                                     @if($service->category === 'customer_service' && $service->is_online)
-                                    <a href="{{ route('complaint') }}"
+                                    <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                                        class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-700 font-medium rounded-lg hover:bg-orange-200 transition-colors text-sm">
                                         <i class="fas fa-headset mr-2"></i>
                                         Langsung
                                     </a>
                                     @elseif($service->category === 'billing')
-                                    <a href="{{ route('check-bill') }}"
+                                    <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                                        class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 font-medium rounded-lg hover:bg-blue-200 transition-colors text-sm">
                                         <i class="fas fa-search mr-2"></i>
                                         Cek
@@ -176,7 +176,7 @@
                             <h3 class="font-bold mb-2 text-white text-lg">Sambungan Baru</h3>
                             <p class="text-sm text-white opacity-90">Daftar sambungan air bersih baru</p>
                         </a>
-                        <a href="{{ route('check-bill') }}"
+                        <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                            class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -184,7 +184,7 @@
                             <h3 class="font-bold mb-2 text-white text-lg">Cek Tagihan</h3>
                             <p class="text-sm text-white opacity-90">Periksa tagihan air bulanan</p>
                         </a>
-                        <a href="{{ route('services.pengaduan') }}"
+                        <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                            class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
