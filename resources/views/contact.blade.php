@@ -4,15 +4,16 @@
 
 @section('content')
 <div class="bg-white min-h-screen">
-    <!-- Hero Section - Simplified -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-700 py-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center text-white">
-                <h1 class="text-3xl lg:text-4xl font-bold mb-4">Hubungi Kami</h1>
-                <p class="text-lg text-blue-100 mb-6">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container-custom">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="hero-title">Hubungi Kami</h1>
+                <p class="hero-description">
                     {{ ($company && $company->company_tagline && is_string($company->company_tagline)) ? $company->company_tagline : 'Kami siap melayani Anda dengan sepenuh hati' }}
                 </p>
-                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <div class="flex flex-col sm:flex-row gap-3 justify-center mt-6">
                     <a href="#contact-info" class="inline-flex items-center justify-center px-6 py-2.5 bg-white text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -27,6 +28,11 @@
                     </a>
                 </div>
             </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" class="w-full h-12 fill-current text-blue-50">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"></path>
+            </svg>
         </div>
     </section>
 

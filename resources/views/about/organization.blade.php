@@ -3,29 +3,27 @@
 @section('title', 'Struktur Organisasi - ' . config('app.name'))
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-16 relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-full mb-6">
-                    <i class="fas fa-sitemap text-3xl"></i>
-                </div>
-                <h1 class="text-4xl lg:text-5xl font-bold mb-4">Struktur Organisasi</h1>
-                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container-custom">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="hero-title">Struktur Organisasi</h1>
+                <p class="hero-description">
                     Struktur kepemimpinan dan manajemen {{ $company->company_name ?? 'PDAM Tirta Perwira' }} yang professional dan berpengalaman
                 </p>
             </div>
         </div>
-    </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" class="w-full h-12 fill-current text-blue-50">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"></path>
+            </svg>
+        </div>
+    </section>
 
     <!-- Organization Structure Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="container-custom section-padding">
         @if(!empty($organizations) && count($organizations) > 0)
             
             <!-- Executive Leadership Section -->

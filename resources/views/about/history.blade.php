@@ -142,7 +142,8 @@
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container-custom">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container-custom">
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="hero-title">Sejarah {{ $company->company_name ?? 'Tirta Perwira' }}</h1>
                 <p class="hero-description">
