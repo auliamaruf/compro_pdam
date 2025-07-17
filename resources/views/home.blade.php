@@ -378,6 +378,7 @@
 </section>
 
 <!-- Stats Section -->
+<!-- Bagian Prestasi kami
 <section class="bg-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-12">
@@ -426,6 +427,7 @@
         </div>
     </div>
 </section>
+sampai sini -->
 
 <!-- Services Section -->
 <section id="services-preview" class="bg-gray-50 section-padding">
@@ -611,14 +613,14 @@
         </div>
 
         <!-- Additional Info -->
-        <div class="mt-12 text-center">
+        <!-- <div class="mt-12 text-center">
             <div class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 rounded-full text-blue-100">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 Layanan tersedia 24/7 untuk kemudahan Anda
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 
@@ -639,7 +641,7 @@
                         Butuh Bantuan atau Informasi?
                     </h2>
                     <p class="text-gray-600 leading-relaxed text-sm">
-                        Tim customer service kami siap membantu Anda 24/7 untuk semua kebutuhan layanan air bersih.
+                        Tim customer service kami siap membantu untuk kebutuhan layanan air bersih.
                     </p>
                 </div>
 
@@ -724,7 +726,7 @@
                 <!-- Office Status & Action Buttons -->
                 <div class="space-y-3">
                     <!-- Office Status -->
-                    <div class="bg-white rounded-lg p-3 shadow-md border-l-4 border-blue-500">
+                    <!-- <div class="bg-white rounded-lg p-3 shadow-md border-l-4 border-blue-500">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-2.5">
                                 <div class="w-2.5 h-2.5 rounded-full office-status-indicator"></div>
@@ -739,7 +741,7 @@
                                 <p class="text-xs font-medium text-gray-600">Sabtu: 08:00-12:00</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-2.5">

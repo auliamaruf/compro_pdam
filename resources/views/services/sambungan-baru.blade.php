@@ -371,9 +371,9 @@
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-6">Butuh Bantuan?</h2>
                 <p class="text-xl text-blue-100 leading-relaxed mb-8">
-                    Tim customer service kami siap membantu proses pendaftaran sambungan baru Anda
+                    Tim kami siap membantu proses pendaftaran sambungan baru Anda
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div class="bg-white bg-opacity-10 rounded-lg p-6">
                         <div class="flex items-center justify-center mb-4">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -396,7 +396,7 @@
                         <p class="text-blue-100">Jl. Letjen S. Parman No. 53</p>
                         <p class="text-blue-100 text-sm">Purbalingga, Jawa Tengah</p>
                     </div>
-                </div>
+                </div> -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                         <span>Hubungi Kami</span>

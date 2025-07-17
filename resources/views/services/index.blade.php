@@ -165,7 +165,7 @@
                 @endforeach
 
                 <!-- Quick Access Section -->
-                <div class="mt-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white shadow-xl">
+                <!-- <div class="mt-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white shadow-xl">
                     <h2 class="text-3xl font-bold mb-8 text-center">Akses Cepat Layanan</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <a href="{{ route('services.sambungan-baru') }}"
@@ -193,7 +193,7 @@
                             <p class="text-sm text-white opacity-90">Sampaikan keluhan atau saran</p>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
             @else
                 <div class="text-center py-16">
