@@ -90,6 +90,29 @@
                         </a>
                     </div>
                     @endif
+                <!-- Address Card -->
+                    @if($company->address)
+                    <div class="bg-white rounded-lg p-6 shadow-sm">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 mb-2">Alamat Kantor</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-3">{!! nl2br(e($company->address)) !!}</p>
+                                <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    Buka di Google Maps
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
 
                     @if($company && $company->office_hours && is_string($company->office_hours))
                     <div class="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
@@ -117,36 +140,12 @@
                 </div>
 
                 <!-- Address and Map Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Address Card -->
-                    @if($company->address)
-                    <div class="bg-white rounded-lg p-6 shadow-sm">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-gray-900 mb-2">Alamat Kantor</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-3">{!! nl2br(e($company->address)) !!}</p>
-                                <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                    </svg>
-                                    Buka di Google Maps
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-
+                <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
                     <!-- Google Maps -->
                     <div class="bg-white rounded-lg overflow-hidden shadow-sm">
                         <div class="h-64">
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.823!2d109.3559!3d-7.3849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6559734e8e30a1%3A0x302e35b01397830!2sPerumda%20Air%20Minum%20Tirta%20Perwira!5e0!3m2!1sid!2sid!4v1642000000000!5m2!1sid!2sid"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.467379242126!2d109.3747638!3d-7.404739799999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6559d4f36dea7b%3A0x1d237e5f1db0b37c!2sPerusahaan%20Umum%20Daerah%20Air%20Minum%20Tirta%20Perwira%20Purbalingga!5e1!3m2!1sid!2sid!4v1752803093901!5m2!1sid!2sid" 
                                 width="100%" 
                                 height="100%" 
                                 style="border:0;" 
