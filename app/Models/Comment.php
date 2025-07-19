@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Comment extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'commentable_type',
         'commentable_id',
@@ -80,5 +83,20 @@ class Comment extends Model
     public function reject()
     {
         $this->update(['status' => 'rejected']);
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['author_name', 'author_email', 'content', 'status', 'is_approved'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $author = $this->getAttribute('author_name') ?? 'Unknown';
+                return "Komentar dari '{$author}' {$eventName}";
+            });
     }
 }

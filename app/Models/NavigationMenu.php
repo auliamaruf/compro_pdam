@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class NavigationMenu extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'title',
@@ -56,5 +58,20 @@ class NavigationMenu extends Model
     public function getIsParentAttribute()
     {
         return $this->children()->exists();
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'url', 'target', 'position', 'parent_id', 'sort_order', 'is_active', 'is_external'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $title = $this->getAttribute('title') ?? 'Unknown';
+                return "Menu navigasi '{$title}' {$eventName}";
+            });
     }
 }

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class CompanySetting extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, LogsActivity;
 
     protected $fillable = [
         // Identitas Perusahaan
@@ -152,5 +154,22 @@ class CompanySetting extends Model implements HasMedia
     public function getFaviconUrlAttribute()
     {
         return $this->getFirstMediaUrl('favicon') ?: ($this->favicon ? asset('storage/' . $this->favicon) : null);
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'company_name', 'company_tagline', 'company_description', 
+                'vision', 'mission', 'phone', 'email', 'whatsapp_cs', 
+                'address', 'office_hours', 'website', 'facebook', 
+                'twitter', 'instagram', 'youtube', 'linkedin'
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn(string $eventName) => "Pengaturan perusahaan {$eventName}");
     }
 }

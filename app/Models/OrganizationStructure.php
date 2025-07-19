@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class OrganizationStructure extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'title',
@@ -53,5 +55,20 @@ class OrganizationStructure extends Model
             ->ordered()
             ->get()
             ->groupBy('level');
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'name', 'subtitle', 'level', 'parent_id', 'sort_order', 'is_active'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $name = $this->getAttribute('name') ?? 'Unknown';
+                return "Struktur organisasi '{$name}' {$eventName}";
+            });
     }
 }

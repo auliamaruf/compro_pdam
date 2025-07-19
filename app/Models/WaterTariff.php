@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class WaterTariff extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'customer_type',
         'description',
@@ -114,5 +117,23 @@ class WaterTariff extends Model
             'maintenance_fee' => $this->maintenance_fee,
             'total' => $totalBill
         ];
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'customer_type', 'description', 'min_usage', 'max_usage', 
+                'rate_per_m3', 'admin_fee', 'maintenance_fee', 'is_active', 'effective_date'
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $type = $this->getAttribute('customer_type') ?? 'Unknown';
+                return "Tarif air '{$type}' {$eventName}";
+            });
     }
 }

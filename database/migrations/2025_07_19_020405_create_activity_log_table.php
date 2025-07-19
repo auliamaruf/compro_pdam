@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityLogTableConsolidated extends Migration
+class CreateActivityLogTable extends Migration
 {
     public function up()
     {
@@ -13,10 +13,8 @@ class CreateActivityLogTableConsolidated extends Migration
             $table->string('log_name')->nullable();
             $table->text('description');
             $table->nullableMorphs('subject', 'subject');
-            $table->string('event')->nullable(); // Added from second migration
             $table->nullableMorphs('causer', 'causer');
             $table->json('properties')->nullable();
-            $table->uuid('batch_uuid')->nullable(); // Added from third migration
             $table->timestamps();
             $table->index('log_name');
         });

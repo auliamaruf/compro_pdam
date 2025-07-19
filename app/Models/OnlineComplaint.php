@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class OnlineComplaint extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'ticket_number',
@@ -182,5 +184,24 @@ class OnlineComplaint extends Model
     public function assignedAdmin()
     {
         return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'ticket_number', 'customer_name', 'customer_id_number', 
+                'email', 'phone', 'complaint_type', 'complaint_subject', 
+                'status', 'priority', 'assigned_to', 'admin_notes', 'resolved_at'
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $ticket = $this->getAttribute('ticket_number') ?? 'Unknown';
+                return "Pengaduan '{$ticket}' {$eventName}";
+            });
     }
 }

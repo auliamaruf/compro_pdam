@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class SeoSetting extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'page_type',
@@ -44,5 +46,20 @@ class SeoSetting extends Model
     {
         return $query->where('page_type', $pageType)
                     ->where('page_identifier', $identifier);
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['page_type', 'page_identifier', 'meta_title', 'meta_description', 'meta_keywords', 'is_active'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $page = $this->getAttribute('page_type') ?? 'Unknown';
+                return "SEO setting '{$page}' {$eventName}";
+            });
     }
 }

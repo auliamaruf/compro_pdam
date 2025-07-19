@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Branch extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'name',
@@ -115,5 +117,24 @@ class Branch extends Model
         }
         
         return $hours;
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'name', 'branch_type', 'code', 'address', 'phone', 'email', 
+                'office_hours_weekday', 'office_hours_friday', 'office_hours_saturday', 'office_hours_sunday',
+                'head_name', 'head_title', 'is_active'
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $name = $this->getAttribute('name') ?? 'Unknown';
+                return "Cabang '{$name}' {$eventName}";
+            });
     }
 }

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class News extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, LogsActivity;
 
     protected $fillable = [
         'title',
@@ -107,5 +109,20 @@ class News extends Model implements HasMedia
     public function incrementViews()
     {
         $this->increment('views');
+    }
+
+    /**
+     * Get the options for the activity log.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'slug', 'excerpt', 'content', 'type', 'status', 'is_featured', 'published_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(function(string $eventName) {
+                $title = $this->getAttribute('title') ?? 'Unknown';
+                return "Berita '{$title}' {$eventName}";
+            });
     }
 }
