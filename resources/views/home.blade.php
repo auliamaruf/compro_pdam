@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.home')
 
 @section('title', 'Beranda - Tirta Perwira PDAM Purbalingga')
 @section('description', 'PDAM Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
@@ -8,7 +8,7 @@
 <!-- Hero Section -->
 @if($herobanners && $herobanners->count() > 0)
     <!-- Multiple Hero Slides -->
-    <section class="relative min-h-screen overflow-hidden">
+    <section id="hero" class="relative min-h-screen overflow-hidden">
         <div class="hero-carousel relative min-h-screen">
             @foreach($herobanners as $index => $banner)
                 <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 min-h-screen flex items-center transition-all duration-1000 ease-in-out"
@@ -89,7 +89,7 @@
     </section>
 @else
     <!-- Fallback: Single Hero Section -->
-    <section class="hero-gradient relative min-h-screen flex items-center pb-32">
+    <section id="hero" class="hero-gradient relative min-h-screen flex items-center pb-32">
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 container-custom text-white">
             <div class="text-center">
@@ -379,7 +379,7 @@
 
 <!-- Stats Section -->
 <!-- Bagian Prestasi kami
-<section class="bg-white section-padding">
+<section id="stats" class="bg-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-12">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->stats_section_title ?? 'Prestasi Kami' }}</h2>
