@@ -70,7 +70,10 @@ class AdminPanelProvider extends PanelProvider
                     ->dateFormat('d/m/Y H:i:s'),
             ])
             ->navigationGroups([
+                'Dashboard',
                 'Konten Website',
+                'Profil Perusahaan', 
+                'Komunikasi & Layanan',
                 'Pengaturan',
                 'Sistem',
             ])

@@ -24,9 +24,9 @@ class CommentResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Komentar';
 
-    protected static ?string $navigationGroup = 'Interaksi';
+    protected static ?string $navigationGroup = 'Komunikasi & Layanan';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

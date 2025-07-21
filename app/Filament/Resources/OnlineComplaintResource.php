@@ -26,7 +26,7 @@ class OnlineComplaintResource extends Resource
     protected static ?string $navigationLabel = 'Pengaduan Online';
     protected static ?string $modelLabel = 'Pengaduan Online';
     protected static ?string $pluralModelLabel = 'Pengaduan Online';
-    protected static ?string $navigationGroup = 'Komunikasi & Pengaduan';
+    protected static ?string $navigationGroup = 'Komunikasi & Layanan';
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form

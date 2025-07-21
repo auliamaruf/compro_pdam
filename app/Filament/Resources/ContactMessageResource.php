@@ -31,7 +31,7 @@ class ContactMessageResource extends Resource
     protected static ?string $navigationLabel = 'Pesan Kontak';
     protected static ?string $modelLabel = 'Pesan Kontak';
     protected static ?string $pluralModelLabel = 'Pesan Kontak';
-    protected static ?string $navigationGroup = 'Komunikasi & Pengaduan';
+    protected static ?string $navigationGroup = 'Komunikasi & Layanan';
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
