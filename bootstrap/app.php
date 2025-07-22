@@ -11,7 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Security middleware with improved CSP for logo and maps
+        $middleware->web(append: [
+            \App\Http\Middleware\SecurityHeadersMiddleware::class,
+        ]);
+        
+        // Rate limiting for specific routes
+        $middleware->throttleApi();
+        
+        // Additional security middleware
+        $middleware->encryptCookies();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

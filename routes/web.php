@@ -70,21 +70,23 @@ Route::prefix('berita')->group(function () {
 Route::get('/tarif', [HomeController::class, 'tariff'])->name('tariff');
 Route::get('/tarif-air', [HomeController::class, 'tariff'])->name('tariff.alternative');
 
-// Contact & Support
-Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
-Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
+// Contact & Support - dengan rate limiting
+Route::middleware(['throttle:10,1'])->group(function () {
+    Route::get('/kontak', [ContactController::class, 'index'])->name('contact')->withoutMiddleware('throttle:10,1');
+    Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
+});
 
 // Online Services
 Route::get('/cek-tagihan', [HomeController::class, 'checkBill'])->name('check-bill');
 Route::get('/download-center', [HomeController::class, 'downloadCenter'])->name('download-center');
 Route::get('/dokumentasi', [HomeController::class, 'documentation'])->name('documentation');
 
-// Online Complaint
-Route::prefix('pengaduan-online')->group(function () {
-    Route::get('/', [OnlineComplaintController::class, 'index'])->name('complaint');
+// Online Complaint - dengan rate limiting ketat
+Route::prefix('pengaduan-online')->middleware(['throttle:5,1'])->group(function () {
+    Route::get('/', [OnlineComplaintController::class, 'index'])->name('complaint')->withoutMiddleware('throttle:5,1');
     Route::post('/', [OnlineComplaintController::class, 'store'])->name('complaint.store');
-    Route::get('/success/{ticketNumber}', [OnlineComplaintController::class, 'success'])->name('complaint.success');
-    Route::get('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track');
+    Route::get('/success/{ticketNumber}', [OnlineComplaintController::class, 'success'])->name('complaint.success')->withoutMiddleware('throttle:5,1');
+    Route::get('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track')->withoutMiddleware('throttle:5,1');
     Route::post('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track.search');
 });
 
@@ -92,11 +94,11 @@ Route::prefix('pengaduan-online')->group(function () {
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('search.suggest');
 
-// API Routes untuk AJAX
-Route::post('/search/api', [SearchController::class, 'api'])->name('search.api');
-
-// Comments
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+// API Routes untuk AJAX - dengan rate limiting
+Route::middleware(['throttle:30,1'])->group(function () {
+    Route::post('/search/api', [SearchController::class, 'api'])->name('search.api');
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+});
 
 // Debug route
 Route::get('/debug-hero', function () {
