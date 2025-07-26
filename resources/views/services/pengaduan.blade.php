@@ -51,12 +51,12 @@
                             </svg>
                             Tracking status real-time
                         </div>
-                        <div class="flex items-center justify-center text-sm text-gray-500">
+                        <!-- <div class="flex items-center justify-center text-sm text-gray-500">
                             <svg class="w-4 h-4 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             Upload foto/dokumen pendukung
-                        </div>
+                        </div> -->
                         <div class="flex items-center justify-center text-sm text-gray-500">
                             <svg class="w-4 h-4 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -97,12 +97,12 @@
                             </svg>
                             Penyelesaian cepat
                         </div>
-                        <div class="flex items-center justify-center text-sm text-gray-500">
+                        <!-- <div class="flex items-center justify-center text-sm text-gray-500">
                             <svg class="w-4 h-4 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             Senin - Jumat: 08:00-16:00
-                        </div>
+                        </div> -->
                     </div>
                     <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors w-full justify-center">
                         <span>Info Kontak & Lokasi</span>
@@ -121,9 +121,9 @@
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Kategori Pengaduan</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <!-- <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                         Jenis pengaduan yang sering diterima dan cara penanganannya
-                    </p>
+                    </p> -->
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -136,9 +136,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Kualitas Air</h3>
                         <p class="text-gray-600 text-sm mb-4">Air keruh, berbau, berasa, atau berwarna tidak normal</p>
-                        <div class="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block">
                             Respon: 24 jam
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Water Pressure -->
@@ -150,9 +150,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Tekanan Air</h3>
                         <p class="text-gray-600 text-sm mb-4">Air tidak mengalir, tekanan rendah, atau mati total</p>
-                        <div class="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-full inline-block">
                             Respon: 12 jam
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Billing -->
@@ -164,9 +164,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Tagihan</h3>
                         <p class="text-gray-600 text-sm mb-4">Tagihan tidak sesuai, meteran rusak, atau kesalahan perhitungan</p>
-                        <div class="text-xs text-orange-600 bg-orange-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-orange-600 bg-orange-100 px-3 py-1 rounded-full inline-block">
                             Respon: 3 hari kerja
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Service -->
@@ -178,9 +178,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Pelayanan</h3>
                         <p class="text-gray-600 text-sm mb-4">Keluhan tentang petugas, proses administrasi, atau waktu layanan</p>
-                        <div class="text-xs text-purple-600 bg-purple-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-purple-600 bg-purple-100 px-3 py-1 rounded-full inline-block">
                             Respon: 1 hari kerja
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Infrastructure -->
@@ -192,9 +192,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Infrastruktur</h3>
                         <p class="text-gray-600 text-sm mb-4">Pipa bocor, kerusakan meteran, atau masalah instalasi</p>
-                        <div class="text-xs text-red-600 bg-red-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-red-600 bg-red-100 px-3 py-1 rounded-full inline-block">
                             Respon: 6 jam
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Others -->
@@ -206,9 +206,9 @@
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-2">Lainnya</h3>
                         <p class="text-gray-600 text-sm mb-4">Saran, masukan, atau pengaduan kategori lain</p>
-                        <div class="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-block">
+                        <!-- <div class="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-block">
                             Respon: 2 hari kerja
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
                     <!-- Process Steps -->
                     <div class="space-y-6">
                         <div class="flex items-start">
@@ -270,7 +270,7 @@
                         </div>
                     </div>
 
-                    <!-- SLA Commitment -->
+                    <!-- SLA Commitment
                     <div class="bg-white rounded-xl shadow-lg p-8 border border-blue-100">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Komitmen Waktu Penyelesaian</h3>
                         <div class="space-y-4">
@@ -296,14 +296,14 @@
                                 <strong>Jaminan:</strong> Semua pengaduan akan mendapat respon dalam 1x24 jam
                             </p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Track Complaint -->
-    <section class="py-16 bg-white">
+    <!-- <section class="py-16 bg-white">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Lacak Status Pengaduan</h2>
@@ -330,9 +330,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <!-- Contact Support -->
+    <!-- Contact Support
     <section class="py-16 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-4xl mx-auto text-center">
@@ -389,6 +389,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </div>
 @endsection

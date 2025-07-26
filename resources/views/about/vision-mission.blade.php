@@ -120,7 +120,7 @@
         </div>
     </section>
 
-    <!-- Values Section -->
+    <!-- Values Section
     <section class="py-16">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
@@ -181,9 +181,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <!-- CTA Section -->
+    <!-- CTA Section
     <section class="py-16 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-4xl mx-auto text-center">
@@ -207,6 +207,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </div>
 @endsection

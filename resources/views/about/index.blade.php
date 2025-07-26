@@ -66,7 +66,7 @@
                 </div>
 
                 <!-- Statistics -->
-                @if($company->years_experience || $company->customers_served || $company->water_quality_percentage || $company->service_availability)
+                <!-- @if($company->years_experience || $company->customers_served || $company->water_quality_percentage || $company->service_availability)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     @if($company->years_experience)
                     <div class="text-center group">
@@ -116,10 +116,10 @@
                     </div>
                     @endif
                 </div>
-                @endif
+                @endif -->
 
                 <!-- Company Values - Now using core_values instead of company_values -->
-                @if($company->core_values && count($company->core_values) > 0)
+                <!-- @if($company->core_values && count($company->core_values) > 0)
                 <div class="mb-12">
                     <div class="text-center mb-8">
                         <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">Nilai-nilai Perusahaan</h3>
@@ -140,7 +140,7 @@
                 @endif
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Navigation to Other Pages -->
     <section class="py-16 bg-white">
@@ -188,7 +188,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
+    <!-- <section class="py-16 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-4xl mx-auto text-center">
                 <h3 class="text-3xl lg:text-4xl font-bold mb-6">Bergabunglah dengan Kami</h3>
@@ -211,6 +211,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </div>
 @endsection

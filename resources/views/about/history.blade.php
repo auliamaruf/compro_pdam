@@ -335,7 +335,7 @@
         </div>
     </section>
 
-    <!-- Legacy Section -->
+    <!-- Legacy Section
     <section class="section-padding bg-gradient-to-r from-blue-900 to-blue-700 text-white">
         <div class="container-custom">
             <div class="max-w-4xl mx-auto text-center">
@@ -359,7 +359,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </div>
 @endsection
 

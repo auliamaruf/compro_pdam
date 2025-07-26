@@ -24,7 +24,7 @@
                         {{ ($company && $company->company_name && is_string($company->company_name)) ? Str::before($company->company_name, ' - ') : 'Tirta Perwira' }}
                     </div>
                     <div class="text-xs lg:text-sm text-blue-600">
-                        {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'PDAM Purbalingga' }}
+                        {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                     </div>
                 </div>
             </div>
@@ -60,15 +60,15 @@
             <!-- Search and Mobile Menu (sama seperti navbar asli) -->
             <div class="flex items-center space-x-4">
                 <!-- Enhanced Search (Desktop & Mobile) -->
-                <div class="relative">
+                <!-- <div class="relative">
                     <button id="search-toggle" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
-                    </button>
+                    </button> -->
                     
                     <!-- Enhanced Search Form -->
-                    <div id="search-form" class="absolute top-full right-0 mt-3 w-80 lg:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 hidden z-50 transform opacity-0 scale-95 transition-all duration-200">
+                    <!-- <div id="search-form" class="absolute top-full right-0 mt-3 w-80 lg:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 hidden z-50 transform opacity-0 scale-95 transition-all duration-200">
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-semibold text-gray-900">Pencarian</h3>
@@ -95,10 +95,10 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                         </svg>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 <!-- Quick Search Suggestions -->
-                                <div class="border-t border-gray-100 pt-4">
+                                <!-- <div class="border-t border-gray-100 pt-4">
                                     <p class="text-xs font-medium text-gray-500 mb-3 uppercase tracking-wide">Pencarian Populer</p>
                                     <div class="flex flex-wrap gap-2">
                                         <button type="button" onclick="document.getElementById('search-input').value='tarif air'; this.closest('form').submit();" class="quick-search-btn bg-blue-50 text-blue-700 hover:bg-blue-100">
@@ -115,10 +115,10 @@
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
                                     Cari Sekarang
-                                </button>
+                                </button> -->
                             </form>
                         </div>
                     </div>

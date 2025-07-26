@@ -1,8 +1,8 @@
 @extends('layouts.home')
 
-@section('title', 'Beranda - Tirta Perwira PDAM Purbalingga')
-@section('description', 'PDAM Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
-@section('keywords', 'PDAM Purbalingga, air bersih, pelayanan air, tarif air, Tirta Perwira')
+@section('title', 'Beranda - Perumda Air Minum Tirta Perwira Purbalingga')
+@section('description', 'Perumda Air Minum Tirta Perwira Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
+@section('keywords', 'PDAM Purbalingga, air bersih, pelayanan air, tarif air, Tirta Perwira, Perumda Air Minum Tirta Perwira Purbalingga')
 
 @section('content')
 <!-- Hero Section -->
