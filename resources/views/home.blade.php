@@ -382,14 +382,36 @@
                              loading="lazy">
                     @else
                         <!-- Fallback: Gradient placeholder with building icon -->
-                        <div class="w-full h-96 lg:h-[500px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl shadow-2xl flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
-                                </svg>
-                                <h3 class="text-xl font-semibold mb-2">PDAM Tirta Perwira</h3>
-                                <p class="text-blue-100">Kantor Pusat Purbalingga</p>
-                            </div>
+                        <div class="w-full h-96 lg:h-[500px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl shadow-2xl overflow-hidden relative">
+                            @if($company && $company->getFirstMediaUrl('about_image'))
+                                <!-- Image Background -->
+                                <img src="{{ $company->getFirstMediaUrl('about_image') }}"
+                                     alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
+                                     class="w-full h-full object-cover">
+                                <!-- Overlay for better text contrast -->
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-600/60 to-cyan-500/40"></div>
+                                <!-- Content overlay -->
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
+                                        </svg>
+                                        <h3 class="text-xl font-semibold mb-2">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                        <p class="text-blue-100">Kantor Pusat Purbalingga</p>
+                                    </div>
+                                </div>
+                            @else
+                                <!-- Fallback: Gradient background -->
+                                <div class="flex items-center justify-center h-full">
+                                    <div class="text-center text-white">
+                                        <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
+                                        </svg>
+                                        <h3 class="text-xl font-semibold mb-2">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                        <p class="text-blue-100">Kantor Pusat Purbalingga</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     @endif
 

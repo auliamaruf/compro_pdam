@@ -119,6 +119,14 @@ class CompanySetting extends Model implements HasMedia
         $this->addMediaCollection('favicon')
             ->singleFile()
             ->acceptsMimeTypes(['image/x-icon', 'image/png']);
+
+        $this->addMediaCollection('about_image')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+
+        $this->addMediaCollection('vision_image')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
     }
 
     /**
@@ -154,6 +162,22 @@ class CompanySetting extends Model implements HasMedia
     public function getFaviconUrlAttribute()
     {
         return $this->getFirstMediaUrl('favicon') ?: ($this->favicon ? asset('storage/' . $this->favicon) : null);
+    }
+
+    /**
+     * Get about image URL
+     */
+    public function getAboutImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('about_image');
+    }
+
+    /**
+     * Get vision image URL
+     */
+    public function getVisionImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('vision_image');
     }
 
     /**

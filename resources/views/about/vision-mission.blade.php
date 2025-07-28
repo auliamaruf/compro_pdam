@@ -45,13 +45,50 @@
                         </div>
 
                         <!-- Vision Image -->
-                        <div class="bg-gradient-to-br from-blue-600 to-cyan-500 p-8 lg:p-12 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <svg class="w-32 h-32 mx-auto mb-6 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </div>
+                        <div class="relative overflow-hidden min-h-[400px] lg:min-h-[500px]">
+                            @if($company && $company->getFirstMediaUrl('vision_image'))
+                                <!-- Image Background -->
+                                <img src="{{ $company->getFirstMediaUrl('vision_image') }}"
+                                     alt="Visi PDAM Tirta Perwira"
+                                     class="w-full h-full object-cover">
+                                <!-- Very light overlay for better text readability -->
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-black/30"></div>
+                                <!-- Light overlay only at bottom for text -->
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent h-1/2"></div>
+                                <!-- Floating badge at top right -->
+                                <div class="absolute top-6 right-6">
+                                    <div class="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/50">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            <span class="text-sm font-semibold text-gray-800">VISI</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Bottom text overlay -->
+                                <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                                    <div class="text-white">
+                                        <h3 class="text-xl lg:text-2xl font-bold mb-1 drop-shadow-lg">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                        <p class="text-blue-100 text-sm lg:text-base opacity-90 drop-shadow-md">Visi Masa Depan</p>
+                                    </div>
+                                </div>
+                            @else
+                                <!-- Fallback: Gradient background -->
+                                <div class="bg-gradient-to-br from-blue-600 to-cyan-500 p-8 lg:p-12 flex items-center justify-center h-full min-h-[400px] lg:min-h-[500px]">
+                                    <div class="text-center text-white">
+                                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30">
+                                            <svg class="w-20 h-20 mx-auto mb-6 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            <h3 class="text-2xl font-bold mb-2">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                            <p class="text-blue-100 text-lg">Visi Masa Depan</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
