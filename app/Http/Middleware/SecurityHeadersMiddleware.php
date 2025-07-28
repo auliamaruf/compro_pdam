@@ -42,11 +42,11 @@ class SecurityHeadersMiddleware
             // Development-friendly CSP with good security
             $csp = [
                 "default-src 'self'",
-                "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.google.com https://maps.googleapis.com",
-                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-                "font-src 'self' https://fonts.gstatic.com",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.google.com https://maps.googleapis.com http://localhost:5173 http://localhost:5174 http://127.0.0.1:5173 http://127.0.0.1:5174 http://[::1]:5173 http://[::1]:5174 ws://localhost:5173 ws://localhost:5174 ws://127.0.0.1:5173 ws://127.0.0.1:5174 ws://[::1]:5173 ws://[::1]:5174",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com http://localhost:5173 http://localhost:5174 http://127.0.0.1:5173 http://127.0.0.1:5174 http://[::1]:5173 http://[::1]:5174",
+                "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
                 "img-src 'self' data: https: http: blob:",
-                "connect-src 'self' https://www.google.com https://maps.googleapis.com",
+                "connect-src 'self' https://www.google.com https://maps.googleapis.com http://localhost:5173 http://localhost:5174 http://127.0.0.1:5173 http://127.0.0.1:5174 http://[::1]:5173 http://[::1]:5174 ws://localhost:5173 ws://localhost:5174 ws://127.0.0.1:5173 ws://127.0.0.1:5174 ws://[::1]:5173 ws://[::1]:5174",
                 "media-src 'self'",
                 "object-src 'none'",
                 "base-uri 'self'",

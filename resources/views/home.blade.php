@@ -65,20 +65,45 @@
             @endforeach
         </div>
 
-        <!-- Navigation Arrows -->
+        <!-- Navigation Arrows - Enhanced Narrow Design -->
         @if($herobanners->count() > 1)
-        <button class="hero-nav hero-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-200 text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
+        <button class="hero-nav hero-prev absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 z-20 hero-nav-button group" 
+                aria-label="Previous slide" 
+                title="Previous slide">
+            <div class="hero-nav-inner">
+                <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <div class="hero-nav-bg"></div>
         </button>
-        <button class="hero-nav hero-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-200 text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
+        <button class="hero-nav hero-next absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 z-20 hero-nav-button group" 
+                aria-label="Next slide" 
+                title="Next slide">
+            <div class="hero-nav-inner">
+                <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="hero-nav-bg"></div>
         </button>
 
+        <!-- Navigation Hint for First Visit -->
+        <div class="hero-nav-hint absolute inset-x-0 bottom-20 lg:bottom-24 text-center z-10 pointer-events-none">
+            <div class="inline-flex items-center space-x-2 bg-black bg-opacity-30 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm opacity-0 animate-fadeInDelay">
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                </svg>
+                <span>Hover untuk navigasi</span>
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </div>
+        </div>
+        @endif
+
         <!-- Dots Indicator -->
+        @if($herobanners->count() > 1)
         <div class="hero-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
             @foreach($herobanners as $index => $banner)
                 <button class="hero-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
@@ -838,11 +863,17 @@ class HeroCarousel {
 
         // Add event listeners
         if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => this.prevSlide());
+            this.prevBtn.addEventListener('click', () => {
+                this.addClickFeedback(this.prevBtn);
+                this.prevSlide();
+            });
         }
 
         if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => this.nextSlide());
+            this.nextBtn.addEventListener('click', () => {
+                this.addClickFeedback(this.nextBtn);
+                this.nextSlide();
+            });
         }
 
         // Dot navigation
@@ -862,6 +893,9 @@ class HeroCarousel {
         // Auto-play
         this.startAutoPlay();
 
+        // Initialize navigation hint
+        this.initNavigationHint();
+
         // Pause auto-play on hover with delay
         if (this.carousel) {
             let hoverTimeout;
@@ -869,6 +903,7 @@ class HeroCarousel {
             this.carousel.addEventListener('mouseenter', () => {
                 clearTimeout(hoverTimeout);
                 this.stopAutoPlay();
+                this.hideNavigationHint();
             });
 
             this.carousel.addEventListener('mouseleave', () => {
@@ -880,7 +915,54 @@ class HeroCarousel {
         }
     }
 
+    initNavigationHint() {
+        // Hide navigation hint after first interaction
+        const hint = document.querySelector('.hero-nav-hint');
+        if (hint) {
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hint.style.opacity = '0';
+                setTimeout(() => {
+                    hint.style.display = 'none';
+                }, 300);
+            }, 7000);
+
+            // Hide on any navigation interaction
+            const hideHint = () => {
+                hint.style.opacity = '0';
+                setTimeout(() => {
+                    hint.style.display = 'none';
+                }, 300);
+            };
+
+            // Hide hint on any navigation button click
+            if (this.prevBtn) this.prevBtn.addEventListener('click', hideHint, { once: true });
+            if (this.nextBtn) this.nextBtn.addEventListener('click', hideHint, { once: true });
+            
+            // Hide hint on dot click
+            this.dots.forEach(dot => {
+                dot.addEventListener('click', hideHint, { once: true });
+            });
+
+            // Hide hint on touch/swipe
+            if (this.carousel) {
+                this.carousel.addEventListener('touchstart', hideHint, { once: true });
+            }
+        }
+    }
+
+    hideNavigationHint() {
+        const hint = document.querySelector('.hero-nav-hint');
+        if (hint && hint.style.display !== 'none') {
+            hint.style.opacity = '0';
+        }
+    }
+
     showSlide(index) {
+        // Add loading state to navigation buttons
+        if (this.prevBtn) this.prevBtn.classList.add('loading');
+        if (this.nextBtn) this.nextBtn.classList.add('loading');
+
         // Hide all slides
         this.slides.forEach((slide, i) => {
             slide.classList.remove('active');
@@ -904,6 +986,12 @@ class HeroCarousel {
         });
 
         this.currentSlide = index;
+
+        // Remove loading state after transition
+        setTimeout(() => {
+            if (this.prevBtn) this.prevBtn.classList.remove('loading');
+            if (this.nextBtn) this.nextBtn.classList.remove('loading');
+        }, 400);
     }
 
     nextSlide() {
@@ -914,6 +1002,23 @@ class HeroCarousel {
     prevSlide() {
         const prev = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
         this.showSlide(prev);
+    }
+
+    addClickFeedback(button) {
+        // Add visual feedback for button clicks
+        button.style.transform = 'translateY(-50%) translateX(0) scale(0.95)';
+        
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 150);
+        
+        // Add temporary glow effect
+        const glowClass = 'hero-nav-clicked';
+        button.classList.add(glowClass);
+        
+        setTimeout(() => {
+            button.classList.remove(glowClass);
+        }, 300);
     }
 
     goToSlide(index) {
