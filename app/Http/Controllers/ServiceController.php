@@ -68,45 +68,49 @@ class ServiceController extends Controller
 
     public function downloadForm(Service $service, $mediaId)
     {
-        $media = $service->getMedia('forms')->find($mediaId);
-        
-        if (!$media) {
-            abort(404, 'Formulir tidak ditemukan');
-        }
+        try {
+            $media = $service->getMedia('forms')->find($mediaId);
+            
+            if (!$media) {
+                abort(404, 'Formulir tidak ditemukan');
+            }
 
-        // Get the file path
-        $filePath = $media->getPath();
-        
-        if (!file_exists($filePath)) {
-            abort(404, 'File formulir tidak ditemukan');
-        }
+            // Get the file path
+            $filePath = $media->getPath();
+            
+            if (!file_exists($filePath)) {
+                abort(404, 'File formulir tidak ditemukan di server');
+            }
 
-        // Get proper filename with extension
-        $fileName = $media->file_name ?: $media->name; // This includes the original extension
-        
-        // Debug: Log media properties (remove this after testing)
-        \Log::info('Media Debug', [
-            'name' => $media->name,
-            'file_name' => $media->file_name,
-            'mime_type' => $media->mime_type,
-            'original_filename' => $media->getCustomProperty('original_filename'),
-        ]);
-        
-        // Fallback: if file_name doesn't have extension, add it based on mime_type
-        if (!pathinfo($fileName, PATHINFO_EXTENSION)) {
-            $extension = match($media->mime_type) {
-                'application/pdf' => '.pdf',
-                'application/msword' => '.doc',
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => '.docx',
-                default => ''
-            };
-            $fileName = ($media->name ?: 'formulir') . $extension;
-        }
+            // Get proper filename with extension
+            $fileName = $media->file_name ?: $media->name;
+            
+            // Fallback: if file_name doesn't have extension, add it based on mime_type
+            if (!pathinfo($fileName, PATHINFO_EXTENSION)) {
+                $extension = match($media->mime_type) {
+                    'application/pdf' => '.pdf',
+                    'application/msword' => '.doc',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => '.docx',
+                    default => ''
+                };
+                $fileName = ($media->name ?: 'formulir') . $extension;
+            }
 
-        // Return download response with proper headers and filename
-        return response()->download($filePath, $fileName, [
-            'Content-Type' => $media->mime_type,
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
-        ]);
+            // Return download response with proper headers and filename
+            return response()->download($filePath, $fileName, [
+                'Content-Type' => $media->mime_type,
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"'
+            ]);
+            
+        } catch (\Exception $e) {
+            // Log error untuk debugging
+            \Log::error('Download Form Error', [
+                'service_id' => $service->id,
+                'media_id' => $mediaId,
+                'error' => $e->getMessage()
+            ]);
+            
+            abort(500, 'Terjadi kesalahan saat mengunduh formulir');
+        }
     }
 }
