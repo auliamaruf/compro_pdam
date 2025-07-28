@@ -57,6 +57,7 @@ Route::prefix('layanan')->group(function () {
     Route::get('/sambungan-baru', [ServiceController::class, 'sambunganBaru'])->name('services.sambungan-baru');
     Route::get('/pengaduan', [ServiceController::class, 'pengaduan'])->name('services.pengaduan');
     Route::get('/pembayaran', [ServiceController::class, 'pembayaran'])->name('services.pembayaran');
+    Route::get('/download-form/{service}/{media}', [ServiceController::class, 'downloadForm'])->name('services.download-form');
     Route::get('/{slug}', [ServiceController::class, 'show'])->name('services.show');
 });
 

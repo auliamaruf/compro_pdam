@@ -333,34 +333,135 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <a href="#" class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100 hover:shadow-lg transition-shadow group">
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-gray-900">Formulir Sambungan Rumah Tangga</h3>
-                                <p class="text-gray-600 text-sm">Format PDF • 250 KB</p>
-                            </div>
-                        </div>
-                    </a>
+                    @if($sambunganBaruService && $sambunganBaruService->getMedia('forms')->count() > 0)
+                        {{-- Display forms from uploaded files --}}
+                        @foreach($sambunganBaruService->getMedia('forms') as $index => $form)
+                            <a href="{{ route('services.download-form', [$sambunganBaruService->id, $form->id]) }}" 
+                               class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100 hover:shadow-lg transition-shadow group">
+                                <div class="flex items-center">
+                                    <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">{{ $form->name ?: pathinfo($form->file_name, PATHINFO_FILENAME) }}</h3>
+                                        <p class="text-gray-600 text-sm">
+                                            {{ strtoupper(pathinfo($form->file_name ?: '', PATHINFO_EXTENSION) ?: 'FILE') }} • 
+                                            {{ $form->size ? number_format($form->size / 1024, 0) . ' KB' : 'Unknown size' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
 
-                    <a href="#" class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow group">
-                        <div class="flex items-center">
-                            <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-green-200 transition-colors">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-gray-900">Formulir Sambungan Komersial</h3>
-                                <p class="text-gray-600 text-sm">Format PDF • 320 KB</p>
+                    @if($sambunganBaruService && $sambunganBaruService->forms && is_array($sambunganBaruService->forms))
+                        {{-- Display forms from external links --}}
+                        @foreach($sambunganBaruService->forms as $index => $form)
+                            @if(isset($form['url']) && isset($form['title']))
+                                <a href="{{ $form['url'] }}" 
+                                   target="_blank"
+                                   class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow group">
+                                    <div class="flex items-center">
+                                        <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-green-200 transition-colors">
+                                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900">{{ $form['title'] }}</h3>
+                                            <p class="text-gray-600 text-sm">{{ $form['description'] ?? 'Format PDF' }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
+
+                    @if((!$sambunganBaruService || 
+                         ($sambunganBaruService->getMedia('forms')->count() == 0 && 
+                          (!$sambunganBaruService->forms || !is_array($sambunganBaruService->forms) || count(array_filter($sambunganBaruService->forms, function($form) { return isset($form['url']) && isset($form['title']); })) == 0)
+                         )) && 
+                        $servicesWithForms->count() > 0)
+                        {{-- Display forms from other services if sambungan baru service has no forms --}}
+                        @foreach($servicesWithForms->take(2) as $service)
+                            @foreach($service->getMedia('forms')->take(1) as $form)
+                                <a href="{{ route('services.download-form', [$service->id, $form->id]) }}" 
+                                   class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100 hover:shadow-lg transition-shadow group">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+                                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-gray-900">{{ $form->name ?: pathinfo($form->file_name, PATHINFO_FILENAME) }}</h3>
+                                            <p class="text-gray-600 text-sm">
+                                                {{ strtoupper(pathinfo($form->file_name ?: '', PATHINFO_EXTENSION) ?: 'FILE') }} • 
+                                                {{ $form->size ? number_format($form->size / 1024, 0) . ' KB' : 'Unknown size' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endforeach
+                    @endif
+
+                    @if((!$sambunganBaruService || 
+                         ($sambunganBaruService->getMedia('forms')->count() == 0 && 
+                          (!$sambunganBaruService->forms || !is_array($sambunganBaruService->forms) || count(array_filter($sambunganBaruService->forms, function($form) { return isset($form['url']) && isset($form['title']); })) == 0)
+                         )) && 
+                        $servicesWithForms->count() == 0)
+                        {{-- Fallback: Default forms if no data available --}}
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100 hover:shadow-lg transition-shadow group opacity-50">
+                            <div class="flex items-center">
+                                <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900">Formulir Sambungan Rumah Tangga</h3>
+                                    <p class="text-gray-600 text-sm">Belum tersedia - hubungi admin</p>
+                                </div>
                             </div>
                         </div>
-                    </a>
+
+                        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow group opacity-50">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 group-hover:bg-green-200 transition-colors">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900">Formulir Sambungan Komersial</h3>
+                                    <p class="text-gray-600 text-sm">Belum tersedia - hubungi admin</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
+
+                @if($sambunganBaruService && (
+                    $sambunganBaruService->getMedia('forms')->count() > 0 || 
+                    ($sambunganBaruService->forms && is_array($sambunganBaruService->forms) && count(array_filter($sambunganBaruService->forms, function($form) { return isset($form['url']) && isset($form['title']); })) > 0)
+                ))
+                    <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-blue-900 mb-1">Informasi Penting</h4>
+                                <p class="text-blue-800 text-sm">
+                                    Pastikan mengisi formulir dengan lengkap dan benar. Formulir yang tidak lengkap akan memperlambat proses permohonan sambungan baru.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
