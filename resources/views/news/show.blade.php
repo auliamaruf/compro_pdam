@@ -88,22 +88,27 @@
     aspect-ratio: 1;
     transition: all 0.3s ease;
     background: #f3f4f6;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 .gallery-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 1;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    filter: brightness(0.8);
 }
 
 .gallery-overlay {
@@ -112,12 +117,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(59, 130, 246, 0.8), rgba(16, 185, 129, 0.8));
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.85) 0%, 
+        rgba(16, 185, 129, 0.85) 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -126,47 +135,508 @@
 
 .gallery-icon {
     color: white;
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5rem;
+    animation: pulse 2s infinite;
+}
+
+.gallery-text {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Lightbox Improvements - Modern & Elegant */
+#lightbox-modal {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(15, 23, 42, 0.95) 50%, 
+        rgba(0, 0, 0, 0.9) 100%);
+    animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(15px);
+    }
+}
+
+#lightbox-image {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 100px rgba(59, 130, 246, 0.1);
+    border-radius: 16px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
+}
+
+#lightbox-image:hover {
+    box-shadow: 
+        0 35px 100px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 150px rgba(59, 130, 246, 0.2);
+    transform: scale(1.02);
+}
+
+.lightbox-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 3rem 2rem 8rem;
+    width: 100%;
+}
+
+/* Enhanced Close Button */
+.lightbox-close {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+    background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.9) 0%, 
+        rgba(220, 38, 38, 0.95) 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: linear-gradient(135deg, 
+        rgba(220, 38, 38, 1) 0%, 
+        rgba(185, 28, 28, 1) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 12px 40px rgba(239, 68, 68, 0.4);
+}
+
+/* Enhanced Caption Styling */
+#lightbox-caption {
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.95) 0%, 
+        rgba(30, 41, 59, 0.95) 50%,
+        rgba(15, 23, 42, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(59, 130, 246, 0.1);
+    border-radius: 20px;
+    padding: 1.25rem 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    max-width: 85vw;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #f8fafc;
+    letter-spacing: 0.025em;
+}
+
+.lightbox-counter {
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.95) 0%, 
+        rgba(16, 185, 129, 0.95) 50%,
+        rgba(139, 92, 246, 0.95) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+}
+
+.lightbox-counter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.6s ease;
+}
+
+.lightbox-counter:hover::before {
+    left: 100%;
+}
+
+/* Enhanced Navigation Buttons */
+.lightbox-navigation {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.9) 0%, 
+        rgba(30, 41, 59, 0.95) 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    padding: 1.25rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 40;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+.lightbox-navigation:hover {
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.95) 0%, 
+        rgba(16, 185, 129, 0.95) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 
+        0 20px 60px rgba(59, 130, 246, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-navigation:active {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.lightbox-navigation.prev {
+    left: 2.5rem;
+}
+
+.lightbox-navigation.next {
+    right: 2.5rem;
+}
+
+.lightbox-navigation svg {
+    width: 2rem;
+    height: 2rem;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Loading Enhancement */
+#lightbox-loading {
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.8) 0%, 
+        rgba(15, 23, 42, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+}
+
+.loading-spinner {
+    width: 3rem;
+    height: 3rem;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-item {
+        aspect-ratio: 4/3;
+    }
+    
+    .gallery-icon {
+        font-size: 2rem;
+    }
+    
+    .gallery-text {
+        font-size: 0.75rem;
+    }
+    
+    .lightbox-navigation {
+        width: 60px;
+        height: 60px;
+        padding: 1rem;
+    }
+    
+    .lightbox-navigation.prev {
+        left: 1.5rem;
+    }
+    
+    .lightbox-navigation.next {
+        right: 1.5rem;
+    }
+    
+    .lightbox-navigation svg {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+    
+    .lightbox-counter {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    #lightbox-caption {
+        font-size: 1rem;
+        padding: 1rem 1.75rem;
+        margin-bottom: 1.25rem;
+        max-width: 90vw;
+    }
+    
+    #lightbox-image {
+        max-height: 70vh;
+        max-width: 95vw;
+    }
+    
+    .lightbox-container {
+        padding: 2rem 1rem 6rem;
+    }
+    
+    .lightbox-close {
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .lightbox-close svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #lightbox-image {
+        max-width: 85vw;
+        max-height: 75vh;
+    }
+    
+    .lightbox-navigation {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .lightbox-navigation.prev {
+        left: 2rem;
+    }
+    
+    .lightbox-navigation.next {
+        right: 2rem;
+    }
+}
+
+/* Ultra-wide screen adjustments */
+@media (min-width: 1920px) {
+    #lightbox-image {
+        max-width: 80vw;
+        max-height: 75vh;
+    }
+    
+    .lightbox-container {
+        padding: 4rem 3rem 10rem;
+    }
+    
+    .lightbox-navigation {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .lightbox-navigation.prev {
+        left: 3rem;
+    }
+    
+    .lightbox-navigation.next {
+        right: 3rem;
+    }
+    
+    .lightbox-navigation svg {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+    
+    #lightbox-caption {
+        font-size: 1.25rem;
+        padding: 1.5rem 3rem;
+    }
+    
+    .lightbox-counter {
+        font-size: 1.2rem;
+        padding: 1.25rem 2.5rem;
+    }
+}
+
+/* High resolution screens */
+@media (min-resolution: 2dppx) {
+    #lightbox-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+    .gallery-overlay {
+        opacity: 0.4;
+    }
+    
+    .gallery-item:active .gallery-overlay {
+        opacity: 1;
+    }
+    
+    .lightbox-navigation:hover {
+        transform: translateY(-50%) scale(1);
+    }
+    
+    .lightbox-navigation:active {
+        transform: translateY(-50%) scale(1.1);
+        background: linear-gradient(135deg, 
+            rgba(59, 130, 246, 1) 0%, 
+            rgba(16, 185, 129, 1) 100%);
+    }
+    
+    .lightbox-close:hover {
+        transform: scale(1);
+    }
+    
+    .lightbox-close:active {
+        transform: scale(1.1);
+    }
+}
+
+/* Image centering and container improvements */
+.lightbox-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    min-height: 60vh;
+}
+
+/* Additional modern touches */
+.lightbox-overlay-bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, 
+        rgba(59, 130, 246, 0.05) 0%, 
+        rgba(0, 0, 0, 0.8) 70%);
+    z-index: -1;
+}
+
+/* Smooth transitions for all elements */
+* {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lightbox-navigation {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .lightbox-navigation:hover {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(59, 130, 246, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-navigation:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .lightbox-navigation.prev {
-    left: 1rem;
+    left: 2rem;
 }
 
 .lightbox-navigation.next {
-    right: 1rem;
+    right: 2rem;
 }
 
 .lightbox-counter {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 </style>
 
@@ -272,15 +742,24 @@
                                 <i class="fas fa-images text-2xl text-blue-600 mr-3"></i>
                                 <h3 class="text-2xl font-bold text-gray-900">Galeri Foto</h3>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                 @foreach($article->getMedia('gallery') as $index => $media)
                                 <div class="gallery-item"
-                                     onclick="openLightbox({{ $index }})">
-                                    <img src="{{ $media->getUrl('medium') }}"
-                                         alt="{{ $media->name }}"
-                                         loading="lazy">
+                                     onclick="openLightbox({{ $index }})"
+                                     title="Klik untuk memperbesar foto">
+                                    <img src="{{ $media->getUrl() }}"
+                                         alt="{{ $media->name ?? 'Foto galeri' }}"
+                                         loading="lazy"
+                                         style="opacity: 0; transition: opacity 0.3s ease;"
+                                         onload="this.style.opacity = '1'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('loading-placeholder')) this.nextElementSibling.remove();"
+                                         onerror="console.log('Failed to load:', this.src); this.style.opacity = '1'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('loading-placeholder')) this.nextElementSibling.remove();">
                                     <div class="gallery-overlay">
                                         <i class="fas fa-search-plus gallery-icon"></i>
+                                        <span class="gallery-text">PERBESAR</span>
+                                    </div>
+                                    <!-- Loading placeholder -->
+                                    <div class="loading-placeholder absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center rounded-lg">
+                                        <i class="fas fa-image text-gray-400 text-2xl"></i>
                                     </div>
                                 </div>
                                 @endforeach
@@ -453,42 +932,55 @@
     </div>
 </div>
 
-<!-- Lightbox Modal -->
-<div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-95 p-4">
-    <div class="flex items-center justify-center h-full relative">
-        <!-- Close Button -->
+<!-- Lightbox Modal - Modern & Elegant -->
+<div id="lightbox-modal" class="fixed inset-0 z-50 hidden p-0">
+    <!-- Background overlay with gradient -->
+    <div class="lightbox-overlay-bg"></div>
+    
+    <div class="lightbox-container">
+        <!-- Enhanced Close Button -->
         <button onclick="closeLightbox()"
-                class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-20 bg-black bg-opacity-50 rounded-full p-2">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                class="lightbox-close"
+                title="Tutup (ESC)">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
         
-        <!-- Navigation Buttons -->
-        <button class="lightbox-navigation prev" onclick="previousImage()">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        <!-- Enhanced Navigation Buttons -->
+        <button class="lightbox-navigation prev" onclick="previousImage()" title="Foto sebelumnya (←)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
         
-        <button class="lightbox-navigation next" onclick="nextImage()">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <button class="lightbox-navigation next" onclick="nextImage()" title="Foto selanjutnya (→)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
         </button>
         
-        <!-- Image Container -->
-        <div class="relative max-w-6xl max-h-full w-full">
-            <img id="lightbox-image"
-                 src=""
-                 alt=""
-                 class="max-w-full max-h-[85vh] object-contain mx-auto block rounded-lg shadow-2xl">
+        <!-- Centered Image Container -->
+        <div class="lightbox-image-container">
+            <div class="relative">
+                <img id="lightbox-image"
+                     src=""
+                     alt=""
+                     class="block transition-all duration-500">
+                
+                <!-- Enhanced Loading indicator -->
+                <div id="lightbox-loading" class="absolute inset-0 flex items-center justify-center hidden">
+                    <div class="flex flex-col items-center space-y-6">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Memuat gambar...</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <!-- Caption and Counter -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
-            <p id="lightbox-caption"
-               class="text-white text-lg font-medium bg-black bg-opacity-70 rounded-lg px-6 py-3 mb-2 max-w-2xl"></p>
+        <!-- Enhanced Caption and Counter -->
+        <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 text-center max-w-5xl px-6 z-30">
+            <p id="lightbox-caption" class="text-white"></p>
             <div class="lightbox-counter" id="lightbox-counter"></div>
         </div>
     </div>
@@ -501,12 +993,22 @@ const galleryImages = [
         @foreach($article->getMedia('gallery') as $media)
         {
             url: '{{ $media->getUrl() }}',
+            mediumUrl: '{{ $media->getUrl('medium') ?? $media->getUrl() }}',
+            thumbUrl: '{{ $media->getUrl('thumb') ?? $media->getUrl() }}',
             name: '{{ $media->name }}',
             alt: '{{ $media->alt_text ?? $media->name }}'
         },
         @endforeach
     @endif
 ];
+
+// Debug: Log available URLs
+console.log('Gallery Images URLs:', galleryImages.map(img => ({
+    name: img.name,
+    url: img.url,
+    mediumUrl: img.mediumUrl,
+    thumbUrl: img.thumbUrl
+})));
 
 let currentImageIndex = 0;
 
@@ -518,17 +1020,79 @@ function openLightbox(index) {
     const image = document.getElementById('lightbox-image');
     const captionEl = document.getElementById('lightbox-caption');
     const counterEl = document.getElementById('lightbox-counter');
+    const loadingEl = document.getElementById('lightbox-loading');
 
-    image.src = galleryImages[currentImageIndex].url;
-    image.alt = galleryImages[currentImageIndex].alt;
-    captionEl.textContent = galleryImages[currentImageIndex].name;
-    counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
-    
+    // Show modal with enhanced animation
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
     
-    // Show/hide navigation buttons
+    // Progressive enhancement for entrance
+    requestAnimationFrame(() => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'scale(1)';
+    });
+    
+    // Show loading with elegant animation
+    loadingEl.classList.remove('hidden');
+    image.style.opacity = '0';
+    image.style.transform = 'scale(0.9) translateY(20px)';
+    
+    // Load image with enhanced error handling
+    const newImage = new Image();
+    newImage.onload = function() {
+        // Set image properties
+        image.src = this.src;
+        image.alt = galleryImages[currentImageIndex].alt;
+        captionEl.textContent = galleryImages[currentImageIndex].name || 'Foto galeri';
+        counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        
+        // Elegant reveal animation
+        setTimeout(() => {
+            loadingEl.classList.add('hidden');
+            image.style.opacity = '1';
+            image.style.transform = 'scale(1) translateY(0)';
+            
+            // Add subtle scale animation
+            image.style.animation = 'imageReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            setTimeout(() => {
+                image.style.animation = '';
+            }, 600);
+        }, 100);
+    };
+    
+    newImage.onerror = function() {
+        // Enhanced error placeholder
+        const placeholder = 'data:image/svg+xml;base64,' + btoa(`
+            <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grad1)"/>
+                <circle cx="400" cy="200" r="50" fill="#475569" opacity="0.8"/>
+                <path d="M350 350 L350 300 L400 250 L450 300 L450 350 Z" fill="#475569" opacity="0.8"/>
+                <text x="400" y="450" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle">Gambar tidak tersedia</text>
+                <text x="400" y="480" font-family="Arial, sans-serif" font-size="16" fill="#64748b" text-anchor="middle">Gagal memuat konten</text>
+            </svg>
+        `);
+        image.src = placeholder;
+        image.alt = 'Gambar tidak tersedia';
+        captionEl.textContent = 'Gambar tidak dapat dimuat';
+        counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        
+        setTimeout(() => {
+            loadingEl.classList.add('hidden');
+            image.style.opacity = '1';
+            image.style.transform = 'scale(1) translateY(0)';
+        }, 100);
+    };
+    
+    newImage.src = galleryImages[currentImageIndex].url;
+    
+    // Enhanced navigation button visibility
     const prevBtn = modal.querySelector('.prev');
     const nextBtn = modal.querySelector('.next');
     
@@ -536,37 +1100,116 @@ function openLightbox(index) {
         prevBtn.style.display = 'none';
         nextBtn.style.display = 'none';
     } else {
-        prevBtn.style.display = 'block';
-        nextBtn.style.display = 'block';
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+        
+        // Animate button appearance
+        setTimeout(() => {
+            prevBtn.style.opacity = '1';
+            nextBtn.style.opacity = '1';
+            prevBtn.style.transform = 'translateY(-50%) translateX(0)';
+            nextBtn.style.transform = 'translateY(-50%) translateX(0)';
+        }, 200);
     }
 }
 
 function closeLightbox() {
     const modal = document.getElementById('lightbox-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.body.style.overflow = 'auto';
+    const image = document.getElementById('lightbox-image');
+    
+    // Enhanced exit animation
+    modal.style.opacity = '0';
+    modal.style.transform = 'scale(0.95)';
+    image.style.transform = 'scale(0.9) translateY(20px)';
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+        
+        // Reset styles
+        modal.style.opacity = '';
+        modal.style.transform = '';
+        image.style.transform = '';
+    }, 300);
 }
 
 function previousImage() {
     currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-    updateLightboxImage();
+    updateLightboxImage('prev');
 }
 
 function nextImage() {
     currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-    updateLightboxImage();
+    updateLightboxImage('next');
 }
 
-function updateLightboxImage() {
+function updateLightboxImage(direction = 'next') {
     const image = document.getElementById('lightbox-image');
     const captionEl = document.getElementById('lightbox-caption');
     const counterEl = document.getElementById('lightbox-counter');
+    const loadingEl = document.getElementById('lightbox-loading');
     
-    image.src = galleryImages[currentImageIndex].url;
-    image.alt = galleryImages[currentImageIndex].alt;
-    captionEl.textContent = galleryImages[currentImageIndex].name;
-    counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+    // Enhanced transition animation based on direction
+    const slideDirection = direction === 'next' ? '30px' : '-30px';
+    
+    loadingEl.classList.remove('hidden');
+    image.style.opacity = '0';
+    image.style.transform = `scale(0.95) translateX(${slideDirection})`;
+    
+    // Load new image
+    const newImage = new Image();
+    newImage.onload = function() {
+        image.src = this.src;
+        image.alt = galleryImages[currentImageIndex].alt;
+        captionEl.textContent = galleryImages[currentImageIndex].name || 'Foto galeri';
+        counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        
+        // Smooth reveal with directional slide
+        setTimeout(() => {
+            loadingEl.classList.add('hidden');
+            image.style.opacity = '1';
+            image.style.transform = 'scale(1) translateX(0)';
+            
+            // Add slide animation based on direction
+            const reverseDirection = direction === 'next' ? '-30px' : '30px';
+            image.style.animation = `slideFrom${direction === 'next' ? 'Right' : 'Left'} 0.5s cubic-bezier(0.4, 0, 0.2, 1)`;
+            setTimeout(() => {
+                image.style.animation = '';
+            }, 500);
+        }, 150);
+    };
+    
+    newImage.onerror = function() {
+        // Enhanced error placeholder (same as in openLightbox)
+        const placeholder = 'data:image/svg+xml;base64,' + btoa(`
+            <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grad1)"/>
+                <circle cx="400" cy="200" r="50" fill="#475569" opacity="0.8"/>
+                <path d="M350 350 L350 300 L400 250 L450 300 L450 350 Z" fill="#475569" opacity="0.8"/>
+                <text x="400" y="450" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle">Gambar tidak tersedia</text>
+                <text x="400" y="480" font-family="Arial, sans-serif" font-size="16" fill="#64748b" text-anchor="middle">Gagal memuat konten</text>
+            </svg>
+        `);
+        image.src = placeholder;
+        image.alt = 'Gambar tidak tersedia';
+        captionEl.textContent = 'Gambar tidak dapat dimuat';
+        counterEl.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        
+        setTimeout(() => {
+            loadingEl.classList.add('hidden');
+            image.style.opacity = '1';
+            image.style.transform = 'scale(1) translateX(0)';
+        }, 150);
+    };
+    
+    newImage.src = galleryImages[currentImageIndex].url;
 }
 
 function copyToClipboard(text) {
@@ -597,7 +1240,7 @@ function copyToClipboard(text) {
 
 // Event listeners
 document.getElementById('lightbox-modal').addEventListener('click', function(e) {
-    if (e.target === this || e.target.classList.contains('flex')) {
+    if (e.target === this || e.target.classList.contains('lightbox-container')) {
         closeLightbox();
     }
 });
@@ -611,34 +1254,240 @@ document.addEventListener('keydown', function(e) {
                 closeLightbox();
                 break;
             case 'ArrowLeft':
+                e.preventDefault();
                 previousImage();
                 break;
             case 'ArrowRight':
+                e.preventDefault();
                 nextImage();
                 break;
         }
     }
 });
 
+// Add enhanced animation keyframes and modal initialization
+const enhancedAnimationStyle = document.createElement('style');
+enhancedAnimationStyle.textContent = `
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+        }
+    }
+    
+    @keyframes slideFromRight {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+        }
+    }
+    
+    @keyframes slideFromLeft {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+        }
+    }
+    
+    @keyframes imageReveal {
+        from {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            filter: blur(8px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0px);
+        }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            backdrop-filter: blur(15px);
+            transform: scale(1);
+        }
+    }
+    
+    #lightbox-modal {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: center center;
+    }
+    
+    #lightbox-modal.hidden {
+        pointer-events: none;
+    }
+    
+    .lightbox-navigation {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-10px);
+    }
+    
+    .lightbox-navigation.next {
+        transform: translateY(-50%) translateX(10px);
+    }
+    
+    /* Smooth reveal for navigation buttons */
+    .lightbox-navigation.revealed {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    
+    /* Enhanced loading animation */
+    .loading-spinner {
+        background: conic-gradient(from 0deg, transparent, #3b82f6, transparent);
+        mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    }
+    
+    /* Parallax effect for background */
+    .lightbox-overlay-bg {
+        animation: subtleShift 20s ease-in-out infinite;
+    }
+    
+    @keyframes subtleShift {
+        0%, 100% { 
+            background-position: 0% 50%;
+            opacity: 0.8;
+        }
+        50% { 
+            background-position: 100% 50%;
+            opacity: 0.9;
+        }
+    }
+`;
+document.head.appendChild(enhancedAnimationStyle);
+
 // Image lazy loading error handling
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Gallery initialization started');
+    
+    // Global error handling for all images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('error', function() {
-            this.src = '/images/placeholder.jpg';
-            this.alt = 'Image not available';
+            console.log('Image failed to load:', this.src);
+            // Create SVG placeholder
+            const placeholder = 'data:image/svg+xml;base64,' + btoa(`
+                <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <rect width="100%" height="100%" fill="#f3f4f6"/>
+                    <circle cx="200" cy="160" r="30" fill="#9ca3af"/>
+                    <path d="M160 280 L160 240 L200 200 L240 240 L240 280 Z" fill="#9ca3af"/>
+                    <text x="200" y="320" font-family="Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">Gambar tidak tersedia</text>
+                </svg>
+            `);
+            this.src = placeholder;
+            this.alt = 'Gambar tidak tersedia';
         });
     });
     
-    // Add loading animation for gallery images
+    // Enhanced gallery image loading
     const galleryItems = document.querySelectorAll('.gallery-item img');
-    galleryItems.forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
+    console.log('Found gallery items:', galleryItems.length);
+    
+    galleryItems.forEach((img, index) => {
+        console.log(`Gallery item ${index}:`, {
+            src: img.src,
+            fallback: img.dataset.fallback,
+            name: img.dataset.name,
+            complete: img.complete,
+            naturalWidth: img.naturalWidth
         });
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
-    });
+        
+        // Check if image is already loaded (cached)
+        if (img.complete && img.naturalWidth > 0) {
+            console.log(`Image ${index} already loaded`);
+            img.style.opacity = '1';
+            const placeholder = img.parentElement.querySelector('.loading-placeholder');
+            if (placeholder) placeholder.remove();
+            return;
+        }
+        
+        // Add error handling with delay to avoid premature placeholder
+        let errorTimeout;
+        
+        img.addEventListener('load', function() {
+            console.log(`Image ${index} loaded successfully:`, this.src);
+            clearTimeout(errorTimeout);
+            this.style.opacity = '1';
+            const placeholder = this.parentElement.querySelector('.loading-placeholder');
+            if (placeholder) placeholder.remove();
+        });
+        
+        img.addEventListener('error', function() {
+            console.log(`Image ${index} failed to load:`, this.src);
+            clearTimeout(errorTimeout);
+            
+            // Try alternative URLs
+            const originalSrc = this.src;
+            if (!this.dataset.tried && this.dataset.fallback && originalSrc !== this.dataset.fallback) {
+                console.log(`Trying fallback URL for image ${index}:`, this.dataset.fallback);
+                this.dataset.tried = 'true';
+                this.src = this.dataset.fallback;
+                return;
+            }
+            
+            // If all fails, show placeholder
+            console.log(`All URLs failed for image ${index}, showing placeholder`);
+            const placeholder = 'data:image/svg+xml;base64,' + btoa(`
+                <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <rect width="100%" height="100%" fill="#f3f4f6"/>
+                    <circle cx="200" cy="160" r="30" fill="#9ca3af"/>
+                    <path d="M160 280 L160 240 L200 200 L240 240 L240 280 Z" fill="#9ca3af"/>
+                    <text x="200" y="320" font-family="Arial, sans-serif" font-size="16" fill="#6b7280" text-anchor="middle">Gambar tidak tersedia</text>
+                </svg>
+            `);
+            this.src = placeholder;
+            this.alt = 'Gambar tidak tersedia';
+            this.style.opacity = '1';
+            const placeholderEl = this.parentElement.querySelector('.loading-placeholder');
+            if (placeholderEl) placeholderEl.remove();
+        });
+        
+        // Set a timeout for slow loading images
+        errorTimeout = setTimeout(() => {
+            if (img.naturalWidth === 0) {
+                console.log(`Image ${index} loading timeout:`, img.src);
+                // Trigger error handler
+                img.dispatchEvent(new Event('error'));
+            }
+        }, 10000); // 10 second timeout
+    });    // Add click hint animation after page load
+    setTimeout(() => {
+        const firstGalleryItem = document.querySelector('.gallery-item');
+        if (firstGalleryItem) {
+            firstGalleryItem.style.animation = 'pulse 1.5s ease-in-out 3';
+        }
+    }, 2000);
 });
 </script>
 @endsection
