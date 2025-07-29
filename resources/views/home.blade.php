@@ -265,7 +265,7 @@
                     </h2>
                 </div>
 
-                @if($company->about_preview_content)
+                @if($company && $company->about_preview_content)
                     <div class="space-y-4 text-gray-600 leading-relaxed">
                         {!! $company->about_preview_content !!}
                     </div>
