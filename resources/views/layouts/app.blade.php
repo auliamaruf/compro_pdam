@@ -269,7 +269,7 @@
                                 </svg>
                                 Cek Tagihan
                             </a>
-                            <a href="{{ route('services.sambungan-baru') }}" class="dropdown-link">
+                            <a href="{{ route('services') }}" class="dropdown-link">
                                 <svg class="w-4 h-4 mr-2 inline text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
@@ -571,7 +571,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6 text-white border-b border-blue-700 pb-2">Layanan Utama</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('services.sambungan-baru') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
+                        <li><a href="{{ route('services') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
                             <svg class="w-4 h-4 mr-2 text-green-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>

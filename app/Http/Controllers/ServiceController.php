@@ -33,27 +33,6 @@ class ServiceController extends Controller
         return view('services.show', compact('service', 'relatedServices'));
     }
 
-    public function sambunganBaru()
-    {
-        // Company data is now provided globally by CompanyDataServiceProvider
-        
-        // Get sambungan baru service with forms
-        $sambunganBaruService = Service::where('slug', 'sambungan-baru')
-            ->orWhere('name', 'like', '%sambungan%baru%')
-            ->orWhere('category', 'new_connection')
-            ->active()
-            ->first();
-
-        // If no specific service found, get all services with forms for fallback
-        $servicesWithForms = Service::active()
-            ->whereHas('media', function($query) {
-                $query->where('collection_name', 'forms');
-            })
-            ->get();
-
-        return view('services.sambungan-baru', compact('sambunganBaruService', 'servicesWithForms'));
-    }
-
     public function pengaduan()
     {
         // Company data is now provided globally by CompanyDataServiceProvider

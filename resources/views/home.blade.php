@@ -637,7 +637,7 @@ sampai sini -->
             </a>
 
             <!-- Sambungan Baru -->
-            <a href="{{ route('services.sambungan-baru') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
+            <a href="{{ route('services') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 group-hover:scale-110 transition-all duration-300">
                     <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>

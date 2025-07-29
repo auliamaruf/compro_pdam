@@ -296,12 +296,12 @@
                         </a>
 
                         @if($service->category === 'new_connection')
-                        <a href="{{ route('services.sambungan-baru') }}"
+                        <a href="{{ route('services') }}"
                            class="inline-flex items-center px-6 py-3 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-md">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            Daftar Sambungan Baru
+                            Layanan Lainnya
                         </a>
                         @endif
                         @if($service->category === 'customer_service')
@@ -352,12 +352,12 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-bold text-gray-900 mb-5">Layanan Lainnya</h3>
                 <div class="space-y-4">
-                    <a href="{{ route('services.sambungan-baru') }}"
+                    <a href="{{ route('services.show', 'pemasangan-sambungan-baru-rumah-tangga') }}"
                        class="flex items-center p-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors group">
                         <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        <span class="text-sm font-medium text-gray-700 group-hover:text-blue-800">Sambungan Baru</span>
+                        <span class="text-sm font-medium text-gray-700 group-hover:text-blue-800">Sambungan Rumah Tangga</span>
                     </a>
                     <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                        class="flex items-center p-4 rounded-lg bg-red-50 hover:bg-red-100 transition-colors group">
