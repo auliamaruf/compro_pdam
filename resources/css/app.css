@@ -823,6 +823,23 @@
     }
 }
 
+/* ===== NAVBAR ALIGNMENT FIX ===== */
+/* Pastikan navbar menggunakan alignment yang sama dengan konten */
+header .container-custom {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 1024px) {
+    header .container-custom {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
 /* ===== CARD STANDARDIZATION ===== */
 .card-standard {
     background: white;

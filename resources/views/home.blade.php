@@ -613,7 +613,7 @@ sampai sini -->
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Cek Tagihan -->
             <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 group-hover:scale-110 transition-all duration-300">
@@ -648,7 +648,7 @@ sampai sini -->
             </a>
 
             <!-- Download Center -->
-            <a href="{{ route('download-center') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
+            <!-- <a href="{{ route('download-center') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 group-hover:scale-110 transition-all duration-300">
                     <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -656,7 +656,7 @@ sampai sini -->
                 </div>
                 <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-purple-600 transition-colors duration-200">Download</h3>
                 <p class="text-gray-600 text-sm">Formulir dan dokumen</p>
-            </a>
+            </a> -->
         </div>
 
         <!-- Additional Info -->
