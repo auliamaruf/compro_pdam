@@ -197,35 +197,7 @@
         color: #1d4ed8;
     }
     
-    .page-header {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        color: white;
-        padding: 4rem 0;
-        margin-bottom: 3rem;
-    }
-    
-    .header-content {
-        text-align: center;
-    }
-    
-    .page-title {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-    
-    .page-subtitle {
-        font-size: 1.25rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    @media (max-width: 768px) {
-        .page-title {
-            font-size: 2rem;
-        }
-        
+    @media (max-width: 768px) {        
         .branch-header {
             flex-direction: column;
             text-align: center;
@@ -248,21 +220,23 @@
 @endpush
 
 @section('content')
-<!-- Page Header -->
-<section class="page-header">
-    <div class="container mx-auto px-4">
-        <div class="header-content">
-            <h1 class="page-title">Cabang & Unit IKK</h1>
-            <p class="page-subtitle">
-                {{ (($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM Tirta Perwira') }} memiliki cabang dan Unit IKK strategis untuk melayani masyarakat {{ (($company && $company->address && is_string($company->address) && Str::contains($company->address, 'Purbalingga')) ? 'Purbalingga' : (($company && $company->address && is_string($company->address)) ? last(explode(',', $company->address)) : 'Purbalingga')) }} dengan lebih baik dan mudah dijangkau
-            </p>
+<div class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container-custom">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="hero-title">Cabang & Unit IKK</h1>
+                <p class="hero-description">
+                    {{ (($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM Tirta Perwira') }} memiliki cabang dan Unit IKK strategis untuk melayani masyarakat dengan lebih baik dan mudah dijangkau
+                </p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <!-- Branches & Unit IKK Content -->
-<section class="py-16">
-    <div class="container mx-auto px-4">
+<section class="section-padding">
+    <div class="container-custom">
         <!-- Cabang Section -->
         @if($branches->count() > 0)
             <div class="max-w-7xl mx-auto mb-16">
