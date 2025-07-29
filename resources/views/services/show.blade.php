@@ -17,7 +17,7 @@
 @section('content')
 <!-- Breadcrumb -->
 <nav class="bg-blue-50 py-4" aria-label="Breadcrumb">
-    <div class="container mx-auto px-4">
+    <div class="container-custom">
         <ol class="flex items-center space-x-2 text-sm text-gray-600">
             <li>
                 <a href="{{ route('home') }}" class="text-blue-600 hover:text-blue-800">Beranda</a>
@@ -38,7 +38,7 @@
     </div>
 </nav>
 
-<div class="container mx-auto px-8 lg:px-12 py-8">
+<div class="container-custom py-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2">

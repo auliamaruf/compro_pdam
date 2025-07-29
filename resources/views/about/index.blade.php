@@ -51,19 +51,68 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="bg-gradient-to-br from-blue-600 to-cyan-500 p-8 rounded-xl text-white text-center">
-                            <div class="mb-6">
-                                <svg class="w-24 h-24 mx-auto opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-xl font-bold mb-4">Visi Kami</h4>
-                            <p class="text-blue-100 leading-relaxed">
-                                {{ $company->vision ?? 'Menjadi perusahaan air minum terdepan di Jawa Tengah yang memberikan pelayanan prima dan berkelanjutan' }}
-                            </p>
+                        <div class="relative">
+                            @if($company->getFirstMediaUrl('about_image'))
+                                <div class="relative bg-white p-2 rounded-xl shadow-lg">
+                                    <img 
+                                        src="{{ $company->getFirstMediaUrl('about_image') }}" 
+                                        alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
+                                        class="w-full h-80 object-cover rounded-lg"
+                                    >
+                                    <div class="absolute inset-2 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-lg"></div>
+                                    <div class="absolute bottom-0 left-0 right-0 text-center p-6">
+                                        <div class="text-white">
+                                            <h4 class="text-lg lg:text-xl font-bold mb-2 drop-shadow-lg">
+                                                {{ $company->company_name ?? 'PDAM Tirta Perwira' }}
+                                            </h4>
+                                            <p class="text-sm lg:text-base text-white/95 leading-relaxed drop-shadow-md">
+                                                {{ $company->company_tagline ?? 'Air Bersih Untuk Kehidupan Yang Lebih Baik' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @elseif($company->getFirstMediaUrl('company_photos') || $company->company_logo)
+                                <div class="relative bg-white p-2 rounded-xl shadow-lg">
+                                    <img 
+                                        src="{{ $company->getFirstMediaUrl('company_photos') ?: ($company->company_logo ? asset('storage/' . $company->company_logo) : asset('images/default-company.jpg')) }}" 
+                                        alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
+                                        class="w-full h-80 object-cover rounded-lg"
+                                    >
+                                    <div class="absolute inset-2 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-lg"></div>
+                                    <div class="absolute bottom-0 left-0 right-0 text-center p-6">
+                                        <div class="text-white">
+                                            <h4 class="text-lg lg:text-xl font-bold mb-2 drop-shadow-lg">
+                                                {{ $company->company_name ?? 'PDAM Tirta Perwira' }}
+                                            </h4>
+                                            <p class="text-sm lg:text-base text-white/95 leading-relaxed drop-shadow-md">
+                                                {{ $company->company_tagline ?? 'Air Bersih Untuk Kehidupan Yang Lebih Baik' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <!-- Fallback jika tidak ada foto -->
+                                <div class="bg-gradient-to-br from-blue-600 to-cyan-500 p-8 rounded-xl text-white text-center h-80 flex flex-col justify-end">
+                                    <div class="mb-8">
+                                        <svg class="w-16 h-16 mx-auto opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="pb-4">
+                                        <h4 class="text-lg lg:text-xl font-bold mb-2">
+                                            {{ $company->company_name ?? 'PDAM Tirta Perwira' }}
+                                        </h4>
+                                        <p class="text-sm lg:text-base text-blue-100 leading-relaxed">
+                                            {{ $company->company_tagline ?? 'Air Bersih Untuk Kehidupan Yang Lebih Baik' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
+
+
 
                 <!-- Statistics -->
                 <!-- @if($company->years_experience || $company->customers_served || $company->water_quality_percentage || $company->service_availability)

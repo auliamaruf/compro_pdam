@@ -2,7 +2,7 @@
 @props(['company' => null])
 
 <header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
-    <nav class="container mx-auto px-4 lg:px-8">
+    <nav class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
             <div class="flex items-center space-x-3">
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex items-center space-x-8">
+            <div class="hidden lg:flex items-center space-x-6">
                 <!-- Home Section Links dengan smooth scroll -->
                 <a href="#hero" class="nav-link active home-section-link" data-section="hero">
                     Beranda
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Search and Mobile Menu (sama seperti navbar asli) -->
-            <div class="flex items-center space-x-4">
+            <!-- <div class="flex items-center space-x-3"> -->
                 <!-- Enhanced Search (Desktop & Mobile) -->
                 <!-- <div class="relative">
                     <button id="search-toggle" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -126,8 +126,8 @@
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden">
-                    <button type="button" class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600 transition-colors duration-200" id="mobile-menu-button">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button type="button" id="mobile-menu-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>

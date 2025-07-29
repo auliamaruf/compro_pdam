@@ -9,6 +9,9 @@ use Illuminate\Support\Carbon;
 
 class ComplaintsOverview extends BaseWidget
 {
+    protected ?string $heading = 'Pengelolaan Pengaduan & Feedback';
+    protected static ?int $sort = 3;
+    
     protected function getStats(): array
     {
         $totalComplaints = OnlineComplaint::count();
@@ -16,41 +19,28 @@ class ComplaintsOverview extends BaseWidget
         $inProgressComplaints = OnlineComplaint::where('status', 'in_progress')->count();
         $resolvedComplaints = OnlineComplaint::where('status', 'resolved')->count();
         $todayComplaints = OnlineComplaint::whereDate('created_at', Carbon::today())->count();
-        $thisWeekComplaints = OnlineComplaint::whereBetween('created_at', [
-            Carbon::now()->startOfWeek(),
-            Carbon::now()->endOfWeek()
-        ])->count();
+        $thisWeekComplaints = OnlineComplaint::where('created_at', '>=', Carbon::now()->subDays(7))->count();
 
         return [
-            Stat::make('Total Pengaduan', $totalComplaints)
-                ->description('Semua pengaduan yang masuk')
-                ->descriptionIcon('heroicon-m-document-text')
-                ->color('primary'),
+            Stat::make('Pengaduan Baru', $pendingComplaints)
+                ->description('Memerlukan tindak lanjut')
+                ->descriptionIcon('heroicon-m-exclamation-circle')
+                ->color($pendingComplaints > 5 ? 'danger' : 'warning'),
 
-            Stat::make('Pending', $pendingComplaints)
-                ->description('Menunggu tindakan')
-                ->descriptionIcon('heroicon-m-clock')
-                ->color('warning'),
-
-            Stat::make('Diproses', $inProgressComplaints)
+            Stat::make('Dalam Proses', $inProgressComplaints)
                 ->description('Sedang ditangani')
-                ->descriptionIcon('heroicon-m-cog-6-tooth')
+                ->descriptionIcon('heroicon-m-clock')
                 ->color('info'),
 
-            Stat::make('Selesai', $resolvedComplaints)
-                ->description('Sudah diselesaikan')
+            Stat::make('Telah Selesai', $resolvedComplaints)
+                ->description("dari {$totalComplaints} total")
                 ->descriptionIcon('heroicon-m-check-circle')
                 ->color('success'),
 
-            Stat::make('Hari Ini', $todayComplaints)
-                ->description('Pengaduan masuk hari ini')
-                ->descriptionIcon('heroicon-m-calendar-days')
-                ->color('gray'),
-
             Stat::make('Minggu Ini', $thisWeekComplaints)
-                ->description('Pengaduan minggu ini')
-                ->descriptionIcon('heroicon-m-calendar')
-                ->color('gray'),
+                ->description("Hari ini: {$todayComplaints}")
+                ->descriptionIcon('heroicon-m-calendar-days')
+                ->color('primary'),
         ];
     }
 }

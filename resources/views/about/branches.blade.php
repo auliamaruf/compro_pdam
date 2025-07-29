@@ -545,7 +545,7 @@
 </section>
 
 <!-- Contact CTA -->
-<section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
+<!-- <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-4">Butuh Bantuan Lebih Lanjut?</h2>
         <p class="text-xl mb-8 opacity-90">
@@ -560,7 +560,7 @@
             </a>
         </div>
     </div>
-</section>
+</section> -->
 @endsection
 
 @push('scripts')
