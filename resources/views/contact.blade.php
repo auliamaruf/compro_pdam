@@ -87,9 +87,9 @@
                     @endif
                 <!-- Address Card -->
                     @if($company->address)
-                    <div class="bg-white rounded-lg p-6 shadow-sm">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                        <!-- <div class="flex items-start space-x-4"> -->
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                                 <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -98,14 +98,14 @@
                             <div class="flex-1">
                                 <h3 class="font-semibold text-gray-900 mb-2">Alamat Kantor</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-3">{!! nl2br(e($company->address)) !!}</p>
-                                <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
+                                <!-- <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                     </svg>
                                     Buka di Google Maps
-                                </button>
+                                </button> -->
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div>
                     @endif
 

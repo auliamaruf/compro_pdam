@@ -448,6 +448,6 @@ class CompanySettingResource extends Resource
     
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return static::getModel()::where('is_active', true)->count() > 0 ? 'success' : 'danger';
+        return static::getModel()::where('is_active', true)->count() > 0 ? 'warning' : 'success' ;
     }
 }

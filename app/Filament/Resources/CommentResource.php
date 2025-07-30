@@ -131,6 +131,10 @@ class CommentResource extends Resource
                     ->label('Nama Pengirim')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('author_phone')
+                    ->label('Nomor Telepon')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('content')
                     ->label('Komentar')
                     ->limit(50)
@@ -239,5 +243,15 @@ class CommentResource extends Resource
             'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
+    }
+
+        public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', true)->count();
+    }
+    
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return static::getModel()::where('status', true)->count() > 0 ? 'warning' : 'success' ;
     }
 }
