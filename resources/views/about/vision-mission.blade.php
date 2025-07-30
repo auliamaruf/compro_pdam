@@ -42,7 +42,7 @@
                         </div>
 
                         <!-- Vision Image -->
-                        <div class="relative overflow-hidden min-h-[400px] lg:min-h-[500px]">
+                        <div class="relative overflow-hidden">
                             @if($company && $company->getFirstMediaUrl('vision_image'))
                                 <!-- Image Background -->
                                 <img src="{{ $company->getFirstMediaUrl('vision_image') }}"
@@ -53,7 +53,7 @@
                                 <!-- Light overlay only at bottom for text -->
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent h-1/2"></div>
                                 <!-- Floating badge at top right -->
-                                <div class="absolute top-6 right-6">
+                                <!-- <div class="absolute top-6 right-6">
                                     <div class="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/50">
                                         <div class="flex items-center space-x-2">
                                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
                                             <span class="text-sm font-semibold text-gray-800">VISI</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- Bottom text overlay -->
                                 <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                                     <div class="text-white">

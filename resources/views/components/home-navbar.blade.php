@@ -5,7 +5,7 @@
     <div class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
-            <div class="flex items-center space-x-3 flex-shrink-0">
+            <a href="{{ url('/') }}" class="flex items-center space-x-3 flex-shrink-0" group>
                 @if($company && $company->getFirstMediaUrl('logo'))
                 <img src="{{ $company->getFirstMediaUrl('logo') }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
@@ -27,7 +27,7 @@
                         {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-6 flex-1 justify-end">
@@ -52,7 +52,7 @@
                 </a>
 
                 <!-- Kontak dengan smooth scroll -->
-                <a href="#contact-preview" class="nav-link home-section-link" data-section="contact-preview">
+                <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
                     Kontak
                 </a>
             </div>
@@ -84,7 +84,7 @@
             <a href="#news-preview" class="mobile-nav-link home-section-link" data-section="news-preview">
                 Berita
             </a>
-            <a href="#contact-preview" class="mobile-nav-link home-section-link" data-section="contact-preview">
+            <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
                 Kontak
             </a>
 

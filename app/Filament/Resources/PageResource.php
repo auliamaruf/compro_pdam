@@ -21,6 +21,11 @@ class PageResource extends Resource
     protected static ?string $pluralLabel = 'Halaman Website';
     protected static ?string $navigationGroup = 'Konten Website';
     protected static ?int $navigationSort = 3;
+    // resource ini disembunyikan
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function form(Form $form): Form
     {

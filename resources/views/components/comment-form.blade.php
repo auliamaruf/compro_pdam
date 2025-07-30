@@ -86,20 +86,27 @@
             </div>
         </div>
 
-        <div>
-            <label for="author_phone" class="block text-sm font-medium text-gray-700 mb-2">
-                Nomor Telepon <span class="text-gray-500">(Opsional)</span>
-            </label>
-            <input type="tel"
-                   id="author_phone"
-                   name="author_phone"
-                   value="{{ old('author_phone') }}"
-                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('author_phone') border-red-500 @enderror"
-                   placeholder="08xxxxxxxxxx">
-            @error('author_phone')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
+<div>
+    <label for="author_phone" class="block text-sm font-medium text-gray-700 mb-2">
+        Nomor Telepon <span class="text-gray-500">(Opsional)</span>
+    </label>
+    <input 
+        type="text"
+        id="author_phone"
+        name="author_phone"
+        value="{{ old('author_phone') }}"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('author_phone') border-red-500 @enderror"
+        placeholder="08xxxxxxxxxx"
+        pattern="^08[0-9]{8,12}$"
+        maxlength="14"
+        inputmode="numeric"
+        autocomplete="tel"
+    >
+    <small class="text-gray-500">Nomor telepon harus diawali 08 dan 10-14 digit.</small>
+    @error('author_phone')
+        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
 
         <div>
             <label for="content" class="block text-sm font-medium text-gray-700 mb-2">

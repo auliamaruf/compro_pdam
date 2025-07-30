@@ -10,4 +10,12 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: '127.0.0.1', // Use IPv4 instead of IPv6
+        port: 5173,
+        hmr: {
+            host: '127.0.0.1',
+            port: 5173,
+        },
+    },
 });
