@@ -117,7 +117,7 @@
                                     <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
                                         @php
                                             $bagianIcons = [
-                                                'umum' => 'fas fa-cogs',
+                                                'umum' => 'fas fa-layer-group',
                                                 'teknik' => 'fas fa-wrench',
                                                 'keuangan' => 'fas fa-calculator',
                                                 'langganan' => 'fas fa-users',
@@ -298,11 +298,11 @@
                     <div class="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl shadow-md border border-emerald-100">
                         <div class="flex items-center mb-3">
                             <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-500 rounded-lg flex items-center justify-center mr-3">
-                                <i class="fas fa-cogs text-white text-sm"></i>
+                                <i class="fas fa-calculator text-white text-sm"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Lainnya</h3>
-                                <p class="text-emerald-600 text-xs">Special Units</p>
+                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Keuangan</h3>
+                                <p class="text-emerald-600 text-xs">Finance</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
@@ -310,7 +310,7 @@
                                 <div class="bg-white p-2 rounded-lg shadow-sm border border-emerald-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
                                         <div class="w-6 h-6 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center mr-2">
-                                            <i class="fas fa-cogs text-white text-xs"></i>
+                                            <i class="fas fa-calculator text-white text-xs"></i>
                                         </div>
                                         <div>
                                             <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
