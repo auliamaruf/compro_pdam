@@ -4,7 +4,10 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "build:production": "vite build --mode production",
+        "dev": "vite",
+        "preview": "vite preview",
+        "clean": "rm -rf public/build && rm -rf public/hot"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

@@ -18,4 +18,21 @@ export default defineConfig({
             port: 5173,
         },
     },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            },
+        },
+        chunkSizeWarningLimit: 1000,
+        assetsDir: 'assets',
+        sourcemap: false, // Disable sourcemaps in production
+        minify: 'terser', // Better minification
+        terserOptions: {
+            compress: {
+                drop_console: true, // Remove console.logs in production
+                drop_debugger: true,
+            },
+        },
+    },
 });
