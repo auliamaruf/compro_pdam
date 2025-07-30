@@ -146,6 +146,22 @@ class CompanySettingResource extends Resource
                                             ->image()
                                             ->acceptedFileTypes(['image/x-icon', 'image/png'])
                                             ->maxSize(512),
+                                        SpatieMediaLibraryFileUpload::make('about_image')
+                                            ->label('Foto Kantor/Tentang Kami')
+                                            ->collection('about_image')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(5120)
+                                            ->helperText('Foto yang akan ditampilkan di halaman beranda section "Tentang Kami" dan halaman tentang. Maksimal 5MB.')
+                                            ->columnSpanFull(),
+                                        SpatieMediaLibraryFileUpload::make('vision_image')
+                                            ->label('Foto Visi & Misi')
+                                            ->collection('vision_image')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(5120)
+                                            ->helperText('Foto yang akan ditampilkan di halaman visi & misi. Maksimal 5MB.')
+                                            ->columnSpanFull(),
                                     ])->columns(3),
                             ]),
                             

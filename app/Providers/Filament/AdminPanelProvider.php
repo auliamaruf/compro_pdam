@@ -58,7 +58,10 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 \App\Filament\Widgets\StatsOverview::class,
-                \App\Filament\Widgets\LatestNews::class,
+                \App\Filament\Widgets\ServiceOverview::class,
+                \App\Filament\Widgets\ComplaintsOverview::class,
+                \App\Filament\Widgets\ContentAnalytics::class,
+                \App\Filament\Widgets\RecentActivities::class,
                 Widgets\AccountWidget::class,
             ])
             ->plugins([

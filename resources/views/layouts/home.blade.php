@@ -258,7 +258,7 @@
                                 {{ ($company && $company->company_name && is_string($company->company_name)) ? Str::before($company->company_name, ' - ') : 'Tirta Perwira' }}
                             </div>
                             <div class="text-sm text-blue-200">
-                                {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'PDAM Purbalingga' }}
+                                {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                             </div>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6 text-white border-b border-blue-700 pb-2">Layanan Utama</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('services.sambungan-baru') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
+                        <li><a href="{{ route('services') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
                             <svg class="w-4 h-4 mr-2 text-green-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
@@ -333,12 +333,12 @@
                             </svg>
                             Info Pembayaran
                         </a></li>
-                        <li><a href="{{ route('download-center') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
+                        <!-- <li><a href="{{ route('download-center') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
                             <svg class="w-4 h-4 mr-2 text-indigo-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                             Download Center
-                        </a></li>
+                        </a></li> -->
                     </ul>
                 </div>
 
@@ -497,7 +497,7 @@
         }
 
         // Intersection Observer for animations
-        const observerOptions = {
+        const layoutObserverOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
@@ -514,7 +514,7 @@
                     }
                 }
             });
-        }, observerOptions);
+        }, layoutObserverOptions);
 
         // Observe elements for animation
         document.querySelectorAll('.card, .service-card, .news-card').forEach(el => {

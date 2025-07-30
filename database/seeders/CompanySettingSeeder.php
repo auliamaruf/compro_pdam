@@ -17,7 +17,7 @@ class CompanySettingSeeder extends Seeder
             ['id' => 1],
             [
                 // Identitas Perusahaan
-                'company_name' => 'PDAM Tirta Perwira',
+                'company_name' => 'Perumdam Tirta Perwira',
                 'company_tagline' => 'Air Bersih Untuk Kehidupan Yang Lebih Baik',
                 'company_description' => '<p>Perumda Air Minum Tirta Perwira adalah perusahaan daerah yang bergerak dalam bidang penyediaan air bersih untuk masyarakat Kabupaten Purbalingga. Kami berkomitmen untuk memberikan pelayanan air bersih berkualitas tinggi dengan standar kesehatan yang ketat.</p><p>Dengan pengalaman puluhan tahun, kami terus berinovasi dalam meningkatkan kualitas pelayanan dan memperluas jangkauan distribusi air bersih untuk seluruh masyarakat Purbalingga.</p>',
                 'vision' => 'Menjadi perusahaan air minum terdepan di Jawa Tengah yang memberikan pelayanan prima dan berkelanjutan',
@@ -43,14 +43,15 @@ class CompanySettingSeeder extends Seeder
                 ],
                 
                 // Kontak
-                'phone' => '0281-895123',
-                'email' => 'info@pdamtirtaperwira.com',
+                'phone' => '0281-891706',
+                'email' => 'info@pdampurbalingga.co.id',
                 'whatsapp_cs' => '6281234567890',
-                'address' => 'Jl. Letjen S. Parman No. 123, Purbalingga, Jawa Tengah 53311',
+                'address' => 'Jl. Letjen S. Parman No. 60, Purbalingga, Jawa Tengah 53311',
                 'office_hours' => [
-                    'senin_kamis' => '07:00 - 16:00',
-                    'jumat' => '07:00 - 11:30',
-                    'sabtu_minggu' => 'Tutup'
+                    'senin_kamis' => '07:30 - 15:00',
+                    'jumat' => '07:30 - 11:00',
+                    'sabtu' => '07:30 - 13:00',
+                    'minggu' => 'Tutup'
                 ],
                 
                 // Hero Section

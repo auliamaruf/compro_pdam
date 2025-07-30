@@ -62,10 +62,13 @@ class OrganizationStructureResource extends Resource
                             ->required()
                             ->options([
                                 1 => 'Level 1 - Direktur Utama',
-                                2 => 'Level 2 - Direktur/Manager',
+                                2 => 'Level 2 - Direktur Umum',
                                 3 => 'Level 3 - Kepala Bagian',
-                                4 => 'Level 4 - Kepala Sub Bagian',
-                                5 => 'Level 5 - Staff/Pelaksana',
+                                4 => 'Level 4 - Kepala Cabang',
+                                5 => 'Level 5 - Kepala Sub Bagian (Umum)',
+                                6 => 'Level 6 - Kepala Sub Bagian (Teknik)',
+                                7 => 'Level 7 - Kepala Sub Bagian (Hublang)',
+                                8 => 'Level 8 - Kepala Sub Bagian (Keuangan)',
                             ])
                             ->default(1),
                         Forms\Components\TextInput::make('sort_order')

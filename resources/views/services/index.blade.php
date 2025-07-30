@@ -15,11 +15,6 @@
                 </p>
             </div>
         </div>
-        <div class="hero-wave">
-            <svg viewBox="0 0 1200 120" class="w-full h-12 fill-current text-blue-50">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"></path>
-            </svg>
-        </div>
     </section>
 
     <!-- Services Grid -->
@@ -168,7 +163,7 @@
                 <!-- <div class="mt-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white shadow-xl">
                     <h2 class="text-3xl font-bold mb-8 text-center">Akses Cepat Layanan</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <a href="{{ route('services.sambungan-baru') }}"
+                        <a href="{{ route('services.show', 'pemasangan-sambungan-baru-rumah-tangga') }}"
                            class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>

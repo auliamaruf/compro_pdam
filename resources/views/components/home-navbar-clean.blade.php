@@ -2,7 +2,7 @@
 @props(['company' => null])
 
 <header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
-    <div class="container-custom">
+    <nav class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
             <div class="flex items-center space-x-3 flex-shrink-0">
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex items-center space-x-6 flex-1 justify-end">
+            <div class="hidden lg:flex items-center space-x-6 flex-1 justify-center">
                 <!-- Home Section Links dengan smooth scroll -->
                 <a href="#hero" class="nav-link active home-section-link" data-section="hero">
                     Beranda
@@ -66,7 +66,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </nav>
 
     <!-- Mobile Navigation Menu -->
     <div class="lg:hidden hidden" id="mobile-menu">

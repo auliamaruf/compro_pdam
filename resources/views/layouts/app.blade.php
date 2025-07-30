@@ -171,10 +171,10 @@
 <body class="bg-gray-50 font-sans antialiased">
     <!-- Header Navigation -->
     <header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-4 lg:px-8">
+        <div class="container-custom">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 <!-- Logo -->
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-3 flex-shrink-0">
                     @if($company && $company->getFirstMediaUrl('logo'))
                     <img src="{{ $company->getFirstMediaUrl('logo') }}"
                          alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
@@ -193,13 +193,13 @@
                             {{ ($company && $company->company_name && is_string($company->company_name)) ? Str::before($company->company_name, ' - ') : 'Tirta Perwira' }}
                         </div>
                         <div class="text-xs lg:text-sm text-blue-600">
-                            {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'PDAM Purbalingga' }}
+                            {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                         </div>
                     </div>
                 </div>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center space-x-8">
+                <div class="hidden lg:flex items-center space-x-6 flex-1 justify-end">
                     <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
                         Beranda
                     </a>
@@ -269,7 +269,7 @@
                                 </svg>
                                 Cek Tagihan
                             </a>
-                            <a href="{{ route('services.sambungan-baru') }}" class="dropdown-link">
+                            <a href="{{ route('services') }}" class="dropdown-link">
                                 <svg class="w-4 h-4 mr-2 inline text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
@@ -298,110 +298,39 @@
                     </a>
                 </div>
 
-                <!-- Search and Mobile Menu -->
-                <div class="flex items-center space-x-4">
-                    <!-- Enhanced Search (Desktop & Mobile) -->
-                    <div class="relative">
-                        <button id="search-toggle" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </button>
-                        
-                        <!-- Enhanced Search Form -->
-                        <div id="search-form" class="absolute top-full right-0 mt-3 w-80 lg:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 hidden z-50 transform opacity-0 scale-95 transition-all duration-200">
-                            <div class="p-6">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-lg font-semibold text-gray-900">Pencarian</h3>
-                                    <button id="search-close" class="text-gray-400 hover:text-gray-600 transition-colors">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                
-                                <form action="{{ route('search') }}" method="GET" class="space-y-4">
-                                    <div class="relative">
-                                        <input
-                                            type="text"
-                                            name="q"
-                                            id="search-input"
-                                            value="{{ request('q') }}"
-                                            placeholder="Cari berita, layanan, informasi..."
-                                            class="w-full pl-12 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 focus:bg-white transition-colors"
-                                            autocomplete="off"
-                                        >
-                                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Quick Search Suggestions -->
-                                    <div class="border-t border-gray-100 pt-4">
-                                        <p class="text-xs font-medium text-gray-500 mb-3 uppercase tracking-wide">Pencarian Populer</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <button type="button" onclick="document.getElementById('search-input').value='tarif air'; this.closest('form').submit();" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors">
-                                                Tarif Air
-                                            </button>
-                                            <button type="button" onclick="document.getElementById('search-input').value='cek tagihan'; this.closest('form').submit();" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-50 text-green-700 hover:bg-green-100 transition-colors">
-                                                Cek Tagihan
-                                            </button>
-                                            <button type="button" onclick="document.getElementById('search-input').value='sambungan baru'; this.closest('form').submit();" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-purple-50 text-purple-700 hover:bg-purple-100 transition-colors">
-                                                Sambungan Baru
-                                            </button>
-                                            <button type="button" onclick="document.getElementById('search-input').value='pengaduan'; this.closest('form').submit();" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-red-50 text-red-700 hover:bg-red-100 transition-colors">
-                                                Pengaduan
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        <svg class="h-4 w-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                        Cari Sekarang
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Menu Button -->
-                    <div class="lg:hidden">
-                        <button type="button" id="mobile-menu-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                    </div>
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex-shrink-0">
+                    <button type="button" id="mobile-menu-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
+            </div> <!-- flex items-center justify-between -->
+        </div> <!-- container-custom -->
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <!-- Mobile Search -->
+            <div class="px-4 py-3 border-b bg-gray-50">
+                <form action="{{ route('search') }}" method="GET" class="relative">
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ request('q') }}"
+                        placeholder="Cari berita, layanan, informasi..."
+                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                    >
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </form>
             </div>
-            </div>
-            
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="lg:hidden hidden">
-                <!-- Mobile Search -->
-                <div class="px-4 py-3 border-b bg-gray-50">
-                    <form action="{{ route('search') }}" method="GET" class="relative">
-                        <input
-                            type="text"
-                            name="q"
-                            value="{{ request('q') }}"
-                            placeholder="Cari berita, layanan, informasi..."
-                            class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                        >
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                    </form>
-                </div>
 
-                <!-- Mobile Navigation Links -->
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+            <!-- Mobile Navigation Links -->
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
                     <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
                         <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -483,7 +412,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -520,7 +449,7 @@
                                 {{ ($company && $company->company_name && is_string($company->company_name)) ? Str::before($company->company_name, ' - ') : 'Tirta Perwira' }}
                             </div>
                             <div class="text-sm text-blue-200">
-                                {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'PDAM Purbalingga' }}
+                                {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                             </div>
                         </div>
                     </div>
@@ -571,7 +500,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6 text-white border-b border-blue-700 pb-2">Layanan Utama</h3>
                     <ul class="space-y-3">
-                        <li><a href="{{ route('services.sambungan-baru') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
+                        <li><a href="{{ route('services') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
                             <svg class="w-4 h-4 mr-2 text-green-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
@@ -595,12 +524,12 @@
                             </svg>
                             Info Pembayaran
                         </a></li>
-                        <li><a href="{{ route('download-center') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
+                        <!-- <li><a href="{{ route('download-center') }}" class="text-blue-200 hover:text-white transition-colors duration-200 flex items-center group">
                             <svg class="w-4 h-4 mr-2 text-indigo-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                             Download Center
-                        </a></li>
+                        </a></li> -->
                     </ul>
                 </div>
 

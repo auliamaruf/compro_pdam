@@ -1,8 +1,8 @@
 @extends('layouts.home')
 
-@section('title', 'Beranda - Tirta Perwira PDAM Purbalingga')
-@section('description', 'PDAM Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
-@section('keywords', 'PDAM Purbalingga, air bersih, pelayanan air, tarif air, Tirta Perwira')
+@section('title', 'Beranda - Perumda Air Minum Tirta Perwira Purbalingga')
+@section('description', 'Perumda Air Minum Tirta Perwira Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
+@section('keywords', 'PDAM Purbalingga, air bersih, pelayanan air, tarif air, Tirta Perwira, Perumda Air Minum Tirta Perwira Purbalingga')
 
 @section('content')
 <!-- Hero Section -->
@@ -65,20 +65,45 @@
             @endforeach
         </div>
 
-        <!-- Navigation Arrows -->
+        <!-- Navigation Arrows - Enhanced Narrow Design -->
         @if($herobanners->count() > 1)
-        <button class="hero-nav hero-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-200 text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
+        <button class="hero-nav hero-prev absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 z-20 hero-nav-button group" 
+                aria-label="Previous slide" 
+                title="Previous slide">
+            <div class="hero-nav-inner">
+                <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <div class="hero-nav-bg"></div>
         </button>
-        <button class="hero-nav hero-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-3 transition-all duration-200 text-white">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
+        <button class="hero-nav hero-next absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 z-20 hero-nav-button group" 
+                aria-label="Next slide" 
+                title="Next slide">
+            <div class="hero-nav-inner">
+                <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="hero-nav-bg"></div>
         </button>
 
+        <!-- Navigation Hint for First Visit -->
+        <div class="hero-nav-hint absolute inset-x-0 bottom-20 lg:bottom-24 text-center z-10 pointer-events-none">
+            <div class="inline-flex items-center space-x-2 bg-black bg-opacity-30 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm opacity-0 animate-fadeInDelay">
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                </svg>
+                <span>Hover untuk navigasi</span>
+                <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </div>
+        </div>
+        @endif
+
         <!-- Dots Indicator -->
+        @if($herobanners->count() > 1)
         <div class="hero-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
             @foreach($herobanners as $index => $banner)
                 <button class="hero-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
@@ -240,7 +265,7 @@
                     </h2>
                 </div>
 
-                @if($company->about_preview_content)
+                @if($company && $company->about_preview_content)
                     <div class="space-y-4 text-gray-600 leading-relaxed">
                         {!! $company->about_preview_content !!}
                     </div>
@@ -357,14 +382,36 @@
                              loading="lazy">
                     @else
                         <!-- Fallback: Gradient placeholder with building icon -->
-                        <div class="w-full h-96 lg:h-[500px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl shadow-2xl flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
-                                </svg>
-                                <h3 class="text-xl font-semibold mb-2">PDAM Tirta Perwira</h3>
-                                <p class="text-blue-100">Kantor Pusat Purbalingga</p>
-                            </div>
+                        <div class="w-full h-96 lg:h-[500px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl shadow-2xl overflow-hidden relative">
+                            @if($company && $company->getFirstMediaUrl('about_image'))
+                                <!-- Image Background -->
+                                <img src="{{ $company->getFirstMediaUrl('about_image') }}"
+                                     alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
+                                     class="w-full h-full object-cover">
+                                <!-- Overlay for better text contrast -->
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-600/60 to-cyan-500/40"></div>
+                                <!-- Content overlay -->
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
+                                        </svg>
+                                        <h3 class="text-xl font-semibold mb-2">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                        <p class="text-blue-100">Kantor Pusat Purbalingga</p>
+                                    </div>
+                                </div>
+                            @else
+                                <!-- Fallback: Gradient background -->
+                                <div class="flex items-center justify-center h-full">
+                                    <div class="text-center text-white">
+                                        <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
+                                        </svg>
+                                        <h3 class="text-xl font-semibold mb-2">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</h3>
+                                        <p class="text-blue-100">Kantor Pusat Purbalingga</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     @endif
 
@@ -566,7 +613,7 @@ sampai sini -->
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Cek Tagihan -->
             <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 group-hover:scale-110 transition-all duration-300">
@@ -590,7 +637,7 @@ sampai sini -->
             </a>
 
             <!-- Sambungan Baru -->
-            <a href="{{ route('services.sambungan-baru') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
+            <a href="{{ route('services') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 group-hover:scale-110 transition-all duration-300">
                     <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -601,7 +648,7 @@ sampai sini -->
             </a>
 
             <!-- Download Center -->
-            <a href="{{ route('download-center') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
+            <!-- <a href="{{ route('download-center') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
                 <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 group-hover:scale-110 transition-all duration-300">
                     <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -609,7 +656,7 @@ sampai sini -->
                 </div>
                 <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-purple-600 transition-colors duration-200">Download</h3>
                 <p class="text-gray-600 text-sm">Formulir dan dokumen</p>
-            </a>
+            </a> -->
         </div>
 
         <!-- Additional Info -->
@@ -838,11 +885,17 @@ class HeroCarousel {
 
         // Add event listeners
         if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => this.prevSlide());
+            this.prevBtn.addEventListener('click', () => {
+                this.addClickFeedback(this.prevBtn);
+                this.prevSlide();
+            });
         }
 
         if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => this.nextSlide());
+            this.nextBtn.addEventListener('click', () => {
+                this.addClickFeedback(this.nextBtn);
+                this.nextSlide();
+            });
         }
 
         // Dot navigation
@@ -862,6 +915,9 @@ class HeroCarousel {
         // Auto-play
         this.startAutoPlay();
 
+        // Initialize navigation hint
+        this.initNavigationHint();
+
         // Pause auto-play on hover with delay
         if (this.carousel) {
             let hoverTimeout;
@@ -869,6 +925,7 @@ class HeroCarousel {
             this.carousel.addEventListener('mouseenter', () => {
                 clearTimeout(hoverTimeout);
                 this.stopAutoPlay();
+                this.hideNavigationHint();
             });
 
             this.carousel.addEventListener('mouseleave', () => {
@@ -880,7 +937,54 @@ class HeroCarousel {
         }
     }
 
+    initNavigationHint() {
+        // Hide navigation hint after first interaction
+        const hint = document.querySelector('.hero-nav-hint');
+        if (hint) {
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hint.style.opacity = '0';
+                setTimeout(() => {
+                    hint.style.display = 'none';
+                }, 300);
+            }, 7000);
+
+            // Hide on any navigation interaction
+            const hideHint = () => {
+                hint.style.opacity = '0';
+                setTimeout(() => {
+                    hint.style.display = 'none';
+                }, 300);
+            };
+
+            // Hide hint on any navigation button click
+            if (this.prevBtn) this.prevBtn.addEventListener('click', hideHint, { once: true });
+            if (this.nextBtn) this.nextBtn.addEventListener('click', hideHint, { once: true });
+            
+            // Hide hint on dot click
+            this.dots.forEach(dot => {
+                dot.addEventListener('click', hideHint, { once: true });
+            });
+
+            // Hide hint on touch/swipe
+            if (this.carousel) {
+                this.carousel.addEventListener('touchstart', hideHint, { once: true });
+            }
+        }
+    }
+
+    hideNavigationHint() {
+        const hint = document.querySelector('.hero-nav-hint');
+        if (hint && hint.style.display !== 'none') {
+            hint.style.opacity = '0';
+        }
+    }
+
     showSlide(index) {
+        // Add loading state to navigation buttons
+        if (this.prevBtn) this.prevBtn.classList.add('loading');
+        if (this.nextBtn) this.nextBtn.classList.add('loading');
+
         // Hide all slides
         this.slides.forEach((slide, i) => {
             slide.classList.remove('active');
@@ -904,6 +1008,12 @@ class HeroCarousel {
         });
 
         this.currentSlide = index;
+
+        // Remove loading state after transition
+        setTimeout(() => {
+            if (this.prevBtn) this.prevBtn.classList.remove('loading');
+            if (this.nextBtn) this.nextBtn.classList.remove('loading');
+        }, 400);
     }
 
     nextSlide() {
@@ -914,6 +1024,23 @@ class HeroCarousel {
     prevSlide() {
         const prev = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
         this.showSlide(prev);
+    }
+
+    addClickFeedback(button) {
+        // Add visual feedback for button clicks
+        button.style.transform = 'translateY(-50%) translateX(0) scale(0.95)';
+        
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 150);
+        
+        // Add temporary glow effect
+        const glowClass = 'hero-nav-clicked';
+        button.classList.add(glowClass);
+        
+        setTimeout(() => {
+            button.classList.remove(glowClass);
+        }, 300);
     }
 
     goToSlide(index) {

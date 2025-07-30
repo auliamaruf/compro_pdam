@@ -96,11 +96,40 @@ class CompanySetting extends Model implements HasMedia
     ];
 
     /**
-     * Get the active company setting
+     * Get the active company setting with default fallback
      */
     public static function current()
     {
-        return static::where('is_active', true)->first() ?? static::first();
+        $setting = static::where('is_active', true)->first() ?? static::first();
+        
+        // If no setting exists, create a default object with all required fields
+        if (!$setting) {
+            $setting = new static();
+            $setting->company_name = 'PDAM Tirta Perwira';
+            $setting->company_tagline = 'Air Bersih Untuk Kehidupan Yang Lebih Baik';
+            $setting->company_description = '<p>Perumda Air Minum Tirta Perwira adalah perusahaan daerah yang bergerak dalam bidang penyediaan air bersih untuk masyarakat Kabupaten Purbalingga.</p>';
+            $setting->vision = 'Menjadi perusahaan air minum terdepan di Jawa Tengah yang memberikan pelayanan prima dan berkelanjutan';
+            $setting->mission = 'Memberikan pelayanan air bersih berkualitas tinggi kepada masyarakat';
+            $setting->vision_description = 'Visi kami adalah menjadi perusahaan air minum yang terdepan dengan standar pelayanan prima dan berkelanjutan.';
+            $setting->mission_points = [
+                ['title' => 'Penyediaan Air Berkualitas', 'description' => 'Menyediakan air bersih yang memenuhi standar kesehatan dan kualitas nasional.'],
+                ['title' => 'Pelayanan Prima', 'description' => 'Memberikan pelayanan terbaik dengan sistem informasi yang terintegrasi.'],
+                ['title' => 'Pengembangan Berkelanjutan', 'description' => 'Melakukan pengembangan infrastruktur secara berkelanjutan.']
+            ];
+            $setting->about_preview_content = '<p><strong class="text-gray-900">PDAM Tirta Perwira</strong> telah mengabdi kepada masyarakat Purbalingga selama lebih dari 50 tahun dalam menyediakan air bersih berkualitas. Kami berkomitmen melayani dengan hati dan memberikan pelayanan terbaik untuk kehidupan yang lebih baik.</p>';
+            $setting->phone = '(0281) 891234';
+            $setting->email = 'info@pdamtirtaperwira.com';
+            $setting->whatsapp_cs = '6282134567890';
+            $setting->address = 'Jl. Letjen S. Parman No. 53, Purbalingga, Jawa Tengah 53311';
+            $setting->office_hours = 'Senin - Jumat: 08:00 - 16:00 WIB';
+            $setting->hero_title = 'Air Bersih Berkualitas untuk Kehidupan yang Lebih Baik';
+            $setting->hero_subtitle = 'PDAM Tirta Perwira melayani kebutuhan air bersih masyarakat Purbalingga dengan standar kualitas terbaik';
+            $setting->hero_cta_primary = 'Layanan Kami';
+            $setting->hero_cta_secondary = 'Hubungi Kami';
+            $setting->is_active = true;
+        }
+        
+        return $setting;
     }
 
     /**
@@ -119,6 +148,14 @@ class CompanySetting extends Model implements HasMedia
         $this->addMediaCollection('favicon')
             ->singleFile()
             ->acceptsMimeTypes(['image/x-icon', 'image/png']);
+
+        $this->addMediaCollection('about_image')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+
+        $this->addMediaCollection('vision_image')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
     }
 
     /**
@@ -154,6 +191,22 @@ class CompanySetting extends Model implements HasMedia
     public function getFaviconUrlAttribute()
     {
         return $this->getFirstMediaUrl('favicon') ?: ($this->favicon ? asset('storage/' . $this->favicon) : null);
+    }
+
+    /**
+     * Get about image URL
+     */
+    public function getAboutImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('about_image');
+    }
+
+    /**
+     * Get vision image URL
+     */
+    public function getVisionImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('vision_image');
     }
 
     /**

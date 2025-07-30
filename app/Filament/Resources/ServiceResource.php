@@ -114,7 +114,49 @@ class ServiceResource extends Resource
                                     ->imageResizeMode('cover')
                                     ->imageResizeTargetWidth('800')
                                     ->imageResizeTargetHeight('600'),
+                            ])
+                            ->columnSpan(1),
+                    ]),
 
+                Forms\Components\Section::make('Dokumen & Formulir')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                SpatieMediaLibraryFileUpload::make('service_forms')
+                                    ->label('Upload Formulir')
+                                    ->collection('forms')
+                                    ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                    ->multiple()
+                                    ->reorderable()
+                                    ->maxSize(5120) // 5MB max
+                                    ->helperText('Upload formulir dalam format PDF, DOC, atau DOCX (maksimal 5MB per file)')
+                                    ->columnSpan(1),
+
+                                Forms\Components\Repeater::make('forms')
+                                    ->label('Link Formulir Eksternal')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Nama Formulir'),
+                                        Forms\Components\TextInput::make('url')
+                                            ->label('Link URL')
+                                            ->url()
+                                            ->helperText('Link ke Google Drive, OneDrive, atau layanan cloud lainnya'),
+                                        Forms\Components\TextInput::make('description')
+                                            ->label('Deskripsi')
+                                            ->placeholder('Format PDF • 250 KB'),
+                                    ])
+                                    ->defaultItems(0)
+                                    ->collapsible()
+                                    ->helperText('Opsional: tambahkan link formulir dari Google Drive atau layanan cloud lainnya jika tersedia')
+                                    ->columnSpan(1),
+                            ]),
+                    ])
+                    ->collapsible(),
+
+                Forms\Components\Section::make('Pengaturan Tampilan')
+                    ->schema([
+                        Forms\Components\Grid::make(3)
+                            ->schema([
                                 Forms\Components\TextInput::make('sort_order')
                                     ->label('Urutan Tampil')
                                     ->numeric()
@@ -126,9 +168,9 @@ class ServiceResource extends Resource
                                 Forms\Components\Toggle::make('is_active')
                                     ->label('Aktif')
                                     ->default(true),
-                            ])
-                            ->columnSpan(1),
-                    ]),
+                            ]),
+                    ])
+                    ->collapsible(),
 
                 Forms\Components\Section::make('Konfigurasi Navbar')
                     ->schema([
@@ -162,25 +204,6 @@ class ServiceResource extends Resource
                                     ->placeholder('fas fa-wrench')
                                     ->visible(fn (Forms\Get $get) => $get('show_in_navbar')),
                             ]),
-                    ])
-                    ->collapsible(),
-
-                Forms\Components\Section::make('Dokumen & Formulir')
-                    ->schema([
-                        Forms\Components\Repeater::make('forms')
-                            ->label('Formulir yang Diperlukan')
-                            ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->label('Nama Formulir')
-                                    ->required(),
-
-                                Forms\Components\FileUpload::make('file')
-                                    ->label('File')
-                                    ->acceptedFileTypes(['application/pdf', 'application/msword'])
-                                    ->directory('services/forms'),
-                            ])
-                            ->collapsible()
-                            ->columnSpanFull(),
                     ])
                     ->collapsible(),
             ]);
@@ -247,6 +270,17 @@ class ServiceResource extends Resource
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
+
+                Tables\Columns\TextColumn::make('forms_count')
+                    ->label('Formulir')
+                    ->getStateUsing(function (Service $record) {
+                        $uploadedForms = $record->getMedia('forms')->count();
+                        $externalForms = is_array($record->forms) ? count($record->forms) : 0;
+                        $total = $uploadedForms + $externalForms;
+                        return $total > 0 ? "{$total} formulir" : 'Tidak ada';
+                    })
+                    ->badge()
+                    ->color(fn (string $state): string => str_contains($state, 'Tidak ada') ? 'gray' : 'success'),
 
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')

@@ -17,7 +17,7 @@
 @section('content')
 <!-- Breadcrumb -->
 <nav class="bg-blue-50 py-4" aria-label="Breadcrumb">
-    <div class="container mx-auto px-4">
+    <div class="container-custom">
         <ol class="flex items-center space-x-2 text-sm text-gray-600">
             <li>
                 <a href="{{ route('home') }}" class="text-blue-600 hover:text-blue-800">Beranda</a>
@@ -38,7 +38,7 @@
     </div>
 </nav>
 
-<div class="container mx-auto px-8 lg:px-12 py-8">
+<div class="container-custom py-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2">
@@ -96,7 +96,13 @@
                             </h3>
                             <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
                                 @foreach($service->requirements as $requirement)
-                                <li>{{ $requirement }}</li>
+                                <li>
+                                    @if(is_array($requirement) && isset($requirement['requirement']))
+                                        {{ $requirement['requirement'] }}
+                                    @elseif(is_string($requirement))
+                                        {{ $requirement }}
+                                    @endif
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -155,27 +161,129 @@
                             Prosedur Layanan
                         </h3>
                         <div class="text-sm text-gray-700 leading-relaxed">
-                            {{ $service->procedure }}
+                            {!! $service->procedure !!}
                         </div>
                     </div>
                     @endif
 
                     <!-- Required Forms -->
-                    @if($service->forms && is_array($service->forms))
+                    @php
+                        $uploadedForms = $service->getMedia('forms');
+                        $externalForms = $service->forms && is_array($service->forms) ? $service->forms : [];
+                        $hasAnyForms = $uploadedForms->count() > 0 || count($externalForms) > 0;
+                    @endphp
+                    
                     <div class="mt-6 bg-purple-50 p-6 rounded-lg">
-                        <h3 class="text-base font-semibold text-gray-900 mb-3 flex items-center">
+                        <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                             Formulir yang Diperlukan
                         </h3>
-                        <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
-                            @foreach($service->forms as $form)
-                            <li>{{ $form }}</li>
-                            @endforeach
-                        </ul>
+                        
+                        @if($hasAnyForms)
+                            <!-- Uploaded Forms -->
+                            @if($uploadedForms->count() > 0)
+                            <div class="mb-4">
+                                <h4 class="text-sm font-medium text-gray-800 mb-2">Download Formulir:</h4>
+                                <div class="space-y-3">
+                                    @foreach($uploadedForms as $media)
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center flex-1">
+                                                <div class="flex-shrink-0 mr-3">
+                                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold text-gray-900 mb-1">
+                                                        {{ $media->name }}
+                                                    </div>
+                                                    <div class="text-xs text-gray-500">
+                                                        @php
+                                                            $fileName = $media->file_name ?: $media->name;
+                                                            $extension = strtoupper(pathinfo($fileName, PATHINFO_EXTENSION));
+                                                            $sizeKB = number_format($media->size / 1024, 0);
+                                                        @endphp
+                                                        {{ $extension ? $extension : 'FILE' }} • {{ $sizeKB }} KB
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ml-4">
+                                                <a href="{{ route('services.download-form', [$service, $media->id]) }}" 
+                                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl border border-blue-600">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V11a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                    Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+                            
+                            <!-- External Form Links -->
+                            @if(count($externalForms) > 0)
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-800 mb-2">Link Formulir External:</h4>
+                                <div class="space-y-3">
+                                    @foreach($externalForms as $form)
+                                    @if(is_array($form) && isset($form['title']) && isset($form['url']))
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center flex-1">
+                                                <div class="flex-shrink-0 mr-3">
+                                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <div class="text-sm font-semibold text-gray-900 mb-1">
+                                                        {{ $form['title'] }}
+                                                    </div>
+                                                    @if(isset($form['description']) && $form['description'])
+                                                    <div class="text-xs text-gray-500">
+                                                        {{ $form['description'] }}
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ml-4">
+                                                <a href="{{ $form['url'] }}" 
+                                                   target="_blank" 
+                                                   rel="noopener noreferrer"
+                                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl border border-green-600">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
+                                                    </svg>
+                                                    Buka Link
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+                        @else
+                            <!-- Default message when no forms are available -->
+                            <div class="bg-white p-4 rounded-lg border border-dashed border-gray-300">
+                                <div class="text-center">
+                                    <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <h4 class="text-sm font-medium text-gray-900 mb-1">Formulir Belum Tersedia</h4>
+                                    <p class="text-xs text-gray-500">Formulir untuk layanan ini sedang dalam proses penyiapan.</p>
+                                    <p class="text-xs text-gray-500 mt-2">Silakan hubungi kantor PDAM untuk informasi lebih lanjut.</p>
+                                </div>
+                            </div>
+                        @endif
                     </div>
-                    @endif
 
                     <!-- Action Buttons -->
                     <div class="mt-8 flex flex-wrap gap-4">
@@ -188,12 +296,12 @@
                         </a>
 
                         @if($service->category === 'new_connection')
-                        <a href="{{ route('services.sambungan-baru') }}"
+                        <a href="{{ route('services') }}"
                            class="inline-flex items-center px-6 py-3 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors shadow-md">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            Daftar Sambungan Baru
+                            Layanan Lainnya
                         </a>
                         @endif
                         @if($service->category === 'customer_service')
@@ -244,12 +352,12 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-xl font-bold text-gray-900 mb-5">Layanan Lainnya</h3>
                 <div class="space-y-4">
-                    <a href="{{ route('services.sambungan-baru') }}"
+                    <a href="{{ route('services.show', 'pemasangan-sambungan-baru-rumah-tangga') }}"
                        class="flex items-center p-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors group">
                         <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        <span class="text-sm font-medium text-gray-700 group-hover:text-blue-800">Sambungan Baru</span>
+                        <span class="text-sm font-medium text-gray-700 group-hover:text-blue-800">Sambungan Rumah Tangga</span>
                     </a>
                     <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
                        class="flex items-center p-4 rounded-lg bg-red-50 hover:bg-red-100 transition-colors group">
