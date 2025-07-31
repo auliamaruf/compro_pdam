@@ -1,13 +1,44 @@
-# Kompro PDAM Tirta Perwira Purbalingga
+# 📖 Website PDAM Tirta Perwira Purbalingga
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.x-red.svg)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.3-blue.svg)](https://php.net)
 [![Filament](https://img.shields.io/badge/Filament-3.3-yellow.svg)](https://filamentphp.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-green.svg)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](LICENSE)
 
-Website company profile modern untuk PDAM Tirta Perwira Purbalingga yang dikembangkan dengan Laravel 12 dan Filament Admin Panel.
+> **Website Company Profile Modern untuk PDAM Tirta Perwira Purbalingga**  
+> Sistem informasi berbasis web dengan teknologi Laravel 12 dan Filament Admin Panel untuk melayani masyarakat Purbalingga dengan lebih baik.
 
-## 🚀 Fitur Utama
+## 📋 Daftar Isi
+
+- [🏢 Gambaran Umum](#-gambaran-umum)
+- [⭐ Fitur Utama](#-fitur-utama)
+- [💻 Spesifikasi Sistem](#-spesifikasi-sistem)
+- [🚀 Quick Start](#-quick-start)
+- [📦 Instalasi](#-instalasi)
+- [🌐 Deployment](#-deployment)
+- [👨‍💻 Penggunaan](#-penggunaan)
+- [🔧 Troubleshooting](#-troubleshooting)
+- [📞 Support](#-support)
+
+---
+
+## 🏢 Gambaran Umum
+
+Website **PDAM Tirta Perwira Purbalingga** adalah platform digital yang dirancang untuk:
+
+- 🌐 **Informasi Publik**: Menyediakan informasi layanan PDAM secara online
+- 📝 **Pengaduan Digital**: Platform pengaduan masyarakat yang terintegrasi
+- 📰 **Portal Berita**: Media informasi dan pengumuman resmi
+- 💰 **Transparansi Tarif**: Informasi tarif air dan layanan yang jelas
+- 🔧 **Admin Panel**: Sistem manajemen konten yang user-friendly
+
+### 🎯 Target Pengguna
+- **� Masyarakat Umum**: Akses informasi dan layanan PDAM
+- **👨‍💼 Staff PDAM**: Pengelolaan konten dan layanan
+- **🔑 Administrator**: Kontrol sistem secara menyeluruh
+
+---
 
 ### Frontend
 - 🏠 **Beranda** dengan hero banner dinamis
@@ -30,16 +61,16 @@ Website company profile modern untuk PDAM Tirta Perwira Purbalingga yang dikemba
 
 ## 🛠️ Teknologi
 
-- **Backend:** Laravel 12.x, PHP 8.3
+- **Backend:** Laravel 12.x, PHP 8.2+
 - **Frontend:** Blade Templates, Tailwind CSS 4.x
 - **Admin Panel:** Filament v3.3
 - **Database:** MySQL
 - **Build Tools:** Vite
-- **Authentication:** Laravel Sanctum
+- **Authentication:** Laravel Sanctum + Spatie Permission
 
 ## 📋 Prasyarat
 
-- PHP >= 8.3
+- PHP >= 8.2
 - Composer
 - MySQL/MariaDB
 - Node.js >= 18.x
@@ -179,9 +210,23 @@ Website sepenuhnya responsif dengan dukungan:
 ## 📚 Dokumentasi
 
 Dokumentasi lengkap tersedia di folder `docs/`:
-- [Deployment Guide](docs/deployment/)
-- [Technical Reports](docs/reports/)
-- [API Documentation](docs/api/)
+
+### 📋 Dokumentasi Utama
+- **[Panduan Deployment aaPanel](docs/DEPLOYMENT-AAPANEL.md)** - Complete deployment guide
+- **[User Guide Admin Panel](docs/USER-GUIDE.md)** - Panduan penggunaan admin panel
+- **[Security Guide](docs/SECURITY.md)** - Panduan keamanan dan best practices
+- **[Testing Guide](docs/TESTING.md)** - Framework testing dan quality assurance
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Panduan mengatasi masalah umum
+- **[User Roles & Permissions](docs/USER-ROLES-PERMISSIONS.md)** - Sistem role dan permission
+
+### 📊 Laporan & Log
+- **[Changelog](docs/CHANGELOG.md)** - Riwayat perubahan dan version history
+- **[Technical Reports](docs/reports/)** - Laporan teknis development
+- **[Deployment Checklist](docs/deployment/)** - Checklist untuk deployment
+
+### 🏗️ Struktur Dokumentasi Lama
+- [Backup Documentation](docs/README.md) - Index dokumentasi lama
+- [Cleanup Logs](docs/CLEANUP_LOG.md) - Log pembersihan proyek
 
 ## 🤝 Contributing
 
