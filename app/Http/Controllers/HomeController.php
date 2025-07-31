@@ -8,6 +8,7 @@ use App\Models\Service;
 use App\Models\WaterTariff;
 use App\Models\HeroBanner;
 use App\Models\Branch;
+use App\Models\Partnership;
 
 class HomeController extends Controller
 {
@@ -17,8 +18,9 @@ class HomeController extends Controller
         $herobanners = HeroBanner::active()->orderBy('sort_order')->get();
         $news = News::published()->latest('published_at')->take(6)->get();
         $services = Service::active()->orderBy('sort_order')->take(6)->get();
+        $partnerships = Partnership::active()->ordered()->get();
 
-        return view('home', compact('herobanners', 'news', 'services'));
+        return view('home', compact('herobanners', 'news', 'services', 'partnerships'));
     }
 
     public function about()

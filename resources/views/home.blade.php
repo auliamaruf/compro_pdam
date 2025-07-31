@@ -251,85 +251,87 @@
 @endif
 
 <!-- Quick Actions -->
-<section class="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white section-padding relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
-            </pattern>
-            <rect width="100" height="100" fill="url(#grid)" />
-        </svg>
-    </div>
+<section class="bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-12 lg:py-16 relative overflow-hidden">
+    <!-- Subtle decorative elements -->
+    <div class="absolute top-10 left-10 w-20 h-20 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
+    <div class="absolute bottom-10 right-10 w-16 h-16 bg-cyan-100 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/4 w-2 h-2 bg-blue-300 rounded-full opacity-40"></div>
+    <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-cyan-300 rounded-full opacity-50"></div>
 
     <div class="container-custom relative z-10">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Akses Cepat</h2>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-                Dapatkan layanan dengan mudah dan cepat melalui platform digital kami
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mb-6 shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-gray-900">Akses Cepat</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Layanan digital untuk kemudahan transaksi dan komunikasi Anda
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Quick Action Buttons - Modern Pill Style -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch max-w-4xl mx-auto">
             <!-- Cek Tagihan -->
-            <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
-                <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
+            <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" 
+               class="group flex-1 sm:flex-none">
+                <div class="bg-white hover:bg-blue-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-100 hover:border-blue-200 hover:-translate-y-1 h-full">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Cek Tagihan</h3>
+                            <p class="text-sm text-gray-600 mt-1">Lihat tagihan air bulanan</p>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Cek Tagihan</h3>
-                <p class="text-gray-600 text-sm">Lihat tagihan air bulanan Anda</p>
             </a>
 
             <!-- Pengaduan -->
-            <a href="{{ route('services.pengaduan') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
-                <div class="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
+            <a href="{{ route('services.pengaduan') }}" 
+               class="group flex-1 sm:flex-none">
+                <div class="bg-white hover:bg-red-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-red-100 hover:border-red-200 hover:-translate-y-1 h-full">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-200">Pengaduan</h3>
+                            <p class="text-sm text-gray-600 mt-1">Laporkan keluhan Anda</p>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-red-600 transition-colors duration-200">Pengaduan</h3>
-                <p class="text-gray-600 text-sm">Laporkan masalah atau keluhan</p>
             </a>
 
             <!-- Sambungan Baru -->
-            <a href="{{ route('services') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
-                <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
+            <a href="{{ route('services') }}" 
+               class="group flex-1 sm:flex-none">
+                <div class="bg-white hover:bg-green-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-100 hover:border-green-200 hover:-translate-y-1 h-full">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200">Sambungan Baru</h3>
+                            <p class="text-sm text-gray-600 mt-1">Daftar pemasangan baru</p>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-green-600 transition-colors duration-200">Sambungan Baru</h3>
-                <p class="text-gray-600 text-sm">Daftar sambungan air baru</p>
             </a>
-
-            <!-- Download Center -->
-            <!-- <a href="{{ route('download-center') }}" class="quick-action-card bg-white hover:bg-gray-50 rounded-xl p-6 text-center transition-all duration-300 group shadow-lg hover:shadow-xl border border-gray-100">
-                <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 group-hover:scale-110 transition-all duration-300">
-                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-purple-600 transition-colors duration-200">Download</h3>
-                <p class="text-gray-600 text-sm">Formulir dan dokumen</p>
-            </a> -->
         </div>
-
-        <!-- Additional Info -->
-        <!-- <div class="mt-12 text-center">
-            <div class="inline-flex items-center px-6 py-3 bg-white bg-opacity-10 rounded-full text-blue-100">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Layanan tersedia 24/7 untuk kemudahan Anda
-            </div>
-        </div> -->
     </div>
 </section>
 
 <!-- About Preview Section -->
-<section id="about-preview" class="bg-gradient-to-br from-blue-50 to-cyan-50 section-padding pt-40 lg:pt-48">
+<section id="about-preview" class="bg-gradient-to-br from-white via-blue-50 to-cyan-100 section-padding pt-40 lg:pt-48">
     <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->
@@ -555,7 +557,7 @@
 sampai sini -->
 
 <!-- Services Section -->
-<section id="services-preview" class="bg-gray-50 section-padding">
+<section id="services-preview" class="bg-gradient-to-br from-cyan-100 via-blue-50 to-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->services_section_title ?? 'Layanan Utama' }}</h2>
@@ -609,8 +611,72 @@ sampai sini -->
     </div>
 </section>
 
+<!-- Partnership Section -->
+@if($partnerships && $partnerships->count() > 0)
+<section id="partnerships" class="bg-gradient-to-br from-white via-gray-50 to-blue-50 section-padding">
+    <div class="container-custom">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Partner Terpercaya</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Kami bangga bekerja sama dengan berbagai institusi dan organisasi terpercaya dalam memberikan pelayanan terbaik
+            </p>
+        </div>
+        
+        <div class="partnership-slider-container relative overflow-hidden">
+            <!-- Gradient fade overlay left and right -->
+            <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-gray-50 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-blue-50 via-gray-50 to-transparent z-10 pointer-events-none"></div>
+            
+            <!-- Single Row Rolling Animation -->
+            <div class="partnership-track flex items-center space-x-12 animate-scroll" id="partnershipTrack">
+                @foreach($partnerships as $partner)
+                <div class="partnership-item flex-shrink-0">
+                    <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
+                        @if($partner->getFirstMediaUrl('logo'))
+                            <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}">
+                        @else
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
+                                </svg>
+                            </div>
+                        @endif
+                    </div>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                </div>
+                @endforeach
+                
+                <!-- Duplicate for seamless loop -->
+                @foreach($partnerships as $partner)
+                <div class="partnership-item flex-shrink-0">
+                    <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
+                        @if($partner->getFirstMediaUrl('logo'))
+                            <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}">
+                        @else
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
+                                </svg>
+                            </div>
+                        @endif
+                    </div>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
 <!-- News Section -->
-<section id="news-preview" class="bg-white section-padding">
+<section id="news-preview" class="bg-gradient-to-br from-blue-50 via-gray-50 to-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->news_section_title ?? 'Berita Terkini' }}</h2>
@@ -960,10 +1026,83 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
+// Partnership Rolling Slider Class
+class PartnershipRollingSlider {
+    constructor() {
+        this.track = document.getElementById('partnershipTrack');
+        this.container = document.querySelector('.partnership-slider-container');
+        this.items = this.track ? this.track.querySelectorAll('.partnership-item') : [];
+        this.itemWidth = 176; // 128px width + 48px space (space-x-12)
+        this.isAnimating = true;
+        this.animationId = null;
+        this.speed = 0.3; // slower speed for more elegant movement
+
+        if (this.track && this.items.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        // Set initial position
+        this.currentX = 0;
+        
+        // Calculate total width of original items (not duplicated ones)
+        this.totalWidth = (this.items.length / 2) * this.itemWidth;
+        
+        // Start animation
+        this.startAnimation();
+        
+        // Pause on hover
+        if (this.container) {
+            this.container.addEventListener('mouseenter', () => this.pauseAnimation());
+            this.container.addEventListener('mouseleave', () => this.resumeAnimation());
+        }
+    }
+
+    startAnimation() {
+        if (this.animationId) return;
+        
+        const animate = () => {
+            if (this.isAnimating) {
+                this.currentX -= this.speed;
+                
+                // Reset position when first set of items completely scrolled out
+                if (Math.abs(this.currentX) >= this.totalWidth) {
+                    this.currentX = 0;
+                }
+                
+                this.track.style.transform = `translateX(${this.currentX}px)`;
+            }
+            
+            this.animationId = requestAnimationFrame(animate);
+        };
+        
+        animate();
+    }
+
+    pauseAnimation() {
+        this.isAnimating = false;
+    }
+
+    resumeAnimation() {
+        this.isAnimating = true;
+    }
+
+    stopAnimation() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+    }
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize hero carousel
     new HeroCarousel();
+
+    // Initialize partnership rolling slider
+    new PartnershipRollingSlider();
 
     // Observe stats section
     const statsSection = document.querySelector('.stat-item')?.closest('section');

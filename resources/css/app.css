@@ -1831,3 +1831,170 @@ header .container-custom {
         padding: 2rem 2rem;
     }
 }
+
+/* Partnership Slider Styles */
+.partnership-slider-container {
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+}
+
+.partnership-track {
+    display: flex;
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+.partnership-item {
+    transition: transform 0.3s ease-in-out;
+    flex-shrink: 0;
+}
+
+.partnership-item:hover {
+    transform: scale(1.1);
+}
+
+/* Simple CSS-only rolling animation */
+.animate-scroll {
+    animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.partnership-slider-container:hover .animate-scroll {
+    animation-play-state: paused;
+}
+
+/* Enhanced partnership fade effect */
+.partnership-slider-container::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(249, 250, 251, 0.8), transparent);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.partnership-slider-container::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(to left, rgba(239, 246, 255, 1), rgba(249, 250, 251, 0.8), transparent);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Partnership logo enhancements */
+.partnership-item img {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease-in-out;
+}
+
+.partnership-item:hover img {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Responsive partnership adjustments */
+@media (max-width: 768px) {
+
+    .partnership-slider-container::before,
+    .partnership-slider-container::after {
+        width: 40px;
+    }
+
+    .partnership-track {
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .partnership-track {
+        gap: 3rem;
+    }
+}
+
+/* Quick Actions - Enhanced Layout */
+.quick-action-card {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.quick-action-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.quick-action-icon-wrapper {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+}
+
+.quick-action-text {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive layout improvements */
+@media (max-width: 640px) {
+    .quick-action-responsive {
+        width: 100%;
+    }
+
+    .quick-action-card {
+        min-height: 70px;
+    }
+
+    .quick-action-content {
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 641px) {
+    .quick-action-responsive {
+        flex: 1;
+        max-width: 280px;
+    }
+}
+
+/* Enhanced hover effects */
+.quick-action-hover-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-action-hover-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    transition: left 0.6s ease;
+}
+
+.quick-action-hover-effect:hover::before {
+    left: 100%;
+}
