@@ -17,10 +17,10 @@ class WaterTariffResource extends Resource
 {
     protected static ?string $model = WaterTariff::class;
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
-    protected static ?string $navigationGroup = 'Pengaturan';
+    protected static ?string $navigationGroup = 'Tarif & Biaya';
     protected static ?string $navigationLabel = 'Tarif Air';
     protected static ?string $pluralLabel = 'Tarif Air';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

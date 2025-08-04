@@ -331,7 +331,7 @@
 </section>
 
 <!-- About Preview Section -->
-<section id="about-preview" class="bg-gray-50 section-padding pt-40 lg:pt-48">
+<section id="about-preview" class="bg-gray-50 section-padding">
     <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->

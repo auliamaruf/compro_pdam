@@ -54,41 +54,11 @@ class CompanySettingSeeder extends Seeder
                     'minggu' => 'Tutup'
                 ],
                 
-                // Hero Section
+                // Hero Section (Basic info only - detailed banners in HeroBannerSeeder)
                 'hero_title' => 'Melayani dengan\nHati',
                 'hero_subtitle' => 'Memberikan yang terbaik untuk air bersih berkualitas bagi masyarakat Purbalingga',
                 'hero_cta_primary' => 'Layanan Kami',
                 'hero_cta_secondary' => 'Cek Tagihan',
-                'hero_slides' => [
-                    [
-                        'title' => 'Pelayanan Air Bersih 24 Jam',
-                        'subtitle' => 'Siap melayani kebutuhan air bersih Anda kapan saja dengan kualitas terjamin',
-                        'description' => 'PDAM Tirta Perwira hadir untuk memenuhi kebutuhan air bersih masyarakat Purbalingga',
-                        'background_image' => null,
-                        'overlay_color' => '#1e3a8a',
-                        'overlay_opacity' => 80,
-                        'text_position' => 'left',
-                        'primary_cta_text' => 'Layanan Kami',
-                        'primary_cta_link' => '/layanan',
-                        'secondary_cta_text' => 'Cek Tagihan',
-                        'secondary_cta_link' => '/cek-tagihan',
-                        'is_active' => true
-                    ],
-                    [
-                        'title' => 'Kualitas Air Terjamin',
-                        'subtitle' => 'Air bersih dengan standar kesehatan yang ketat dan teknologi modern',
-                        'description' => 'Proses pengolahan air dengan teknologi terkini untuk menjamin kualitas terbaik',
-                        'background_image' => null,
-                        'overlay_color' => '#059669',
-                        'overlay_opacity' => 80,
-                        'text_position' => 'center',
-                        'primary_cta_text' => 'Tentang Kami',
-                        'primary_cta_link' => '/tentang',
-                        'secondary_cta_text' => 'Kontak',
-                        'secondary_cta_link' => '/kontak',
-                        'is_active' => true
-                    ]
-                ],
                 
                 // Company History
                 'company_history' => '<p>PDAM Tirta Perwira didirikan pada tahun 1985 dengan tujuan untuk menyediakan air bersih bagi masyarakat Kabupaten Purbalingga. Sejak berdiri, perusahaan ini terus berkembang dan meningkatkan kualitas pelayanannya.</p>',
