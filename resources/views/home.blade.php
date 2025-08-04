@@ -251,7 +251,7 @@
 @endif
 
 <!-- Quick Actions -->
-<section class="bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-12 lg:py-16 relative overflow-hidden">
+<section class="bg-white py-12 lg:py-16 relative overflow-hidden">
     <!-- Subtle decorative elements -->
     <div class="absolute top-10 left-10 w-20 h-20 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
     <div class="absolute bottom-10 right-10 w-16 h-16 bg-cyan-100 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
@@ -331,7 +331,7 @@
 </section>
 
 <!-- About Preview Section -->
-<section id="about-preview" class="bg-gradient-to-br from-white via-blue-50 to-cyan-100 section-padding pt-40 lg:pt-48">
+<section id="about-preview" class="bg-gray-50 section-padding pt-40 lg:pt-48">
     <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->
@@ -506,7 +506,7 @@
 
 <!-- Stats Section -->
 <!-- Bagian Prestasi kami
-<section id="stats" class="bg-white section-padding">
+<section id="stats" class="bg-gray-50 section-padding">
     <div class="container-custom">
         <div class="text-center mb-12">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->stats_section_title ?? 'Prestasi Kami' }}</h2>
@@ -557,7 +557,7 @@
 sampai sini -->
 
 <!-- Services Section -->
-<section id="services-preview" class="bg-gradient-to-br from-cyan-100 via-blue-50 to-white section-padding">
+<section id="services-preview" class="bg-gray-50 section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->services_section_title ?? 'Layanan Utama' }}</h2>
@@ -613,19 +613,17 @@ sampai sini -->
 
 <!-- Partnership Section -->
 @if($partnerships && $partnerships->count() > 0)
-<section id="partnerships" class="bg-gradient-to-br from-white via-gray-50 to-blue-50 section-padding">
+<section id="partnerships" class="bg-white section-padding">
     <div class="container-custom">
         <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Partner Terpercaya</h2>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Mitra Pembayaran</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Kami bangga bekerja sama dengan berbagai institusi dan organisasi terpercaya dalam memberikan pelayanan terbaik
             </p>
         </div>
         
         <div class="partnership-slider-container relative overflow-hidden">
-            <!-- Gradient fade overlay left and right -->
-            <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-gray-50 to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-blue-50 via-gray-50 to-transparent z-10 pointer-events-none"></div>
+            <!-- Partnership slider dengan fade yang konsisten akan diatur di CSS -->
             
             <!-- Single Row Rolling Animation -->
             <div class="partnership-track flex items-center space-x-12 animate-scroll" id="partnershipTrack">
@@ -676,7 +674,7 @@ sampai sini -->
 @endif
 
 <!-- News Section -->
-<section id="news-preview" class="bg-gradient-to-br from-blue-50 via-gray-50 to-white section-padding">
+<section id="news-preview" class="bg-gray-50 section-padding">
     <div class="container-custom">
         <div class="text-center mb-16">
             <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->news_section_title ?? 'Berita Terkini' }}</h2>

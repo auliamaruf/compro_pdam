@@ -1854,9 +1854,9 @@ header .container-custom {
     transform: scale(1.1);
 }
 
-/* Simple CSS-only rolling animation */
+/* Simple CSS-only rolling animation - lebih cepat */
 .animate-scroll {
-    animation: scroll 60s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 
 @keyframes scroll {
@@ -1874,7 +1874,7 @@ header .container-custom {
     animation-play-state: paused;
 }
 
-/* Enhanced partnership fade effect */
+/* Enhanced partnership fade effect - konsisten dengan bg-white */
 .partnership-slider-container::before {
     content: '';
     position: absolute;
@@ -1882,7 +1882,7 @@ header .container-custom {
     top: 0;
     bottom: 0;
     width: 80px;
-    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(249, 250, 251, 0.8), transparent);
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0.8), transparent);
     z-index: 10;
     pointer-events: none;
 }
@@ -1894,7 +1894,7 @@ header .container-custom {
     top: 0;
     bottom: 0;
     width: 80px;
-    background: linear-gradient(to left, rgba(239, 246, 255, 1), rgba(249, 250, 251, 0.8), transparent);
+    background: linear-gradient(to left, rgb(255, 255, 255), rgba(255, 255, 255, 0.8), transparent);
     z-index: 10;
     pointer-events: none;
 }
