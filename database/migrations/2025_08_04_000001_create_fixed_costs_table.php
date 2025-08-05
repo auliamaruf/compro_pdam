@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('category_name'); // Nama kategori (Rumah Tangga, Komersial, dll)
             $table->text('description')->nullable(); // Deskripsi kategori
+            $table->text('legal_basis')->nullable(); // Dasar hukum SK
             $table->decimal('monthly_cost', 10, 2)->default(0); // Biaya tetap bulanan
             $table->decimal('installation_cost', 10, 2)->default(0); // Biaya pemasangan
             $table->decimal('security_deposit', 10, 2)->default(0); // Uang jaminan

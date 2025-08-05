@@ -30,14 +30,56 @@ class WaterTariffResource extends Resource
                     ->schema([
                         Forms\Components\Grid::make(2)
                             ->schema([
-                                Forms\Components\TextInput::make('customer_type')
+                                Forms\Components\Select::make('customer_type')
                                     ->label('Jenis Pelanggan')
+                                    ->options([
+                                        'Sosial' => 'Sosial',
+                                        'Rumah Tangga' => 'Rumah Tangga',
+                                        'Instansi' => 'Instansi',
+                                        'TNI/Polri' => 'TNI/Polri',
+                                        'Niaga' => 'Niaga',
+                                        'Industri' => 'Industri',
+                                    ])
                                     ->required()
-                                    ->placeholder('Rumah Tangga, Usaha, Sosial, dll'),
+                                    ->searchable(),
 
+                                Forms\Components\Select::make('sub_category')
+                                    ->label('Sub Kategori')
+                                    ->options([
+                                        // Sosial
+                                        'SOSIAL UMUM (HU)' => 'Sosial Umum (HU)',
+                                        'SOSIAL KHUSUS' => 'Sosial Khusus',
+                                        // Rumah Tangga
+                                        'RUMAH TANGGA KHUSUS' => 'Rumah Tangga Khusus',
+                                        'RUMAH TANGGA A' => 'Rumah Tangga A',
+                                        'RUMAH TANGGA B' => 'Rumah Tangga B',
+                                        'RUMAH TANGGA C' => 'Rumah Tangga C',
+                                        // Instansi
+                                        'INSTANSI PEMERINTAH' => 'Instansi Pemerintah',
+                                        // TNI/Polri
+                                        'TNI/POLRI' => 'TNI/POLRI',
+                                        // Niaga
+                                        'NIAGA KECIL' => 'Niaga Kecil',
+                                        'NIAGA BESAR' => 'Niaga Besar',
+                                        // Industri
+                                        'INDUSTRI KECIL' => 'Industri Kecil',
+                                        'INDUSTRI BESAR' => 'Industri Besar',
+                                    ])
+                                    ->required()
+                                    ->searchable(),
+                            ]),
+
+                        Forms\Components\Grid::make(1)
+                            ->schema([
                                 Forms\Components\Textarea::make('description')
                                     ->label('Deskripsi')
-                                    ->rows(2),
+                                    ->rows(2)
+                                    ->placeholder('Deskripsi lengkap tarif ini'),
+
+                                Forms\Components\Textarea::make('legal_basis')
+                                    ->label('Dasar Hukum')
+                                    ->rows(3)
+                                    ->placeholder('Contoh: Peraturan Bupati Purbalingga No.62 Tahun 2011 tanggal 14 Juni 2011'),
                             ]),
 
                         Forms\Components\Grid::make(3)
@@ -150,6 +192,12 @@ class WaterTariffResource extends Resource
                     ->searchable()
                     ->sortable(),
 
+                Tables\Columns\TextColumn::make('sub_category')
+                    ->label('Sub Kategori')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap(),
+
                 Tables\Columns\TextColumn::make('min_usage')
                     ->label('Min (m³)')
                     ->sortable(),
@@ -204,11 +252,29 @@ class WaterTariffResource extends Resource
                 Tables\Filters\SelectFilter::make('customer_type')
                     ->label('Jenis Pelanggan')
                     ->options([
-                        'Rumah Tangga' => 'Rumah Tangga',
-                        'Komersial' => 'Komersial',
-                        'Industri' => 'Industri',
                         'Sosial' => 'Sosial',
-                        'Instansi' => 'Instansi'
+                        'Rumah Tangga' => 'Rumah Tangga',
+                        'Instansi' => 'Instansi',
+                        'TNI/Polri' => 'TNI/Polri',
+                        'Niaga' => 'Niaga',
+                        'Industri' => 'Industri',
+                    ]),
+
+                Tables\Filters\SelectFilter::make('sub_category')
+                    ->label('Sub Kategori')
+                    ->options([
+                        'SOSIAL UMUM (HU)' => 'Sosial Umum (HU)',
+                        'SOSIAL KHUSUS' => 'Sosial Khusus',
+                        'RUMAH TANGGA KHUSUS' => 'Rumah Tangga Khusus',
+                        'RUMAH TANGGA A' => 'Rumah Tangga A',
+                        'RUMAH TANGGA B' => 'Rumah Tangga B',
+                        'RUMAH TANGGA C' => 'Rumah Tangga C',
+                        'INSTANSI PEMERINTAH' => 'Instansi Pemerintah',
+                        'TNI/POLRI' => 'TNI/POLRI',
+                        'NIAGA KECIL' => 'Niaga Kecil',
+                        'NIAGA BESAR' => 'Niaga Besar',
+                        'INDUSTRI KECIL' => 'Industri Kecil',
+                        'INDUSTRI BESAR' => 'Industri Besar',
                     ]),
 
                 Tables\Filters\TernaryFilter::make('show_in_navbar')

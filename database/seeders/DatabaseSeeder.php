@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
             CompanyHistorySeeder::class,       // Company history timeline
             NewsSeeder::class,                 // News articles
             ServiceSeeder::class,              // Services offered
-            WaterTariffSeeder::class,          // Water tariff rates
-            FixedCostSeeder::class,            // Fixed costs for customers
+            UpdatedWaterTariffSeeder::class,   // Water tariff rates (updated with legal_basis)
+            UpdatedFixedCostSeeder::class,     // Fixed costs for customers (updated with legal_basis)
             CommentSeeder::class,              // Comments data
             MediaSeeder::class,                // Media files
             NavigationMenuSeeder::class,       // Navigation menu items

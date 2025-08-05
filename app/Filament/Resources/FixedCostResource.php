@@ -46,6 +46,12 @@ class FixedCostResource extends Resource
                             ->rows(3)
                             ->maxLength(65535)
                             ->placeholder('Deskripsi detail kategori pelanggan'),
+
+                        Forms\Components\Textarea::make('legal_basis')
+                            ->label('Dasar Hukum')
+                            ->rows(3)
+                            ->maxLength(65535)
+                            ->placeholder('Contoh: SK Direktur PDAM Kabupaten Purbalingga no.695.1/45.289/PDAM/XI/2010'),
                         
                         Forms\Components\Select::make('connection_type')
                             ->label('Jenis Sambungan')
@@ -73,7 +79,7 @@ class FixedCostResource extends Resource
                             ->required(),
                         
                         Forms\Components\TextInput::make('installation_cost')
-                            ->label('Biaya Pemasangan')
+                            ->label('Biaya Layanan')
                             ->numeric()
                             ->prefix('Rp')
                             ->default(0)

@@ -11,7 +11,9 @@ class WaterTariff extends Model
     use LogsActivity;
     protected $fillable = [
         'customer_type',
+        'sub_category',
         'description',
+        'legal_basis',
         'min_usage',
         'max_usage',
         'rate_per_m3',

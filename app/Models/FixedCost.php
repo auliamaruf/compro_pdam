@@ -13,6 +13,7 @@ class FixedCost extends Model
     protected $fillable = [
         'category_name',
         'description',
+        'legal_basis',
         'monthly_cost',
         'installation_cost',
         'security_deposit',
