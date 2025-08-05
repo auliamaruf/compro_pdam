@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('website_url')->nullable();
+            $table->enum('logo_type', ['upload', 'url'])->default('upload');
+            $table->string('logo_url', 500)->nullable();
             $table->boolean('is_active')->default(true);
             $table->integer('sort_order')->default(0);
             $table->timestamps();

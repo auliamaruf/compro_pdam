@@ -18,6 +18,8 @@ class Partnership extends Model implements HasMedia
         'slug',
         'description',
         'website_url',
+        'logo_type',
+        'logo_url',
         'is_active',
         'sort_order',
     ];

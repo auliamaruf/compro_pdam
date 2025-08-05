@@ -76,19 +76,54 @@ class PartnershipResource extends Resource
 
                 Forms\Components\Section::make('Logo Partner')
                     ->schema([
+                        Forms\Components\Select::make('logo_type')
+                            ->label('Sumber Logo')
+                            ->options([
+                                'upload' => 'Upload File',
+                                'url' => 'URL Link'
+                            ])
+                            ->default('upload')
+                            ->live()
+                            ->required()
+                            ->helperText('Pilih apakah logo akan diupload atau menggunakan URL dari internet'),
+
                         Forms\Components\SpatieMediaLibraryFileUpload::make('logo')
-                            ->label('Logo')
+                            ->label('Upload Logo')
                             ->collection('logo')
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatios([
+                                '1:1',
                                 '3:2',
                                 '4:3',
                                 '16:9',
                             ])
                             ->maxSize(2048)
                             ->helperText('Upload logo partner. Ukuran maksimal 2MB. Format: JPG, PNG, SVG.')
-                            ->required(),
+                            ->visible(fn (Forms\Get $get): bool => $get('logo_type') === 'upload')
+                            ->required(fn (Forms\Get $get): bool => $get('logo_type') === 'upload'),
+
+                        Forms\Components\TextInput::make('logo_url')
+                            ->label('URL Logo')
+                            ->url()
+                            ->maxLength(500)
+                            ->helperText('Masukkan URL logo dari internet (pastikan dapat diakses publik)')
+                            ->placeholder('https://example.com/logo.png')
+                            ->visible(fn (Forms\Get $get): bool => $get('logo_type') === 'url')
+                            ->required(fn (Forms\Get $get): bool => $get('logo_type') === 'url'),
+
+                        Forms\Components\Placeholder::make('logo_preview')
+                            ->label('Preview Logo')
+                            ->content(function (Forms\Get $get) {
+                                $logoUrl = $get('logo_url');
+                                if ($logoUrl && $get('logo_type') === 'url') {
+                                    return new \Illuminate\Support\HtmlString(
+                                        '<img src="' . $logoUrl . '" alt="Logo Preview" class="max-w-32 max-h-20 object-contain border rounded" onerror="this.style.display=\'none\'">'
+                                    );
+                                }
+                                return 'Preview akan muncul setelah memasukkan URL yang valid';
+                            })
+                            ->visible(fn (Forms\Get $get): bool => $get('logo_type') === 'url'),
                     ]),
             ]);
     }
@@ -97,17 +132,34 @@ class PartnershipResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('logo')
+                Tables\Columns\ImageColumn::make('logo_display')
                     ->label('Logo')
-                    ->collection('logo')
-                    ->conversion('thumb')
+                    ->getStateUsing(function ($record) {
+                        if ($record->logo_type === 'url' && $record->logo_url) {
+                            return $record->logo_url;
+                        }
+                        return $record->getFirstMediaUrl('logo', 'thumb') ?: null;
+                    })
                     ->size(60)
-                    ->circular(),
+                    ->circular()
+                    ->defaultImageUrl(asset('images/default-logo.png')),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Partner')
                     ->searchable()
                     ->sortable(),
+
+                Tables\Columns\BadgeColumn::make('logo_type')
+                    ->label('Sumber Logo')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'upload' => 'Upload',
+                        'url' => 'URL',
+                        default => 'Upload'
+                    })
+                    ->colors([
+                        'primary' => 'upload',
+                        'success' => 'url',
+                    ]),
 
                 Tables\Columns\TextColumn::make('website_url')
                     ->label('Website')

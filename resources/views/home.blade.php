@@ -142,105 +142,6 @@
             </div>
         </div>
 
-        <!-- Quick Services -->
-        <div class="absolute -bottom-28 lg:-bottom-32 left-0 right-0 px-4 z-20">
-            <div class="container-custom">
-                @if($company && $company->quick_services && count($company->quick_services) > 0)
-                    <div class="grid grid-cols-1 md:grid-cols-{{ min(count($company->quick_services), 3) }} gap-8 max-w-4xl mx-auto">
-                        @foreach($company->quick_services as $service)
-                        <a href="{{ $service['url'] ?? '#' }}"
-                           @if($service['external_link'] ?? false) target="_blank" rel="noopener noreferrer" @endif
-                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                            <div class="flex-shrink-0">
-                                <div class="w-16 h-16 {{ $service['bg_color'] ?? 'bg-blue-600' }} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        @if(str_contains($service['title'] ?? '', 'Tagihan'))
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        @elseif(str_contains($service['title'] ?? '', 'Pengaduan'))
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                        @else
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
-                                        @endif
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:{{ $service['hover_color'] ?? 'text-blue-600' }} transition-colors">
-                                    {{ $service['title'] }}
-                                </h3>
-                                <p class="text-base text-gray-600">
-                                    {{ $service['description'] }}
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0 text-gray-400 group-hover:{{ $service['hover_color'] ?? 'text-blue-600' }} transition-colors">
-                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>
-                @else
-                    {{-- Fallback: Default Quick Services --}}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <!-- Cek Tagihan Service -->
-                        <a href="https://tagihan.pdampurbalingga.co.id/"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                            <div class="flex-shrink-0">
-                                <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                                    Cek Tagihan
-                                </h3>
-                                <p class="text-base text-gray-600">
-                                    Cek tagihan air bulanan Anda secara online dengan mudah
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0 text-gray-400 group-hover:text-blue-600 transition-colors">
-                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </a>
-
-                        <!-- Pengaduan Online Service -->
-                        <a href="https://pengaduan.pdampurbalingga.co.id/"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="group bg-white/95 backdrop-blur-md rounded-2xl p-8 min-h-36 shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-6 hover:bg-white hover:-translate-y-1">
-                            <div class="flex-shrink-0">
-                                <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-bold text-gray-900 mb-1 group-hover:text-red-600 transition-colors">
-                                    Pengaduan Online
-                                </h3>
-                                <p class="text-base text-gray-600">
-                                    Sampaikan keluhan atau saran Anda secara online
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0 text-gray-400 group-hover:text-red-600 transition-colors">
-                                <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </div>
-                        </a>
-                    </div>
-                @endif
-            </div>
-        </div>
-
         <!-- Scroll indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -630,7 +531,13 @@ sampai sini -->
                 @foreach($partnerships as $partner)
                 <div class="partnership-item flex-shrink-0">
                     <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
-                        @if($partner->getFirstMediaUrl('logo'))
+                        @if($partner->logo_type === 'url' && $partner->logo_url)
+                            <img src="{{ $partner->logo_url }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}"
+                                 onerror="this.style.display='none'">
+                        @elseif($partner->getFirstMediaUrl('logo'))
                             <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
@@ -651,7 +558,13 @@ sampai sini -->
                 @foreach($partnerships as $partner)
                 <div class="partnership-item flex-shrink-0">
                     <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
-                        @if($partner->getFirstMediaUrl('logo'))
+                        @if($partner->logo_type === 'url' && $partner->logo_url)
+                            <img src="{{ $partner->logo_url }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}"
+                                 onerror="this.style.display='none'">
+                        @elseif($partner->getFirstMediaUrl('logo'))
                             <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
