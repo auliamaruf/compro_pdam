@@ -216,6 +216,33 @@
         .shadow-blue:hover {
             box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
         }
+
+        /* Partnership Slider Styles */
+        .partnership-slider-container {
+            height: 120px;
+        }
+
+        .partnership-track {
+            height: 100%;
+            will-change: transform;
+        }
+
+        .partnership-item {
+            min-width: 128px;
+        }
+
+        .partnership-fade-left,
+        .partnership-fade-right {
+            pointer-events: none;
+        }
+
+        .partnership-fade-left {
+            background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .partnership-fade-right {
+            background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
     </style>
 
     @stack('styles')

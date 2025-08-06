@@ -524,10 +524,12 @@ sampai sini -->
         </div>
         
         <div class="partnership-slider-container relative overflow-hidden">
-            <!-- Partnership slider dengan fade yang konsisten akan diatur di CSS -->
+            <!-- Partnership slider dengan animasi seamless -->
+            <div class="partnership-fade-left absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+            <div class="partnership-fade-right absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
             
             <!-- Single Row Rolling Animation -->
-            <div class="partnership-track flex items-center space-x-12 animate-scroll" id="partnershipTrack">
+            <div class="partnership-track flex items-center" id="partnershipTrack" style="gap: 3rem;">
                 @foreach($partnerships as $partner)
                 <div class="partnership-item flex-shrink-0">
                     <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
@@ -555,6 +557,33 @@ sampai sini -->
                 @endforeach
                 
                 <!-- Duplicate for seamless loop -->
+                @foreach($partnerships as $partner)
+                <div class="partnership-item flex-shrink-0">
+                    <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
+                        @if($partner->logo_type === 'url' && $partner->logo_url)
+                            <img src="{{ $partner->logo_url }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}"
+                                 onerror="this.style.display='none'">
+                        @elseif($partner->getFirstMediaUrl('logo'))
+                            <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
+                                 alt="{{ $partner->name }}" 
+                                 class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
+                                 title="{{ $partner->name }}">
+                        @else
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
+                                </svg>
+                            </div>
+                        @endif
+                    </div>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                </div>
+                @endforeach
+
+                <!-- Triple duplicate untuk memastikan seamless loop yang sempurna -->
                 @foreach($partnerships as $partner)
                 <div class="partnership-item flex-shrink-0">
                     <div class="transition-all duration-300 hover:scale-110 w-32 h-20 flex items-center justify-center">
@@ -943,10 +972,10 @@ class PartnershipRollingSlider {
         this.track = document.getElementById('partnershipTrack');
         this.container = document.querySelector('.partnership-slider-container');
         this.items = this.track ? this.track.querySelectorAll('.partnership-item') : [];
-        this.itemWidth = 176; // 128px width + 48px space (space-x-12)
         this.isAnimating = true;
         this.animationId = null;
-        this.speed = 0.3; // slower speed for more elegant movement
+        this.speed = 0.5; // Slower speed for more elegant movement
+        this.currentX = 0;
 
         if (this.track && this.items.length > 0) {
             this.init();
@@ -954,11 +983,24 @@ class PartnershipRollingSlider {
     }
 
     init() {
+        // Calculate actual width of one set of items (we have 3 duplicates, so divide by 3)
+        const originalItemsCount = this.items.length / 3;
+        
+        // Get actual width by measuring elements
+        if (this.items.length > 0) {
+            const firstItem = this.items[0];
+            const itemWidth = firstItem.offsetWidth;
+            const gap = 48; // 3rem = 48px gap
+            
+            this.itemWidth = itemWidth + gap;
+            this.totalWidth = originalItemsCount * this.itemWidth;
+        } else {
+            this.itemWidth = 176; // fallback
+            this.totalWidth = originalItemsCount * this.itemWidth;
+        }
+        
         // Set initial position
         this.currentX = 0;
-        
-        // Calculate total width of original items (not duplicated ones)
-        this.totalWidth = (this.items.length / 2) * this.itemWidth;
         
         // Start animation
         this.startAnimation();
@@ -978,6 +1020,7 @@ class PartnershipRollingSlider {
                 this.currentX -= this.speed;
                 
                 // Reset position when first set of items completely scrolled out
+                // This creates seamless infinite loop
                 if (Math.abs(this.currentX) >= this.totalWidth) {
                     this.currentX = 0;
                 }
