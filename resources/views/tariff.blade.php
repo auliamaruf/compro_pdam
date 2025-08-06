@@ -27,7 +27,7 @@
                     <div class="border-b border-gray-200">
                         <nav class="-mb-px flex" aria-label="Tabs">
                             <button type="button" 
-                                    class="tab-button active w-1/2 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
+                                    class="tab-button active w-1/3 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
                                     onclick="switchTab('tariff')"
                                     id="tariff-tab">
                                 <div class="flex items-center justify-center space-x-2">
@@ -38,7 +38,7 @@
                                 </div>
                             </button>
                             <button type="button" 
-                                    class="tab-button w-1/2 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
+                                    class="tab-button w-1/3 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
                                     onclick="switchTab('fixed-cost')"
                                     id="fixed-cost-tab">
                                 <div class="flex items-center justify-center space-x-2">
@@ -46,6 +46,17 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                     </svg>
                                     <span>Biaya Tetap</span>
+                                </div>
+                            </button>
+                            <button type="button" 
+                                    class="tab-button w-1/3 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
+                                    onclick="switchTab('service-cost')"
+                                    id="service-cost-tab">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                    </svg>
+                                    <span>Biaya Layanan Lainnya</span>
                                 </div>
                             </button>
                         </nav>
@@ -225,76 +236,6 @@
                                         </table>
                                     </div>
                                 </div>
-
-                                <!-- Tabel Biaya Layanan Lainnya -->
-                                <div class="mt-8">
-                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Biaya Layanan Lainnya</h3>
-                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                        @php
-                                            $serviceCosts = $fixedCosts->filter(function($cost) {
-                                                return in_array($cost->category_name, [
-                                                    'Biaya Pemasangan Baru',
-                                                    'Biaya Pembukaan Kembali', 
-                                                    'Biaya Ganti Nama',
-                                                    'Biaya Penggantian Meter Rusak',
-                                                    'Biaya Upgrade Meter',
-                                                    'Biaya Pindah Lokasi Meter',
-                                                    'Biaya Surat Keterangan',
-                                                    'Denda Keterlambatan'
-                                                ]);
-                                            });
-                                        @endphp
-
-                                        @foreach($serviceCosts as $service)
-                                            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-6 border border-blue-100 hover:shadow-lg transition-all duration-300">
-                                                <div class="flex items-start justify-between mb-4">
-                                                    <div>
-                                                        <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $service->category_name }}</h4>
-                                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                                            {{ $service->connection_type === 'new' ? 'bg-green-100 text-green-800' : ($service->connection_type === 'upgrade' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800') }}">
-                                                            {{ $service->connection_type === 'new' ? 'Sambungan Baru' : ($service->connection_type === 'upgrade' ? 'Upgrade' : 'Layanan') }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                @if($service->description)
-                                                    <p class="text-gray-600 text-sm mb-4">{{ $service->description }}</p>
-                                                @endif
-
-                                                <div class="space-y-3">
-                                                    @if($service->monthly_cost > 0)
-                                                        <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                            <span class="text-sm font-medium text-gray-700">Biaya Bulanan</span>
-                                                            <span class="text-lg font-bold text-blue-600">{{ $service->formatted_monthly_cost }}</span>
-                                                        </div>
-                                                    @endif
-                                                    
-                                                    @if($service->installation_cost > 0)
-                                                        <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                            <span class="text-sm font-medium text-gray-700">Biaya Layanan</span>
-                                                            <span class="text-lg font-bold text-green-600">{{ $service->formatted_installation_cost }}</span>
-                                                        </div>
-                                                    @endif
-                                                    
-                                                    @if($service->security_deposit > 0)
-                                                        <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                            <span class="text-sm font-medium text-gray-700">Uang Jaminan</span>
-                                                            <span class="text-sm font-semibold text-gray-900">{{ $service->formatted_security_deposit }}</span>
-                                                        </div>
-                                                    @endif
-                                                </div>
-
-                                                @if($service->notes)
-                                                    <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                                        <p class="text-sm text-yellow-800">
-                                                            <span class="font-medium">Catatan:</span> {{ $service->notes }}
-                                                        </p>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
                             @else
                                 <div class="text-center py-12">
                                     <div class="max-w-md mx-auto">
@@ -303,6 +244,104 @@
                                         </svg>
                                         <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data biaya tetap</h3>
                                         <p class="mt-1 text-sm text-gray-500">Data biaya tetap belum tersedia.</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Service Cost Tab Content -->
+                        <div id="service-cost-content" class="tab-content hidden">
+                            <div class="mb-6">
+                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Biaya Layanan Lainnya</h2>
+                                <p class="text-gray-600">Biaya layanan tambahan dan administrasi PDAM Tirta Perwira Purbalingga</p>
+                                @if(isset($fixedCosts) && $fixedCosts->count() > 0 && $fixedCosts->first()->legal_basis)
+                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                        <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>{!! nl2br(e($fixedCosts->first()->legal_basis)) !!}</p>
+                                    </div>
+                                @else
+                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                        <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>
+                                        1. SK Direktur PDAM Kabupaten Purbalingga no.695.1/45.289/PDAM/XI/2010 tanggal 30 Nopember 2010<br>
+                                        2. SK Direktur PDAM Kabupaten Purbalingga No.695.5/036.360/2016 Tanggal 29 Nopember 2016</p>
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if(isset($fixedCosts) && $fixedCosts->count() > 0)
+                                <!-- Tabel Biaya Layanan Lainnya -->
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    @php
+                                        $serviceCosts = $fixedCosts->filter(function($cost) {
+                                            return in_array($cost->category_name, [
+                                                'Biaya Pemasangan Baru',
+                                                'Biaya Pembukaan Kembali', 
+                                                'Biaya Ganti Nama',
+                                                'Biaya Penggantian Meter Rusak',
+                                                'Biaya Upgrade Meter',
+                                                'Biaya Pindah Lokasi Meter',
+                                                'Biaya Surat Keterangan',
+                                                'Denda Keterlambatan'
+                                            ]);
+                                        });
+                                    @endphp
+
+                                    @foreach($serviceCosts as $service)
+                                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-6 border border-blue-100 hover:shadow-lg transition-all duration-300">
+                                            <div class="flex items-start justify-between mb-4">
+                                                <div>
+                                                    <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $service->category_name }}</h4>
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                                        {{ $service->connection_type === 'new' ? 'bg-green-100 text-green-800' : ($service->connection_type === 'upgrade' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800') }}">
+                                                        {{ $service->connection_type === 'new' ? 'Sambungan Baru' : ($service->connection_type === 'upgrade' ? 'Upgrade' : 'Layanan') }}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            @if($service->description)
+                                                <p class="text-gray-600 text-sm mb-4">{{ $service->description }}</p>
+                                            @endif
+
+                                            <div class="space-y-3">
+                                                @if($service->monthly_cost > 0)
+                                                    <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                                                        <span class="text-sm font-medium text-gray-700">Biaya Bulanan</span>
+                                                        <span class="text-lg font-bold text-blue-600">{{ $service->formatted_monthly_cost }}</span>
+                                                    </div>
+                                                @endif
+                                                
+                                                @if($service->installation_cost > 0)
+                                                    <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                                                        <span class="text-sm font-medium text-gray-700">Biaya Layanan</span>
+                                                        <span class="text-lg font-bold text-green-600">{{ $service->formatted_installation_cost }}</span>
+                                                    </div>
+                                                @endif
+                                                
+                                                @if($service->security_deposit > 0)
+                                                    <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                                                        <span class="text-sm font-medium text-gray-700">Uang Jaminan</span>
+                                                        <span class="text-sm font-semibold text-gray-900">{{ $service->formatted_security_deposit }}</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            @if($service->notes)
+                                                <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                                    <p class="text-sm text-yellow-800">
+                                                        <span class="font-medium">Catatan:</span> {{ $service->notes }}
+                                                    </p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="text-center py-12">
+                                    <div class="max-w-md mx-auto">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                        </svg>
+                                        <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data biaya layanan</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Data biaya layanan lainnya belum tersedia.</p>
                                     </div>
                                 </div>
                             @endif
