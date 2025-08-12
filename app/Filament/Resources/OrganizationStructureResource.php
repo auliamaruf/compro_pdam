@@ -93,38 +93,55 @@ class OrganizationStructureResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('level')
+                    ->label('Level')
+                    ->formatStateUsing(function ($record) {
+                        return 'L' . $record->level;
+                    })
+                    ->description(fn ($record) => 'Urutan: ' . ($record->sort_order ?? 0))
+                    ->badge()
+                    ->color(fn ($record): string => match ((int) $record->level) {
+                        1 => 'danger',
+                        2 => 'warning', 
+                        3 => 'success',
+                        4 => 'primary',
+                        default => 'secondary'
+                    })
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('title')
                     ->label('Jabatan')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->name)
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Pejabat')
-                    ->searchable()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('subtitle')
-                    ->label('Subtitle')
-                    ->toggleable(),
-                Tables\Columns\BadgeColumn::make('level')
-                    ->label('Level')
-                    ->colors([
-                        'danger' => 1,
-                        'warning' => 2,
-                        'success' => 3,
-                        'primary' => 4,
-                        'secondary' => 5,
-                    ])
-                    ->formatStateUsing(fn (string $state): string => "Level $state")
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->sortable(),
+                    ->label('Divisi & Deskripsi')
+                    ->formatStateUsing(function ($record) {
+                        $subtitle = $record->subtitle ?: 'Tidak ada divisi';
+                        return $subtitle;
+                    })
+                    ->description(fn ($record) => $record->description ? \Illuminate\Support\Str::limit($record->description, 60) : 'Tidak ada deskripsi')
+                    ->limit(40),
+
+                Tables\Columns\TextColumn::make('icon')
+                    ->label('Icon')
+                    ->formatStateUsing(function ($record) {
+                        return $record->icon ? '✅ Ada icon' : '❌ Tidak ada';
+                    })
+                    ->description('Icon SVG untuk display')
+                    ->color(fn ($record) => $record->icon ? 'success' : 'gray'),
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
                     ->sortable(),
+
+                // Toggleable columns (hidden by default)
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

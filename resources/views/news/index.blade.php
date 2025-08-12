@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Berita - Tirta Perwira PDAM Purbalingga')
+@section('title', 'Berita dan Informasi - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
@@ -11,7 +11,7 @@
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="hero-title">Berita & Informasi</h1>
                 <p class="hero-description">
-                    Dapatkan informasi terbaru seputar pelayanan dan perkembangan PDAM Purbalingga
+                    Dapatkan informasi terbaru seputar pelayanan dan perkembangan {{ $company->company_name ?? 'PDAM Tirta Perwira' }}
                 </p>
             </div>
         </div>

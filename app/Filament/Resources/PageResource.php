@@ -142,54 +142,61 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('featured_image')
+                    ->label('Gambar')
+                    ->circular()
+                    ->size(50)
+                    ->defaultImageUrl(asset('images/placeholder.jpg')),
+
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->excerpt ? \Illuminate\Support\Str::limit($record->excerpt, 80) : 'Tidak ada ringkasan')
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('slug')
-                    ->label('URL')
-                    ->searchable()
-                    ->prefix('/')
+                    ->label('URL & Template')
+                    ->formatStateUsing(function ($record) {
+                        $template = $record->template ? ucfirst($record->template) : 'Default';
+                        return '/' . $record->slug;
+                    })
+                    ->description(fn ($record) => 'Template: ' . ucfirst($record->template ?: 'default'))
                     ->copyable()
                     ->copyMessage('URL berhasil disalin!')
-                    ->copyMessageDuration(1500),
+                    ->limit(30),
 
-                Tables\Columns\ImageColumn::make('featured_image')
-                    ->label('Gambar')
-                    ->circular()
-                    ->defaultImageUrl(asset('images/placeholder.jpg')),
-
-                Tables\Columns\BadgeColumn::make('status')
-                    ->label('Status')
-                    ->colors([
-                        'secondary' => 'draft',
-                        'success' => 'published',
-                        'warning' => 'private',
-                    ]),
-
-                Tables\Columns\TextColumn::make('template')
-                    ->label('Template')
-                    ->badge(),
-
-                Tables\Columns\IconColumn::make('show_in_menu')
-                    ->label('Di Menu')
-                    ->boolean()
-                    ->tooltip('Tampil di menu navigasi'),
-
-                Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status & Menu')
+                    ->formatStateUsing(function ($record) {
+                        $status = match ($record->status) {
+                            'draft' => '📝 Draft',
+                            'published' => '✅ Publikasi',
+                            'private' => '🔒 Privat',
+                            default => $record->status
+                        };
+                        $menu = $record->show_in_menu ? ' • 📋 Menu' : '';
+                        return $status . $menu;
+                    })
+                    ->description(fn ($record) => $record->sort_order ? 'Urutan menu: ' . $record->sort_order : 'Tidak di menu')
+                    ->badge()
+                    ->color(fn ($record): string => match ($record->status) {
+                        'published' => 'success',
+                        'draft' => 'warning',
+                        'private' => 'secondary',
+                        default => 'gray'
+                    }),
 
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Dipublikasi')
-                    ->dateTime('d M Y, H:i')
+                    ->date('d M Y')
+                    ->description('Tanggal publikasi')
                     ->sortable(),
 
+                // Toggleable columns (hidden by default)
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diperbarui')
-                    ->dateTime('d M Y, H:i')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class WaterTariffResource extends Resource
 {
@@ -190,32 +191,21 @@ class WaterTariffResource extends Resource
                 Tables\Columns\TextColumn::make('customer_type')
                     ->label('Jenis Pelanggan')
                     ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('sub_category')
-                    ->label('Sub Kategori')
-                    ->searchable()
                     ->sortable()
-                    ->wrap(),
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->sub_category),
 
                 Tables\Columns\TextColumn::make('min_usage')
                     ->label('Min (m³)')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('max_usage')
-                    ->label('Max (m³)')
-                    ->placeholder('Unlimited')
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn ($record) => $record->max_usage ? "Max: {$record->max_usage} m³" : 'Unlimited'),
 
                 Tables\Columns\TextColumn::make('rate_per_m3')
                     ->label('Tarif/m³')
                     ->money('IDR')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('admin_fee')
-                    ->label('Biaya Admin')
-                    ->money('IDR')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable()
+                    ->weight('bold')
+                    ->color('success'),
 
                 Tables\Columns\IconColumn::make('show_in_navbar')
                     ->label('Di Navbar')
@@ -225,13 +215,8 @@ class WaterTariffResource extends Resource
                     ->trueColor('success')
                     ->falseColor('danger'),
 
-                Tables\Columns\TextColumn::make('navbar_order')
-                    ->label('Urutan Navbar')
-                    ->sortable()
-                    ->toggleable(),
-
                 Tables\Columns\IconColumn::make('is_navbar_featured')
-                    ->label('Unggulan Navbar')
+                    ->label('Featured')
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-star')
@@ -246,7 +231,21 @@ class WaterTariffResource extends Resource
 
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
-                    ->boolean(),
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
+
+                Tables\Columns\TextColumn::make('admin_fee')
+                    ->label('Biaya Admin')
+                    ->money('IDR')
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('navbar_order')
+                    ->label('Urutan Navbar')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('customer_type')
@@ -291,16 +290,22 @@ class WaterTariffResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->current()),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('toggle_navbar')
-                    ->label('Toggle Navbar')
-                    ->icon('heroicon-o-bars-3')
-                    ->action(function (WaterTariff $record) {
-                        $record->update(['show_in_navbar' => !$record->show_in_navbar]);
-                    })
-                    ->color(fn (WaterTariff $record) => $record->show_in_navbar ? 'danger' : 'success')
-                    ->button(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('toggle_navbar')
+                        ->label('Toggle Navbar')
+                        ->icon('heroicon-o-bars-3')
+                        ->action(function (WaterTariff $record) {
+                            $record->update(['show_in_navbar' => !$record->show_in_navbar]);
+                        })
+                        ->color(fn (WaterTariff $record) => $record->show_in_navbar ? 'danger' : 'success'),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Visi & Misi - Tirta Perwira')
+@section('title', 'Visi & Misi - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
 @section('description', 'Visi, Misi, dan Nilai-nilai PDAM Tirta Perwira Purbalingga dalam melayani masyarakat dengan air bersih berkualitas')
 
 @section('content')

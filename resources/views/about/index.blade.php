@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang Kami - {{ $company->company_name ?? "PDAM Tirta Perwira" }}')
+@section('title', 'Tentang Kami - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
 @section('description', 'Profil perusahaan {{ $company->company_name ?? "PDAM Tirta Perwira" }} - {{ $company->company_tagline ?? "Air Bersih Untuk Kehidupan Yang Lebih Baik" }}')
 
 @section('content')
@@ -224,7 +224,7 @@
                             </svg>
                         </div>
                         <h4 class="text-lg font-bold text-gray-900 mb-2">Struktur Organisasi</h4>
-                        <p class="text-gray-600 text-sm">Kepemimpinan dan tim profesional yang menggerakkan PDAM Tirta Perwira</p>
+                        <p class="text-gray-600 text-sm">Kepemimpinan dan tim profesional yang menggerakkan {{ $company->company_name}} </p>
                     </a>
                 </div>
             </div>

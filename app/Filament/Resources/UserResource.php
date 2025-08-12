@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class UserResource extends Resource
 {
@@ -91,12 +92,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
-                    
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->email),
                     
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label('Role')
@@ -115,16 +113,21 @@ class UserResource extends Resource
                 Tables\Columns\IconColumn::make('email_verified_at')
                     ->label('Email Verified')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => !is_null($record->email_verified_at)),
+                    ->getStateUsing(fn ($record) => !is_null($record->email_verified_at))
+                    ->trueIcon('heroicon-o-check-badge')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
                     
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d/m/Y H:i')
+                    ->label('Terdaftar')
+                    ->dateTime('d M Y')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                    
+                    ->description(fn ($record) => $record->created_at->diffForHumans()),
+
+                // Toggleable columns
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Diupdate')
+                    ->label('Terakhir Update')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -140,10 +143,17 @@ class UserResource extends Resource
                     ->nullable(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
-                    ->requiresConfirmation(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                        ->requiresConfirmation(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -102,50 +102,59 @@ class NavigationMenuResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->description ?: ($record->parent ? '↳ Sub-menu dari: ' . $record->parent->title : 'Menu utama'))
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('url')
-                    ->label('URL')
-                    ->searchable()
-                    ->limit(50)
+                    ->label('URL & Target')
+                    ->formatStateUsing(function ($record) {
+                        $url = \Illuminate\Support\Str::limit($record->url, 35);
+                        $target = $record->target === '_blank' ? ' 🔗' : '';
+                        $external = $record->is_external ? ' 🌐' : '';
+                        return $url . $target . $external;
+                    })
+                    ->description(fn ($record) => $record->target === '_blank' ? 'Buka di tab baru' : 'Buka di halaman yang sama')
                     ->copyable(),
 
-                Tables\Columns\BadgeColumn::make('position')
-                    ->label('Posisi')
-                    ->colors([
-                        'primary' => 'main',
-                        'success' => 'footer',
-                        'warning' => 'sidebar',
-                    ])
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'main' => 'Menu Utama',
-                        'footer' => 'Footer',
-                        'sidebar' => 'Sidebar',
-                        default => $state,
+                Tables\Columns\TextColumn::make('position')
+                    ->label('Posisi & Urutan')
+                    ->formatStateUsing(function ($record) {
+                        $position = match ($record->position) {
+                            'main' => '📋 Header',
+                            'footer' => '⬇️ Footer',
+                            'sidebar' => '📁 Sidebar',
+                            default => $record->position
+                        };
+                        return $position . ' • Urutan ' . ($record->sort_order ?? 0);
+                    })
+                    ->badge()
+                    ->color(fn ($record): string => match ($record->position) {
+                        'main' => 'primary',
+                        'footer' => 'success',
+                        'sidebar' => 'warning',
+                        default => 'gray'
                     }),
+
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Status')
+                    ->boolean()
+                    ->sortable(),
+
+                // Toggleable columns (hidden by default)
+                Tables\Columns\TextColumn::make('icon')
+                    ->label('Icon')
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('parent.title')
                     ->label('Menu Induk')
                     ->placeholder('Menu Utama')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->sortable(),
-
-                Tables\Columns\IconColumn::make('is_external')
-                    ->label('Eksternal')
-                    ->boolean()
-                    ->tooltip('Link eksternal'),
-
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime('d M Y, H:i')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

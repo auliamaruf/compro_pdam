@@ -17,6 +17,7 @@ use Filament\Notifications\Notification;
 use Filament\Support\Enums\Alignment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class OnlineComplaintResource extends Resource
 {
@@ -186,41 +187,36 @@ class OnlineComplaintResource extends Resource
                     ->sortable()
                     ->copyable()
                     ->badge()
-                    ->color('primary'),
+                    ->color('primary')
+                    ->weight('bold'),
+
                 Tables\Columns\TextColumn::make('customer_name')
-                    ->label('Nama Pelanggan')
+                    ->label('Pelanggan')
                     ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('complaint_type')
-                    ->label('Jenis Pengaduan')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'billing' => 'warning',
-                        'water_quality' => 'danger',
-                        'water_pressure' => 'info',
-                        'service_connection' => 'success',
-                        'pipe_damage' => 'danger',
-                        'meter_reading' => 'gray',
-                        default => 'secondary',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'billing' => 'Tagihan',
-                        'water_quality' => 'Kualitas Air',
-                        'water_pressure' => 'Tekanan Air',
-                        'service_connection' => 'Sambungan Baru',
-                        'pipe_damage' => 'Kerusakan Pipa',
-                        'meter_reading' => 'Pembacaan Meter',
-                        'other' => 'Lainnya',
-                        default => $state,
-                    }),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->phone ? "📞 {$record->phone}" : 'No telepon'),
+
                 Tables\Columns\TextColumn::make('subject')
-                    ->label('Subjek')
+                    ->label('Subjek & Jenis')
                     ->searchable()
-                    ->limit(30)
-                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
-                        $state = $column->getState();
-                        return strlen($state) > 30 ? $state : null;
+                    ->limit(40)
+                    ->tooltip(function ($record): ?string {
+                        return strlen($record->subject) > 40 ? $record->subject : null;
+                    })
+                    ->description(function ($record) {
+                        return match($record->complaint_type) {
+                            'billing' => '💰 Tagihan',
+                            'water_quality' => '🚰 Kualitas Air',
+                            'water_pressure' => '💧 Tekanan Air',
+                            'service_connection' => '🔧 Sambungan Baru',
+                            'pipe_damage' => '🚨 Kerusakan Pipa',
+                            'meter_reading' => '📊 Pembacaan Meter',
+                            'other' => '📝 Lainnya',
+                            default => $record->complaint_type,
+                        };
                     }),
+
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Status')
                     ->colors([
@@ -236,6 +232,7 @@ class OnlineComplaintResource extends Resource
                         'closed' => 'Ditutup',
                         default => $state,
                     }),
+
                 Tables\Columns\BadgeColumn::make('priority')
                     ->label('Prioritas')
                     ->colors([
@@ -251,34 +248,41 @@ class OnlineComplaintResource extends Resource
                         'urgent' => 'Mendesak',
                         default => $state,
                     }),
+
                 Tables\Columns\TextColumn::make('assignedUser.name')
-                    ->label('Ditugaskan ke')
+                    ->label('PIC')
                     ->placeholder('Belum ditugaskan')
                     ->badge()
-                    ->color('info'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Tanggal Dibuat')
-                    ->dateTime('d M Y H:i')
-                    ->sortable()
-                    ->toggleable(),
+                    ->color('info')
+                    ->description(fn ($record) => $record->created_at->format('d M Y')),
+
+                // Toggleable columns
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\IconColumn::make('has_attachments')
+                    ->label('Lampiran')
+                    ->boolean()
+                    ->getStateUsing(fn ($record) => !empty($record->attachments))
+                    ->trueIcon('heroicon-o-paper-clip')
+                    ->falseIcon('heroicon-o-minus')
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('responded_at')
                     ->label('Tanggal Respons')
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->placeholder('Belum direspons')
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('resolved_at')
                     ->label('Tanggal Selesai')
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->placeholder('Belum selesai')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('has_attachments')
-                    ->label('Lampiran')
-                    ->boolean()
-                    ->getStateUsing(fn ($record) => !empty($record->attachments))
-                    ->trueIcon('heroicon-o-paper-clip')
-                    ->falseIcon('heroicon-o-minus'),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -339,61 +343,68 @@ class OnlineComplaintResource extends Resource
                     })
             ])
             ->actions([
-                Action::make('respond')
-                    ->label('Respons')
-                    ->icon('heroicon-o-chat-bubble-left-right')
-                    ->color('primary')
-                    ->form([
-                        Forms\Components\Textarea::make('admin_response')
-                            ->label('Respons Admin')
-                            ->required()
-                            ->rows(4),
-                        Forms\Components\Select::make('status')
-                            ->label('Update Status')
-                            ->options([
-                                'in_progress' => 'Sedang Diproses',
-                                'resolved' => 'Selesai',
-                                'closed' => 'Ditutup',
-                            ])
-                            ->default('in_progress')
-                            ->native(false),
-                    ])
-                    ->action(function (OnlineComplaint $record, array $data): void {
-                        $record->update([
-                            'admin_response' => $data['admin_response'],
-                            'status' => $data['status'],
-                            'responded_at' => now(),
-                            'resolved_at' => $data['status'] === 'resolved' ? now() : null,
-                        ]);
+                Tables\Actions\ActionGroup::make([
+                    Action::make('respond')
+                        ->label('Balas')
+                        ->icon('heroicon-o-chat-bubble-left-right')
+                        ->color('primary')
+                        ->form([
+                            Forms\Components\Textarea::make('admin_response')
+                                ->label('Respons Admin')
+                                ->required()
+                                ->rows(4),
+                            Forms\Components\Select::make('status')
+                                ->label('Update Status')
+                                ->options([
+                                    'in_progress' => 'Sedang Diproses',
+                                    'resolved' => 'Selesai',
+                                    'closed' => 'Ditutup',
+                                ])
+                                ->default('in_progress')
+                                ->native(false),
+                        ])
+                        ->action(function (OnlineComplaint $record, array $data): void {
+                            $record->update([
+                                'admin_response' => $data['admin_response'],
+                                'status' => $data['status'],
+                                'responded_at' => now(),
+                                'resolved_at' => $data['status'] === 'resolved' ? now() : null,
+                            ]);
 
-                        Notification::make()
-                            ->title('Respons berhasil dikirim')
-                            ->success()
-                            ->send();
-                    })
-                    ->visible(fn (OnlineComplaint $record): bool => !$record->responded_at),
-                Action::make('assign')
-                    ->label('Tugaskan')
-                    ->icon('heroicon-o-user-plus')
-                    ->color('info')
-                    ->form([
-                        Forms\Components\Select::make('assigned_to')
-                            ->label('Tugaskan ke')
-                            ->relationship('assignedUser', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-                    ])
-                    ->action(function (OnlineComplaint $record, array $data): void {
-                        $record->update($data);
+                            Notification::make()
+                                ->title('Respons berhasil dikirim')
+                                ->success()
+                                ->send();
+                        })
+                        ->visible(fn (OnlineComplaint $record): bool => !$record->responded_at),
+                    Action::make('assign')
+                        ->label('Tugaskan')
+                        ->icon('heroicon-o-user-plus')
+                        ->color('info')
+                        ->form([
+                            Forms\Components\Select::make('assigned_to')
+                                ->label('Tugaskan ke')
+                                ->relationship('assignedUser', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->required(),
+                        ])
+                        ->action(function (OnlineComplaint $record, array $data): void {
+                            $record->update($data);
 
-                        Notification::make()
-                            ->title('Pengaduan berhasil ditugaskan')
-                            ->success()
-                            ->send();
-                    }),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                            Notification::make()
+                                ->title('Pengaduan berhasil ditugaskan')
+                                ->success()
+                                ->send();
+                        }),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

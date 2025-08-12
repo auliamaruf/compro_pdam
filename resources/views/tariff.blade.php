@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Tarif Air & Biaya Tetap - Tirta Perwira PDAM Purbalingga')
-@section('description', 'Informasi lengkap tarif air minum dan biaya tetap berdasarkan kategori pelanggan dan volume pemakaian di PDAM Tirta Perwira Purbalingga')
+@section('title', 'Tarif dan Biaya - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
+@section('description', 'Informasi lengkap tarif air minum dan biaya tetap berdasarkan kategori pelanggan dan volume pemakaian di Perumdam Tirta Perwira Purbalingga')
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">

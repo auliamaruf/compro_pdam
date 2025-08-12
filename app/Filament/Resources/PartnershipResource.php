@@ -146,38 +146,38 @@ class PartnershipResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Partner')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->description ? \Illuminate\Support\Str::limit($record->description, 60) : 'Tidak ada deskripsi')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\BadgeColumn::make('logo_type')
-                    ->label('Sumber Logo')
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'upload' => 'Upload',
-                        'url' => 'URL',
-                        default => 'Upload'
+                Tables\Columns\TextColumn::make('logo_type')
+                    ->label('Logo & Website')
+                    ->formatStateUsing(function ($record) {
+                        $logoType = match ($record->logo_type) {
+                            'upload' => '📁 Upload',
+                            'url' => '🔗 URL',
+                            default => '📁 Upload'
+                        };
+                        $website = $record->website_url ? parse_url($record->website_url, PHP_URL_HOST) : 'Tidak ada';
+                        return $logoType . ' • ' . $website;
                     })
-                    ->colors([
-                        'primary' => 'upload',
-                        'success' => 'url',
-                    ]),
-
-                Tables\Columns\TextColumn::make('website_url')
-                    ->label('Website')
-                    ->formatStateUsing(fn (string $state): string => parse_url($state, PHP_URL_HOST) ?? $state)
+                    ->description(fn ($record) => $record->website_url ? 'Klik untuk membuka website' : null)
                     ->url(fn ($record) => $record->website_url)
-                    ->openUrlInNewTab()
-                    ->limit(30),
+                    ->openUrlInNewTab(),
 
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
-                    ->sortable()
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->description('Urutan tampil')
+                    ->sortable(),
 
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
                     ->sortable(),
 
+                // Toggleable columns (hidden by default)
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y H:i')
@@ -188,6 +188,11 @@ class PartnershipResource extends Resource
                     ->label('Diperbarui')
                     ->dateTime('d M Y H:i')
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug')
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

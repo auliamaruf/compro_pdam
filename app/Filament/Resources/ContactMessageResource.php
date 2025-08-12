@@ -21,6 +21,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
+use Illuminate\Support\Str;
 
 class ContactMessageResource extends Resource
 {
@@ -106,37 +107,52 @@ class ContactMessageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label('Pengirim')
                     ->searchable()
                     ->sortable()
-                    ->weight(FontWeight::Medium),
-                TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable()
-                    ->copyable(),
+                    ->weight(FontWeight::Medium)
+                    ->description(fn ($record) => $record->email),
+
                 TextColumn::make('subject')
-                    ->label('Subjek')
+                    ->label('Subjek & Jenis')
                     ->searchable()
-                    ->limit(50),
-                BadgeColumn::make('type_display')
-                    ->label('Jenis')
-                    ->colors([
-                        'gray' => 'Umum',
-                        'danger' => 'Keluhan',
-                        'success' => 'Saran',
-                        'primary' => 'Info Layanan',
-                        'warning' => 'Bantuan Teknis',
-                    ]),
-                Tables\Columns\IconColumn::make('is_read')
-                    ->label('Dibaca')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('is_resolved')
-                    ->label('Diselesaikan')
-                    ->boolean(),
+                    ->limit(50)
+                    ->weight(FontWeight::Medium)
+                    ->description(function ($record) {
+                        return match($record->type) {
+                            'general' => '📝 Umum',
+                            'complaint' => '⚠️ Keluhan',
+                            'suggestion' => '💡 Saran',
+                            'service_info' => 'ℹ️ Info Layanan',
+                            'technical_support' => '🔧 Bantuan Teknis',
+                            default => $record->type,
+                        };
+                    }),
+
+                Tables\Columns\TextColumn::make('status_info')
+                    ->label('Status')
+                    ->formatStateUsing(function ($record) {
+                        $read = $record->is_read ? '✅ Dibaca' : '📧 Belum dibaca';
+                        $resolved = $record->is_resolved ? '✅ Selesai' : '⏳ Pending';
+                        return $read . ' | ' . $resolved;
+                    }),
+
                 TextColumn::make('created_at')
                     ->label('Tanggal')
-                    ->dateTime('d M Y, H:i')
-                    ->sortable(),
+                    ->dateTime('d M Y')
+                    ->sortable()
+                    ->description(fn ($record) => $record->created_at->diffForHumans()),
+
+                // Toggleable columns
+                TextColumn::make('phone')
+                    ->label('Telepon')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('message')
+                    ->label('Pesan')
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -163,26 +179,33 @@ class ContactMessageResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\Action::make('mark_read')
-                    ->label('Tandai Dibaca')
-                    ->icon('heroicon-o-eye')
-                    ->color('success')
-                    ->action(fn (ContactMessage $record) => $record->markAsRead())
-                    ->visible(fn (ContactMessage $record) => !$record->is_read),
-                Tables\Actions\Action::make('mark_resolved')
-                    ->label('Tandai Selesai')
-                    ->icon('heroicon-o-check-circle')
-                    ->color('success')
-                    ->form([
-                        Textarea::make('admin_notes')
-                            ->label('Catatan Penyelesaian')
-                            ->rows(3),
-                    ])
-                    ->action(function (ContactMessage $record, array $data) {
-                        $record->markAsResolved($data['admin_notes'] ?? null);
-                    })
-                    ->visible(fn (ContactMessage $record) => !$record->is_resolved),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('mark_read')
+                        ->label('Tandai Dibaca')
+                        ->icon('heroicon-o-eye')
+                        ->color('success')
+                        ->action(fn (ContactMessage $record) => $record->markAsRead())
+                        ->visible(fn (ContactMessage $record) => !$record->is_read),
+                    Tables\Actions\Action::make('mark_resolved')
+                        ->label('Tandai Selesai')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->form([
+                            Textarea::make('admin_notes')
+                                ->label('Catatan Penyelesaian')
+                                ->rows(3),
+                        ])
+                        ->action(function (ContactMessage $record, array $data) {
+                            $record->markAsResolved($data['admin_notes'] ?? null);
+                        })
+                        ->visible(fn (ContactMessage $record) => !$record->is_resolved),
+                    Tables\Actions\EditAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

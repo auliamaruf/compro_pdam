@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class BranchResource extends Resource
 {
@@ -167,33 +168,22 @@ class BranchResource extends Resource
                 Tables\Columns\TextColumn::make('code')
                     ->label('Kode')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color('primary'),
                     
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
-                    
-                Tables\Columns\BadgeColumn::make('branch_type')
-                    ->label('Tipe')
-                    ->colors([
-                        'primary' => 'cabang',
-                        'success' => 'unit_ikk',
-                    ])
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'cabang' => 'Cabang',
-                        'unit_ikk' => 'Unit IKK',
-                        default => $state,
-                    }),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->branch_type === 'cabang' ? 'Cabang' : 'Unit IKK'),
                     
                 Tables\Columns\TextColumn::make('headOfBranch.name')
                     ->label('Kepala')
                     ->sortable()
-                    ->placeholder('Belum ditentukan'),
-                    
-                Tables\Columns\TextColumn::make('phone')
-                    ->label('Telepon')
-                    ->searchable(),
+                    ->placeholder('Belum ditentukan')
+                    ->description(fn ($record) => $record->phone ?: 'No telepon'),
                     
                 Tables\Columns\TextColumn::make('address')
                     ->label('Alamat')
@@ -204,11 +194,16 @@ class BranchResource extends Resource
                     
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
-                    ->boolean(),
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
                     
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                     
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Terakhir Diupdate')
@@ -227,8 +222,16 @@ class BranchResource extends Resource
                     ->label('Status Aktif'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

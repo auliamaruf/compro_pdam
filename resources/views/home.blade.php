@@ -152,7 +152,7 @@
 @endif
 
 <!-- Quick Actions -->
-<section class="bg-white py-12 lg:py-16 relative overflow-hidden">
+<section class="bg-gray-50 py-12 lg:py-16 relative overflow-hidden">
     <!-- Subtle decorative elements -->
     <div class="absolute top-10 left-10 w-20 h-20 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
     <div class="absolute bottom-10 right-10 w-16 h-16 bg-cyan-100 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
@@ -232,7 +232,7 @@
 </section>
 
 <!-- About Preview Section -->
-<section id="about-preview" class="bg-gray-50 section-padding">
+<section id="about-preview" class="bg-white section-padding">
     <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->

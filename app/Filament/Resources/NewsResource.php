@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Illuminate\Support\Str;
 
 class NewsResource extends Resource
 {
@@ -131,13 +132,15 @@ class NewsResource extends Resource
                     ->label('Gambar')
                     ->collection('featured_image')
                     ->circular()
-                    ->size(50),
+                    ->size(40),
 
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
                     ->searchable()
                     ->sortable()
-                    ->limit(50),
+                    ->limit(50)
+                    ->weight('bold')
+                    ->description(fn ($record) => Str::limit($record->excerpt ?? '', 60)),
 
                 Tables\Columns\BadgeColumn::make('type')
                     ->label('Kategori')
@@ -146,7 +149,14 @@ class NewsResource extends Resource
                         'warning' => 'announcement',
                         'danger' => 'emergency',
                         'success' => 'csr'
-                    ]),
+                    ])
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'news' => 'Berita',
+                        'announcement' => 'Pengumuman',
+                        'emergency' => 'Darurat',
+                        'csr' => 'Program CSR',
+                        default => $state,
+                    }),
 
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Status')
@@ -154,19 +164,32 @@ class NewsResource extends Resource
                         'secondary' => 'draft',
                         'success' => 'published',
                         'gray' => 'archived'
-                    ]),
+                    ])
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'archived' => 'Archived',
+                        default => $state,
+                    }),
 
                 Tables\Columns\IconColumn::make('is_featured')
                     ->label('Unggulan')
-                    ->boolean(),
+                    ->boolean()
+                    ->trueIcon('heroicon-o-star')
+                    ->falseIcon('heroicon-o-star')
+                    ->trueColor('warning')
+                    ->falseColor('gray'),
 
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('Penulis')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
 
                 Tables\Columns\TextColumn::make('views')
-                    ->label('Tayangan')
-                    ->sortable(),
+                    ->label('Views')
+                    ->sortable()
+                    ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Dipublikasi')
@@ -196,8 +219,16 @@ class NewsResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

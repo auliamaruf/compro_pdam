@@ -126,62 +126,62 @@ class FixedCostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('category_name')
                     ->label('Kategori')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->description ? \Illuminate\Support\Str::limit($record->description, 60) : 'Tidak ada deskripsi')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('connection_type')
-                    ->label('Jenis Sambungan')
+                    ->label('Jenis & Meter')
+                    ->formatStateUsing(function ($record) {
+                        $type = match ($record->connection_type) {
+                            'new' => '🆕 Baru',
+                            'upgrade' => '⬆️ Upgrade',
+                            'replacement' => '🔄 Ganti',
+                            default => $record->connection_type
+                        };
+                        $meter = $record->meter_size ? ' • ' . $record->meter_size : '';
+                        return $type . $meter;
+                    })
+                    ->description(fn ($record) => $record->minimum_usage ? 'Min: ' . $record->minimum_usage . ' m³' : 'Tidak ada minimum')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'new' => 'success',
                         'upgrade' => 'warning',
                         'replacement' => 'info',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'new' => 'Sambungan Baru',
-                        'upgrade' => 'Upgrade',
-                        'replacement' => 'Penggantian',
+                        default => 'gray'
                     }),
-                
+
                 Tables\Columns\TextColumn::make('monthly_cost')
-                    ->label('Biaya Bulanan')
-                    ->money('IDR')
+                    ->label('Biaya')
+                    ->formatStateUsing(function ($record) {
+                        $monthly = 'Bulanan: Rp' . number_format($record->monthly_cost, 0, ',', '.');
+                        $install = $record->installation_cost ? ' • Layanan: Rp' . number_format($record->installation_cost, 0, ',', '.') : '';
+                        return $monthly . $install;
+                    })
+                    ->description(fn ($record) => $record->security_deposit ? 'Jaminan: Rp' . number_format($record->security_deposit, 0, ',', '.') : 'Tidak ada jaminan')
                     ->sortable(),
-                
-                Tables\Columns\TextColumn::make('installation_cost')
-                    ->label('Biaya Pemasangan')
-                    ->money('IDR')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                
-                Tables\Columns\TextColumn::make('security_deposit')
-                    ->label('Jaminan')
-                    ->money('IDR')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                
-                Tables\Columns\TextColumn::make('minimum_usage')
-                    ->label('Min. Pemakaian')
-                    ->suffix(' m³')
+
+                Tables\Columns\TextColumn::make('effective_date')
+                    ->label('Berlaku')
+                    ->date('d M Y')
+                    ->description('Tanggal efektif')
                     ->sortable(),
-                
-                Tables\Columns\TextColumn::make('meter_size')
-                    ->label('Ukuran Meter')
-                    ->toggleable(),
-                
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
                     ->sortable(),
-                
-                Tables\Columns\TextColumn::make('effective_date')
-                    ->label('Berlaku')
-                    ->date()
-                    ->sortable(),
-                
+
+                // Toggleable columns (hidden by default)
+                Tables\Columns\TextColumn::make('legal_basis')
+                    ->label('Dasar Hukum')
+                    ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

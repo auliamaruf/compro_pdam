@@ -162,7 +162,7 @@
             <div class="max-w-3xl mx-auto">
                 <div class="text-center mb-8">
                     <h2 class="text-2xl font-bold text-gray-900 mb-3">Kirim Pesan</h2>
-                    <p class="text-gray-600">Sampaikan pertanyaan, saran, atau keluhan Anda</p>
+                    <p class="text-gray-600">Sampaikan kritik dan saran anda.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan - Tirta Perwira PDAM Purbalingga')
+@section('title', 'Layanan - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
