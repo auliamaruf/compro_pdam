@@ -67,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentShieldPlugin::make(),
                 ActivitylogPlugin::make()
+                    ->authorize(fn() => auth()->user()->can('view_any_activitylog'))
                     ->navigationGroup('Sistem')
                     ->navigationSort(10)
                     ->navigationCountBadge()
