@@ -111,6 +111,43 @@
     filter: brightness(0.8);
 }
 
+/* Document styles */
+.document-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.document-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.document-icon {
+    transition: transform 0.2s ease;
+}
+
+.document-card:hover .document-icon {
+    transform: scale(1.1);
+}
+
+.document-button {
+    transition: all 0.2s ease;
+}
+
+.document-button:hover {
+    transform: translateY(-1px);
+}
+
+.pulse-animation {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
 .gallery-overlay {
     position: absolute;
     top: 0;
@@ -638,6 +675,263 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
 }
+
+/* Enhanced Prose Content Styling */
+.prose-content {
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.prose-content h1, .prose-content h2, .prose-content h3, 
+.prose-content h4, .prose-content h5, .prose-content h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1f2937;
+}
+
+.prose-content h1 { 
+    font-size: 2rem; 
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+.prose-content h2 { 
+    font-size: 1.5rem;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 0.25rem;
+}
+.prose-content h3 { 
+    font-size: 1.25rem;
+    color: #374151;
+}
+.prose-content h4 { 
+    font-size: 1.125rem;
+    color: #374151;
+}
+.prose-content h5 { 
+    font-size: 1rem;
+    color: #4b5563;
+    font-weight: 600;
+}
+.prose-content h6 { 
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.prose-content p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.prose-content ul, .prose-content ol {
+    margin-bottom: 1.5rem !important;
+    padding-left: 2rem !important;
+    list-style-position: outside !important;
+}
+
+.prose-content ul {
+    list-style-type: disc !important;
+}
+
+.prose-content ol {
+    list-style-type: decimal !important;
+}
+
+.prose-content ul ul {
+    list-style-type: circle !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.prose-content ul ul ul {
+    list-style-type: square !important;
+}
+
+.prose-content ol ol {
+    list-style-type: lower-alpha !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.prose-content ol ol ol {
+    list-style-type: lower-roman !important;
+}
+
+.prose-content li {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.6 !important;
+    position: relative !important;
+    display: list-item !important;
+}
+
+.prose-content li p {
+    margin-bottom: 0.75rem !important;
+}
+
+.prose-content li > ul,
+.prose-content li > ol {
+    margin-top: 0.5rem !important;
+}
+
+.prose-content blockquote {
+    border-left: 4px solid #3b82f6;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background-color: #f8fafc;
+    font-style: italic;
+    color: #4b5563;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose-content table {
+    width: 100%;
+    margin: 2rem 0;
+    border-collapse: collapse;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.prose-content th, .prose-content td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.prose-content th {
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+
+.prose-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.prose-content pre {
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #e5e7eb;
+}
+
+.prose-content code {
+    background-color: #f3f4f6;
+    color: #ef4444;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+.prose-content a {
+    color: #3b82f6;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.prose-content a:hover {
+    color: #1d4ed8;
+}
+
+.prose-content strong, .prose-content b {
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.prose-content em, .prose-content i {
+    font-style: italic;
+}
+
+.prose-content u {
+    text-decoration: underline;
+    text-decoration-color: #6b7280;
+}
+
+.prose-content s, .prose-content strike {
+    text-decoration: line-through;
+    text-decoration-color: #ef4444;
+}
+
+.prose-content sub {
+    font-size: 0.75em;
+    vertical-align: sub;
+}
+
+.prose-content sup {
+    font-size: 0.75em;
+    vertical-align: super;
+}
+
+.prose-content mark {
+    background-color: #fef3c7;
+    color: #92400e;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* Mobile-first Document Responsive Design */
+@media (max-width: 640px) {
+    .document-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .document-card .document-button {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        min-height: 2.5rem;
+        white-space: nowrap;
+    }
+    
+    .document-card h5 {
+        font-size: 0.875rem;
+        line-height: 1.3;
+        word-break: break-word;
+        hyphens: auto;
+    }
+    
+    /* Ensure buttons don't shrink too much */
+    .document-card .flex-1 {
+        min-width: calc(50% - 0.25rem);
+    }
+    
+    /* Better spacing for mobile document meta */
+    .document-card .bg-gray-200 {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.375rem;
+    }
+    
+    /* Section headers responsive */
+    .mb-12 {
+        margin-bottom: 2rem;
+    }
+    
+    .mb-6 {
+        margin-bottom: 1rem;
+    }
+    
+    /* Document section mobile padding */
+    .bg-white.border.border-gray-200.rounded-lg.p-4 {
+        padding: 0.75rem;
+    }
+}
+
+/* Touch targets for mobile */
+@media (pointer: coarse) {
+    .document-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
 </style>
 
 <!-- Breadcrumb -->
@@ -713,14 +1007,14 @@
                             </div>
 
                             <!-- Article Title -->
-                            <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                            <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                                 {{ $article->title }}
                             </h1>
 
                             <!-- Article Excerpt -->
                             @if($article->excerpt)
                             <div class="relative">
-                                <div class="text-xl text-gray-700 mb-8 leading-relaxed bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 pl-6 pr-6 py-4 rounded-r-lg">
+                                <div class="text-lg text-gray-700 mb-8 leading-relaxed bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 pl-6 pr-6 py-4 rounded-r-lg">
                                     <i class="fas fa-quote-left text-blue-400 mr-2"></i>
                                     {{ $article->excerpt }}
                                 </div>
@@ -729,8 +1023,8 @@
                         </header>
 
                         <!-- Article Content -->
-                        <div class="prose prose-xl max-w-none mb-12">
-                            <div class="text-gray-800 leading-relaxed space-y-6">
+                        <div class="max-w-none mb-12">
+                            <div class="prose-content text-gray-800 leading-relaxed space-y-4 text-base">
                                 {!! $article->content !!}
                             </div>
                         </div>
@@ -740,7 +1034,7 @@
                         <section class="mb-12">
                             <div class="flex items-center mb-6">
                                 <i class="fas fa-images text-2xl text-blue-600 mr-3"></i>
-                                <h3 class="text-2xl font-bold text-gray-900">Galeri Foto</h3>
+                                <h3 class="text-xl font-bold text-gray-900">Galeri Foto</h3>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                 @foreach($article->getMedia('gallery') as $index => $media)
@@ -763,6 +1057,196 @@
                                     </div>
                                 </div>
                                 @endforeach
+                            </div>
+                        </section>
+                        @endif
+
+                        <!-- Document Attachments -->
+                        @if($article->hasDocuments())
+                        <section class="mb-12">
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-paperclip text-xl text-green-600 mr-3"></i>
+                                <h3 class="text-xl font-bold text-gray-900">Dokumen Terkait</h3>
+                            </div>
+                            
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <!-- Uploaded Documents -->
+                                @if($article->getMedia('documents')->count() > 0)
+                                <div class="mb-4 last:mb-0">
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                                        <i class="fas fa-file-alt text-green-600 mr-2 text-sm"></i>
+                                        File Lampiran
+                                    </h4>
+                                    <div class="space-y-3">
+                                        @foreach($article->getMedia('documents') as $document)
+                                        <div class="document-card bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-colors group">
+                                            <!-- Mobile Layout -->
+                                            <div class="sm:hidden">
+                                                <div class="flex items-start space-x-3 mb-3">
+                                                    <div class="flex-shrink-0 document-icon">
+                                                        @php
+                                                            $extension = pathinfo($document->file_name, PATHINFO_EXTENSION);
+                                                            $iconClass = match(strtolower($extension)) {
+                                                                'pdf' => 'fas fa-file-pdf text-red-500',
+                                                                'doc', 'docx' => 'fas fa-file-word text-blue-500',
+                                                                'xls', 'xlsx' => 'fas fa-file-excel text-green-500',
+                                                                'ppt', 'pptx' => 'fas fa-file-powerpoint text-orange-500',
+                                                                'txt' => 'fas fa-file-alt text-gray-500',
+                                                                'jpg', 'jpeg', 'png', 'gif', 'webp' => 'fas fa-file-image text-purple-500',
+                                                                default => 'fas fa-file text-gray-500'
+                                                            };
+                                                        @endphp
+                                                        <i class="{{ $iconClass }} text-xl"></i>
+                                                    </div>
+                                                    <div class="flex-1 min-w-0">
+                                                        <h5 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 leading-snug">
+                                                            {{ $document->name ?: $document->file_name }}
+                                                        </h5>
+                                                        <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 mt-1">
+                                                            <span class="bg-gray-200 px-2 py-0.5 rounded">{{ strtoupper($extension) }}</span>
+                                                            <span>{{ $document->human_readable_size }}</span>
+                                                            <span>{{ $document->created_at->format('d M Y') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2">
+                                                    @if(in_array(strtolower($extension), ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                                    <a href="{{ $document->getUrl() }}" 
+                                                       target="_blank" 
+                                                       class="document-button flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs font-medium rounded-md">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        Lihat
+                                                    </a>
+                                                    @endif
+                                                    <a href="{{ $document->getUrl() }}" 
+                                                       download="{{ $document->file_name }}"
+                                                       class="document-button flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 text-xs font-medium rounded-md">
+                                                        <i class="fas fa-download mr-1"></i>
+                                                        Download
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Desktop Layout -->
+                                            <div class="hidden sm:flex items-center space-x-3">
+                                                <div class="flex-shrink-0 document-icon">
+                                                    @php
+                                                        $extension = pathinfo($document->file_name, PATHINFO_EXTENSION);
+                                                        $iconClass = match(strtolower($extension)) {
+                                                            'pdf' => 'fas fa-file-pdf text-red-500',
+                                                            'doc', 'docx' => 'fas fa-file-word text-blue-500',
+                                                            'xls', 'xlsx' => 'fas fa-file-excel text-green-500',
+                                                            'ppt', 'pptx' => 'fas fa-file-powerpoint text-orange-500',
+                                                            'txt' => 'fas fa-file-alt text-gray-500',
+                                                            'jpg', 'jpeg', 'png', 'gif', 'webp' => 'fas fa-file-image text-purple-500',
+                                                            default => 'fas fa-file text-gray-500'
+                                                        };
+                                                    @endphp
+                                                    <i class="{{ $iconClass }} text-lg"></i>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h5 class="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600">
+                                                        {{ $document->name ?: $document->file_name }}
+                                                    </h5>
+                                                    <div class="flex items-center space-x-2 text-xs text-gray-500 mt-1">
+                                                        <span>{{ strtoupper($extension) }}</span>
+                                                        <span>•</span>
+                                                        <span>{{ $document->human_readable_size }}</span>
+                                                        <span>•</span>
+                                                        <span>{{ $document->created_at->format('d M Y') }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex space-x-1">
+                                                    @if(in_array(strtolower($extension), ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                                    <a href="{{ $document->getUrl() }}" 
+                                                       target="_blank" 
+                                                       class="document-button inline-flex items-center px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs font-medium rounded">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        Lihat
+                                                    </a>
+                                                    @endif
+                                                    <a href="{{ $document->getUrl() }}" 
+                                                       download="{{ $document->file_name }}"
+                                                       class="document-button inline-flex items-center px-2 py-1 bg-green-100 hover:bg-green-200 text-green-700 text-xs font-medium rounded">
+                                                        <i class="fas fa-download mr-1"></i>
+                                                        Download
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
+
+                                <!-- External Document Links -->
+                                @if($article->document_links && count($article->document_links) > 0)
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                                        <i class="fas fa-globe text-green-600 mr-2 text-sm"></i>
+                                        Tautan Dokumen
+                                    </h4>
+                                    <div class="space-y-3">
+                                        @foreach($article->document_links as $doc)
+                                        @if($doc['type'] === 'url')
+                                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                                            <!-- Mobile Layout -->
+                                            <div class="sm:hidden">
+                                                <div class="mb-3">
+                                                    <h5 class="text-sm font-medium text-gray-900 leading-snug">
+                                                        {{ $doc['title'] }}
+                                                    </h5>
+                                                    @if(isset($doc['description']) && $doc['description'])
+                                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">{{ $doc['description'] }}</p>
+                                                    @endif
+                                                </div>
+                                                <div class="flex flex-wrap gap-2">
+                                                    <a href="{{ $doc['url'] }}" 
+                                                       target="_blank" 
+                                                       rel="noopener noreferrer"
+                                                       class="flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs font-medium rounded-md">
+                                                        <i class="fas fa-external-link-alt mr-1"></i>
+                                                        Buka Link
+                                                    </a>
+                                                    <button onclick="copyToClipboard('{{ $doc['url'] }}')"
+                                                            class="flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-md">
+                                                        <i class="fas fa-copy mr-1"></i>
+                                                        Salin
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Desktop Layout -->
+                                            <div class="hidden sm:flex items-center justify-between">
+                                                <div class="flex-1 min-w-0">
+                                                    <h5 class="text-sm font-medium text-gray-900 truncate">
+                                                        {{ $doc['title'] }}
+                                                    </h5>
+                                                    @if(isset($doc['description']) && $doc['description'])
+                                                    <p class="text-xs text-gray-600 mt-1">{{ $doc['description'] }}</p>
+                                                    @endif
+                                                </div>
+                                                <div class="flex space-x-1 ml-3">
+                                                    <a href="{{ $doc['url'] }}" 
+                                                       target="_blank" 
+                                                       rel="noopener noreferrer"
+                                                       class="inline-flex items-center px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs font-medium rounded">
+                                                        <i class="fas fa-external-link-alt mr-1"></i>
+                                                        Buka
+                                                    </a>
+                                                    <button onclick="copyToClipboard('{{ $doc['url'] }}')"
+                                                            class="inline-flex items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded">
+                                                        <i class="fas fa-copy mr-1"></i>
+                                                        Salin
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </section>
                         @endif
@@ -1489,5 +1973,96 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 2000);
 });
+
+// Copy to clipboard function for document links
+function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        // Use modern clipboard API
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Link berhasil disalin ke clipboard!', 'success');
+        }).catch(() => {
+            fallbackCopyToClipboard(text);
+        });
+    } else {
+        // Fallback for older browsers
+        fallbackCopyToClipboard(text);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showToast('Link berhasil disalin ke clipboard!', 'success');
+    } catch (err) {
+        showToast('Gagal menyalin link. Silakan salin manual.', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+// Toast notification function
+function showToast(message, type = 'info') {
+    // Remove existing toast if any
+    const existingToast = document.getElementById('toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.id = 'toast-notification';
+    toast.className = `fixed top-4 right-4 z-50 flex items-center p-4 mb-4 text-sm rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+        type === 'success' ? 'text-green-800 bg-green-50 border border-green-200' :
+        type === 'error' ? 'text-red-800 bg-red-50 border border-red-200' :
+        'text-blue-800 bg-blue-50 border border-blue-200'
+    }`;
+    
+    toast.innerHTML = `
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 ${
+            type === 'success' ? 'text-green-500 bg-green-100' :
+            type === 'error' ? 'text-red-500 bg-red-100' :
+            'text-blue-500 bg-blue-100'
+        } rounded-lg">
+            <i class="fas ${
+                type === 'success' ? 'fa-check' :
+                type === 'error' ? 'fa-times' :
+                'fa-info'
+            }"></i>
+        </div>
+        <div class="ml-3 text-sm font-medium">${message}</div>
+        <button type="button" onclick="this.parentElement.remove()" class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8">
+            <span class="sr-only">Close</span>
+            <i class="fas fa-times w-3 h-3"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    requestAnimationFrame(() => {
+        toast.style.transform = 'translateX(0)';
+    });
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 300);
+        }
+    }, 3000);
+}
 </script>
 @endsection

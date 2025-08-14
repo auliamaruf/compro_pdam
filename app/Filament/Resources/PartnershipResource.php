@@ -26,9 +26,9 @@ class PartnershipResource extends Resource
     
     protected static ?string $pluralModelLabel = 'Kemitraan';
     
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Profil Perusahaan';
     
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

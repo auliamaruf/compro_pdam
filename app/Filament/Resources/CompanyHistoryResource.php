@@ -18,7 +18,7 @@ class CompanyHistoryResource extends Resource
     protected static ?string $navigationLabel = 'Sejarah Perusahaan';
     protected static ?string $modelLabel = 'Sejarah Perusahaan';
     protected static ?string $pluralModelLabel = 'Sejarah Perusahaan';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

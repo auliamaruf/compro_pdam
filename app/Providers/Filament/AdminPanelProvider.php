@@ -76,6 +76,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Dashboard',
                 'Konten Website',
+                'Tarif & Biaya',
                 'Profil Perusahaan', 
                 'Komunikasi & Layanan',
                 'Pengaturan',

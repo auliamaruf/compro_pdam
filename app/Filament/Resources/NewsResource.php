@@ -55,6 +55,32 @@ class NewsResource extends Resource
                                 Forms\Components\RichEditor::make('content')
                                     ->label('Konten')
                                     ->required()
+                                    ->toolbarButtons([
+                                        'attachFiles',
+                                        'blockquote',
+                                        'bold',
+                                        'bulletList',
+                                        'codeBlock',
+                                        'h1',
+                                        'h2',
+                                        'h3',
+                                        'h4',
+                                        'h5',
+                                        'h6',
+                                        'italic',
+                                        'link',
+                                        'orderedList',
+                                        'redo',
+                                        'strike',
+                                        'subscript',
+                                        'superscript',
+                                        'table',
+                                        'underline',
+                                        'undo',
+                                    ])
+                                    ->disableToolbarButtons([
+                                        // Remove any buttons you don't want
+                                    ])
                                     ->columnSpanFull(),
                             ])
                             ->columnSpan(2),
@@ -121,6 +147,75 @@ class NewsResource extends Resource
                             ])
                             ->columnSpan(1),
                     ]),
+
+                // Tambahkan section untuk documents
+                Forms\Components\Section::make('Dokumen & Lampiran')
+                    ->schema([
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('document_files')
+                            ->label('Upload Dokumen')
+                            ->collection('documents')
+                            ->multiple()
+                            ->reorderable()
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'application/msword',
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.ms-powerpoint',
+                                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                                'text/plain',
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp'
+                            ])
+                            ->maxSize(10240) // 10MB max per file
+                            ->helperText('Upload dokumen pendukung seperti PDF, Word, Excel, PowerPoint, atau gambar. Maksimal 10MB per file.')
+                            ->columnSpanFull(),
+
+                        Forms\Components\Repeater::make('document_links')
+                            ->label('Link Dokumen External')
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->label('Judul Dokumen')
+                                    ->required()
+                                    ->placeholder('Contoh: Peraturan Daerah No. 5 Tahun 2024'),
+
+                                Forms\Components\TextInput::make('url')
+                                    ->label('URL Dokumen')
+                                    ->url()
+                                    ->required()
+                                    ->placeholder('https://example.com/dokumen.pdf'),
+
+                                Forms\Components\Textarea::make('description')
+                                    ->label('Deskripsi')
+                                    ->placeholder('Deskripsi singkat dokumen')
+                                    ->rows(2),
+
+                                Forms\Components\Hidden::make('type')
+                                    ->default('url'),
+
+                                Forms\Components\Hidden::make('created_at')
+                                    ->default(fn() => now()->toISOString()),
+                            ])
+                            ->columns(2)
+                            ->columnSpanFull()
+                            ->defaultItems(0)
+                            ->addActionLabel('Tambah Link Dokumen')
+                            ->collapsible()
+                            ->helperText('Tambahkan link ke dokumen yang tersimpan di website lain atau cloud storage.'),
+
+                        Forms\Components\Toggle::make('has_documents')
+                            ->label('Berita Memiliki Dokumen')
+                            ->helperText('Centang jika berita ini memiliki dokumen lampiran yang relevan')
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, Forms\Set $set) {
+                                // Auto-set based on uploaded files or URLs
+                                // This will be handled in the save process
+                            }),
+                    ])
+                    ->columnSpanFull()
+                    ->collapsible(),
             ]);
     }
 
@@ -140,7 +235,19 @@ class NewsResource extends Resource
                     ->sortable()
                     ->limit(50)
                     ->weight('bold')
-                    ->description(fn ($record) => Str::limit($record->excerpt ?? '', 60)),
+                    ->description(function ($record) {
+                        $desc = Str::limit($record->excerpt ?? '', 60);
+                        
+                        // Add document indicator
+                        if ($record->hasDocuments()) {
+                            $docsCount = $record->getMedia('documents')->count();
+                            $urlsCount = $record->documents ? count($record->documents) : 0;
+                            $totalDocs = $docsCount + $urlsCount;
+                            $desc .= " • 📎 {$totalDocs} dokumen";
+                        }
+                        
+                        return $desc;
+                    }),
 
                 Tables\Columns\BadgeColumn::make('type')
                     ->label('Kategori')
