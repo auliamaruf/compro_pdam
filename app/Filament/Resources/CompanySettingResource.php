@@ -365,7 +365,57 @@ class CompanySettingResource extends Resource
                               
                             ]),
                             
-                        // Tab 6: Status
+                        // Tab 6: Sambutan Direksi
+                        Tabs\Tab::make('Sambutan Direksi')
+                            ->icon('heroicon-o-user-circle')
+                            ->schema([
+                                Section::make('Informasi Direksi')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('show_director_message')
+                                            ->label('Tampilkan Sambutan Direksi')
+                                            ->default(true)
+                                            ->helperText('Aktifkan untuk menampilkan section sambutan direksi di halaman About')
+                                            ->live()
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\TextInput::make('message_title')
+                                            ->label('Judul Section')
+                                            ->default('Sambutan Direktur')
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\TextInput::make('director_name')
+                                            ->label('Nama Direktur')
+                                            ->placeholder('Dr. John Doe, M.M.')
+                                            ->visible(fn ($get) => $get('show_director_message')),
+                                            
+                                        Forms\Components\TextInput::make('director_position')
+                                            ->label('Jabatan')
+                                            ->placeholder('Direktur Utama')
+                                            ->visible(fn ($get) => $get('show_director_message')),
+                                            
+                                        SpatieMediaLibraryFileUpload::make('director_photo')
+                                            ->label('Foto Direktur')
+                                            ->collection('director_photo')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(5120)
+                                            ->helperText('Upload foto direktur dengan format PNG tanpa background untuk hasil terbaik. Maksimal 5MB.')
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\RichEditor::make('director_message')
+                                            ->label('Sambutan/Pesan Direktur')
+                                            ->placeholder('Sambutan dari direktur kepada masyarakat dan stakeholder...')
+                                            ->toolbarButtons([
+                                                'bold', 'italic', 'underline', 'bulletList', 'orderedList', 'link', 'blockquote'
+                                            ])
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                    ])->columns(2),
+                            ]),
+                            
+                        // Tab 7: Status
                         Tabs\Tab::make('Status')
                             ->icon('heroicon-o-cog-6-tooth')
                             ->schema([

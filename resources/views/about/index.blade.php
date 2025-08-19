@@ -11,12 +11,93 @@
         <div class="hero-content container-custom">
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="hero-title">Tentang Kami</h1>
-                <p class="hero-description">
-                    {{ $company->company_description ? strip_tags($company->company_description) : 'Mengenal lebih dekat Perumda Air Minum Tirta Perwira' }}
-                </p>
+                <p class="hero-description"> Mengenal lebih dekat dengan {{ $company->company_name }}</p>
             </div>
         </div>
     </section>
+
+    <!-- Director Message Section -->
+    @if($company->show_director_message && $company->director_message)
+    <section class="py-16 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+        <div class="container-custom">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
+                        {{ $company->message_title ?? 'Sambutan Direktur' }}
+                    </h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mx-auto"></div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                        <!-- Director Photo Section -->
+                        <div class="lg:col-span-1 relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600">
+                            @if($company->getFirstMediaUrl('director_photo'))
+                                <!-- Clean Full Photo Design -->
+                                <div class="relative w-full h-full min-h-[360px] lg:min-h-[400px]">
+                                    <!-- Photo Background -->
+                                    <img 
+                                        src="{{ $company->getFirstMediaUrl('director_photo') }}" 
+                                        alt="{{ $company->director_name ?? 'Direktur' }}"
+                                        class="absolute inset-0 w-full h-full object-cover object-center"
+                                    >
+                                    
+                                    <!-- Clean Elegant Overlay -->
+                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-cyan-600/30"></div>
+                                </div>
+                            @else
+                                <!-- Clean Full Fallback -->
+                                <div class="relative w-full h-full min-h-[360px] lg:min-h-[400px] flex items-center justify-center">
+                                    <!-- Clean Background -->
+                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-800/60 via-blue-700/40 to-cyan-600/50"></div>
+                                    
+                                    <!-- Avatar Content -->
+                                    <div class="text-center text-white z-10">
+                                        <div class="bg-white/15 backdrop-blur-md rounded-2xl p-8 lg:p-10 border border-white/25 shadow-xl">
+                                            <svg class="w-20 h-20 lg:w-24 lg:h-24 text-white/90 mx-auto mb-4 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                            </svg>
+                                            <h3 class="text-lg lg:text-xl font-bold mb-2 text-white">Director Photo</h3>
+                                            <p class="text-sm text-cyan-100">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Message Content -->
+                        <div class="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center">
+                            <!-- Quote Icon -->
+                            <div class="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-full mb-4">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                </svg>
+                            </div>
+                            
+                            <!-- Message -->
+                            <div class="prose prose-base max-w-none mb-5">
+                                <div class="text-gray-700 leading-relaxed text-sm lg:text-base">
+                                    {!! $company->director_message !!}
+                                </div>
+                            </div>
+                            
+                            <!-- Director Info -->
+                            <div class="border-t border-gray-100 pt-4">
+                                @if($company->director_name)
+                                <h4 class="text-lg font-bold text-gray-900 mb-1">{{ $company->director_name }}</h4>
+                                @endif
+                                @if($company->director_position)
+                                <p class="text-blue-600 font-medium text-sm">{{ $company->director_position }}</p>
+                                @endif
+                                <p class="text-xs text-gray-500 mt-1">{{ $company->company_name ?? 'PDAM Tirta Perwira' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
 
     <!-- Company Profile Section -->
     <section class="section-padding">
@@ -106,10 +187,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-
-
-                <!-- Statistics -->
                 <!-- @if($company->years_experience || $company->customers_served || $company->water_quality_percentage || $company->service_availability)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     @if($company->years_experience)
