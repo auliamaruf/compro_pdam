@@ -42,17 +42,39 @@
                                         </span>
                                     </div>
                                     
-                                    <!-- Avatar -->
+                                    <!-- Avatar with Photo/Icon -->
                                     <div class="flex justify-center mb-6">
-                                        <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                            <i class="fas fa-crown text-white text-2xl"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-24 h-24 rounded-full overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 border-4 border-white">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-2xl">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-crown text-white text-2xl"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                     
                                     <!-- Content -->
                                     <div class="text-center">
                                         <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $structure->title }}</h3>
                                         <p class="text-blue-700 font-semibold text-lg">{{ $structure->name }}</p>
+                                        @if($structure->subtitle)
+                                            <p class="text-gray-600 text-sm mt-1">{{ $structure->subtitle }}</p>
+                                        @endif
+                                        @if($structure->description)
+                                            <p class="text-gray-500 text-xs mt-2 leading-relaxed">{{ Str::limit($structure->description, 100) }}</p>
+                                        @endif
                                     </div>
                                     
                                     <!-- Decorative Element -->
@@ -73,17 +95,39 @@
                                         </span>
                                     </div>
                                     
-                                    <!-- Avatar -->
+                                    <!-- Avatar with Photo/Icon -->
                                     <div class="flex justify-center mb-6">
-                                        <div class="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                            <i class="fas fa-user-tie text-white text-2xl"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-24 h-24 rounded-full overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 border-4 border-white">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-2xl">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-user-tie text-white text-2xl"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                     
                                     <!-- Content -->
                                     <div class="text-center">
                                         <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $structure->title }}</h3>
                                         <p class="text-emerald-700 font-semibold text-lg">{{ $structure->name }}</p>
+                                        @if($structure->subtitle)
+                                            <p class="text-gray-600 text-sm mt-1">{{ $structure->subtitle }}</p>
+                                        @endif
+                                        @if($structure->description)
+                                            <p class="text-gray-500 text-xs mt-2 leading-relaxed">{{ Str::limit($structure->description, 100) }}</p>
+                                        @endif
                                     </div>
                                     
                                     <!-- Decorative Element -->
@@ -112,35 +156,54 @@
                                 <!-- Background Pattern -->
                                 <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-bl-full opacity-50"></div>
                                 
-                                <!-- Icon -->
+                                <!-- Avatar with Photo/Icon -->
                                 <div class="flex justify-center mb-4">
-                                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        @php
-                                            $bagianIcons = [
-                                                'umum' => 'fas fa-layer-group',
-                                                'teknik' => 'fas fa-wrench',
-                                                'keuangan' => 'fas fa-calculator',
-                                                'langganan' => 'fas fa-users',
-                                                'produksi' => 'fas fa-industry',
-                                                'distribusi' => 'fas fa-route',
-                                                'default' => 'fas fa-briefcase'
-                                            ];
-                                            $icon = 'fas fa-briefcase';
-                                            foreach($bagianIcons as $key => $iconClass) {
-                                                if(stripos($structure->title, $key) !== false) {
-                                                    $icon = $iconClass;
-                                                    break;
-                                                }
-                                            }
-                                        @endphp
-                                        <i class="{{ $icon }} text-white text-lg"></i>
-                                    </div>
+                                    @if($structure->hasPhoto())
+                                        <div class="w-16 h-16 rounded-full overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300 border-3 border-white">
+                                            <img 
+                                                src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                alt="{{ $structure->name }}"
+                                                class="w-full h-full object-cover"
+                                            >
+                                        </div>
+                                    @else
+                                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                                            @if($structure->icon)
+                                                <div class="text-white text-lg">
+                                                    {!! $structure->icon !!}
+                                                </div>
+                                            @else
+                                                @php
+                                                    $bagianIcons = [
+                                                        'umum' => 'fas fa-layer-group',
+                                                        'teknik' => 'fas fa-wrench',
+                                                        'keuangan' => 'fas fa-calculator',
+                                                        'langganan' => 'fas fa-users',
+                                                        'produksi' => 'fas fa-industry',
+                                                        'distribusi' => 'fas fa-route',
+                                                        'default' => 'fas fa-briefcase'
+                                                    ];
+                                                    $icon = 'fas fa-briefcase';
+                                                    foreach($bagianIcons as $key => $iconClass) {
+                                                        if(stripos($structure->title, $key) !== false) {
+                                                            $icon = $iconClass;
+                                                            break;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <i class="{{ $icon }} text-white text-lg"></i>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                                 
                                 <!-- Content -->
                                 <div class="text-center">
                                     <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight min-h-[2.5rem]">{{ $structure->title }}</h3>
                                     <p class="text-purple-600 font-medium text-xs">{{ $structure->name }}</p>
+                                    @if($structure->subtitle)
+                                        <p class="text-gray-500 text-xs mt-1">{{ $structure->subtitle }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -162,33 +225,52 @@
                     @foreach($organizations[4] as $structure)
                         <div class="group">
                             <div class="bg-gradient-to-br from-orange-50 to-red-50 p-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-orange-100">
-                                <!-- Icon -->
+                                <!-- Avatar with Photo/Icon -->
                                 <div class="flex justify-center mb-3">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
-                                        @php
-                                            $unitIcons = [
-                                                'cabang' => 'fas fa-building',
-                                                'unit' => 'fas fa-cube',
-                                                'produksi' => 'fas fa-industry',
-                                                'distribusi' => 'fas fa-truck',
-                                                'default' => 'fas fa-home'
-                                            ];
-                                            $icon = 'fas fa-home';
-                                            foreach($unitIcons as $key => $iconClass) {
-                                                if(stripos($structure->title, $key) !== false) {
-                                                    $icon = $iconClass;
-                                                    break;
-                                                }
-                                            }
-                                        @endphp
-                                        <i class="{{ $icon }} text-white text-sm"></i>
-                                    </div>
+                                    @if($structure->hasPhoto())
+                                        <div class="w-12 h-12 rounded-full overflow-hidden shadow-sm group-hover:scale-110 transition-transform duration-300 border-2 border-white">
+                                            <img 
+                                                src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                alt="{{ $structure->name }}"
+                                                class="w-full h-full object-cover"
+                                            >
+                                        </div>
+                                    @else
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                            @if($structure->icon)
+                                                <div class="text-white text-sm">
+                                                    {!! $structure->icon !!}
+                                                </div>
+                                            @else
+                                                @php
+                                                    $unitIcons = [
+                                                        'cabang' => 'fas fa-building',
+                                                        'unit' => 'fas fa-cube',
+                                                        'produksi' => 'fas fa-industry',
+                                                        'distribusi' => 'fas fa-truck',
+                                                        'default' => 'fas fa-home'
+                                                    ];
+                                                    $icon = 'fas fa-home';
+                                                    foreach($unitIcons as $key => $iconClass) {
+                                                        if(stripos($structure->title, $key) !== false) {
+                                                            $icon = $iconClass;
+                                                            break;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <i class="{{ $icon }} text-white text-sm"></i>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                                 
                                 <!-- Content -->
                                 <div class="text-center">
                                     <h3 class="font-semibold text-gray-900 text-xs mb-1 leading-tight min-h-[2rem]">{{ $structure->title }}</h3>
                                     <p class="text-orange-600 font-medium text-xs">{{ $structure->name }}</p>
+                                    @if($structure->subtitle)
+                                        <p class="text-gray-500 text-xs mt-1">{{ $structure->subtitle }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -222,9 +304,25 @@
                             @foreach($organizations[5] as $structure)
                                 <div class="bg-white p-2 rounded-lg shadow-sm border border-teal-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
-                                        <div class="w-6 h-6 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center mr-2">
-                                            <i class="fas fa-user text-white text-xs"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-teal-200">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-6 h-6 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center mr-2">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-xs">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-user text-white text-xs"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                         <div>
                                             <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-teal-600 text-xs">{{ $structure->name }}</p>
@@ -251,9 +349,25 @@
                             @foreach($organizations[6] as $structure)
                                 <div class="bg-white p-2 rounded-lg shadow-sm border border-indigo-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
-                                        <div class="w-6 h-6 bg-gradient-to-br from-indigo-400 to-blue-400 rounded-full flex items-center justify-center mr-2">
-                                            <i class="fas fa-tools text-white text-xs"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-indigo-200">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-6 h-6 bg-gradient-to-br from-indigo-400 to-blue-400 rounded-full flex items-center justify-center mr-2">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-xs">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-tools text-white text-xs"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                         <div>
                                             <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-indigo-600 text-xs">{{ $structure->name }}</p>
@@ -280,9 +394,25 @@
                             @foreach($organizations[7] as $structure)
                                 <div class="bg-white p-2 rounded-lg shadow-sm border border-rose-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
-                                        <div class="w-6 h-6 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full flex items-center justify-center mr-2">
-                                            <i class="fas fa-handshake text-white text-xs"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-rose-200">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-6 h-6 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full flex items-center justify-center mr-2">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-xs">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-handshake text-white text-xs"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                         <div>
                                             <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-rose-600 text-xs">{{ $structure->name }}</p>
@@ -309,9 +439,25 @@
                             @foreach($organizations[8] as $structure)
                                 <div class="bg-white p-2 rounded-lg shadow-sm border border-emerald-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
-                                        <div class="w-6 h-6 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center mr-2">
-                                            <i class="fas fa-calculator text-white text-xs"></i>
-                                        </div>
+                                        @if($structure->hasPhoto())
+                                            <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-emerald-200">
+                                                <img 
+                                                    src="{{ $structure->getPhotoUrl('thumb') }}" 
+                                                    alt="{{ $structure->name }}"
+                                                    class="w-full h-full object-cover"
+                                                >
+                                            </div>
+                                        @else
+                                            <div class="w-6 h-6 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full flex items-center justify-center mr-2">
+                                                @if($structure->icon)
+                                                    <div class="text-white text-xs">
+                                                        {!! $structure->icon !!}
+                                                    </div>
+                                                @else
+                                                    <i class="fas fa-calculator text-white text-xs"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                         <div>
                                             <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-emerald-600 text-xs">{{ $structure->name }}</p>

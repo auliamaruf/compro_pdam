@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class OrganizationStructureResource extends Resource
 {
@@ -55,6 +56,27 @@ class OrganizationStructureResource extends Resource
                             ->rows(3),
                     ])->columns(2),
 
+                Forms\Components\Section::make('Foto & Icon')
+                    ->schema([
+                        SpatieMediaLibraryFileUpload::make('staff_photo')
+                            ->label('Foto Pejabat')
+                            ->collection('staff_photos')
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '1:1',
+                            ])
+                            ->maxSize(2048)
+                            ->helperText('Upload foto pejabat (maks. 2MB). Rasio 1:1 direkomendasikan.')
+                            ->columnSpanFull(),
+                        Forms\Components\Textarea::make('icon')
+                            ->label('Icon SVG (Fallback)')
+                            ->placeholder('Paste SVG icon code disini')
+                            ->rows(4)
+                            ->helperText('Icon SVG sebagai fallback jika foto tidak tersedia')
+                            ->columnSpanFull(),
+                    ])->columns(1),
+
                 Forms\Components\Section::make('Hierarki & Tampilan')
                     ->schema([
                         Forms\Components\Select::make('level')
@@ -76,11 +98,6 @@ class OrganizationStructureResource extends Resource
                             ->numeric()
                             ->default(0)
                             ->helperText('Urutan tampilan dalam level yang sama'),
-                        Forms\Components\Textarea::make('icon')
-                            ->label('Icon SVG')
-                            ->placeholder('Paste SVG icon code disini')
-                            ->rows(4)
-                            ->helperText('Icon SVG untuk ditampilkan di struktur organisasi'),
                         Forms\Components\Toggle::make('is_active')
                             ->label('Aktif')
                             ->default(true)
@@ -125,13 +142,16 @@ class OrganizationStructureResource extends Resource
                     ->description(fn ($record) => $record->description ? \Illuminate\Support\Str::limit($record->description, 60) : 'Tidak ada deskripsi')
                     ->limit(40),
 
-                Tables\Columns\TextColumn::make('icon')
-                    ->label('Icon')
+                Tables\Columns\TextColumn::make('media_info')
+                    ->label('Foto & Icon')
                     ->formatStateUsing(function ($record) {
-                        return $record->icon ? '✅ Ada icon' : '❌ Tidak ada';
+                        $photo = $record->hasMedia('staff_photos') ? '📷 Ada foto' : '❌ Tidak ada foto';
+                        $icon = $record->icon ? '🎨 Ada icon' : '❌ Tidak ada icon';
+                        return $photo . "\n" . $icon;
                     })
-                    ->description('Icon SVG untuk display')
-                    ->color(fn ($record) => $record->icon ? 'success' : 'gray'),
+                    ->description('Status foto dan icon fallback')
+                    ->html()
+                    ->color(fn ($record) => $record->hasMedia('staff_photos') ? 'success' : 'gray'),
 
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
