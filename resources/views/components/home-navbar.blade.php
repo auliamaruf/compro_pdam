@@ -125,6 +125,12 @@
                     </svg>
                     Cabang & Unit IKK
                 </a>
+                <a href="{{ route('water-sources.index') }}" class="mobile-nav-sublink">
+                    <svg class="w-4 h-4 mr-2 inline text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                    </svg>
+                    Sumber Mata Air
+                </a>
             </div>
 
             <!-- Layanan Sub Menu -->
