@@ -34,6 +34,25 @@
         transform: translateY(-2px);
     }
     
+    .source-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    
+    .source-image img {
+        transition: transform 0.3s ease;
+    }
+    
+    .source-card:hover .source-image img {
+        transform: scale(1.05);
+    }
+    
+    .source-image-placeholder {
+        margin-bottom: 1rem;
+    }
+    
     .source-header {
         display: flex;
         align-items: center;
@@ -133,28 +152,8 @@
     }
 
     .hero-section {
-        position: relative;
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
-        color: white;
-        padding: 4rem 0 5rem 0;
-        min-height: 50vh;
         display: flex;
         align-items: center;
-        overflow: hidden;
-    }
-
-    .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(1px);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        width: 100%;
     }
 
     .hero-title {
@@ -173,20 +172,6 @@
         margin-left: auto;
         margin-right: auto;
         line-height: 1.6;
-    }
-
-    .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.75rem 1.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 9999px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        backdrop-filter: blur(12px);
-        margin-bottom: 2rem;
-        color: rgba(255, 255, 255, 0.9);
     }
 
     .hero-wave {
@@ -237,11 +222,6 @@
         <div class="hero-overlay"></div>
         <div class="hero-content container-custom">
             <div class="max-w-4xl mx-auto text-center">
-                <div class="hero-badge">
-                    <i class="fas fa-tint mr-2"></i>
-                    Sumber Mata Air
-                </div>
-                
                 <h1 class="hero-title">Sumber Mata Air</h1>
                 <p class="hero-description">
                     {{ (($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM Tirta Perwira') }} mengelola berbagai sumber mata air strategis untuk menyediakan air bersih berkualitas bagi masyarakat
@@ -265,6 +245,24 @@
                     <div class="sources-grid">
                         @foreach($waterSources as $index => $source)
                         <div class="source-card" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                            <!-- Source Image -->
+                            @if($source->getFirstMediaUrl('water_source_images'))
+                            <div class="source-image mb-4">
+                                <img src="{{ $source->getFirstMediaUrl('water_source_images') }}" 
+                                     alt="{{ $source->name }}" 
+                                     class="w-full h-48 object-cover rounded-lg shadow-sm">
+                            </div>
+                            @else
+                            <div class="source-image-placeholder mb-4">
+                                <div class="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg shadow-sm flex items-center justify-center">
+                                    <div class="text-center text-blue-600">
+                                        <i class="fas fa-tint text-4xl mb-2 opacity-50"></i>
+                                        <p class="text-sm font-medium opacity-75">Foto akan segera tersedia</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
                             <!-- Source Header -->
                             <div class="source-header">
                                 <div class="source-icon">

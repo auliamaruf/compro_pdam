@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 
 class WaterSourceResource extends Resource
 {
@@ -95,12 +97,17 @@ class WaterSourceResource extends Resource
                     
                 Forms\Components\Section::make('Media & Pengaturan')
                     ->schema([
-                        Forms\Components\FileUpload::make('photo')
+                        SpatieMediaLibraryFileUpload::make('water_source_images')
                             ->label('Foto Sumber Air')
+                            ->collection('water_source_images')
                             ->image()
                             ->maxFiles(1)
-                            ->directory('water-sources')
                             ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                                '4:3',
+                                '1:1',
+                            ])
                             ->columnSpanFull(),
                             
                         Forms\Components\TextInput::make('sort_order')
@@ -117,8 +124,9 @@ class WaterSourceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('photo')
+                SpatieMediaLibraryImageColumn::make('water_source_images')
                     ->label('Foto')
+                    ->collection('water_source_images')
                     ->width(80)
                     ->height(60)
                     ->circular(),
