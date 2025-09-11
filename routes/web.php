@@ -10,6 +10,7 @@ use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FilamentTestController;
+use App\Http\Controllers\WaterSourceController;
 
 // Test routes
 Route::get('/test/company-setting', [TestController::class, 'testCompanySetting'])->name('test.company-setting');
@@ -98,6 +99,12 @@ Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('searc
 Route::middleware(['throttle:30,1'])->group(function () {
     Route::post('/search/api', [SearchController::class, 'api'])->name('search.api');
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+});
+
+// Water Sources
+Route::prefix('sumber-mata-air')->group(function () {
+    Route::get('/', [WaterSourceController::class, 'index'])->name('water-sources.index');
+    Route::get('/{waterSource}', [WaterSourceController::class, 'show'])->name('water-sources.show');
 });
 
 // Debug route

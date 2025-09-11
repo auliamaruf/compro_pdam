@@ -12,15 +12,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class WaterTariffResource extends Resource
 {
     protected static ?string $model = WaterTariff::class;
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
-    protected static ?string $navigationGroup = 'Pengaturan';
+    protected static ?string $navigationGroup = 'Tarif & Biaya';
     protected static ?string $navigationLabel = 'Tarif Air';
     protected static ?string $pluralLabel = 'Tarif Air';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -30,14 +31,56 @@ class WaterTariffResource extends Resource
                     ->schema([
                         Forms\Components\Grid::make(2)
                             ->schema([
-                                Forms\Components\TextInput::make('customer_type')
+                                Forms\Components\Select::make('customer_type')
                                     ->label('Jenis Pelanggan')
+                                    ->options([
+                                        'Sosial' => 'Sosial',
+                                        'Rumah Tangga' => 'Rumah Tangga',
+                                        'Instansi' => 'Instansi',
+                                        'TNI/Polri' => 'TNI/Polri',
+                                        'Niaga' => 'Niaga',
+                                        'Industri' => 'Industri',
+                                    ])
                                     ->required()
-                                    ->placeholder('Rumah Tangga, Usaha, Sosial, dll'),
+                                    ->searchable(),
 
+                                Forms\Components\Select::make('sub_category')
+                                    ->label('Sub Kategori')
+                                    ->options([
+                                        // Sosial
+                                        'SOSIAL UMUM (HU)' => 'Sosial Umum (HU)',
+                                        'SOSIAL KHUSUS' => 'Sosial Khusus',
+                                        // Rumah Tangga
+                                        'RUMAH TANGGA KHUSUS' => 'Rumah Tangga Khusus',
+                                        'RUMAH TANGGA A' => 'Rumah Tangga A',
+                                        'RUMAH TANGGA B' => 'Rumah Tangga B',
+                                        'RUMAH TANGGA C' => 'Rumah Tangga C',
+                                        // Instansi
+                                        'INSTANSI PEMERINTAH' => 'Instansi Pemerintah',
+                                        // TNI/Polri
+                                        'TNI/POLRI' => 'TNI/POLRI',
+                                        // Niaga
+                                        'NIAGA KECIL' => 'Niaga Kecil',
+                                        'NIAGA BESAR' => 'Niaga Besar',
+                                        // Industri
+                                        'INDUSTRI KECIL' => 'Industri Kecil',
+                                        'INDUSTRI BESAR' => 'Industri Besar',
+                                    ])
+                                    ->required()
+                                    ->searchable(),
+                            ]),
+
+                        Forms\Components\Grid::make(1)
+                            ->schema([
                                 Forms\Components\Textarea::make('description')
                                     ->label('Deskripsi')
-                                    ->rows(2),
+                                    ->rows(2)
+                                    ->placeholder('Deskripsi lengkap tarif ini'),
+
+                                Forms\Components\Textarea::make('legal_basis')
+                                    ->label('Dasar Hukum')
+                                    ->rows(3)
+                                    ->placeholder('Contoh: Peraturan Bupati Purbalingga No.62 Tahun 2011 tanggal 14 Juni 2011'),
                             ]),
 
                         Forms\Components\Grid::make(3)
@@ -148,26 +191,21 @@ class WaterTariffResource extends Resource
                 Tables\Columns\TextColumn::make('customer_type')
                     ->label('Jenis Pelanggan')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->sub_category),
 
                 Tables\Columns\TextColumn::make('min_usage')
                     ->label('Min (m³)')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('max_usage')
-                    ->label('Max (m³)')
-                    ->placeholder('Unlimited')
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn ($record) => $record->max_usage ? "Max: {$record->max_usage} m³" : 'Unlimited'),
 
                 Tables\Columns\TextColumn::make('rate_per_m3')
                     ->label('Tarif/m³')
                     ->money('IDR')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('admin_fee')
-                    ->label('Biaya Admin')
-                    ->money('IDR')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable()
+                    ->weight('bold')
+                    ->color('success'),
 
                 Tables\Columns\IconColumn::make('show_in_navbar')
                     ->label('Di Navbar')
@@ -177,13 +215,8 @@ class WaterTariffResource extends Resource
                     ->trueColor('success')
                     ->falseColor('danger'),
 
-                Tables\Columns\TextColumn::make('navbar_order')
-                    ->label('Urutan Navbar')
-                    ->sortable()
-                    ->toggleable(),
-
                 Tables\Columns\IconColumn::make('is_navbar_featured')
-                    ->label('Unggulan Navbar')
+                    ->label('Featured')
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-star')
@@ -198,17 +231,49 @@ class WaterTariffResource extends Resource
 
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
-                    ->boolean(),
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
+
+                Tables\Columns\TextColumn::make('admin_fee')
+                    ->label('Biaya Admin')
+                    ->money('IDR')
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('navbar_order')
+                    ->label('Urutan Navbar')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('customer_type')
                     ->label('Jenis Pelanggan')
                     ->options([
-                        'Rumah Tangga' => 'Rumah Tangga',
-                        'Komersial' => 'Komersial',
-                        'Industri' => 'Industri',
                         'Sosial' => 'Sosial',
-                        'Instansi' => 'Instansi'
+                        'Rumah Tangga' => 'Rumah Tangga',
+                        'Instansi' => 'Instansi',
+                        'TNI/Polri' => 'TNI/Polri',
+                        'Niaga' => 'Niaga',
+                        'Industri' => 'Industri',
+                    ]),
+
+                Tables\Filters\SelectFilter::make('sub_category')
+                    ->label('Sub Kategori')
+                    ->options([
+                        'SOSIAL UMUM (HU)' => 'Sosial Umum (HU)',
+                        'SOSIAL KHUSUS' => 'Sosial Khusus',
+                        'RUMAH TANGGA KHUSUS' => 'Rumah Tangga Khusus',
+                        'RUMAH TANGGA A' => 'Rumah Tangga A',
+                        'RUMAH TANGGA B' => 'Rumah Tangga B',
+                        'RUMAH TANGGA C' => 'Rumah Tangga C',
+                        'INSTANSI PEMERINTAH' => 'Instansi Pemerintah',
+                        'TNI/POLRI' => 'TNI/POLRI',
+                        'NIAGA KECIL' => 'Niaga Kecil',
+                        'NIAGA BESAR' => 'Niaga Besar',
+                        'INDUSTRI KECIL' => 'Industri Kecil',
+                        'INDUSTRI BESAR' => 'Industri Besar',
                     ]),
 
                 Tables\Filters\TernaryFilter::make('show_in_navbar')
@@ -225,16 +290,22 @@ class WaterTariffResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->current()),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('toggle_navbar')
-                    ->label('Toggle Navbar')
-                    ->icon('heroicon-o-bars-3')
-                    ->action(function (WaterTariff $record) {
-                        $record->update(['show_in_navbar' => !$record->show_in_navbar]);
-                    })
-                    ->color(fn (WaterTariff $record) => $record->show_in_navbar ? 'danger' : 'success')
-                    ->button(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\Action::make('toggle_navbar')
+                        ->label('Toggle Navbar')
+                        ->icon('heroicon-o-bars-3')
+                        ->action(function (WaterTariff $record) {
+                            $record->update(['show_in_navbar' => !$record->show_in_navbar]);
+                        })
+                        ->color(fn (WaterTariff $record) => $record->show_in_navbar ? 'danger' : 'success'),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                ->label('Aksi')
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->size('sm')
+                ->color('gray')
+                ->button()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

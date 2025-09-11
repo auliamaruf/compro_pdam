@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Service;
 use App\Models\WaterTariff;
+use App\Models\FixedCost;
 use App\Models\HeroBanner;
 use App\Models\Branch;
+use App\Models\Partnership;
 
 class HomeController extends Controller
 {
@@ -17,8 +19,9 @@ class HomeController extends Controller
         $herobanners = HeroBanner::active()->orderBy('sort_order')->get();
         $news = News::published()->latest('published_at')->take(6)->get();
         $services = Service::active()->orderBy('sort_order')->take(6)->get();
+        $partnerships = Partnership::active()->ordered()->get();
 
-        return view('home', compact('herobanners', 'news', 'services'));
+        return view('home', compact('herobanners', 'news', 'services', 'partnerships'));
     }
 
     public function about()
@@ -46,7 +49,8 @@ class HomeController extends Controller
     public function tariff()
     {
         $tariffs = WaterTariff::active()->current()->orderBy('sort_order')->get();
-        return view('tariff', compact('tariffs'));
+        $fixedCosts = FixedCost::active()->orderedByCategory()->get();
+        return view('tariff', compact('tariffs', 'fixedCosts'));
     }
 
     public function waterQuality()

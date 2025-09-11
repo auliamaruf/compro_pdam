@@ -115,38 +115,62 @@ class HeroBannerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
-                    ->searchable()
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('subtitle')
-                    ->label('Subtitle')
-                    ->limit(40)
-                    ->toggleable(),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('background_image')
                     ->label('Background')
                     ->collection('hero_backgrounds')
                     ->size(80),
-                Tables\Columns\ColorColumn::make('overlay_color')
-                    ->label('Overlay'),
+
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->subtitle ?: 'Tidak ada subtitle')
+                    ->searchable()
+                    ->limit(50),
+
                 Tables\Columns\TextColumn::make('text_position')
-                    ->label('Posisi')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'left' => 'gray',
-                        'center' => 'warning',
-                        'right' => 'success',
-                    }),
+                    ->label('Posisi & CTA')
+                    ->formatStateUsing(function ($record) {
+                        $position = match ($record->text_position) {
+                            'left' => '⬅️ Kiri',
+                            'center' => '⬆️ Tengah',
+                            'right' => '➡️ Kanan',
+                            default => '⬅️ Kiri'
+                        };
+                        $ctaCount = 0;
+                        if ($record->primary_cta_text) $ctaCount++;
+                        if ($record->secondary_cta_text) $ctaCount++;
+                        return $position . ' • ' . $ctaCount . ' tombol';
+                    })
+                    ->description(fn ($record) => $record->primary_cta_text ? 'CTA: ' . $record->primary_cta_text : 'Tidak ada CTA'),
+
+                Tables\Columns\TextColumn::make('overlay_color')
+                    ->label('Overlay')
+                    ->formatStateUsing(function ($record) {
+                        $opacity = $record->overlay_opacity ?? 80;
+                        return '🎨 ' . ($record->overlay_color ?? '#1e3a8a') . ' • ' . $opacity . '%';
+                    })
+                    ->description('Warna dan transparansi overlay'),
+
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
+                    ->alignCenter()
+                    ->description('Urutan tampil')
                     ->sortable(),
-                Tables\Columns\BooleanColumn::make('is_active')
+
+                Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
-                    ->trueIcon('heroicon-o-check-badge')
-                    ->falseIcon('heroicon-o-x-circle'),
+                    ->boolean()
+                    ->sortable(),
+
+                // Toggleable columns (hidden by default)
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Deskripsi')
+                    ->limit(60)
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

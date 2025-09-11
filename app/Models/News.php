@@ -25,14 +25,20 @@ class News extends Model implements HasMedia
         'is_emergency',
         'views',
         'meta',
+        'documents',
+        'document_links',
+        'has_documents',
         'published_at',
         'author_id'
     ];
 
     protected $casts = [
         'meta' => 'array',
+        'documents' => 'array',
+        'document_links' => 'array',
         'is_featured' => 'boolean',
         'is_emergency' => 'boolean',
+        'has_documents' => 'boolean',
         'published_at' => 'datetime'
     ];
 
@@ -85,6 +91,21 @@ class News extends Model implements HasMedia
 
         $this->addMediaCollection('gallery')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+
+        $this->addMediaCollection('documents')
+            ->acceptsMimeTypes([
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'text/plain',
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ]);
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -109,6 +130,58 @@ class News extends Model implements HasMedia
     public function incrementViews()
     {
         $this->increment('views');
+    }
+
+    // Document helpers
+    
+
+    public function getUploadedDocumentsAttribute()
+    {
+        return $this->getMedia('documents');
+    }
+
+    public function getAllDocumentsAttribute()
+    {
+        $documents = collect([]);
+        
+        // Add uploaded files
+        foreach ($this->getMedia('documents') as $media) {
+            $documents->push([
+                'type' => 'file',
+                'name' => $media->name,
+                'original_name' => $media->file_name,
+                'size' => $media->size,
+                'mime_type' => $media->mime_type,
+                'url' => $media->getUrl(),
+                'download_url' => $media->getUrl(),
+                'created_at' => $media->created_at,
+            ]);
+        }
+        
+        // Add URL links
+        if ($this->documents) {
+            foreach ($this->documents as $doc) {
+                if ($doc['type'] === 'url') {
+                    $documents->push([
+                        'type' => 'url',
+                        'name' => $doc['title'],
+                        'description' => $doc['description'] ?? null,
+                        'url' => $doc['url'],
+                        'created_at' => $doc['created_at'] ?? null,
+                    ]);
+                }
+            }
+        }
+        
+        return $documents;
+    }
+
+    public function hasDocuments()
+    {
+        return $this->has_documents || 
+               $this->getMedia('documents')->count() > 0 || 
+               ($this->documents && count($this->documents) > 0) ||
+               ($this->document_links && count($this->document_links) > 0);
     }
 
     /**

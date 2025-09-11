@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Illuminate\Support\Str;
 
 class ServiceResource extends Resource
 {
@@ -216,7 +217,9 @@ class ServiceResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Layanan')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->process_time ? "⏱️ {$record->process_time}" : 'Waktu proses tidak ditentukan'),
 
                 Tables\Columns\BadgeColumn::make('category')
                     ->label('Kategori')

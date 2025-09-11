@@ -5,7 +5,7 @@
     <div class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
-            <div class="flex items-center space-x-3 flex-shrink-0">
+            <a href="{{ url('/') }}" class="flex items-center space-x-3 flex-shrink-0" group>
                 @if($company && $company->getFirstMediaUrl('logo'))
                 <img src="{{ $company->getFirstMediaUrl('logo') }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
@@ -27,7 +27,7 @@
                         {{ ($company && $company->company_name && is_string($company->company_name) && Str::contains($company->company_name, ' - ')) ? Str::after($company->company_name, ' - ') : 'Kabupaten Purbalingga' }}
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-6 flex-1 justify-end">
@@ -52,7 +52,7 @@
                 </a>
 
                 <!-- Kontak dengan smooth scroll -->
-                <a href="#contact-preview" class="nav-link home-section-link" data-section="contact-preview">
+                <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
                     Kontak
                 </a>
             </div>
@@ -84,7 +84,7 @@
             <a href="#news-preview" class="mobile-nav-link home-section-link" data-section="news-preview">
                 Berita
             </a>
-            <a href="#contact-preview" class="mobile-nav-link home-section-link" data-section="contact-preview">
+            <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
                 Kontak
             </a>
 
@@ -124,6 +124,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
                     Cabang & Unit IKK
+                </a>
+                <a href="{{ route('water-sources.index') }}" class="mobile-nav-sublink">
+                    <svg class="w-4 h-4 mr-2 inline text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                    </svg>
+                    Sumber Mata Air
                 </a>
             </div>
 

@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Tirta Perwira Admin')
-            ->brandLogo(asset('images/logo-tirta-perwira.png'))
+            // ->brandLogo(asset('images/logo-tirta-perwira.png'))
             ->brandLogoHeight('2rem')
             ->favicon(asset('images/favicon.png'))
             ->colors([
@@ -67,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentShieldPlugin::make(),
                 ActivitylogPlugin::make()
+                    ->authorize(fn() => auth()->user()->can('view_any_activitylog'))
                     ->navigationGroup('Sistem')
                     ->navigationSort(10)
                     ->navigationCountBadge()
@@ -75,6 +76,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Dashboard',
                 'Konten Website',
+                'Tarif & Biaya',
                 'Profil Perusahaan', 
                 'Komunikasi & Layanan',
                 'Pengaturan',

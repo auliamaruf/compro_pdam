@@ -10,4 +10,29 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: '127.0.0.1', // Use IPv4 instead of IPv6
+        port: 5173,
+        hmr: {
+            host: '127.0.0.1',
+            port: 5173,
+        },
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            },
+        },
+        chunkSizeWarningLimit: 1000,
+        assetsDir: 'assets',
+        sourcemap: false, // Disable sourcemaps in production
+        minify: 'terser', // Better minification
+        terserOptions: {
+            compress: {
+                drop_console: true, // Remove console.logs in production
+                drop_debugger: true,
+            },
+        },
+    },
 });

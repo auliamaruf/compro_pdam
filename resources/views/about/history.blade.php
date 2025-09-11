@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Sejarah - Tirta Perwira')
-@section('description', 'Sejarah perjalanan PDAM Tirta Perwira Purbalingga dalam melayani masyarakat dengan air bersih berkualitas')
+@section('title', 'Tentang Kami - Sejarah ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
+@section('description', 'Sejarah perjalanan {{$company->company_name}} Purbalingga dalam melayani masyarakat dengan air bersih berkualitas')
 
 @php
     use Illuminate\Support\Facades\Storage;
@@ -147,7 +147,7 @@
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="hero-title">Sejarah {{ $company->company_name ?? 'Tirta Perwira' }}</h1>
                 <p class="hero-description">
-                    {{ $company->company_history ?? 'Perjalanan panjang melayani masyarakat Purbalingga dengan air bersih berkualitas' }}
+                    {{strip_tags ($company->company_history ?? 'Perjalanan panjang melayani masyarakat Purbalingga dengan air bersih berkualitas') }}
                 </p>
             </div>
         </div>

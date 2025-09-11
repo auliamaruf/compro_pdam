@@ -257,7 +257,7 @@
                             </div>
                             <div class="branch-info">
                                 <h3 class="branch-name">{{ $branch->name }}</h3>
-                                <p class="branch-code">{{ $branch->code }}</p>
+                                <!-- <p class="branch-code">{{ $branch->code }}</p> -->
                             </div>
                         </div>
 
@@ -382,7 +382,7 @@
                             </div>
                             <div class="branch-info">
                                 <h3 class="branch-name">{{ $unit->name }}</h3>
-                                <p class="branch-code">{{ $unit->code }}</p>
+                                <!-- <p class="branch-code">{{ $unit->code }}</p> -->
                             </div>
                         </div>
 

@@ -110,12 +110,16 @@ class CommentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('commentable_type')
                     ->label('Tipe Konten')
-                    ->formatStateUsing(fn (string $state): string => match($state) {
-                        'App\\Models\\News' => 'Berita',
-                        'App\\Models\\Service' => 'Layanan',
-                        'App\\Models\\Page' => 'Halaman',
-                        default => $state
+                    ->formatStateUsing(function ($record) {
+                        $type = match($record->commentable_type) {
+                            'App\\Models\\News' => '📰 Berita',
+                            'App\\Models\\Service' => '💼 Layanan',
+                            'App\\Models\\Page' => '📄 Halaman',
+                            default => $record->commentable_type
+                        };
+                        return $type;
                     })
+                    ->description(fn ($record) => $record->commentable ? \Illuminate\Support\Str::limit($record->commentable->title, 40) : 'Konten tidak ditemukan')
                     ->badge()
                     ->color(fn (string $state): string => match($state) {
                         'App\\Models\\News' => 'success',
@@ -123,46 +127,71 @@ class CommentResource extends Resource
                         'App\\Models\\Page' => 'info',
                         default => 'gray'
                     }),
-                Tables\Columns\TextColumn::make('commentable.title')
-                    ->label('Konten')
-                    ->limit(30)
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('author_name')
-                    ->label('Nama Pengirim')
+                    ->label('Pengirim')
+                    ->weight('bold')
+                    ->description(function ($record) {
+                        $info = [];
+                        if ($record->author_email) $info[] = '✉️ ' . $record->author_email;
+                        if ($record->author_phone) $info[] = '📞 ' . $record->author_phone;
+                        return implode(' • ', $info) ?: 'Tidak ada kontak';
+                    })
                     ->searchable()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('content')
                     ->label('Komentar')
-                    ->limit(50)
+                    ->formatStateUsing(function ($record) {
+                        $content = \Illuminate\Support\Str::limit($record->content, 60);
+                        $parentInfo = $record->parent ? ' (↪️ Balasan)' : '';
+                        return $content . $parentInfo;
+                    })
+                    ->description(fn ($record) => $record->parent ? 'Membalas: ' . \Illuminate\Support\Str::limit($record->parent->content, 50) : 'Komentar utama')
                     ->searchable(),
-                Tables\Columns\BadgeColumn::make('status')
+
+                Tables\Columns\TextColumn::make('status')
                     ->label('Status')
-                    ->colors([
-                        'warning' => 'pending',
-                        'success' => 'approved',
-                        'danger' => 'rejected',
-                        'gray' => 'spam',
-                    ])
-                    ->formatStateUsing(fn (string $state): string => match($state) {
-                        'pending' => 'Menunggu',
-                        'approved' => 'Disetujui',
-                        'rejected' => 'Ditolak',
-                        'spam' => 'Spam',
-                        default => $state
+                    ->formatStateUsing(function ($record) {
+                        $status = match($record->status) {
+                            'pending' => '⏳ Menunggu',
+                            'approved' => '✅ Disetujui',
+                            'rejected' => '❌ Ditolak',
+                            'spam' => '🚫 Spam',
+                            default => $record->status
+                        };
+                        return $status;
+                    })
+                    ->description(fn ($record) => $record->approved_at ? 'Disetujui: ' . $record->approved_at->format('d M Y H:i') : 'Belum disetujui')
+                    ->badge()
+                    ->color(fn (string $state): string => match($state) {
+                        'pending' => 'warning',
+                        'approved' => 'success',
+                        'rejected' => 'danger',
+                        'spam' => 'gray',
+                        default => 'secondary'
                     }),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y H:i')
+                    ->description('Waktu komentar')
+                    ->sortable(),
+
+                // Toggleable columns (hidden by default)
                 Tables\Columns\TextColumn::make('parent.author_name')
                     ->label('Balasan untuk')
                     ->placeholder('Komentar utama')
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('approved_at')
-                    ->label('Disetujui')
-                    ->dateTime()
-                    ->sortable()
-                    ->placeholder('Belum disetujui'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('meta')
+                    ->label('Metadata')
+                    ->formatStateUsing(function ($record) {
+                        if (is_array($record->meta) && count($record->meta) > 0) {
+                            return count($record->meta) . ' data tambahan';
+                        }
+                        return 'Tidak ada';
+                    })
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -183,26 +212,32 @@ class CommentResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\Action::make('approve')
-                    ->label('Setujui')
-                    ->icon('heroicon-m-check')
-                    ->color('success')
-                    ->requiresConfirmation()
-                    ->action(fn (Comment $record) => $record->update([
-                        'status' => 'approved',
-                        'approved_at' => now(),
-                    ]))
-                    ->visible(fn (Comment $record): bool => $record->status === 'pending'),
-                Tables\Actions\Action::make('reject')
-                    ->label('Tolak')
-                    ->icon('heroicon-m-x-mark')
-                    ->color('danger')
-                    ->requiresConfirmation()
-                    ->action(fn (Comment $record) => $record->update(['status' => 'rejected']))
-                    ->visible(fn (Comment $record): bool => $record->status === 'pending'),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('approve')
+                        ->label('Setujui')
+                        ->icon('heroicon-m-check')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->action(fn (Comment $record) => $record->update([
+                            'status' => 'approved',
+                            'approved_at' => now(),
+                        ]))
+                        ->visible(fn (Comment $record): bool => $record->status === 'pending'),
+                    Tables\Actions\Action::make('reject')
+                        ->label('Tolak')
+                        ->icon('heroicon-m-x-mark')
+                        ->color('danger')
+                        ->requiresConfirmation()
+                        ->action(fn (Comment $record) => $record->update(['status' => 'rejected']))
+                        ->visible(fn (Comment $record): bool => $record->status === 'pending'),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->label('Aksi')
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->size('sm')
+                    ->color('gray')
+                    ->button(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -239,5 +274,15 @@ class CommentResource extends Resource
             'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
+    }
+
+        public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', true)->count();
+    }
+    
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return static::getModel()::where('status', true)->count() > 0 ? 'warning' : 'success' ;
     }
 }

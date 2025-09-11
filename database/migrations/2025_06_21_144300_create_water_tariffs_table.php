@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('water_tariffs', function (Blueprint $table) {
             $table->id();
             $table->string('customer_type'); // Rumah Tangga, Usaha, Sosial, dll
+            $table->string('sub_category')->nullable(); // Sub kategori seperti Rumah Tangga A, B, C, dll
             $table->string('description')->nullable();
+            $table->text('legal_basis')->nullable(); // Dasar hukum SK
             $table->integer('min_usage'); // Minimum m3
             $table->integer('max_usage')->nullable(); // Maximum m3, null for unlimited
             $table->decimal('rate_per_m3', 8, 2); // Rate per cubic meter

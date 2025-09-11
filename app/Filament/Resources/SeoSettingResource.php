@@ -206,22 +206,24 @@ class SeoSettingResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('page_type')
                     ->label('Tipe Halaman')
-                    ->badge()
+                    ->weight('bold')
                     ->formatStateUsing(fn (string $state): string => match($state) {
-                        'home' => 'Beranda',
-                        'news' => 'Berita',
-                        'news_detail' => 'Detail Berita',
-                        'service' => 'Layanan',
-                        'service_detail' => 'Detail Layanan',
-                        'page' => 'Halaman Statis',
-                        'contact' => 'Kontak',
-                        'complaint' => 'Pengaduan',
-                        'tariff' => 'Tarif',
-                        'about' => 'Tentang Kami',
-                        'organization' => 'Struktur Organisasi',
-                        'history' => 'Sejarah',
+                        'home' => '🏠 Beranda',
+                        'news' => '📰 Berita',
+                        'news_detail' => '📝 Detail Berita',
+                        'service' => '💼 Layanan',
+                        'service_detail' => '🔧 Detail Layanan',
+                        'page' => '📄 Halaman Statis',
+                        'contact' => '📞 Kontak',
+                        'complaint' => '📋 Pengaduan',
+                        'tariff' => '💰 Tarif',
+                        'about' => '👥 Tentang Kami',
+                        'organization' => '🏢 Struktur Organisasi',
+                        'history' => '📚 Sejarah',
                         default => $state
                     })
+                    ->description(fn ($record) => $record->page_identifier ?: 'Pengaturan umum')
+                    ->badge()
                     ->color(fn (string $state): string => match($state) {
                         'home' => 'success',
                         'news', 'news_detail' => 'info',
@@ -230,47 +232,49 @@ class SeoSettingResource extends Resource
                         default => 'gray',
                     })
                     ->sortable(),
-                    
-                Tables\Columns\TextColumn::make('page_identifier')
-                    ->label('Identifier')
-                    ->placeholder('General')
-                    ->limit(20)
-                    ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('meta_title')
-                    ->label('Meta Title')
-                    ->limit(40)
+                    ->label('SEO Title & Description')
+                    ->weight('medium')
+                    ->description(fn ($record) => $record->meta_description ? \Illuminate\Support\Str::limit($record->meta_description, 80) : 'Tidak ada deskripsi')
                     ->searchable()
-                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
-                        return $column->getState();
-                    }),
-                    
-                Tables\Columns\TextColumn::make('meta_description')
-                    ->label('Meta Description')
-                    ->limit(50)
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                    
-                Tables\Columns\ImageColumn::make('og_image')
-                    ->label('OG Image')
-                    ->circular()
-                    ->defaultImageUrl(asset('images/placeholder-og.jpg'))
-                    ->toggleable(),
-                    
+                    ->limit(50),
+
+                Tables\Columns\TextColumn::make('meta_keywords')
+                    ->label('Keywords')
+                    ->formatStateUsing(function ($record) {
+                        if (is_array($record->meta_keywords)) {
+                            $count = count($record->meta_keywords);
+                            $first = $record->meta_keywords[0] ?? '';
+                            return $count > 1 ? $first . ' (+' . ($count - 1) . ' lainnya)' : $first;
+                        }
+                        return 'Tidak ada';
+                    })
+                    ->description('Kata kunci SEO')
+                    ->limit(40),
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
                     ->sortable(),
-                    
+
+                // Toggleable columns (hidden by default)
+                Tables\Columns\ImageColumn::make('og_image')
+                    ->label('OG Image')
+                    ->circular()
+                    ->size(40)
+                    ->defaultImageUrl(asset('images/placeholder-og.jpg'))
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime('d/m/Y H:i')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                    
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diupdate')
-                    ->dateTime('d/m/Y H:i')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

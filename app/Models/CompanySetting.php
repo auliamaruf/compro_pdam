@@ -24,6 +24,13 @@ class CompanySetting extends Model implements HasMedia
         'vision_description',
         'mission_points',
         
+        // Sambutan Direksi
+        'director_name',
+        'director_position',
+        'director_message',
+        'message_title',
+        'show_director_message',
+        
         // Kontak
         'phone',
         'email',
@@ -90,6 +97,7 @@ class CompanySetting extends Model implements HasMedia
         'quick_services' => 'array',
         'quick_actions_items' => 'array',
         'is_active' => 'boolean',
+        'show_director_message' => 'boolean',
         'years_experience' => 'integer',
         'customers_served' => 'integer',
         'water_quality_percentage' => 'decimal:1'
@@ -207,6 +215,14 @@ class CompanySetting extends Model implements HasMedia
     public function getVisionImageUrlAttribute()
     {
         return $this->getFirstMediaUrl('vision_image');
+    }
+
+    /**
+     * Get director photo URL
+     */
+    public function getDirectorPhotoUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('director_photo');
     }
 
     /**

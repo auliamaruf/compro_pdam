@@ -87,9 +87,9 @@
                     @endif
                 <!-- Address Card -->
                     @if($company->address)
-                    <div class="bg-white rounded-lg p-6 shadow-sm">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                        <!-- <div class="flex items-start space-x-4"> -->
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                                 <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -98,14 +98,14 @@
                             <div class="flex-1">
                                 <h3 class="font-semibold text-gray-900 mb-2">Alamat Kantor</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-3">{!! nl2br(e($company->address)) !!}</p>
-                                <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
+                                <!-- <button onclick="openGoogleMaps()" class="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                     </svg>
                                     Buka di Google Maps
-                                </button>
+                                </button> -->
                             </div>
-                        </div>
+                        <!-- </div> -->
                     </div>
                     @endif
 
@@ -162,7 +162,7 @@
             <div class="max-w-3xl mx-auto">
                 <div class="text-center mb-8">
                     <h2 class="text-2xl font-bold text-gray-900 mb-3">Kirim Pesan</h2>
-                    <p class="text-gray-600">Sampaikan pertanyaan, saran, atau keluhan Anda</p>
+                    <p class="text-gray-600">Sampaikan kritik dan saran anda.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-lg p-6">
@@ -226,18 +226,23 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
-                                <input type="tel"
-                                       id="phone"
-                                       name="phone"
-                                       value="{{ old('phone') }}"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors @error('phone') border-red-500 @enderror"
-                                       placeholder="08xxxxxxxxxx">
-                                @error('phone')
-                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+                                    <input type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        value="{{ old('phone') }}"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors @error('phone') border-red-500 @enderror"
+                                        placeholder="08xxxxxxxxxx"
+                                        pattern="^08[0-9]{8,12}$"
+                                        maxlength="14"
+                                        inputmode="numeric"
+                                        autocomplete="tel">
+                                    <small class="text-gray-500">Nomor telepon harus diawali 08 dan 10-14 digit angka.</small>
+                                    @error('phone')
+                                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             <div>
                                 <label for="type" class="block text-sm font-medium text-gray-700 mb-1">
                                     Jenis Pesan <span class="text-red-500">*</span>

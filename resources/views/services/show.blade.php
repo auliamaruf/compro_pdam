@@ -15,6 +15,90 @@
 @endsection
 
 @section('content')
+<style>
+/* Service Detail Mobile Optimization */
+@media (max-width: 768px) {
+    .container-custom {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .grid.grid-cols-1.lg\\:grid-cols-3 {
+        gap: 1.5rem;
+    }
+    
+    .grid.grid-cols-1.md\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Service detail boxes mobile */
+    .bg-blue-50, .bg-green-50, .bg-yellow-50, .bg-purple-50, .bg-gray-50 {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Title and heading adjustments */
+    h3.text-base {
+        font-size: 0.875rem;
+    }
+    
+    /* Button adjustments */
+    .inline-flex.items-center.px-4.py-2 {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Ensure contact and price info stack on mobile */
+    .grid.grid-cols-1.md\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Price display mobile adjustment */
+    .text-xl {
+        font-size: 1.125rem;
+    }
+}
+
+/* Simple prose styling */
+.prose ul, .prose ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.prose ul {
+    list-style-type: disc;
+}
+
+.prose ol {
+    list-style-type: decimal;
+}
+
+.prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Enhanced section spacing */
+.service-section {
+    margin-top: 1.5rem;
+}
+
+.service-section:first-of-type {
+    margin-top: 2rem;
+}
+
+/* Better bullet alignment */
+.requirement-bullet {
+    margin-top: 0.125rem;
+}
+</style>
+
 <!-- Breadcrumb -->
 <nav class="bg-blue-50 py-4" aria-label="Breadcrumb">
     <div class="container-custom">
@@ -82,86 +166,104 @@
                     <!-- Service Description -->
                     <div class="prose prose-base max-w-none mb-8">
                         {!! $service->description !!}
-                    </div>                    <!-- Service Details -->
-                    @if($service->requirements || $service->fee || $service->contact_person || $service->contact_phone)
-                    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Requirements -->
-                        @if($service->requirements && is_array($service->requirements))
+                    </div>
+
+                    <!-- 1. Persyaratan -->
+                    @if($service->requirements && is_array($service->requirements))
+                    <div class="service-section">
                         <div class="bg-blue-50 p-6 rounded-lg">
-                            <h3 class="text-base font-semibold text-gray-900 mb-3 flex items-center">
+                            <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
                                 <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Persyaratan
                             </h3>
-                            <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
+                            <ul class="space-y-2">
                                 @foreach($service->requirements as $requirement)
-                                <li>
-                                    @if(is_array($requirement) && isset($requirement['requirement']))
-                                        {{ $requirement['requirement'] }}
-                                    @elseif(is_string($requirement))
-                                        {{ $requirement }}
-                                    @endif
+                                <li class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 mt-2">
+                                        <div class="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-700 leading-relaxed">
+                                        @if(is_array($requirement) && isset($requirement['requirement']))
+                                            {{ $requirement['requirement'] }}
+                                        @elseif(is_string($requirement))
+                                            {{ $requirement }}
+                                        @endif
+                                    </span>
                                 </li>
                                 @endforeach
                             </ul>
                         </div>
-                        @endif
-
-                        <!-- Price Info -->
-                        @if($service->fee)
-                        <div class="bg-green-50 p-6 rounded-lg">
-                            <h3 class="text-base font-semibold text-gray-900 mb-3 flex items-center">
-                                <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                </svg>
-                                Informasi Biaya
-                            </h3>
-                            <div class="text-gray-700">
-                                <div class="text-2xl font-bold text-green-600">Rp {{ number_format($service->fee, 0, ',', '.') }}</div>
-                                @if($service->process_time)
-                                <div class="text-sm text-gray-600 mt-1">Proses: {{ $service->process_time }}</div>
-                                @endif
-                            </div>
-                        </div>
-                        @endif
                     </div>
                     @endif
 
-                    <!-- Contact Info -->
-                    @if($service->contact_person || $service->contact_phone)
-                    <div class="mt-6 bg-yellow-50 p-6 rounded-lg">
-                        <h3 class="text-base font-semibold text-gray-900 mb-3 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                            </svg>
-                            Informasi Kontak
-                        </h3>
-                        <div class="text-sm text-gray-700 space-y-2">
-                            @if($service->contact_person)
-                            <div><span class="font-medium">Person in Charge:</span> {{ $service->contact_person }}</div>
-                            @endif
-                            @if($service->contact_phone)
-                            <div>
-                                <span class="font-medium">Telepon:</span>
-                                <a href="tel:{{ $service->contact_phone }}" class="text-blue-600 hover:text-blue-800 ml-2">{{ $service->contact_phone }}</a>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                    @endif
-
-                    <!-- Procedure -->
+                    <!-- 2. Prosedur Layanan -->
                     @if($service->procedure)
-                    <div class="mt-6 bg-gray-50 p-6 rounded-lg">
-                        <h3 class="text-base font-semibold text-gray-900 mb-3 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                            </svg>
-                            Prosedur Layanan
-                        </h3>
-                        <div class="text-sm text-gray-700 leading-relaxed">
-                            {!! $service->procedure !!}
+                    <div class="service-section">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                                Prosedur Layanan
+                            </h3>
+                            <div class="text-sm text-gray-700 leading-relaxed prose prose-sm max-w-none">
+                                {!! $service->procedure !!}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- 3. Informasi Kontak dan Biaya (Berjejer) -->
+                    @if($service->contact_person || $service->contact_phone || $service->fee)
+                    <div class="service-section">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Informasi Kontak -->
+                            @if($service->contact_person || $service->contact_phone)
+                            <div class="bg-yellow-50 p-6 rounded-lg">
+                                <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                    Informasi Kontak
+                                </h3>
+                                <div class="text-sm text-gray-700 space-y-2">
+                                    @if($service->contact_person)
+                                    <div><span class="font-medium">Penanggung Jawab:</span><br>{{ $service->contact_person }}</div>
+                                    @endif
+                                    @if($service->contact_phone)
+                                    <div>
+                                        <span class="font-medium">Telepon:</span><br>
+                                        <a href="tel:{{ $service->contact_phone }}" class="text-blue-600 hover:text-blue-800">{{ $service->contact_phone }}</a>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
+
+                            <!-- Informasi Biaya -->
+                            @if($service->fee)
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                    </svg>
+                                    Informasi Biaya
+                                </h3>
+                                <div class="text-gray-700">
+                                    <div class="text-xl font-bold text-green-600 mb-2">Rp {{ number_format($service->fee, 0, ',', '.') }}</div>
+                                    @if($service->process_time)
+                                    <div class="text-sm text-gray-600">
+                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        Waktu Proses: {{ $service->process_time }}
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @endif
@@ -173,51 +275,83 @@
                         $hasAnyForms = $uploadedForms->count() > 0 || count($externalForms) > 0;
                     @endphp
                     
-                    <div class="mt-6 bg-purple-50 p-6 rounded-lg">
-                        <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            Formulir yang Diperlukan
-                        </h3>
-                        
-                        @if($hasAnyForms)
+                    @if($hasAnyForms)
+                    <div class="service-section">
+                        <div class="bg-purple-50 p-6 rounded-lg">
+                            <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Formulir yang Diperlukan
+                            </h3>
+                            
                             <!-- Uploaded Forms -->
                             @if($uploadedForms->count() > 0)
-                            <div class="mb-4">
-                                <h4 class="text-sm font-medium text-gray-800 mb-2">Download Formulir:</h4>
+                            <div class="mb-6">
+                                <h4 class="text-sm font-medium text-gray-800 mb-3">Download Formulir:</h4>
                                 <div class="space-y-3">
                                     @foreach($uploadedForms as $media)
-                                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center flex-1">
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                        <!-- Desktop Layout -->
+                                        <div class="hidden md:flex items-center justify-between">
+                                            <div class="flex items-center flex-1 min-w-0">
                                                 <div class="flex-shrink-0 mr-3">
-                                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                                     </svg>
                                                 </div>
-                                                <div class="flex-1">
-                                                    <div class="text-sm font-semibold text-gray-900 mb-1">
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="text-sm font-medium text-gray-900">
                                                         {{ $media->name }}
                                                     </div>
-                                                    <div class="text-xs text-gray-500">
+                                                    <div class="text-xs text-gray-500 mt-1">
                                                         @php
                                                             $fileName = $media->file_name ?: $media->name;
                                                             $extension = strtoupper(pathinfo($fileName, PATHINFO_EXTENSION));
                                                             $sizeKB = number_format($media->size / 1024, 0);
                                                         @endphp
-                                                        {{ $extension ? $extension : 'FILE' }} • {{ $sizeKB }} KB
+                                                        {{ $extension ?: 'FILE' }} • {{ $sizeKB }} KB
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="flex-shrink-0 ml-4">
                                                 <a href="{{ route('services.download-form', [$service, $media->id]) }}" 
-                                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl border border-blue-600">
+                                                   class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded transition-colors duration-200">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V11a2 2 0 01-2 2z"></path>
                                                     </svg>
                                                     Download
                                                 </a>
+                                            </div>
+                                        </div>
+                                        <!-- Mobile Layout -->
+                                        <div class="md:hidden">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="w-6 h-6 text-blue-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="text-sm font-medium text-gray-900 mb-1">
+                                                        {{ $media->name }}
+                                                    </div>
+                                                    <div class="text-xs text-gray-500 mb-3">
+                                                        @php
+                                                            $fileName = $media->file_name ?: $media->name;
+                                                            $extension = strtoupper(pathinfo($fileName, PATHINFO_EXTENSION));
+                                                            $sizeKB = number_format($media->size / 1024, 0);
+                                                        @endphp
+                                                        {{ $extension ?: 'FILE' }} • {{ $sizeKB }} KB
+                                                    </div>
+                                                    <a href="{{ route('services.download-form', [$service, $media->id]) }}" 
+                                                       class="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded transition-colors duration-200">
+                                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V11a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                        Download
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -229,25 +363,26 @@
                             <!-- External Form Links -->
                             @if(count($externalForms) > 0)
                             <div>
-                                <h4 class="text-sm font-medium text-gray-800 mb-2">Link Formulir External:</h4>
+                                <h4 class="text-sm font-medium text-gray-800 mb-3">Link Formulir Online:</h4>
                                 <div class="space-y-3">
                                     @foreach($externalForms as $form)
                                     @if(is_array($form) && isset($form['title']) && isset($form['url']))
-                                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center flex-1">
+                                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                        <!-- Desktop Layout -->
+                                        <div class="hidden md:flex items-center justify-between">
+                                            <div class="flex items-center flex-1 min-w-0">
                                                 <div class="flex-shrink-0 mr-3">
-                                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
                                                     </svg>
                                                 </div>
-                                                <div class="flex-1">
-                                                    <div class="text-sm font-semibold text-gray-900 mb-1">
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="text-sm font-medium text-gray-900">
                                                         {{ $form['title'] }}
                                                     </div>
                                                     @if(isset($form['description']) && $form['description'])
-                                                    <div class="text-xs text-gray-500">
-                                                        {{ $form['description'] }}
+                                                    <div class="text-xs text-gray-500 mt-1">
+                                                        {{ Str::limit($form['description'], 80) }}
                                                     </div>
                                                     @endif
                                                 </div>
@@ -256,12 +391,41 @@
                                                 <a href="{{ $form['url'] }}" 
                                                    target="_blank" 
                                                    rel="noopener noreferrer"
-                                                   class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm font-semibold rounded-lg hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl border border-green-600">
+                                                   class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded transition-colors duration-200">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
                                                     </svg>
                                                     Buka Link
                                                 </a>
+                                            </div>
+                                        </div>
+                                        <!-- Mobile Layout -->
+                                        <div class="md:hidden">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="w-6 h-6 text-green-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="text-sm font-medium text-gray-900 mb-1">
+                                                        {{ $form['title'] }}
+                                                    </div>
+                                                    @if(isset($form['description']) && $form['description'])
+                                                    <div class="text-xs text-gray-500 mb-3">
+                                                        {{ Str::limit($form['description'], 80) }}
+                                                    </div>
+                                                    @endif
+                                                    <a href="{{ $form['url'] }}" 
+                                                       target="_blank" 
+                                                       rel="noopener noreferrer"
+                                                       class="inline-flex items-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded transition-colors duration-200">
+                                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
+                                                        </svg>
+                                                        Buka Link
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -270,20 +434,9 @@
                                 </div>
                             </div>
                             @endif
-                        @else
-                            <!-- Default message when no forms are available -->
-                            <div class="bg-white p-4 rounded-lg border border-dashed border-gray-300">
-                                <div class="text-center">
-                                    <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    <h4 class="text-sm font-medium text-gray-900 mb-1">Formulir Belum Tersedia</h4>
-                                    <p class="text-xs text-gray-500">Formulir untuk layanan ini sedang dalam proses penyiapan.</p>
-                                    <p class="text-xs text-gray-500 mt-2">Silakan hubungi kantor PDAM untuk informasi lebih lanjut.</p>
-                                </div>
-                            </div>
-                        @endif
+                        </div>
                     </div>
+                    @endif
 
                     <!-- Action Buttons -->
                     <div class="mt-8 flex flex-wrap gap-4">

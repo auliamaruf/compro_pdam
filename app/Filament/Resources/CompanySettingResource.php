@@ -365,7 +365,57 @@ class CompanySettingResource extends Resource
                               
                             ]),
                             
-                        // Tab 6: Status
+                        // Tab 6: Sambutan Direksi
+                        Tabs\Tab::make('Sambutan Direksi')
+                            ->icon('heroicon-o-user-circle')
+                            ->schema([
+                                Section::make('Informasi Direksi')
+                                    ->schema([
+                                        Forms\Components\Toggle::make('show_director_message')
+                                            ->label('Tampilkan Sambutan Direksi')
+                                            ->default(true)
+                                            ->helperText('Aktifkan untuk menampilkan section sambutan direksi di halaman About')
+                                            ->live()
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\TextInput::make('message_title')
+                                            ->label('Judul Section')
+                                            ->default('Sambutan Direktur')
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\TextInput::make('director_name')
+                                            ->label('Nama Direktur')
+                                            ->placeholder('Dr. John Doe, M.M.')
+                                            ->visible(fn ($get) => $get('show_director_message')),
+                                            
+                                        Forms\Components\TextInput::make('director_position')
+                                            ->label('Jabatan')
+                                            ->placeholder('Direktur Utama')
+                                            ->visible(fn ($get) => $get('show_director_message')),
+                                            
+                                        SpatieMediaLibraryFileUpload::make('director_photo')
+                                            ->label('Foto Direktur')
+                                            ->collection('director_photo')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->maxSize(5120)
+                                            ->helperText('Upload foto direktur dengan format PNG tanpa background untuk hasil terbaik. Maksimal 5MB.')
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                            
+                                        Forms\Components\RichEditor::make('director_message')
+                                            ->label('Sambutan/Pesan Direktur')
+                                            ->placeholder('Sambutan dari direktur kepada masyarakat dan stakeholder...')
+                                            ->toolbarButtons([
+                                                'bold', 'italic', 'underline', 'bulletList', 'orderedList', 'link', 'blockquote'
+                                            ])
+                                            ->visible(fn ($get) => $get('show_director_message'))
+                                            ->columnSpanFull(),
+                                    ])->columns(2),
+                            ]),
+                            
+                        // Tab 7: Status
                         Tabs\Tab::make('Status')
                             ->icon('heroicon-o-cog-6-tooth')
                             ->schema([
@@ -389,26 +439,59 @@ class CompanySettingResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('company_name')
                     ->label('Nama Perusahaan')
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->company_tagline ?: 'Tidak ada tagline')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('company_tagline')
-                    ->label('Tagline')
-                    ->limit(50)
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Telepon')
+                    ->label('Kontak')
+                    ->formatStateUsing(function ($record) {
+                        $contact = [];
+                        if ($record->phone) $contact[] = '📞 ' . $record->phone;
+                        if ($record->email) $contact[] = '✉️ ' . $record->email;
+                        return implode(' • ', $contact);
+                    })
+                    ->description(fn ($record) => $record->address ? \Illuminate\Support\Str::limit($record->address, 60) : 'Alamat belum diatur')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('vision')
+                    ->label('Visi & Misi')
+                    ->formatStateUsing(function ($record) {
+                        $info = [];
+                        if ($record->vision) $info[] = '✨ Visi';
+                        if ($record->mission) $info[] = '🎯 Misi';
+                        if (is_array($record->mission_points) && count($record->mission_points) > 0) {
+                            $info[] = count($record->mission_points) . ' poin misi';
+                        }
+                        return count($info) > 0 ? implode(' • ', $info) : 'Belum diatur';
+                    })
+                    ->description('Data visi dan misi perusahaan'),
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
                     ->sortable(),
+
+                // Toggleable columns (hidden by default)
+                Tables\Columns\TextColumn::make('facebook_url')
+                    ->label('Media Sosial')
+                    ->formatStateUsing(function ($record) {
+                        $social = [];
+                        if ($record->facebook_url) $social[] = 'Facebook';
+                        if ($record->instagram_url) $social[] = 'Instagram';
+                        if ($record->twitter_url) $social[] = 'Twitter';
+                        if ($record->youtube_url) $social[] = 'YouTube';
+                        if ($record->linkedin_url) $social[] = 'LinkedIn';
+                        return count($social) > 0 ? implode(', ', $social) : 'Tidak ada';
+                    })
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Terakhir Diupdate')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable(),
+                    ->dateTime('d M Y H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
@@ -448,6 +531,6 @@ class CompanySettingResource extends Resource
     
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return static::getModel()::where('is_active', true)->count() > 0 ? 'success' : 'danger';
+        return static::getModel()::where('is_active', true)->count() > 0 ? 'warning' : 'success' ;
     }
 }
