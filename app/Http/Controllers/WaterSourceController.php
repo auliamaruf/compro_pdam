@@ -15,7 +15,7 @@ class WaterSourceController extends Controller
     {
         $waterSources = WaterSource::active()
             ->ordered()
-            ->get();
+            ->paginate(6); // 6 items per page untuk grid yang rapi
 
         return view('water-sources.index', compact('waterSources'));
     }

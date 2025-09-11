@@ -21,7 +21,9 @@
         padding: 1.5rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         border-left: 4px solid #3b82f6;
-        height: fit-content;
+        height: 100%; /* Make all cards same height */
+        display: flex;
+        flex-direction: column;
     }
     
     .source-card.animate {
@@ -39,10 +41,14 @@
         overflow: hidden;
         border-radius: 8px;
         margin-bottom: 1rem;
+        height: 200px; /* Fixed height for consistent appearance */
     }
     
     .source-image img {
         transition: transform 0.3s ease;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure image covers the container properly */
     }
     
     .source-card:hover .source-image img {
@@ -51,6 +57,7 @@
     
     .source-image-placeholder {
         margin-bottom: 1rem;
+        height: 200px; /* Same fixed height as source-image */
     }
     
     .source-header {
@@ -121,6 +128,9 @@
     
     .source-details {
         space-y: 1rem;
+        flex: 1; /* Take remaining space */
+        display: flex;
+        flex-direction: column;
     }
     
     .detail-item {
@@ -199,6 +209,87 @@
         padding: 4rem 0;
     }
     
+    /* Pagination Styling */
+    .pagination-wrapper {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+    }
+    
+    .pagination-info {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .pagination-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .pagination-nav .page-item {
+        margin: 0;
+    }
+    
+    .pagination-nav .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        padding: 0 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .pagination-nav .page-link:hover {
+        background-color: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    
+    .pagination-nav .page-item.active .page-link {
+        background-color: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    
+    .pagination-nav .page-item.disabled .page-link {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background-color: #f9fafb;
+        color: #9ca3af;
+    }
+    
+    .pagination-nav .page-item.disabled .page-link:hover {
+        transform: none;
+        box-shadow: none;
+        background-color: #f9fafb;
+        color: #9ca3af;
+        border-color: #e5e7eb;
+    }
+    
+    .pagination-nav .page-link svg {
+        width: 16px;
+        height: 16px;
+    }
+    
     @media (max-width: 768px) {
         .sources-grid {
             grid-template-columns: 1fr;
@@ -210,6 +301,26 @@
         
         .hero-description {
             font-size: 1rem;
+        }
+        
+        .pagination-wrapper {
+            padding: 1rem 1.25rem;
+        }
+        
+        .pagination-info {
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .pagination-nav .page-link {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .pagination-nav {
+            gap: 0.25rem;
         }
     }
 </style>
@@ -246,15 +357,15 @@
                         @foreach($waterSources as $index => $source)
                         <div class="source-card" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                             <!-- Source Image -->
-                            @if($source->getFirstMediaUrl('water_source_images'))
+                            @if($source->getFirstMediaUrl('water_source_images') || $source->getFirstMediaUrl('photo'))
                             <div class="source-image mb-4">
-                                <img src="{{ $source->getFirstMediaUrl('water_source_images') }}" 
+                                <img src="{{ $source->getFirstMediaUrl('water_source_images') ?: $source->getFirstMediaUrl('photo') }}" 
                                      alt="{{ $source->name }}" 
-                                     class="w-full h-48 object-cover rounded-lg shadow-sm">
+                                     class="w-full h-[200px] object-cover rounded-lg shadow-sm">
                             </div>
                             @else
                             <div class="source-image-placeholder mb-4">
-                                <div class="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg shadow-sm flex items-center justify-center">
+                                <div class="w-full h-[200px] bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg shadow-sm flex items-center justify-center">
                                     <div class="text-center text-blue-600">
                                         <i class="fas fa-tint text-4xl mb-2 opacity-50"></i>
                                         <p class="text-sm font-medium opacity-75">Foto akan segera tersedia</p>
@@ -285,7 +396,7 @@
                             </div>
 
                             <!-- Source Details -->
-                            <div class="source-details">
+                            <div class="source-details flex-1">
                                 <!-- Production Capacity -->
                                 <div class="detail-item">
                                     <i class="fas fa-chart-line detail-icon text-blue-600"></i>
@@ -316,8 +427,8 @@
                                 @endif
                             </div>
 
-                            <!-- View Detail Button -->
-                            <div class="mt-4 pt-4 border-t border-gray-100">
+                            <!-- View Detail Button - Always at bottom -->
+                            <div class="mt-auto pt-4 border-t border-gray-100">
                                 <a href="{{ route('water-sources.show', $source) }}" 
                                    class="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
                                     <i class="fas fa-eye mr-2"></i>
@@ -327,6 +438,24 @@
                         </div>
                         @endforeach
                     </div>
+                    
+                    <!-- Pagination -->
+                    @if($waterSources->hasPages())
+                    <div class="flex justify-center mt-12">
+                        <div class="pagination-wrapper">
+                            <!-- Pagination Info -->
+                            <div class="pagination-info">
+                                Menampilkan {{ $waterSources->firstItem() ?? 0 }} - {{ $waterSources->lastItem() ?? 0 }} 
+                                dari {{ $waterSources->total() }} sumber mata air
+                            </div>
+                            
+                            <!-- Pagination Navigation -->
+                            <div class="pagination-nav">
+                                {{ $waterSources->links('components.pagination') }}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             @else
                 <!-- No Data State -->

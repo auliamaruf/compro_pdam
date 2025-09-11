@@ -86,6 +86,11 @@ class WaterSource extends Model implements HasMedia
      */
     public function registerMediaCollections(): void
     {
+        $this->addMediaCollection('water_source_images')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+            
+        // Keep the old photo collection for backward compatibility
         $this->addMediaCollection('photo')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
@@ -100,13 +105,13 @@ class WaterSource extends Model implements HasMedia
             ->width(300)
             ->height(200)
             ->sharpen(10)
-            ->performOnCollections('photo');
+            ->performOnCollections('water_source_images', 'photo');
 
         $this->addMediaConversion('large')
             ->width(800)
             ->height(600)
             ->sharpen(10)
-            ->performOnCollections('photo');
+            ->performOnCollections('water_source_images', 'photo');
     }
 
     /**
@@ -122,7 +127,9 @@ class WaterSource extends Model implements HasMedia
      */
     public function getPhotoUrlAttribute()
     {
-        return $this->getFirstMediaUrl('photo') ?: asset('images/default-water-source.jpg');
+        return $this->getFirstMediaUrl('water_source_images') 
+            ?: $this->getFirstMediaUrl('photo') 
+            ?: asset('images/default-water-source.jpg');
     }
 
     /**
@@ -130,6 +137,8 @@ class WaterSource extends Model implements HasMedia
      */
     public function getPhotoThumbUrlAttribute()
     {
-        return $this->getFirstMediaUrl('photo', 'thumb') ?: asset('images/default-water-source-thumb.jpg');
+        return $this->getFirstMediaUrl('water_source_images', 'thumb') 
+            ?: $this->getFirstMediaUrl('photo', 'thumb') 
+            ?: asset('images/default-water-source-thumb.jpg');
     }
 }
