@@ -249,7 +249,8 @@
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <!-- Home Navigation -->
-    <x-home-navbar :company="$company" />
+        <!-- Navigation -->
+    <x-navbar variant="home" :company="$company" />
 
     <!-- Main Content -->
     <main>
