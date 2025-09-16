@@ -8,17 +8,18 @@
 <!-- Hero Section -->
 @if($herobanners && $herobanners->count() > 0)
     <!-- Multiple Hero Slides -->
-    <section id="hero" class="relative min-h-screen overflow-hidden">
-        <div class="hero-carousel relative min-h-screen">
+    <section id="hero" class="relative overflow-hidden" style="height: 100vh !important;">
+        <div class="hero-carousel relative" style="height: 100vh !important;">
             @foreach($herobanners as $index => $banner)
-                <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 min-h-screen flex items-center transition-all duration-1000 ease-in-out"
+                <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out" 
+                     style="height: 100vh !important; width: 100vw !important;"
                      data-slide="{{ $index }}"
                      data-overlay-color="{{ $banner->overlay_color ?? '#1e3a8a' }}"
                      data-overlay-opacity="{{ $banner->overlay_opacity ?? 80 }}">
 
                     <!-- Background Image -->
                     @if($banner->getFirstMediaUrl('hero_backgrounds'))
-                        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
                              style="background-image: url('{{ $banner->getFirstMediaUrl('hero_backgrounds') }}');">
                         </div>
                     @else
@@ -30,8 +31,8 @@
                          style="background-color: {{ $banner->overlay_color ?? '#1e3a8a' }}; opacity: {{ ($banner->overlay_opacity ?? 80) / 100 }};"></div>
 
                     <!-- Content -->
-                    <div class="relative z-10 container-custom text-white">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="relative z-10 container-custom text-white px-4 w-full">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
                             <div class="text-{{ $banner->text_position ?? 'left' }} {{ ($banner->text_position ?? 'left') === 'center' ? 'lg:text-center col-span-2' : (($banner->text_position ?? 'left') === 'right' ? 'lg:text-right lg:order-2' : 'lg:text-left') }}">
                                 <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp">
                                     {{ $banner->title ?? 'Default Title' }}
@@ -104,7 +105,7 @@
 
         <!-- Dots Indicator -->
         @if($herobanners->count() > 1)
-        <div class="hero-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+        <div class="hero-dots absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
             @foreach($herobanners as $index => $banner)
                 <button class="hero-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
                         data-slide="{{ $index }}"></button>
@@ -114,10 +115,10 @@
     </section>
 @else
     <!-- Fallback: Single Hero Section -->
-    <section id="hero" class="hero-gradient relative min-h-screen flex items-center pb-32">
+    <section id="hero" class="hero-gradient relative flex items-center justify-center" style="height: 100vh !important;">
         <div class="absolute inset-0 hero-overlay"></div>
-        <div class="relative z-10 container-custom text-white">
-            <div class="text-center">
+        <div class="relative z-10 container-custom text-white px-4 w-full">
+            <div class="text-center flex items-center justify-center min-h-screen py-20">
                 <div class="max-w-4xl mx-auto">
                     <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                         @if($company && $company->hero_title && is_string($company->hero_title))
@@ -143,7 +144,7 @@
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <div class="absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>

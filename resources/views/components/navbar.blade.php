@@ -7,9 +7,10 @@
 @php
     $isHomePage = $variant === 'home';
     $navbarClass = $isHomePage ? 'home-navbar' : 'internal-navbar';
+    $headerClass = $isHomePage ? 'absolute' : 'sticky';
 @endphp
 
-<header class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300 {{ $navbarClass }}">
+<header class="bg-white shadow-lg {{ $headerClass }} top-0 z-50 transition-all duration-300 {{ $navbarClass }} w-full {{ $isHomePage ? 'bg-opacity-90 backdrop-blur-sm' : '' }}">
     <div class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
@@ -530,7 +531,6 @@ header {
 </style>
 @endpush
 
-@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -550,20 +550,47 @@ document.addEventListener('DOMContentLoaded', function() {
         // Smooth scroll functionality
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
+            
             if (section) {
                 const navbar = document.querySelector('header');
-                const offset = navbar ? navbar.offsetHeight + 20 : 100;
+                // For absolute positioned navbar, use getBoundingClientRect for accurate height
+                const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+                const offset = navbarHeight + 30; // Extra padding for better UX
                 const elementPosition = section.offsetTop - offset;
                 
-                window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
-                });
+                // Try multiple scroll methods
+                try {
+                    // Method 1: scrollIntoView (more reliable)
+                    section.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                    
+                    // Adjust for navbar after scrollIntoView
+                    setTimeout(() => {
+                        const currentScroll = window.scrollY;
+                        const adjustedPosition = currentScroll - (navbarHeight + 30);
+                        if (adjustedPosition >= 0) {
+                            window.scrollTo({
+                                top: adjustedPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 300);
+                    
+                } catch(error) {
+                    // Method 2: Fallback window.scrollTo
+                    window.scrollTo({
+                        top: Math.max(0, elementPosition),
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
 
         // Handle section link clicks
-        sectionLinks.forEach(link => {
+        sectionLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const sectionId = this.getAttribute('data-section');
@@ -583,9 +610,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Handle section dot clicks
-        sectionDots.forEach(dot => {
+        sectionDots.forEach(function(dot) {
             dot.addEventListener('click', function() {
                 const sectionId = this.getAttribute('data-section');
+                console.log('Clicked section dot:', sectionId); // Debug
                 
                 if (sectionId === 'hero') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -598,13 +626,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update active states based on scroll position
         function updateActiveStates() {
             const navbar = document.querySelector('header');
-            const scrollPos = window.scrollY + (navbar ? navbar.offsetHeight : 0) + 100;
+            const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+            const scrollPos = window.scrollY + navbarHeight + 50; // Adjust for absolute navbar
             const sections = ['hero', 'about-preview', 'services-preview', 'news-preview', 'contact-preview'];
             
             let activeSection = 'hero';
             
-            // Check if we're at the top
-            if (window.scrollY < 100) {
+            // Check if we're at the top (accounting for hero viewport)
+            if (window.scrollY < window.innerHeight / 2) {
                 activeSection = 'hero';
             } else {
                 // Find current section
@@ -685,4 +714,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endpush

@@ -39,8 +39,16 @@
     <style>
         /* Enhanced smooth scrolling */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth !important;
             scroll-padding-top: 80px; /* Account for sticky header */
+        }
+        
+        body {
+            scroll-behavior: smooth !important;
+        }
+        
+        * {
+            scroll-behavior: smooth !important;
         }
         
         /* Container styles */
@@ -60,6 +68,126 @@
 
         .hero-overlay {
             background: rgba(30, 58, 138, 0.8);
+        }
+
+        /* Hero viewport optimization */
+        #hero {
+            height: 100vh !important;
+            min-height: 100vh !important; 
+            max-height: 100vh !important;
+        }
+
+        .hero-carousel {
+            height: 100% !important;
+        }
+
+        .hero-slide {
+            height: 100% !important;
+        }
+
+        /* Home navbar transparency */
+        .home-navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Ensure viewport height is respected */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Force viewport height for hero */
+        section#hero {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            max-height: 100vh !important;
+            width: 100vw !important;
+            position: relative !important;
+            overflow-x: hidden !important; /* Only hide horizontal overflow */
+        }
+
+        @media (max-height: 600px) {
+            #hero {
+                height: 600px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            #hero {
+                height: 500px;
+            }
+        }
+
+        /* Background image optimization for viewport */
+        .hero-slide .bg-cover,
+        .hero-gradient {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        /* Mobile optimization - disable fixed background on small screens */
+        @media (max-width: 768px) {
+            .hero-slide .bg-cover {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Content centering for viewport */
+        .hero-slide .grid,
+        .hero-content-wrapper {
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile viewport optimization */
+        @media (max-width: 640px) {
+            #hero {
+                height: 100vh;
+                height: 100svh; /* Use small viewport height on supported browsers */
+                min-height: 500px;
+            }
+            
+            .hero-slide .container-custom {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        /* Tablet viewport optimization */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            #hero {
+                height: 100vh;
+                height: 100dvh; /* Use dynamic viewport height */
+            }
+        }
+
+        /* Desktop viewport optimization */
+        @media (min-width: 1025px) {
+            #hero {
+                height: 100vh;
+            }
+        }
+
+        /* Prevent content overflow on very small screens */
+        @media (max-height: 450px) {
+            .hero-slide .py-20 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .hero-slide h1 {
+                font-size: 2rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .hero-slide p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
         }
 
         /* Button styles */
