@@ -677,5 +677,8 @@
             layoutObserver.observe(el);
         });
     </script>
+
+    <!-- Floating Action Button -->
+    @include('components.floating-action-button-popup')
 </body>
 </html>
