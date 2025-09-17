@@ -118,7 +118,7 @@
     <section id="hero" class="hero-gradient relative flex items-center justify-center" style="height: 100vh !important;">
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative z-10 container-custom text-white px-4 w-full">
-            <div class="text-center flex items-center justify-center min-h-screen py-20">
+            <div class="text-center flex items-center justify-center min-h-screen py-20 fallback-hero">
                 <div class="max-w-4xl mx-auto">
                     <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                         @if($company && $company->hero_title && is_string($company->hero_title))

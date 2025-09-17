@@ -199,6 +199,68 @@
             @apply inline-flex items-center px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-300;
         }
 
+        /* Hero text positioning - enhanced with navbar clearance */
+        .hero-slide .grid {
+            align-items: center;
+            padding-top: 150px; /* Increased clearance from navbar */
+            min-height: calc(100vh - 150px);
+        }
+
+        /* Hero content spacing to avoid navbar overlap */
+        .hero-slide .container-custom {
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .hero-slide .grid {
+                align-items: center;
+                padding-top: 120px; /* Increased for tablet */
+                min-height: calc(100vh - 120px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-slide .grid {
+                padding-top: 100px; /* Increased for mobile */
+                min-height: calc(100vh - 100px);
+            }
+        }
+
+        /* Fallback hero positioning */
+        .fallback-hero .flex {
+            padding-top: 150px; /* Increased clearance */
+            min-height: calc(100vh - 150px);
+        }
+
+        @media (max-width: 768px) {
+            .fallback-hero .flex {
+                padding-top: 120px;
+                min-height: calc(100vh - 120px);
+            }
+        }
+
+        /* Animation delays */
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+        .animation-delay-600 { animation-delay: 600ms; }
+
+        /* Fade in animation */
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Animation classes */
         .animate-fadeInUp {
             animation: fadeInUp 0.6s ease-out forwards;
