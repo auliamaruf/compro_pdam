@@ -39,8 +39,16 @@
     <style>
         /* Enhanced smooth scrolling */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth !important;
             scroll-padding-top: 80px; /* Account for sticky header */
+        }
+        
+        body {
+            scroll-behavior: smooth !important;
+        }
+        
+        * {
+            scroll-behavior: smooth !important;
         }
         
         /* Container styles */
@@ -62,6 +70,126 @@
             background: rgba(30, 58, 138, 0.8);
         }
 
+        /* Hero viewport optimization */
+        #hero {
+            height: 100vh !important;
+            min-height: 100vh !important; 
+            max-height: 100vh !important;
+        }
+
+        .hero-carousel {
+            height: 100% !important;
+        }
+
+        .hero-slide {
+            height: 100% !important;
+        }
+
+        /* Home navbar transparency */
+        .home-navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Ensure viewport height is respected */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Force viewport height for hero */
+        section#hero {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            max-height: 100vh !important;
+            width: 100vw !important;
+            position: relative !important;
+            overflow-x: hidden !important; /* Only hide horizontal overflow */
+        }
+
+        @media (max-height: 600px) {
+            #hero {
+                height: 600px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            #hero {
+                height: 500px;
+            }
+        }
+
+        /* Background image optimization for viewport */
+        .hero-slide .bg-cover,
+        .hero-gradient {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        /* Mobile optimization - disable fixed background on small screens */
+        @media (max-width: 768px) {
+            .hero-slide .bg-cover {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Content centering for viewport */
+        .hero-slide .grid,
+        .hero-content-wrapper {
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile viewport optimization */
+        @media (max-width: 640px) {
+            #hero {
+                height: 100vh;
+                height: 100svh; /* Use small viewport height on supported browsers */
+                min-height: 500px;
+            }
+            
+            .hero-slide .container-custom {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        /* Tablet viewport optimization */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            #hero {
+                height: 100vh;
+                height: 100dvh; /* Use dynamic viewport height */
+            }
+        }
+
+        /* Desktop viewport optimization */
+        @media (min-width: 1025px) {
+            #hero {
+                height: 100vh;
+            }
+        }
+
+        /* Prevent content overflow on very small screens */
+        @media (max-height: 450px) {
+            .hero-slide .py-20 {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+            
+            .hero-slide h1 {
+                font-size: 2rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .hero-slide p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
         /* Button styles */
         .btn-primary {
             @apply inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-full hover:bg-blue-50 hover:shadow-lg transform hover:scale-105 transition-all duration-300 shadow-md;
@@ -69,6 +197,68 @@
 
         .btn-secondary {
             @apply inline-flex items-center px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-300;
+        }
+
+        /* Hero text positioning - enhanced with navbar clearance */
+        .hero-slide .grid {
+            align-items: center;
+            padding-top: 150px; /* Increased clearance from navbar */
+            min-height: calc(100vh - 150px);
+        }
+
+        /* Hero content spacing to avoid navbar overlap */
+        .hero-slide .container-custom {
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .hero-slide .grid {
+                align-items: center;
+                padding-top: 120px; /* Increased for tablet */
+                min-height: calc(100vh - 120px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-slide .grid {
+                padding-top: 100px; /* Increased for mobile */
+                min-height: calc(100vh - 100px);
+            }
+        }
+
+        /* Fallback hero positioning */
+        .fallback-hero .flex {
+            padding-top: 150px; /* Increased clearance */
+            min-height: calc(100vh - 150px);
+        }
+
+        @media (max-width: 768px) {
+            .fallback-hero .flex {
+                padding-top: 120px;
+                min-height: calc(100vh - 120px);
+            }
+        }
+
+        /* Animation delays */
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+        .animation-delay-600 { animation-delay: 600ms; }
+
+        /* Fade in animation */
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Animation classes */
@@ -249,7 +439,8 @@
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <!-- Home Navigation -->
-    <x-home-navbar :company="$company" />
+        <!-- Navigation -->
+    <x-navbar variant="home" :company="$company" />
 
     <!-- Main Content -->
     <main>
@@ -548,5 +739,8 @@
             layoutObserver.observe(el);
         });
     </script>
+
+    <!-- Floating Action Button -->
+    @include('components.floating-action-button-popup')
 </body>
 </html>

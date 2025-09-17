@@ -108,7 +108,8 @@ class WaterSourceResource extends Resource
                                 '4:3',
                                 '1:1',
                             ])
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->optimize('webp'),
                             
                         Forms\Components\TextInput::make('sort_order')
                             ->label('Urutan Tampil')

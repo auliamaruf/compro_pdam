@@ -31,7 +31,7 @@
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
                         <!-- Director Photo Section -->
-                        <div class="lg:col-span-1 relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600">
+                        <div class="lg:col-span-1 relative overflow-hidden bg-white">
                             @if($company->getFirstMediaUrl('director_photo'))
                                 <!-- Clean Full Photo Design -->
                                 <div class="relative w-full h-full min-h-[360px] lg:min-h-[400px]">
@@ -43,7 +43,7 @@
                                     >
                                     
                                     <!-- Clean Elegant Overlay -->
-                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-cyan-600/30"></div>
+                                    <!-- <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-blue-800/20 to-cyan-600/30"></div> -->
                                 </div>
                             @else
                                 <!-- Clean Full Fallback -->
