@@ -535,6 +535,8 @@
         });
     </script>
 
+    <!-- Floating Action Button Global -->
+    @include('components.floating-action-button-popup')
     @stack('scripts')
 </body>
 </html>
