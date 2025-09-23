@@ -8,15 +8,9 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\FilamentTestController;
 use App\Http\Controllers\WaterSourceController;
 
-// Test routes
-Route::get('/test/company-setting', [TestController::class, 'testCompanySetting'])->name('test.company-setting');
-Route::get('/test/filament-resource', [FilamentTestController::class, 'testResource'])->name('test.filament-resource');
-
-// Admin test route
+// Admin test route (remove in production)
 Route::get('/test/admin-user', function() {
     $user = App\Models\User::first();
     if (!$user) {
