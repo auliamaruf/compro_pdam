@@ -197,192 +197,220 @@
             </div>
         @endif
 
-        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+        <div class="bg-white border-t border-gray-200">
             @if($isHomePage)
                 <!-- Home Page Mobile Navigation - with smooth scroll -->
-                <a href="#hero" class="mobile-nav-link home-section-link active" data-section="hero">
-                    Beranda
-                </a>
-                <a href="#about-preview" class="mobile-nav-link home-section-link" data-section="about-preview">
-                    Tentang Kami
-                </a>
-                <a href="#services-preview" class="mobile-nav-link home-section-link" data-section="services-preview">
-                    Layanan
-                </a>
-                <a href="#news-preview" class="mobile-nav-link home-section-link" data-section="news-preview">
-                    Berita
-                </a>
-                <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
-                    Kontak
-                </a>
+                <div class="space-y-1 p-2">
+                    <a href="#hero" class="mobile-nav-link home-section-link active" data-section="hero">
+                        <i class="fas fa-home w-5 text-blue-600 mr-3"></i>
+                        Beranda
+                    </a>
+                    <a href="#about-preview" class="mobile-nav-link home-section-link" data-section="about-preview">
+                        <i class="fas fa-building w-5 text-green-600 mr-3"></i>
+                        Tentang Kami
+                    </a>
+                    <a href="#services-preview" class="mobile-nav-link home-section-link" data-section="services-preview">
+                        <i class="fas fa-cogs w-5 text-purple-600 mr-3"></i>
+                        Layanan
+                    </a>
+                    <a href="#news-preview" class="mobile-nav-link home-section-link" data-section="news-preview">
+                        <i class="fas fa-newspaper w-5 text-orange-600 mr-3"></i>
+                        Berita
+                    </a>
+                    <a href="{{ route('contact') }}" class="mobile-nav-link">
+                        <i class="fas fa-envelope w-5 text-red-600 mr-3"></i>
+                        Kontak
+                    </a>
+                </div>
 
                 <!-- Divider -->
-                <div class="border-t border-gray-200 my-3"></div>
+                <div class="border-t border-gray-200"></div>
 
-                <!-- Tentang Kami Sub Menu for Home Page -->
-                <div class="px-2">
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tentang Kami</div>
-                    <a href="{{ route('about') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        Profil Perusahaan
-                    </a>
-                    <a href="{{ route('about.history') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Sejarah
-                    </a>
-                    <a href="{{ route('about.vision-mission') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                        </svg>
-                        Visi & Misi
-                    </a>
-                    <a href="{{ route('about.organization') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                        Struktur Organisasi
-                    </a>
-                    <a href="{{ route('about.branches') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        Cabang & Unit IKK
-                    </a>
-                    <a href="{{ route('water-sources.index') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
-                        </svg>
-                        Sumber Mata Air
-                    </a>
+                <!-- Quick Links untuk Home Page -->
+                <div class="p-2">
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3">Menu Lengkap</div>
+                    
+                    <!-- Tentang Kami Group -->
+                    <div class="mobile-dropdown mb-2">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="about-menu">
+                            <div class="flex items-center">
+                                <i class="fas fa-building w-5 text-blue-600 mr-3"></i>
+                                <span class="font-medium">Tentang Kami</span>
+                            </div>
+                            <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
+                        </button>
+                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="about-menu">
+                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-info-circle w-4 text-blue-500 mr-2"></i>
+                                Profil Perusahaan
+                            </a>
+                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-history w-4 text-green-500 mr-2"></i>
+                                Sejarah
+                            </a>
+                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-eye w-4 text-purple-500 mr-2"></i>
+                                Visi & Misi
+                            </a>
+                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-sitemap w-4 text-orange-500 mr-2"></i>
+                                Struktur Organisasi
+                            </a>
+                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-map-marker-alt w-4 text-red-500 mr-2"></i>
+                                Cabang & Unit IKK
+                            </a>
+                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-tint w-4 text-cyan-500 mr-2"></i>
+                                Sumber Mata Air
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Layanan Group -->
+                    <div class="mobile-dropdown mb-2">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="services-menu">
+                            <div class="flex items-center">
+                                <i class="fas fa-cogs w-5 text-purple-600 mr-3"></i>
+                                <span class="font-medium">Layanan</span>
+                            </div>
+                            <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
+                        </button>
+                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="services-menu">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-list w-4 text-blue-500 mr-2"></i>
+                                Semua Layanan
+                            </a>
+                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-credit-card w-4 text-green-500 mr-2"></i>
+                                Cek Tagihan
+                            </a>
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-plus-circle w-4 text-purple-500 mr-2"></i>
+                                Sambungan Baru
+                            </a>
+                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-exclamation-triangle w-4 text-red-500 mr-2"></i>
+                                Pengaduan Online
+                            </a>
+                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-dollar-sign w-4 text-indigo-500 mr-2"></i>
+                                Tarif Air
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Informasi Group -->
+                    <div class="mobile-dropdown mb-2">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="info-menu">
+                            <div class="flex items-center">
+                                <i class="fas fa-newspaper w-5 text-orange-600 mr-3"></i>
+                                <span class="font-medium">Informasi</span>
+                            </div>
+                            <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
+                        </button>
+                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="info-menu">
+                            <a href="{{ route('news') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-newspaper w-4 text-purple-500 mr-2"></i>
+                                Semua Berita
+                            </a>
+                            <a href="{{ route('contact') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-envelope w-4 text-blue-500 mr-2"></i>
+                                Kontak Kami
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            @else
+                <!-- Internal Pages Mobile Navigation - Simplified with dropdowns -->
+                <div class="space-y-1 p-2">
+                    <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+                        <i class="fas fa-home w-5 text-blue-600 mr-3"></i>
+                        Beranda
+                    </a>
 
-                <!-- Layanan Sub Menu for Home Page -->
-                <div class="px-2">
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 mt-4">Layanan</div>
-                    <a href="{{ route('services') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                        </svg>
-                        Semua Layanan
-                    </a>
-                    <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" rel="noopener noreferrer" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        Cek Tagihan
-                    </a>
-                    <a href="{{ route('services') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Sambungan Baru
-                    </a>
-                    <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" rel="noopener noreferrer" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Pengaduan Online
-                    </a>
-                    <a href="{{ route('tariff') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                        Tarif Air
-                    </a>
-                </div>
+                    <!-- Tentang Kami Dropdown -->
+                    <div class="mobile-dropdown">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('about*') || request()->routeIs('water-sources*') ? 'bg-blue-50 text-blue-700' : '' }}" data-target="about-internal-menu">
+                            <div class="flex items-center">
+                                <i class="fas fa-building w-5 text-green-600 mr-3"></i>
+                                <span class="font-medium">Tentang Kami</span>
+                            </div>
+                            <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
+                        </button>
+                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="about-internal-menu">
+                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-info-circle w-4 text-blue-500 mr-2"></i>
+                                Profil Perusahaan
+                            </a>
+                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.history') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-history w-4 text-green-500 mr-2"></i>
+                                Sejarah
+                            </a>
+                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.vision-mission') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-eye w-4 text-purple-500 mr-2"></i>
+                                Visi & Misi
+                            </a>
+                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.organization') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-sitemap w-4 text-orange-500 mr-2"></i>
+                                Struktur Organisasi
+                            </a>
+                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.branches') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-map-marker-alt w-4 text-red-500 mr-2"></i>
+                                Cabang & Unit IKK
+                            </a>
+                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('water-sources*') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-tint w-4 text-cyan-500 mr-2"></i>
+                                Sumber Mata Air
+                            </a>
+                        </div>
+                    </div>
 
-                <!-- Informasi Lainnya for Home Page -->
-                <div class="px-2">
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 mt-4">Informasi Lainnya</div>
-                    <a href="{{ route('news') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path>
-                        </svg>
-                        Semua Berita
+                    <!-- Layanan Dropdown -->
+                    <div class="mobile-dropdown">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('services*') || request()->routeIs('tariff') ? 'bg-blue-50 text-blue-700' : '' }}" data-target="services-internal-menu">
+                            <div class="flex items-center">
+                                <i class="fas fa-cogs w-5 text-purple-600 mr-3"></i>
+                                <span class="font-medium">Layanan</span>
+                            </div>
+                            <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
+                        </button>
+                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="services-internal-menu">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('services') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-list w-4 text-blue-500 mr-2"></i>
+                                Semua Layanan
+                            </a>
+                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-credit-card w-4 text-green-500 mr-2"></i>
+                                Cek Tagihan
+                            </a>
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-plus-circle w-4 text-purple-500 mr-2"></i>
+                                Sambungan Baru
+                            </a>
+                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                <i class="fas fa-exclamation-triangle w-4 text-red-500 mr-2"></i>
+                                Pengaduan Online
+                            </a>
+                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('tariff') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                                <i class="fas fa-dollar-sign w-4 text-indigo-500 mr-2"></i>
+                                Tarif Air
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Berita & Informasi -->
+                    <a href="{{ route('news') }}" class="mobile-nav-link {{ request()->routeIs('news*') ? 'active' : '' }}">
+                        <i class="fas fa-newspaper w-5 text-orange-600 mr-3"></i>
+                        Berita & Info
                     </a>
-                    <a href="{{ route('contact') }}" class="mobile-nav-sublink">
-                        <svg class="w-4 h-4 mr-2 inline text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
+
+                    <!-- Kontak -->
+                    <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
+                        <i class="fas fa-envelope w-5 text-red-600 mr-3"></i>
                         Kontak Kami
                     </a>
                 </div>
-            @else
-                <!-- Internal Pages Mobile Navigation - with routes -->
-                <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                    <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    Beranda
-                </a>
-                
-                <a href="{{ route('about') }}" class="mobile-nav-link {{ request()->routeIs('about*') ? 'active' : '' }}">
-                    <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                    </svg>
-                    Profil Perusahaan
-                </a>
-                
-                <a href="{{ route('about.history') }}" class="mobile-nav-link {{ request()->routeIs('about.history') ? 'active' : '' }} ml-6">
-                    <svg class="w-4 h-4 inline mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Sejarah Perusahaan
-                </a>
-                
-                <a href="{{ route('about.vision-mission') }}" class="mobile-nav-link {{ request()->routeIs('about.vision-mission') ? 'active' : '' }} ml-6">
-                    <svg class="w-4 h-4 inline mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    Visi & Misi
-                </a>
-                
-                <a href="{{ route('about.organization') }}" class="mobile-nav-link {{ request()->routeIs('about.organization') ? 'active' : '' }} ml-6">
-                    <svg class="w-4 h-4 inline mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    Struktur Organisasi
-                </a>
-                
-                <a href="{{ route('about.branches') }}" class="mobile-nav-link {{ request()->routeIs('about.branches') ? 'active' : '' }} ml-6">
-                    <svg class="w-4 h-4 inline mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                    </svg>
-                    Cabang & Unit IKK
-                </a>
-
-                <a href="{{ route('water-sources.index') }}" class="mobile-nav-link {{ request()->routeIs('water-sources*') ? 'active' : '' }} ml-6">
-                    <svg class="w-4 h-4 inline mr-2 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
-                    </svg>
-                    Sumber Mata Air
-                </a>
-
-                <a href="{{ route('services') }}" class="mobile-nav-link {{ request()->routeIs('services*') ? 'active' : '' }}">
-                    <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                    </svg>
-                    Layanan
-                </a>
-                
-                <a href="{{ route('news') }}" class="mobile-nav-link {{ request()->routeIs('news*') ? 'active' : '' }}">
-                    <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                    </svg>
-                    Berita
-                </a>
-                
-                <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
-                    <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                    Kontak
-                </a>
             @endif
         </div>
     </div>
@@ -540,6 +568,57 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     mobileMenuButton?.addEventListener('click', function() {
         mobileMenu.classList.toggle('hidden');
+    });
+
+    // Mobile dropdown functionality
+    const mobileDropdownTriggers = document.querySelectorAll('.mobile-dropdown-trigger');
+    
+    mobileDropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const dropdownContent = document.getElementById(targetId);
+            const chevron = this.querySelector('.fa-chevron-down');
+            
+            if (dropdownContent && chevron) {
+                // Toggle current dropdown
+                const isHidden = dropdownContent.classList.contains('hidden');
+                
+                if (isHidden) {
+                    // Show dropdown
+                    dropdownContent.classList.remove('hidden');
+                    chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    // Hide dropdown
+                    dropdownContent.classList.add('hidden');
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+                
+                // Close other dropdowns
+                mobileDropdownTriggers.forEach(otherTrigger => {
+                    if (otherTrigger !== this) {
+                        const otherTargetId = otherTrigger.getAttribute('data-target');
+                        const otherDropdownContent = document.getElementById(otherTargetId);
+                        const otherChevron = otherTrigger.querySelector('.fa-chevron-down');
+                        
+                        if (otherDropdownContent && otherChevron) {
+                            otherDropdownContent.classList.add('hidden');
+                            otherChevron.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    // Close mobile menu when clicking on dropdown links
+    const mobileDropdownLinks = document.querySelectorAll('.mobile-dropdown-content a');
+    mobileDropdownLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
     });
 
     // Only initialize home page specific functionality if on home page
