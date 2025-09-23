@@ -10,32 +10,6 @@ use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WaterSourceController;
 
-// Admin test route (remove in production)
-Route::get('/test/admin-user', function() {
-    $user = App\Models\User::first();
-    if (!$user) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'No admin user found. Please run seeder.',
-            'suggestion' => 'php artisan db:seed --class=DatabaseSeeder'
-        ]);
-    }
-    
-    return response()->json([
-        'status' => 'success',
-        'admin_user' => [
-            'email' => $user->email,
-            'name' => $user->name,
-            'created_at' => $user->created_at
-        ],
-        'login_info' => [
-            'url' => url('/admin'),
-            'email' => $user->email,
-            'password' => 'password (default)'
-        ]
-    ]);
-})->name('test.admin-user');
-
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
