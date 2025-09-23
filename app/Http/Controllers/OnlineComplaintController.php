@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OnlineComplaint;
+use App\Http\Requests\SecureComplaintRequest;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class OnlineComplaintController extends Controller
 {
@@ -16,51 +18,46 @@ class OnlineComplaintController extends Controller
         return view('complaint.index');
     }
 
-    public function store(Request $request)
+    public function store(SecureComplaintRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'customer_name' => 'required|string|max:255',
-            'customer_id_number' => 'nullable|string|max:50',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:20',
-            'address' => 'required|string|max:500',
-            'complaint_type' => 'required|in:billing,water_quality,water_pressure,service_connection,pipe_damage,meter_reading,other',
-            'subject' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
-            'priority' => 'required|in:low,medium,high,urgent',
-            'attachments.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048'
-        ], [
-            'customer_name.required' => 'Nama pelanggan harus diisi.',
-            'email.required' => 'Email harus diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'phone.required' => 'Nomor telepon harus diisi.',
-            'address.required' => 'Alamat harus diisi.',
-            'complaint_type.required' => 'Jenis keluhan harus dipilih.',
-            'subject.required' => 'Subjek keluhan harus diisi.',
-            'description.required' => 'Deskripsi keluhan harus diisi.',
-            'priority.required' => 'Prioritas harus dipilih.',
-            'attachments.*.mimes' => 'File harus berformat: jpg, jpeg, png, pdf, doc, docx.',
-            'attachments.*.max' => 'Ukuran file maksimal 2MB.',
-        ]);
-
-        if ($validator->fails()) {
+        $ip = $request->ip();
+        $userAgent = $request->userAgent();
+        
+        // Anti-spam checks
+        if (Cache::get("spam_flagged:{$ip}")) {
+            Log::warning('Spam complaint attempt blocked', [
+                'ip' => $ip,
+                'user_agent' => $userAgent,
+                'form' => 'complaint'
+            ]);
+            
             return back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Terdapat kesalahan pada form. Silakan periksa kembali.');
+                ->with('error', 'Terlalu banyak percobaan. Silakan coba lagi nanti.')
+                ->withInput();
         }
 
         try {
-            // Handle file uploads
+            // Handle file uploads with enhanced security
             $attachments = [];
             if ($request->hasFile('attachments')) {
                 foreach ($request->file('attachments') as $file) {
-                    $path = $file->store('complaints', 'public');
+                    // Sanitize filename
+                    $originalName = $file->getClientOriginalName();
+                    $safeFileName = Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . 
+                                   '.' . $file->getClientOriginalExtension();
+                    
+                    // Generate unique path with timestamp
+                    $path = 'complaints/' . date('Y/m/d') . '/' . time() . '_' . $safeFileName;
+                    
+                    // Store file
+                    $file->storeAs('public', $path);
+                    
                     $attachments[] = [
-                        'original_name' => $file->getClientOriginalName(),
+                        'original_name' => $safeFileName, // Use sanitized name
                         'path' => $path,
                         'size' => $file->getSize(),
                         'mime_type' => $file->getMimeType(),
+                        'uploaded_at' => now(),
                     ];
                 }
             }

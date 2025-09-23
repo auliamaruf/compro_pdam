@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSP Test - reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+    <h1>Quick CSP Test</h1>
+    <p>Testing if reCAPTCHA loads without CSP errors...</p>
+
+    <div class="g-recaptcha" data-sitekey="6LdpSNIrAAAAAPgaxIFSn6rGuoRbB-GG3sjesbfb"></div>
+
+    <script>
+        console.log('🧪 CSP Test started...');
+
+        setTimeout(function () {
+            if (typeof grecaptcha !== 'undefined') {
+                console.log('✅ reCAPTCHA loaded successfully (no CSP block)');
+
+                const widget = document.querySelector('.g-recaptcha');
+                if (widget && widget.innerHTML.trim() !== '') {
+                    console.log('✅ reCAPTCHA widget rendered successfully');
+                } else {
+                    console.log('⚠️ reCAPTCHA widget not rendered yet (may need more time)');
+                }
+            } else {
+                console.error('❌ reCAPTCHA failed to load (check CSP)');
+            }
+        }, 3000);
+
+        // Listen for CSP violations
+        document.addEventListener('securitypolicyviolation', function (e) {
+            console.error('🚨 CSP Violation:', e.violatedDirective, e.blockedURI);
+        });
+    </script>
+</body>
+
+</html>

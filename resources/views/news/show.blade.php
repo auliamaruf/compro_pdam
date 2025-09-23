@@ -1320,11 +1320,21 @@
                         'comments' => $comments
                     ])
 
-                    {{-- Comment form --}}
-                    @include('components.comment-form', [
-                        'commentableType' => 'App\Models\News',
-                        'commentableId' => $article->id
-                    ])
+                    {{-- Comment form - hanya tampil jika komentar diaktifkan --}}
+                    @if($article->comments_enabled)
+                        @include('components.comment-form', [
+                            'commentableType' => 'App\Models\News',
+                            'commentableId' => $article->id
+                        ])
+                    @else
+                        <div class="bg-gray-100 border border-gray-200 rounded-lg p-6 mt-8 text-center">
+                            <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-comment-slash text-gray-400 text-2xl"></i>
+                            </div>
+                            <h4 class="text-gray-600 font-medium mb-2">Komentar Tidak Diaktifkan</h4>
+                            <p class="text-gray-500 text-sm">Komentar tidak tersedia untuk artikel ini.</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 

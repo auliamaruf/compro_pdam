@@ -29,7 +29,8 @@ class News extends Model implements HasMedia
         'document_links',
         'has_documents',
         'published_at',
-        'author_id'
+        'author_id',
+        'comments_enabled'
     ];
 
     protected $casts = [
@@ -38,6 +39,7 @@ class News extends Model implements HasMedia
         'document_links' => 'array',
         'is_featured' => 'boolean',
         'is_emergency' => 'boolean',
+        'comments_enabled' => 'boolean',
         'has_documents' => 'boolean',
         'published_at' => 'datetime'
     ];

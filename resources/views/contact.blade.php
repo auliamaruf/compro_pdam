@@ -2,6 +2,21 @@
 
 @section('title', 'Kontak - ' . ($company->company_name ?? 'Tirta Perwira PDAM Purbalingga'))
 
+@push('head')
+<!-- Google reCAPTCHA - Alternative Loading -->
+<script>
+    // Ensure reCAPTCHA loads even if main script fails
+    if (typeof grecaptcha === 'undefined') {
+        console.log('Loading reCAPTCHA script from contact page...');
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+</script>
+@endpush
+
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Hero Section -->
@@ -299,9 +314,23 @@
                             </div>
                         </div>
 
+                        <!-- Honeypot field (hidden anti-spam) -->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="honeypot" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="mb-4">
+                            <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}" data-theme="light" data-callback="recaptchaCallback"></div>
+                            @error('g-recaptcha-response')
+                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="pt-4">
                             <button type="submit" 
-                                    class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                                    class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    id="submitBtn">
                                 <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                 </svg>
@@ -326,6 +355,11 @@
 
 @push('scripts')
 <script>
+// reCAPTCHA callback function
+function recaptchaCallback() {
+    console.log('✅ reCAPTCHA completed successfully');
+}
+
 // Google Maps function
 function openGoogleMaps() {
     window.open('https://maps.app.goo.gl/Nudzdm5uyDemkZWu9', '_blank');
@@ -333,6 +367,44 @@ function openGoogleMaps() {
 
 // Character counter for textarea
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 Page loaded, initializing contact form...');
+    
+    // Debug reCAPTCHA loading
+    setTimeout(function() {
+        console.log('🔍 Checking reCAPTCHA status...');
+        
+        if (typeof grecaptcha !== 'undefined') {
+            console.log('✅ reCAPTCHA API loaded successfully');
+        } else {
+            console.error('❌ reCAPTCHA API failed to load');
+            console.log('💡 Troubleshooting tips:');
+            console.log('   - Check your internet connection');
+            console.log('   - Disable ad blockers');
+            console.log('   - Verify domain is registered with reCAPTCHA keys');
+            console.log('   - Check browser console for network errors');
+        }
+        
+        // Check reCAPTCHA widget
+        const recaptchaWidget = document.querySelector('.g-recaptcha');
+        if (recaptchaWidget) {
+            console.log('✅ reCAPTCHA widget element found');
+            const sitekey = recaptchaWidget.getAttribute('data-sitekey');
+            console.log('🔑 Site key:', sitekey);
+            
+            if (recaptchaWidget.innerHTML.trim() === '') {
+                console.warn('⚠️ reCAPTCHA widget is empty - widget not rendered');
+                console.log('   This usually means:');
+                console.log('   - reCAPTCHA script not loaded');
+                console.log('   - Invalid site key');
+                console.log('   - Domain not whitelisted');
+            } else {
+                console.log('✅ reCAPTCHA widget appears to be rendered');
+            }
+        } else {
+            console.error('❌ reCAPTCHA widget element not found in DOM');
+        }
+    }, 2000);
+
     const messageTextarea = document.getElementById('message');
     const charCount = document.getElementById('charCount');
     
