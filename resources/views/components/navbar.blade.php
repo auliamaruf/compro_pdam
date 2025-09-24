@@ -692,7 +692,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionDots.forEach(function(dot) {
             dot.addEventListener('click', function() {
                 const sectionId = this.getAttribute('data-section');
-                console.log('Clicked section dot:', sectionId); // Debug
                 
                 if (sectionId === 'hero') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });

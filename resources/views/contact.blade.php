@@ -7,7 +7,6 @@
 <script>
     // Ensure reCAPTCHA loads even if main script fails
     if (typeof grecaptcha === 'undefined') {
-        console.log('Loading reCAPTCHA script from contact page...');
         const script = document.createElement('script');
         script.src = 'https://www.google.com/recaptcha/api.js';
         script.async = true;
@@ -357,7 +356,7 @@
 <script>
 // reCAPTCHA callback function
 function recaptchaCallback() {
-    console.log('✅ reCAPTCHA completed successfully');
+    // reCAPTCHA completed successfully
 }
 
 // Google Maps function
@@ -367,53 +366,28 @@ function openGoogleMaps() {
 
 // Character counter for textarea
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔄 Page loaded, initializing contact form...');
-    
-    // Debug reCAPTCHA loading
-    setTimeout(function() {
-        console.log('🔍 Checking reCAPTCHA status...');
-        
-        if (typeof grecaptcha !== 'undefined') {
-            console.log('✅ reCAPTCHA API loaded successfully');
-        } else {
-            console.error('❌ reCAPTCHA API failed to load');
-            console.log('💡 Troubleshooting tips:');
-            console.log('   - Check your internet connection');
-            console.log('   - Disable ad blockers');
-            console.log('   - Verify domain is registered with reCAPTCHA keys');
-            console.log('   - Check browser console for network errors');
+    // Check reCAPTCHA status
+    function checkReCaptchaStatus() {
+        // Silent check for reCAPTCHA availability
+        if (typeof grecaptcha === 'undefined') {
+            // reCAPTCHA not loaded - could show user-friendly message if needed
+            return false;
         }
-        
-        // Check reCAPTCHA widget
-        const recaptchaWidget = document.querySelector('.g-recaptcha');
-        if (recaptchaWidget) {
-            console.log('✅ reCAPTCHA widget element found');
-            const sitekey = recaptchaWidget.getAttribute('data-sitekey');
-            console.log('🔑 Site key:', sitekey);
-            
-            if (recaptchaWidget.innerHTML.trim() === '') {
-                console.warn('⚠️ reCAPTCHA widget is empty - widget not rendered');
-                console.log('   This usually means:');
-                console.log('   - reCAPTCHA script not loaded');
-                console.log('   - Invalid site key');
-                console.log('   - Domain not whitelisted');
-            } else {
-                console.log('✅ reCAPTCHA widget appears to be rendered');
-            }
-        } else {
-            console.error('❌ reCAPTCHA widget element not found in DOM');
-        }
-    }, 2000);
+        return true;
+    }
 
+    // Character counter functionality
     const messageTextarea = document.getElementById('message');
-    const charCount = document.getElementById('charCount');
+    const charCount = document.getElementById('char-count');
     
     if (messageTextarea && charCount) {
         messageTextarea.addEventListener('input', function() {
             const currentLength = this.value.length;
-            charCount.textContent = `${currentLength}/2000`;
+            const maxLength = this.getAttribute('maxlength') || 1000;
+            charCount.textContent = `${currentLength}/${maxLength}`;
             
-            if (currentLength > 2000) {
+            // Change color based on length
+            if (currentLength > maxLength * 0.9) {
                 charCount.classList.add('text-red-500');
                 charCount.classList.remove('text-gray-500');
             } else {
@@ -421,25 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 charCount.classList.remove('text-red-500');
             }
         });
-        
-        // Initialize counter
-        const initialLength = messageTextarea.value.length;
-        charCount.textContent = `${initialLength}/2000`;
     }
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+
+    // Initialize reCAPTCHA status check
+    setTimeout(checkReCaptchaStatus, 1000);
 });
 </script>
 @endpush

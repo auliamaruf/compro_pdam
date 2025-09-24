@@ -110,7 +110,7 @@
         {{-- reCAPTCHA --}}
         <div class="mb-4">
             <div class="g-recaptcha" 
-                 data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"
+                 data-sitekey="{{ config('captcha.sitekey') }}"
                  data-callback="onCaptchaSuccess"
                  data-error-callback="onCaptchaError"
                  data-expired-callback="onCaptchaExpired"></div>
@@ -142,24 +142,18 @@
 var captchaVerified = false;
 
 // Callback ketika reCAPTCHA berhasil diverifikasi
-function onCaptchaSuccess(token) {
-    console.log('reCAPTCHA verified successfully');
-    captchaVerified = true;
+function onCaptchaSuccess(token) {captchaVerified = true;
     document.getElementById('captcha-error').style.display = 'none';
 }
 
 // Callback ketika reCAPTCHA error
-function onCaptchaError() {
-    console.log('reCAPTCHA error occurred');
-    captchaVerified = false;
+function onCaptchaError() {captchaVerified = false;
     document.getElementById('captcha-error').style.display = 'block';
     document.getElementById('captcha-error').textContent = 'Terjadi error pada CAPTCHA. Silakan refresh halaman.';
 }
 
 // Callback ketika reCAPTCHA expired
-function onCaptchaExpired() {
-    console.log('reCAPTCHA expired');
-    captchaVerified = false;
+function onCaptchaExpired() {captchaVerified = false;
     document.getElementById('captcha-error').style.display = 'block';
     document.getElementById('captcha-error').textContent = 'CAPTCHA telah expired. Silakan verifikasi ulang.';
 }
@@ -191,11 +185,7 @@ document.getElementById('commentForm').addEventListener('submit', function(e) {
 });
 
 // Debug function untuk development
-function debugCaptcha() {
-    console.log('Captcha site key:', '{{ env("NOCAPTCHA_SITEKEY") }}');
-    console.log('Captcha verified:', captchaVerified);
-    console.log('Captcha response:', grecaptcha && grecaptcha.getResponse ? grecaptcha.getResponse() : 'grecaptcha not loaded');
-}
+function debugCaptcha() {}
 
 // Functions untuk reply functionality
 function replyToComment(commentId, authorName) {

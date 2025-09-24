@@ -170,10 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalLinks = fabModal.querySelectorAll('a');
     modalLinks.forEach((link, index) => {
         link.addEventListener('click', function() {
-            const services = ['WhatsApp', 'Cek Tagihan', 'Pengaduan'];
-            console.log('Layanan dipilih:', services[index]);
-            
-            // Close modal after a short delay
+            const services = ['WhatsApp', 'Cek Tagihan', 'Pengaduan'];// Close modal after a short delay
             setTimeout(() => {
                 closeModalFunc();
             }, 500);
