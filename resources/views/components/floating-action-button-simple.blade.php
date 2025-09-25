@@ -58,26 +58,19 @@
 <script>
 let fabMenuOpen = false;
 
-function toggleFAB() {
-    console.log('toggleFAB called, current state:', fabMenuOpen);
-    
-    const fabBtn = document.getElementById('fab-btn');
+function toggleFAB() {const fabBtn = document.getElementById('fab-btn');
     const fabMenu = document.getElementById('fab-menu');
     const fabIcon = document.getElementById('fab-icon');
     
     fabMenuOpen = !fabMenuOpen;
     
-    if (fabMenuOpen) {
-        console.log('Opening FAB menu');
-        // Open menu
+    if (fabMenuOpen) {// Open menu
         fabBtn.style.background = 'linear-gradient(135deg, #dc2626, #ef4444)';
         fabIcon.style.transform = 'rotate(45deg)';
         fabMenu.style.opacity = '1';
         fabMenu.style.visibility = 'visible';
         fabMenu.style.transform = 'translateY(0)';
-    } else {
-        console.log('Closing FAB menu');
-        // Close menu
+    } else {// Close menu
         fabBtn.style.background = 'linear-gradient(135deg, #059669, #10b981)';
         fabIcon.style.transform = 'rotate(0deg)';
         fabMenu.style.opacity = '0';
@@ -89,22 +82,15 @@ function toggleFAB() {
 // Close menu when clicking outside
 document.addEventListener('click', function(e) {
     const simpleFab = document.getElementById('simple-fab');
-    if (fabMenuOpen && !simpleFab.contains(e.target)) {
-        console.log('Clicked outside, closing menu');
-        toggleFAB();
+    if (fabMenuOpen && !simpleFab.contains(e.target)) {toggleFAB();
     }
 });
 
 // Close menu when pressing escape
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && fabMenuOpen) {
-        console.log('Escape pressed, closing menu');
-        toggleFAB();
+    if (e.key === 'Escape' && fabMenuOpen) {toggleFAB();
     }
-});
-
-console.log('Simple FAB script loaded');
-</script>
+});</script>
 
 <style>
 @media (max-width: 768px) {

@@ -124,6 +124,11 @@ class NewsResource extends Resource
                                 Forms\Components\Toggle::make('is_emergency')
                                     ->label('Pengumuman Darurat'),
 
+                                Forms\Components\Toggle::make('comments_enabled')
+                                    ->label('Aktifkan Komentar')
+                                    ->default(true)
+                                    ->helperText('Centang untuk mengizinkan komentar pada artikel ini'),
+
                                 SpatieMediaLibraryFileUpload::make('featured_image')
                                     ->label('Gambar Utama')
                                     ->collection('featured_image')

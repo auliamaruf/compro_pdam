@@ -255,14 +255,10 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('FAB Script loading...'); // Debug
-    
     const fabMain = document.getElementById('fabMain');
     const fabMenu = document.getElementById('fabMenu');
     const fabIcon = document.getElementById('fabIcon');
     let isMenuOpen = false;
-
-    console.log('FAB Elements:', { fabMain, fabMenu, fabIcon }); // Debug
 
     // Create backdrop
     const backdrop = document.createElement('div');
@@ -280,11 +276,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle FAB menu
     function toggleFabMenu() {
-        console.log('Toggle FAB menu, current state:', isMenuOpen); // Debug
         isMenuOpen = !isMenuOpen;
         
         if (isMenuOpen) {
-            console.log('Opening menu...'); // Debug
             fabMain.classList.add('active');
             fabMenu.classList.add('active');
             backdrop.classList.add('active');
@@ -301,22 +295,16 @@ document.addEventListener('DOMContentLoaded', function() {
             backdrop.style.visibility = 'visible';
             
             // Show menu items with staggered delay
-            const fabItems = fabMenu.querySelectorAll('.fab-item');
-            console.log('Found fab items:', fabItems.length); // Debug
-            fabItems.forEach((item, index) => {
+            const fabItems = fabMenu.querySelectorAll('.fab-item');fabItems.forEach((item, index) => {
                 setTimeout(() => {
                     item.style.opacity = '1';
                     item.style.visibility = 'visible';
                     item.style.transform = 'translateX(0)';
                     item.style.zIndex = '10006';
-                    item.style.pointerEvents = 'auto';
-                    console.log(`Item ${index + 1} shown`); // Debug
-                }, 100 + (index * 50));
+                    item.style.pointerEvents = 'auto';}, 100 + (index * 50));
             });
             
-        } else {
-            console.log('Closing menu...'); // Debug
-            fabMain.classList.remove('active');
+        } else {fabMain.classList.remove('active');
             fabMenu.classList.remove('active');
             backdrop.classList.remove('active');
             fabMain.setAttribute('aria-expanded', 'false');
@@ -338,21 +326,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // FAB main button click - multiple event handlers for safety
-    fabMain.addEventListener('click', function(e) {
-        console.log('FAB main clicked'); // Debug
-        e.preventDefault();
+    fabMain.addEventListener('click', function(e) {e.preventDefault();
         e.stopPropagation();
         toggleFabMenu();
     });
 
     // Alternative event handler
-    fabMain.addEventListener('mousedown', function(e) {
-        console.log('FAB main mousedown'); // Debug
-    });
+    fabMain.addEventListener('mousedown', function(e) {});
 
-    fabMain.addEventListener('touchstart', function(e) {
-        console.log('FAB main touchstart'); // Debug
-        e.preventDefault();
+    fabMain.addEventListener('touchstart', function(e) {e.preventDefault();
         e.stopPropagation();
         toggleFabMenu();
     }, { passive: false });
@@ -366,51 +348,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Backdrop click to close menu
-    backdrop.addEventListener('click', function() {
-        console.log('Backdrop clicked'); // Debug
-        if (isMenuOpen) {
+    backdrop.addEventListener('click', function() {if (isMenuOpen) {
             toggleFabMenu();
         }
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-        if (isMenuOpen && !fabMain.contains(e.target) && !fabMenu.contains(e.target)) {
-            console.log('Click outside, closing menu'); // Debug
-            toggleFabMenu();
+        if (isMenuOpen && !fabMain.contains(e.target) && !fabMenu.contains(e.target)) {toggleFabMenu();
         }
     });
 
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isMenuOpen) {
-            console.log('Escape key pressed, closing menu'); // Debug
-            toggleFabMenu();
+        if (e.key === 'Escape' && isMenuOpen) {toggleFabMenu();
         }
     });
 
     // Add click tracking for analytics (optional)
-    const fabLinks = document.querySelectorAll('.fab-link');
-    console.log('Found FAB links:', fabLinks.length); // Debug
-    
-    fabLinks.forEach(function(link) {
+    const fabLinks = document.querySelectorAll('.fab-link');fabLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             const action = this.classList.contains('whatsapp') ? 'WhatsApp' :
                           this.classList.contains('bill') ? 'Cek Tagihan' :
-                          this.classList.contains('complaint') ? 'Pengaduan' : 'Unknown';
-            
-            console.log('FAB Action clicked:', action); // Debug
-            
-            // Close menu after click
+                          this.classList.contains('complaint') ? 'Pengaduan' : 'Unknown';// Close menu after click
             setTimeout(() => {
                 if (isMenuOpen) {
                     toggleFabMenu();
                 }
             }, 300);
         });
-    });
-
-    console.log('FAB Script loaded successfully'); // Debug
-});
+    });});
 </script>
 @endpush

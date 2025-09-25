@@ -2,6 +2,11 @@
 
 @section('title', 'Pengaduan Online - Tirta Perwira PDAM Purbalingga')
 
+@push('head')
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endpush
+
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Hero Section -->
@@ -242,7 +247,20 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-primary w-full">
+                        <!-- Honeypot field (hidden anti-spam) -->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="honeypot" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="pb-6">
+                            <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
+                            @error('g-recaptcha-response')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed" id="complaintSubmitBtn">
                             <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                             </svg>

@@ -1046,7 +1046,7 @@
                                          loading="lazy"
                                          style="opacity: 0; transition: opacity 0.3s ease;"
                                          onload="this.style.opacity = '1'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('loading-placeholder')) this.nextElementSibling.remove();"
-                                         onerror="console.log('Failed to load:', this.src); this.style.opacity = '1'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('loading-placeholder')) this.nextElementSibling.remove();">
+                                         >
                                     <div class="gallery-overlay">
                                         <i class="fas fa-search-plus gallery-icon"></i>
                                         <span class="gallery-text">PERBESAR</span>
@@ -1320,11 +1320,21 @@
                         'comments' => $comments
                     ])
 
-                    {{-- Comment form --}}
-                    @include('components.comment-form', [
-                        'commentableType' => 'App\Models\News',
-                        'commentableId' => $article->id
-                    ])
+                    {{-- Comment form - hanya tampil jika komentar diaktifkan --}}
+                    @if($article->comments_enabled)
+                        @include('components.comment-form', [
+                            'commentableType' => 'App\Models\News',
+                            'commentableId' => $article->id
+                        ])
+                    @else
+                        <div class="bg-gray-100 border border-gray-200 rounded-lg p-6 mt-8 text-center">
+                            <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-comment-slash text-gray-400 text-2xl"></i>
+                            </div>
+                            <h4 class="text-gray-600 font-medium mb-2">Komentar Tidak Diaktifkan</h4>
+                            <p class="text-gray-500 text-sm">Komentar tidak tersedia untuk artikel ini.</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -1407,9 +1417,6 @@
                         </div>
                     </div>
 
-
-
-
                 </div>
             </div>
         </div>
@@ -1486,15 +1493,7 @@ const galleryImages = [
     @endif
 ];
 
-// Debug: Log available URLs
-console.log('Gallery Images URLs:', galleryImages.map(img => ({
-    name: img.name,
-    url: img.url,
-    mediumUrl: img.mediumUrl,
-    thumbUrl: img.thumbUrl
-})));
-
-let currentImageIndex = 0;
+// Debug: Log available URLslet currentImageIndex = 0;
 
 function openLightbox(index) {
     if (galleryImages.length === 0) return;
@@ -1873,13 +1872,10 @@ document.head.appendChild(enhancedAnimationStyle);
 
 // Image lazy loading error handling
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Gallery initialization started');
-    
     // Global error handling for all images
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('error', function() {
-            console.log('Image failed to load:', this.src);
             // Create SVG placeholder
             const placeholder = 'data:image/svg+xml;base64,' + btoa(`
                 <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
@@ -1896,20 +1892,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Enhanced gallery image loading
     const galleryItems = document.querySelectorAll('.gallery-item img');
-    console.log('Found gallery items:', galleryItems.length);
-    
     galleryItems.forEach((img, index) => {
-        console.log(`Gallery item ${index}:`, {
-            src: img.src,
-            fallback: img.dataset.fallback,
-            name: img.dataset.name,
-            complete: img.complete,
-            naturalWidth: img.naturalWidth
-        });
-        
         // Check if image is already loaded (cached)
         if (img.complete && img.naturalWidth > 0) {
-            console.log(`Image ${index} already loaded`);
             img.style.opacity = '1';
             const placeholder = img.parentElement.querySelector('.loading-placeholder');
             if (placeholder) placeholder.remove();
@@ -1920,7 +1905,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let errorTimeout;
         
         img.addEventListener('load', function() {
-            console.log(`Image ${index} loaded successfully:`, this.src);
             clearTimeout(errorTimeout);
             this.style.opacity = '1';
             const placeholder = this.parentElement.querySelector('.loading-placeholder');
@@ -1928,20 +1912,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         img.addEventListener('error', function() {
-            console.log(`Image ${index} failed to load:`, this.src);
             clearTimeout(errorTimeout);
             
             // Try alternative URLs
             const originalSrc = this.src;
             if (!this.dataset.tried && this.dataset.fallback && originalSrc !== this.dataset.fallback) {
-                console.log(`Trying fallback URL for image ${index}:`, this.dataset.fallback);
                 this.dataset.tried = 'true';
                 this.src = this.dataset.fallback;
                 return;
             }
             
             // If all fails, show placeholder
-            console.log(`All URLs failed for image ${index}, showing placeholder`);
             const placeholder = 'data:image/svg+xml;base64,' + btoa(`
                 <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
                     <rect width="100%" height="100%" fill="#f3f4f6"/>
@@ -1960,7 +1941,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set a timeout for slow loading images
         errorTimeout = setTimeout(() => {
             if (img.naturalWidth === 0) {
-                console.log(`Image ${index} loading timeout:`, img.src);
                 // Trigger error handler
                 img.dispatchEvent(new Event('error'));
             }

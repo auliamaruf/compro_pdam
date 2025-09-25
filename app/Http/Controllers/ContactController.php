@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
+use App\Http\Requests\SecureContactRequest;
+use App\Services\SecurityService;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
@@ -16,30 +17,38 @@ class ContactController extends Controller
         return view('contact');
     }
 
-    public function store(Request $request)
+    public function store(SecureContactRequest $request, SecurityService $security)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'subject' => 'required|string|max:255',
-            'type' => 'required|in:general,complaint,suggestion,service_info,technical_support',
-            'message' => 'required|string|max:2000',
-        ], [
-            'name.required' => 'Nama harus diisi.',
-            'email.required' => 'Email harus diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'subject.required' => 'Subjek harus diisi.',
-            'type.required' => 'Jenis pesan harus dipilih.',
-            'message.required' => 'Pesan harus diisi.',
-            'message.max' => 'Pesan maksimal 2000 karakter.',
-        ]);
-
-        if ($validator->fails()) {
+        $ip = $request->ip();
+        $userAgent = $request->userAgent();
+        
+        // Check if IP is blocked or flagged
+        if ($security->isIpBlocked($ip)) {
+            Log::warning('Blocked IP attempted contact form', [
+                'ip' => $ip,
+                'user_agent' => $userAgent
+            ]);
+            
             return back()
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Terdapat kesalahan pada form. Silakan periksa kembali.');
+                ->with('error', 'Terlalu banyak percobaan. Silakan coba lagi nanti.')
+                ->withInput();
+        }
+
+        // Check email sending limits
+        if (!$security->canSendEmail($ip)) {
+            return back()
+                ->with('error', 'Batas pengiriman email tercapai. Silakan coba lagi dalam 1 jam.')
+                ->withInput();
+        }
+
+        // Spam detection
+        if ($security->isSpamContent($request)) {
+            $security->flagAsSpam($ip, 'Contact form spam detected');
+            $security->checkViolations($ip);
+            
+            return back()
+                ->with('error', 'Pesan terdeteksi sebagai spam.')
+                ->withInput();
         }
 
         try {
@@ -51,9 +60,12 @@ class ContactController extends Controller
                 'subject' => $request->subject,
                 'type' => $request->type,
                 'message' => $request->message,
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
+                'ip_address' => $ip,
+                'user_agent' => $userAgent,
             ]);
+
+            // Increment email counter for this IP
+            $security->incrementEmailCounter($ip);
 
             // Send notification email to admin (optional)
             try {
@@ -67,6 +79,7 @@ class ContactController extends Controller
 
         } catch (\Exception $e) {
             Log::error('Contact form submission failed: ' . $e->getMessage());
+            $security->checkViolations($ip);
 
             return back()
                 ->withInput()

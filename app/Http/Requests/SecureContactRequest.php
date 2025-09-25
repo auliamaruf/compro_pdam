@@ -42,12 +42,14 @@ class SecureContactRequest extends FormRequest
                 'string',
                 'max:2000',
                 'not_regex:/<script|javascript:|on\w+=/i', // Basic XSS prevention
+                'not_regex:/http[s]?:\/\/|www\.|\.com|\.net|\.org|\.id/i', // Block URLs in message
             ],
             'type' => [
                 'required',
                 'in:general,complaint,suggestion,service_info,technical_support'
             ],
-            'g-recaptcha-response' => 'nullable|string', // For future CAPTCHA implementation
+            'g-recaptcha-response' => 'required|captcha',
+            'honeypot' => 'nullable|max:0', // Honeypot field - should be empty
         ];
     }
 
@@ -58,7 +60,10 @@ class SecureContactRequest extends FormRequest
             'email.email' => 'Format email tidak valid.',
             'phone.regex' => 'Format nomor telepon tidak valid.',
             'subject.not_regex' => 'Subjek mengandung karakter yang tidak diizinkan.',
-            'message.not_regex' => 'Pesan mengandung karakter atau script yang tidak diizinkan.',
+            'message.not_regex' => 'Pesan mengandung karakter, script, atau URL yang tidak diizinkan.',
+            'g-recaptcha-response.required' => 'Verifikasi CAPTCHA wajib diisi.',
+            'g-recaptcha-response.captcha' => 'Verifikasi CAPTCHA tidak valid. Silakan coba lagi.',
+            'honeypot.max' => 'Form terdeteksi sebagai spam.',
         ];
     }
 

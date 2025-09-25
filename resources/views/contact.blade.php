@@ -2,6 +2,20 @@
 
 @section('title', 'Kontak - ' . ($company->company_name ?? 'Tirta Perwira PDAM Purbalingga'))
 
+@push('head')
+<!-- Google reCAPTCHA - Alternative Loading -->
+<script>
+    // Ensure reCAPTCHA loads even if main script fails
+    if (typeof grecaptcha === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    }
+</script>
+@endpush
+
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Hero Section -->
@@ -299,9 +313,23 @@
                             </div>
                         </div>
 
+                        <!-- Honeypot field (hidden anti-spam) -->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text" name="honeypot" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="mb-4">
+                            <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}" data-theme="light" data-callback="recaptchaCallback"></div>
+                            @error('g-recaptcha-response')
+                                <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <div class="pt-4">
                             <button type="submit" 
-                                    class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                                    class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    id="submitBtn">
                                 <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                 </svg>
@@ -326,6 +354,11 @@
 
 @push('scripts')
 <script>
+// reCAPTCHA callback function
+function recaptchaCallback() {
+    // reCAPTCHA completed successfully
+}
+
 // Google Maps function
 function openGoogleMaps() {
     window.open('https://maps.app.goo.gl/Nudzdm5uyDemkZWu9', '_blank');
@@ -333,15 +366,28 @@ function openGoogleMaps() {
 
 // Character counter for textarea
 document.addEventListener('DOMContentLoaded', function() {
+    // Check reCAPTCHA status
+    function checkReCaptchaStatus() {
+        // Silent check for reCAPTCHA availability
+        if (typeof grecaptcha === 'undefined') {
+            // reCAPTCHA not loaded - could show user-friendly message if needed
+            return false;
+        }
+        return true;
+    }
+
+    // Character counter functionality
     const messageTextarea = document.getElementById('message');
-    const charCount = document.getElementById('charCount');
+    const charCount = document.getElementById('char-count');
     
     if (messageTextarea && charCount) {
         messageTextarea.addEventListener('input', function() {
             const currentLength = this.value.length;
-            charCount.textContent = `${currentLength}/2000`;
+            const maxLength = this.getAttribute('maxlength') || 1000;
+            charCount.textContent = `${currentLength}/${maxLength}`;
             
-            if (currentLength > 2000) {
+            // Change color based on length
+            if (currentLength > maxLength * 0.9) {
                 charCount.classList.add('text-red-500');
                 charCount.classList.remove('text-gray-500');
             } else {
@@ -349,25 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 charCount.classList.remove('text-red-500');
             }
         });
-        
-        // Initialize counter
-        const initialLength = messageTextarea.value.length;
-        charCount.textContent = `${initialLength}/2000`;
     }
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+
+    // Initialize reCAPTCHA status check
+    setTimeout(checkReCaptchaStatus, 1000);
 });
 </script>
 @endpush

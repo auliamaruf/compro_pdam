@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Security middleware with improved CSP for logo and maps
         $middleware->web(append: [
             \App\Http\Middleware\SecurityHeadersMiddleware::class,
+            \App\Http\Middleware\SecurityCheckMiddleware::class,
         ]);
         
         // Rate limiting for specific routes
@@ -21,6 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
         
         // Additional security middleware
         $middleware->encryptCookies();
+        
+        // Register security middleware alias
+        $middleware->alias([
+            'security.check' => \App\Http\Middleware\SecurityCheckMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

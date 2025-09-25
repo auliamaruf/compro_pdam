@@ -8,39 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\FilamentTestController;
 use App\Http\Controllers\WaterSourceController;
-
-// Test routes
-Route::get('/test/company-setting', [TestController::class, 'testCompanySetting'])->name('test.company-setting');
-Route::get('/test/filament-resource', [FilamentTestController::class, 'testResource'])->name('test.filament-resource');
-
-// Admin test route
-Route::get('/test/admin-user', function() {
-    $user = App\Models\User::first();
-    if (!$user) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'No admin user found. Please run seeder.',
-            'suggestion' => 'php artisan db:seed --class=DatabaseSeeder'
-        ]);
-    }
-    
-    return response()->json([
-        'status' => 'success',
-        'admin_user' => [
-            'email' => $user->email,
-            'name' => $user->name,
-            'created_at' => $user->created_at
-        ],
-        'login_info' => [
-            'url' => url('/admin'),
-            'email' => $user->email,
-            'password' => 'password (default)'
-        ]
-    ]);
-})->name('test.admin-user');
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -71,9 +39,9 @@ Route::prefix('berita')->group(function () {
 Route::get('/tarif', [HomeController::class, 'tariff'])->name('tariff');
 Route::get('/tarif-air', [HomeController::class, 'tariff'])->name('tariff.alternative');
 
-// Contact & Support - dengan rate limiting
-Route::middleware(['throttle:10,1'])->group(function () {
-    Route::get('/kontak', [ContactController::class, 'index'])->name('contact')->withoutMiddleware('throttle:10,1');
+// Contact & Support - dengan enhanced rate limiting
+Route::middleware(['throttle:3,1'])->group(function () {
+    Route::get('/kontak', [ContactController::class, 'index'])->name('contact')->withoutMiddleware('throttle:3,1');
     Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 });
 
@@ -82,12 +50,12 @@ Route::get('/cek-tagihan', [HomeController::class, 'checkBill'])->name('check-bi
 Route::get('/download-center', [HomeController::class, 'downloadCenter'])->name('download-center');
 Route::get('/dokumentasi', [HomeController::class, 'documentation'])->name('documentation');
 
-// Online Complaint - dengan rate limiting ketat
-Route::prefix('pengaduan-online')->middleware(['throttle:5,1'])->group(function () {
-    Route::get('/', [OnlineComplaintController::class, 'index'])->name('complaint')->withoutMiddleware('throttle:5,1');
+// Online Complaint - dengan enhanced rate limiting
+Route::prefix('pengaduan-online')->middleware(['throttle:2,1'])->group(function () {
+    Route::get('/', [OnlineComplaintController::class, 'index'])->name('complaint')->withoutMiddleware('throttle:2,1');
     Route::post('/', [OnlineComplaintController::class, 'store'])->name('complaint.store');
-    Route::get('/success/{ticketNumber}', [OnlineComplaintController::class, 'success'])->name('complaint.success')->withoutMiddleware('throttle:5,1');
-    Route::get('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track')->withoutMiddleware('throttle:5,1');
+    Route::get('/success/{ticketNumber}', [OnlineComplaintController::class, 'success'])->name('complaint.success')->withoutMiddleware('throttle:2,1');
+    Route::get('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track')->withoutMiddleware('throttle:2,1');
     Route::post('/track', [OnlineComplaintController::class, 'track'])->name('complaint.track.search');
 });
 
@@ -95,8 +63,8 @@ Route::prefix('pengaduan-online')->middleware(['throttle:5,1'])->group(function 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/suggest', [SearchController::class, 'suggest'])->name('search.suggest');
 
-// API Routes untuk AJAX - dengan rate limiting
-Route::middleware(['throttle:30,1'])->group(function () {
+// API Routes untuk AJAX - dengan enhanced rate limiting
+Route::middleware(['throttle:10,1'])->group(function () {
     Route::post('/search/api', [SearchController::class, 'api'])->name('search.api');
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
