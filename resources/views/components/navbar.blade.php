@@ -166,7 +166,14 @@
 
             <!-- Mobile Menu Button -->
             <div class="lg:hidden flex-shrink-0">
-                <button type="button" id="mobile-menu-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <button 
+                    type="button" 
+                    id="mobile-menu-button" 
+                    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    aria-label="Toggle mobile menu"
+                >
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -176,7 +183,7 @@
     </div>
 
     <!-- Mobile Navigation Menu -->
-    <div class="lg:hidden hidden" id="mobile-menu">
+    <div class="lg:hidden hidden" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
         @if(!$isHomePage)
             <!-- Mobile Search - Only for internal pages -->
             <div class="px-4 py-3 border-b bg-gray-50">
@@ -430,9 +437,6 @@
         <div class="section-dot" data-section="news-preview" title="Berita">
             <div class="section-dot-inner"></div>
         </div>
-        <div class="section-dot" data-section="contact-preview" title="Kontak">
-            <div class="section-dot-inner"></div>
-        </div>
     </div>
     @endif
 </header>
@@ -560,111 +564,173 @@ header {
 @endpush
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const isHomePage = {{ $isHomePage ? 'true' : 'false' }};
-
-    // Mobile menu toggle
-    mobileMenuButton?.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    // Mobile dropdown functionality
-    const mobileDropdownTriggers = document.querySelectorAll('.mobile-dropdown-trigger');
+// Navbar Mobile Menu Handler - Unified for all pages
+(function() {
+    'use strict';
     
-    mobileDropdownTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
+    let mobileMenuButton, mobileMenu;
+    const isHomePage = {{ $isHomePage ? 'true' : 'false' }};
+    
+    // Global navbar functionality
+    function initializeNavbar() {
+        mobileMenuButton = document.getElementById('mobile-menu-button');
+        mobileMenu = document.getElementById('mobile-menu');
+
+        // Ensure elements exist before adding listeners
+        if (!mobileMenuButton || !mobileMenu) {
+            setTimeout(initializeNavbar, 200);
+            return;
+        }
+
+        // Mobile menu toggle with enhanced reliability
+        mobileMenuButton.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('data-target');
-            const dropdownContent = document.getElementById(targetId);
-            const chevron = this.querySelector('.fa-chevron-down');
+            e.stopPropagation();
             
-            if (dropdownContent && chevron) {
-                // Toggle current dropdown
-                const isHidden = dropdownContent.classList.contains('hidden');
-                
-                if (isHidden) {
-                    // Show dropdown
-                    dropdownContent.classList.remove('hidden');
-                    chevron.style.transform = 'rotate(180deg)';
-                } else {
-                    // Hide dropdown
-                    dropdownContent.classList.add('hidden');
-                    chevron.style.transform = 'rotate(0deg)';
-                }
-                
-                // Close other dropdowns
-                mobileDropdownTriggers.forEach(otherTrigger => {
-                    if (otherTrigger !== this) {
-                        const otherTargetId = otherTrigger.getAttribute('data-target');
-                        const otherDropdownContent = document.getElementById(otherTargetId);
-                        const otherChevron = otherTrigger.querySelector('.fa-chevron-down');
-                        
-                        if (otherDropdownContent && otherChevron) {
-                            otherDropdownContent.classList.add('hidden');
-                            otherChevron.style.transform = 'rotate(0deg)';
-                        }
-                    }
-                });
-            }
-        });
-    });
-
-    // Close mobile menu when clicking on dropdown links
-    const mobileDropdownLinks = document.querySelectorAll('.mobile-dropdown-content a');
-    mobileDropdownLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+            } else {
                 mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
             }
         });
-    });
 
-    // Only initialize home page specific functionality if on home page
-    if (isHomePage) {
+        // Mobile dropdown functionality
+        const mobileDropdownTriggers = document.querySelectorAll('.mobile-dropdown-trigger');
+        
+        mobileDropdownTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = this.getAttribute('data-target');
+                const dropdownContent = document.getElementById(targetId);
+                const chevron = this.querySelector('.fa-chevron-down');
+                
+                if (dropdownContent && chevron) {
+                    // Toggle current dropdown
+                    const isHidden = dropdownContent.classList.contains('hidden');
+                    
+                    if (isHidden) {
+                        // Show dropdown
+                        dropdownContent.classList.remove('hidden');
+                        chevron.style.transform = 'rotate(180deg)';
+                    } else {
+                        // Hide dropdown
+                        dropdownContent.classList.add('hidden');
+                        chevron.style.transform = 'rotate(0deg)';
+                    }
+                    
+                    // Close other dropdowns
+                    mobileDropdownTriggers.forEach(otherTrigger => {
+                        if (otherTrigger !== this) {
+                            const otherTargetId = otherTrigger.getAttribute('data-target');
+                            const otherDropdownContent = document.getElementById(otherTargetId);
+                            const otherChevron = otherTrigger.querySelector('.fa-chevron-down');
+                            
+                            if (otherDropdownContent && otherChevron) {
+                                otherDropdownContent.classList.add('hidden');
+                                otherChevron.style.transform = 'rotate(0deg)';
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on links
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Only close if it's not a dropdown trigger
+                if (!this.classList.contains('mobile-dropdown-trigger')) {
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+
+        // Handle escape key for closing menus
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close mobile menu
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+
+        // Initialize home page functionality after navbar is ready
+        if (isHomePage) {
+            initializeHomePage();
+        } else {
+            initializeInternalPages();
+        }
+    }
+
+    // Home page specific functionality
+    function initializeHomePage() {
         const sectionLinks = document.querySelectorAll('.home-section-link');
         const sectionDots = document.querySelectorAll('.section-dot');
 
-        // Smooth scroll functionality
+        // Smooth scroll functionality with multiple fallback methods
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             
-            if (section) {
-                const navbar = document.querySelector('header');
-                // For absolute positioned navbar, use getBoundingClientRect for accurate height
-                const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
-                const offset = navbarHeight + 30; // Extra padding for better UX
-                const elementPosition = section.offsetTop - offset;
+            if (!section) {
+                return;
+            }
+            
+            // Method 1: Try scrollIntoView first (most reliable for modern browsers)
+            try {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                });
                 
-                // Try multiple scroll methods
-                try {
-                    // Method 1: scrollIntoView (more reliable)
-                    section.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start',
-                        inline: 'nearest'
-                    });
-                    
-                    // Adjust for navbar after scrollIntoView
-                    setTimeout(() => {
-                        const currentScroll = window.scrollY;
-                        const adjustedPosition = currentScroll - (navbarHeight + 30);
-                        if (adjustedPosition >= 0) {
-                            window.scrollTo({
-                                top: adjustedPosition,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }, 300);
-                    
-                } catch(error) {
-                    // Method 2: Fallback window.scrollTo
-                    window.scrollTo({
-                        top: Math.max(0, elementPosition),
-                        behavior: 'smooth'
-                    });
-                }
+                // Adjust for navbar after a brief delay
+                setTimeout(() => {
+                    const navbar = document.querySelector('header');
+                    if (navbar) {
+                        const navbarHeight = navbar.getBoundingClientRect().height;
+                        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                        const adjustment = 20; // Extra padding
+                        
+                        window.scrollTo({
+                            top: currentScroll - navbarHeight - adjustment,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+                
+            } catch (error) {
+                // Fallback Method 2: Manual calculation
+                const navbar = document.querySelector('header');
+                const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+                const sectionTop = section.offsetTop;
+                const scrollPosition = sectionTop - navbarHeight - 20;
+                
+                window.scrollTo({
+                    top: Math.max(0, scrollPosition),
+                    behavior: 'smooth'
+                });
             }
         }
 
@@ -672,11 +738,14 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
+                
                 const sectionId = this.getAttribute('data-section');
                 
                 // Close mobile menu if open
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
                 }
                 
                 // Scroll to section
@@ -706,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const navbar = document.querySelector('header');
             const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
             const scrollPos = window.scrollY + navbarHeight + 50; // Adjust for absolute navbar
-            const sections = ['hero', 'about-preview', 'services-preview', 'news-preview', 'contact-preview'];
+            const sections = ['hero', 'about-preview', 'services-preview', 'news-preview']; // Removed contact-preview as it doesn't exist
             
             let activeSection = 'hero';
             
@@ -757,8 +826,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Initial setup
-        updateActiveStates();
-    } else {
+        setTimeout(updateActiveStates, 500);
+    }
+
+    // Internal pages functionality
+    function initializeInternalPages() {
         // Internal pages - Add scroll shadow to navbar
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('header');
@@ -772,23 +844,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                mobileMenu.classList.add('hidden');
-            }
+    // Initialize when DOM is ready
+    function initWhenReady() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initializeNavbar, 100);
+            });
+        } else {
+            setTimeout(initializeNavbar, 100);
         }
-    });
-
-    // Handle escape key for closing menus
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            // Close mobile menu
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
-        }
-    });
-});
+    }
+    
+    // Start initialization
+    initWhenReady();
+})();
 </script>

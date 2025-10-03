@@ -37,68 +37,9 @@
 
     <!-- Additional Styles for Enhanced Features -->
     <style>
-        /* Navbar transition */
-        header {
-            transition: all 0.3s ease-in-out;
-        }
-        
         /* Search form animations */
         #search-form {
             transform-origin: top right;
-        }
-        
-        /* Navigation link styles */
-        .nav-link {
-            @apply text-gray-700 hover:text-blue-600 font-medium transition-all duration-200 relative px-3 py-2 rounded-lg;
-        }
-        
-        .nav-link:hover {
-            @apply bg-blue-50 text-blue-600;
-        }
-        
-        .nav-link.active {
-            @apply text-blue-600 bg-blue-50;
-        }
-        
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            right: 50%;
-            height: 2px;
-            background: linear-gradient(90deg, #2563eb, #3b82f6);
-            border-radius: 1px;
-            animation: expandWidth 0.3s ease-out forwards;
-        }
-        
-        @keyframes expandWidth {
-            from {
-                left: 50%;
-                right: 50%;
-            }
-            to {
-                left: 15%;
-                right: 15%;
-            }
-        }
-        
-        /* Dropdown styles */
-        .dropdown-link {
-            @apply block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-150 rounded-md mx-2;
-        }
-        
-        /* Mobile navigation styles */
-        .mobile-nav-link {
-            @apply block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-150 rounded-lg mx-2;
-        }
-        
-        .mobile-nav-link.active {
-            @apply text-blue-600 bg-blue-50;
-        }
-        
-        .mobile-nav-sublink {
-            @apply block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-25 transition-all duration-150 rounded-md mx-2;
         }
         
         /* Social links - Enhanced with proper hover states */
@@ -111,48 +52,10 @@
             @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer;
         }
         
-        /* Enhanced hover effects for navbar */
-        .nav-link:hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
-            border-radius: 0.5rem;
-            z-index: -1;
-        }
-        
         /* Search input focus styles */
         #search-input:focus {
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
             border-color: #3b82f6;
-        }
-        
-        /* Mobile menu animation */
-        #mobile-menu {
-            animation: slideDown 0.3s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Dropdown arrow rotation */
-        .dropdown-arrow {
-            transition: transform 0.2s ease-in-out;
-        }
-        
-        .group:hover .dropdown-arrow {
-            transform: rotate(180deg);
         }
         
         /* Smooth scrolling enhancement */
@@ -410,12 +313,6 @@
 
     <!-- Scripts -->
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-
         // Enhanced Search toggle functionality
         const searchToggle = document.getElementById('search-toggle');
         const searchForm = document.getElementById('search-form');
@@ -494,49 +391,9 @@
             });
         }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Auto-hide navbar on scroll (disabled for better UX)
-        // Removed auto-hide functionality for better user experience
-        
-        // Add scroll shadow to navbar
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('header');
-            if (window.scrollY > 10) {
-                navbar.classList.add('shadow-lg');
-                navbar.classList.remove('shadow-sm');
-            } else {
-                navbar.classList.add('shadow-sm');
-                navbar.classList.remove('shadow-lg');
-            }
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            
-            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            }
-        });
+        // NOTE: Mobile menu functionality is handled by navbar component
+        // NOTE: Smooth scrolling for home page sections is handled by navbar component
+        // NOTE: Navbar scroll shadow is handled by navbar component for internal pages
     </script>
 
     <!-- Floating Action Button Global -->
