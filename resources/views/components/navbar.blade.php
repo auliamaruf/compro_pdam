@@ -7,10 +7,10 @@
 @php
     $isHomePage = $variant === 'home';
     $navbarClass = $isHomePage ? 'home-navbar' : 'internal-navbar';
-    $headerClass = $isHomePage ? 'absolute' : 'sticky';
+    $headerClass = 'fixed';
 @endphp
 
-<header class="bg-white shadow-lg {{ $headerClass }} top-0 z-50 transition-all duration-300 {{ $navbarClass }} w-full {{ $isHomePage ? 'bg-opacity-90 backdrop-blur-sm' : '' }}">
+<header id="main-navbar" class="bg-white shadow-lg {{ $headerClass }} top-0 z-50 transition-all duration-300 {{ $navbarClass }} w-full {{ $isHomePage ? 'bg-opacity-90 backdrop-blur-sm' : '' }}">
     <div class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
@@ -675,6 +675,36 @@ header {
                 }
             }
         });
+
+        // Hide navbar on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const navbarElement = document.getElementById('main-navbar');
+        const scrollThreshold = 10;
+        
+        window.addEventListener('scroll', function() {
+            if (!navbarElement) return;
+            
+            // Don't hide if mobile menu is open
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                return;
+            }
+            
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            
+            // Ignore small scrolls to prevent jitter
+            if (Math.abs(lastScrollTop - scrollTop) <= scrollThreshold) {
+                return;
+            }
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                navbarElement.style.top = '-150px';
+            } else {
+                // Scrolling up
+                navbarElement.style.top = '0px';
+            }
+            lastScrollTop = Math.max(0, scrollTop);
+        }, { passive: true });
 
         // Initialize home page functionality after navbar is ready
         if (isHomePage) {

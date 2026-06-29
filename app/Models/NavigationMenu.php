@@ -24,6 +24,17 @@ class NavigationMenu extends Model
         'position'
     ];
 
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('navigation_main_menu');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('navigation_main_menu');
+        });
+    }
+
     protected $casts = [
         'is_active' => 'boolean',
         'is_external' => 'boolean',

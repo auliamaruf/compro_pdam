@@ -31,6 +31,17 @@ class WaterTariff extends Model
         'is_navbar_featured'
     ];
 
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('navbar_tariffs');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('navbar_tariffs');
+        });
+    }
+
     protected $casts = [
         'rate_per_m3' => 'decimal:2',
         'admin_fee' => 'decimal:2',

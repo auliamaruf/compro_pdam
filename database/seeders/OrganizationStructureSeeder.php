@@ -13,13 +13,13 @@ class OrganizationStructureSeeder extends Seeder
     public function run(): void
     {
         // Disable foreign key checks temporarily
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
         
         // Clear existing data
         \App\Models\OrganizationStructure::truncate();
         
         // Re-enable foreign key checks
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
         
         $structures = [
             // Level 1 - Direktur Utama

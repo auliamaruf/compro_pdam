@@ -94,7 +94,6 @@
 
         /* Ensure viewport height is respected */
         html, body {
-            height: 100%;
             overflow-x: hidden;
         }
 
@@ -413,7 +412,6 @@
         }
 
         .partnership-track {
-            height: 100%;
             will-change: transform;
         }
 

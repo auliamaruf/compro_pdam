@@ -24,6 +24,17 @@ class Partnership extends Model implements HasMedia
         'sort_order',
     ];
 
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('home_partnerships');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('home_partnerships');
+        });
+    }
+
     protected $casts = [
         'is_active' => 'boolean',
     ];

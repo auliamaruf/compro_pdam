@@ -15,13 +15,13 @@ class BranchSeeder extends Seeder
     public function run(): void
     {
         // Disable foreign key checks temporarily
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
         
         // Clear existing data
         Branch::truncate();
         
         // Re-enable foreign key checks
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
         
         // Get kepala cabang IDs from organization structure
         $kepalaCabangKota = OrganizationStructure::where('title', 'Kepala Cabang Kota')->first();
