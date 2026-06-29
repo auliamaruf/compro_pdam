@@ -13,6 +13,16 @@ class News extends Model implements HasMedia
 {
     use InteractsWithMedia, LogsActivity;
 
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget("home_news");
+        });
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget("home_news");
+        });
+    }
+
     protected $fillable = [
         'title',
         'slug',

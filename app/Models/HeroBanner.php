@@ -17,14 +17,15 @@ class HeroBanner extends Model implements HasMedia
     protected static function booted()
     {
         // Standard Laravel model events untuk melengkapi activity log
-        static::created(function ($model) {
-            // Additional logging jika diperlukan
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('home_herobanners');
         });
 
-        static::updated(function ($model) {
-            // Additional logging jika diperlukan
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('home_herobanners');
         });
     }
+
 
     protected $fillable = [
         'title',

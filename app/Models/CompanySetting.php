@@ -85,6 +85,22 @@ class CompanySetting extends Model implements HasMedia
         'is_active'
     ];
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('company_setting_current');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('company_setting_current');
+        });
+    }
+
     protected $casts = [
         'mission_points' => 'array',
         'office_hours' => 'array',

@@ -16,10 +16,21 @@ class HomeController extends Controller
     public function index()
     {
         // Company data is now provided globally by CompanyDataServiceProvider
-        $herobanners = HeroBanner::active()->orderBy('sort_order')->get();
-        $news = News::published()->latest('published_at')->take(6)->get();
-        $services = Service::active()->orderBy('sort_order')->take(6)->get();
-        $partnerships = Partnership::active()->ordered()->get();
+        $herobanners = \Illuminate\Support\Facades\Cache::rememberForever('home_herobanners', function () {
+            return HeroBanner::active()->orderBy('sort_order')->get();
+        });
+        
+        $news = \Illuminate\Support\Facades\Cache::remember('home_news', 3600, function () {
+            return News::published()->latest('published_at')->take(6)->get();
+        });
+        
+        $services = \Illuminate\Support\Facades\Cache::rememberForever('home_services', function () {
+            return Service::active()->orderBy('sort_order')->take(6)->get();
+        });
+        
+        $partnerships = \Illuminate\Support\Facades\Cache::rememberForever('home_partnerships', function () {
+            return Partnership::active()->ordered()->get();
+        });
 
         return view('home', compact('herobanners', 'news', 'services', 'partnerships'));
     }
