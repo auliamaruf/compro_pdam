@@ -14,6 +14,28 @@
 @endif
 @endsection
 
+@push('head')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Service",
+  "name": "{{ $service->name }}",
+  "description": "{{ strip_tags($service->description) }}",
+  "provider": {
+    "@@type": "Organization",
+    "name": "{{ $company->company_name ?? 'PDAM Tirta Perwira' }}",
+    "image": "{{ $company && $company->logo ? asset('storage/' . $company->logo) : asset('images/og-default.jpg') }}"
+  },
+  "areaServed": {
+    "@@type": "City",
+    "name": "Purbalingga"
+  },
+  "url": "{{ route('services.show', $service->slug) }}"
+}
+</script>
+@endpush
+
+
 @section('content')
 <style>
 /* Service Detail Mobile Optimization */

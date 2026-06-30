@@ -16,6 +16,8 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', $company && $company->logo ? asset('storage/' . $company->logo) : asset('images/og-default.jpg'))">
 
+    @yield('meta')
+
     <!-- Favicon -->
     @if($company && $company->favicon)
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $company->favicon) }}">
@@ -434,6 +436,60 @@
     </style>
 
     @stack('styles')
+
+    <!-- Structured Data (JSON-LD) for LocalBusiness/Organization -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "{{ $company->company_name ?? config('app.name', 'Tirta Perwira') }}",
+      "url": "{{ url('/') }}",
+      "logo": "{{ $company && $company->logo ? asset('storage/' . $company->logo) : asset('images/og-default.jpg') }}",
+      "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "{{ $company->phone ?? '' }}",
+        "contactType": "customer service",
+        "email": "{{ $company->email ?? '' }}",
+        "areaServed": "ID",
+        "availableLanguage": "Indonesian"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "LocalBusiness",
+      "name": "{{ $company->company_name ?? config('app.name', 'Tirta Perwira') }}",
+      "image": "{{ $company && $company->logo ? asset('storage/' . $company->logo) : asset('images/og-default.jpg') }}",
+      "@@id": "{{ url('/') }}",
+      "url": "{{ url('/') }}",
+      "telephone": "{{ $company->phone ?? '' }}",
+      "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "{{ $company->address ?? '' }}",
+        "addressLocality": "Purbalingga",
+        "addressRegion": "Jawa Tengah",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@@type": "GeoCoordinates",
+        "latitude": -7.3879482,
+        "longitude": 109.3516599
+      },
+      "openingHoursSpecification": {
+        "@@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "07:30",
+        "closes": "15:30"
+      }
+    }
+    </script>
 </head>
 <body class="bg-gray-50 font-sans antialiased">
     <!-- Home Navigation -->
@@ -743,5 +799,6 @@
 
     <!-- Floating Action Button -->
     @include('components.floating-action-button-popup')
+    <x-cookie-consent />
 </body>
 </html>

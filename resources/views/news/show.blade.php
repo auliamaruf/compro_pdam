@@ -14,6 +14,34 @@
 @endif
 @endsection
 
+@push('head')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "NewsArticle",
+  "headline": "{{ $article->title }}",
+  "image": [
+    "{{ $article->featured_image ?? asset('images/og-default.jpg') }}"
+  ],
+  "datePublished": "{{ $article->created_at->toIso8601String() }}",
+  "dateModified": "{{ $article->updated_at->toIso8601String() }}",
+  "author": [{
+      "@@type": "Person",
+      "name": "{{ $article->author->name ?? 'Admin PDAM' }}"
+  }],
+  "publisher": {
+    "@@type": "Organization",
+    "name": "{{ $company->company_name ?? 'PDAM Tirta Perwira' }}",
+    "logo": {
+      "@@type": "ImageObject",
+      "url": "{{ $company && $company->logo ? asset('storage/' . $company->logo) : asset('images/og-default.jpg') }}"
+    }
+  }
+}
+</script>
+@endpush
+
+
 @section('content')
 <!-- Add CSS for share buttons -->
 <style>
