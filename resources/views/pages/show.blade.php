@@ -82,7 +82,8 @@
                 <div class="mb-12">
                     <img src="{{ $page->getFirstMediaUrl('featured_image') }}" 
                          alt="{{ $page->title }}"
-                         class="w-full h-64 lg:h-96 object-cover rounded-2xl shadow-xl">
+                         class="w-full h-64 lg:h-96 object-cover rounded-2xl shadow-xl"
+                         width="800" height="400">
                 </div>
             @endif
             

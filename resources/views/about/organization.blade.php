@@ -50,6 +50,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else
@@ -103,6 +105,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else
@@ -164,6 +168,8 @@
                                                 src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                 alt="{{ $structure->name }}"
                                                 class="w-full h-full object-cover"
+
+                                                    loading="lazy" width="96" height="96"
                                             >
                                         </div>
                                     @else
@@ -233,6 +239,8 @@
                                                 src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                 alt="{{ $structure->name }}"
                                                 class="w-full h-full object-cover"
+
+                                                    loading="lazy" width="96" height="96"
                                             >
                                         </div>
                                     @else
@@ -310,6 +318,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else
@@ -355,6 +365,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else
@@ -400,6 +412,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else
@@ -445,6 +459,8 @@
                                                     src="{{ $structure->getPhotoUrl('thumb') }}" 
                                                     alt="{{ $structure->name }}"
                                                     class="w-full h-full object-cover"
+
+                                                        loading="lazy" width="96" height="96"
                                                 >
                                             </div>
                                         @else

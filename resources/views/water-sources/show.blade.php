@@ -270,7 +270,7 @@
                                     <img src="{{ $mainImageUrl }}" 
                                          alt="{{ $waterSource->name }}" 
                                          class="w-full h-96 md:h-[500px] lg:h-[600px] object-cover transition-all duration-300 group-hover:scale-105"
-                                         loading="eager"
+                                         loading="eager" width="800" height="600"
                                          style="display: block; object-position: center;">
                                     
                                     <!-- Elegant hover overlay -->
@@ -427,7 +427,7 @@
                             <img src="{{ $modalImageUrl }}" 
                                  alt="{{ $waterSource->name }}" 
                                  class="max-w-full max-h-[85vh] w-auto h-auto object-contain block mx-auto"
-                                 loading="eager">
+                                 loading="eager" width="800" height="600">
                         </div>
                         
                         <!-- Close button -->

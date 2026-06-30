@@ -132,7 +132,8 @@
                 <div class="aspect-[16/10] w-full overflow-hidden">
                     <img src="{{ $service->getFirstMediaUrl('icons') }}"
                          alt="{{ $service->name }}"
-                         class="w-full h-full object-cover">
+                         class="w-full h-full object-cover"
+                         width="800" height="500">
                 </div>
                 @endif
 
@@ -485,7 +486,8 @@
                             <div class="aspect-video w-full overflow-hidden rounded-lg mb-4">
                                 <img src="{{ $related->getFirstMediaUrl('icons') }}"
                                      alt="{{ $related->name }}"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                     loading="lazy" width="400" height="225">
                             </div>
                             @endif
                             <h4 class="font-semibold text-base text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">

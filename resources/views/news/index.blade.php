@@ -49,7 +49,8 @@
                     <a href="{{ route('news.show', $article->slug) }}" class="block aspect-video overflow-hidden">
                         <img src="{{ $article->getFirstMediaUrl('featured_image') }}"
                              alt="{{ $article->title }}"
-                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                             loading="lazy" width="400" height="225">
                     </a>
                     @endif
 

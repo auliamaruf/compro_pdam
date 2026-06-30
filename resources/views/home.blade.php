@@ -331,7 +331,7 @@
                         <img data-src="{{ $company->getFirstMediaUrl('about_image') }}"
                              alt="Kantor PDAM Tirta Perwira"
                              class="w-full h-96 lg:h-[500px] object-cover rounded-2xl shadow-2xl lazy-image"
-                             loading="lazy">
+                             loading="lazy" width="800" height="500">
                     @else
                         <!-- Fallback: Gradient placeholder with building icon -->
                         <div class="w-full h-96 lg:h-[500px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl shadow-2xl overflow-hidden relative">
@@ -339,7 +339,8 @@
                                 <!-- Image Background -->
                                 <img src="{{ $company->getFirstMediaUrl('about_image') }}"
                                      alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
-                                     class="w-full h-full object-cover">
+                                     class="w-full h-full object-cover"
+                                     loading="lazy" width="800" height="500">
                                 <!-- Overlay for better text contrast -->
                                 <div class="absolute inset-0 bg-gradient-to-br from-blue-600/60 to-cyan-500/40"></div>
                                 <!-- Content overlay -->
@@ -497,9 +498,9 @@ sampai sini -->
             @forelse($services->take(6) as $service)
             <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden h-full flex flex-col">
                 @if($service->getFirstMediaUrl('icons'))
-                    <img data-src="{{ $service->getFirstMediaUrl('icons') }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy">
+                    <img data-src="{{ $service->getFirstMediaUrl('icons') }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy" width="400" height="192">
                 @elseif($service->icon)
-                    <img data-src="{{ asset('storage/' . $service->icon) }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy">
+                    <img data-src="{{ asset('storage/' . $service->icon) }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy" width="400" height="192">
                 @else
                     <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:from-blue-500 group-hover:to-blue-700 transition-all duration-300">
                         <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -565,12 +566,14 @@ sampai sini -->
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
                                  title="{{ $partner->name }}"
-                                 onerror="this.style.display='none'">
+                                 onerror="this.style.display='none'"
+                                 loading="lazy" width="128" height="80">
                         @elseif($partner->getFirstMediaUrl('logo'))
                             <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
-                                 title="{{ $partner->name }}">
+                                 title="{{ $partner->name }}"
+                                 loading="lazy" width="128" height="80">
                         @else
                             <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -592,12 +595,14 @@ sampai sini -->
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
                                  title="{{ $partner->name }}"
-                                 onerror="this.style.display='none'">
+                                 onerror="this.style.display='none'"
+                                 loading="lazy" width="128" height="80">
                         @elseif($partner->getFirstMediaUrl('logo'))
                             <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
-                                 title="{{ $partner->name }}">
+                                 title="{{ $partner->name }}"
+                                 loading="lazy" width="128" height="80">
                         @else
                             <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -655,7 +660,7 @@ sampai sini -->
             @forelse($news->take(6) as $article)
             <article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden">
                 @if($article->getFirstMediaUrl('featured_image'))
-                    <img data-src="{{ $article->getFirstMediaUrl('featured_image') }}" alt="{{ $article->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy">
+                    <img data-src="{{ $article->getFirstMediaUrl('featured_image') }}" alt="{{ $article->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy" width="400" height="192">
                 @else
                     <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:from-blue-500 group-hover:to-blue-700 transition-all duration-300">
                         <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

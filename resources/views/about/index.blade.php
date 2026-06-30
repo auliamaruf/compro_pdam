@@ -40,6 +40,7 @@
                                         src="{{ $company->getFirstMediaUrl('director_photo') }}" 
                                         alt="{{ $company->director_name ?? 'Direktur' }}"
                                         class="absolute inset-0 w-full h-full object-cover object-center"
+                                        loading="lazy" width="400" height="400"
                                     >
                                     
                                     <!-- Clean Elegant Overlay -->
@@ -134,6 +135,7 @@
                                         src="{{ $company->getFirstMediaUrl('about_image') }}" 
                                         alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
                                         class="w-full h-80 object-cover rounded-lg"
+                                        loading="lazy" width="800" height="320"
                                     >
                                     <div class="absolute inset-2 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-lg"></div>
                                     <div class="absolute bottom-0 left-0 right-0 text-center p-6">
@@ -153,6 +155,7 @@
                                         src="{{ $company->getFirstMediaUrl('company_photos') ?: ($company->company_logo ? asset('storage/' . $company->company_logo) : asset('images/default-company.jpg')) }}" 
                                         alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
                                         class="w-full h-80 object-cover rounded-lg"
+                                        loading="lazy" width="800" height="320"
                                     >
                                     <div class="absolute inset-2 bg-gradient-to-t from-black/60 via-black/20 to-transparent rounded-lg"></div>
                                     <div class="absolute bottom-0 left-0 right-0 text-center p-6">
