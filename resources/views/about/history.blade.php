@@ -226,7 +226,8 @@
                                                 <div class="timeline-image">
                                                     <img src="{{ Storage::url($timeline['image']) }}" 
                                                          alt="{{ $timeline['title'] ?? 'Timeline Image' }}"
-                                                         class="w-full h-32 object-cover">
+                                                         class="w-full h-32 object-cover"
+                                                         loading="lazy" width="400" height="128">
                                                 </div>
                                             </div>
                                             @endif

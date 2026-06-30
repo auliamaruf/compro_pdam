@@ -47,7 +47,8 @@
                                 <!-- Image Background -->
                                 <img src="{{ $company->getFirstMediaUrl('vision_image') }}"
                                      alt="Visi PDAM Tirta Perwira"
-                                     class="w-full h-full object-cover">
+                                     class="w-full h-full object-cover"
+                                     loading="lazy" width="600" height="400">
                                 <!-- Very light overlay for better text readability -->
                                 <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-black/30"></div>
                                 <!-- Light overlay only at bottom for text -->

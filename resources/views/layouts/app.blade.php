@@ -94,15 +94,18 @@
                         @if($company && $company->getFirstMediaUrl('logo_white'))
                         <img src="{{ $company->getFirstMediaUrl('logo_white') }}"
                              alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
-                             class="h-12 w-12 object-contain">
+                             class="h-12 w-12 object-contain"
+                             width="48" height="48" loading="lazy">
                         @elseif($company && $company->getFirstMediaUrl('logo'))
                         <img src="{{ $company->getFirstMediaUrl('logo') }}"
                              alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
-                             class="h-12 w-12 object-contain filter brightness-0 invert">
+                             class="h-12 w-12 object-contain filter brightness-0 invert"
+                             width="48" height="48" loading="lazy">
                         @elseif($company && $company->logo)
                         <img src="{{ asset('storage/' . $company->logo) }}"
                              alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
-                             class="h-12 w-12 object-contain filter brightness-0 invert">
+                             class="h-12 w-12 object-contain filter brightness-0 invert"
+                             width="48" height="48" loading="lazy">
                         @else
                         <div class="h-12 w-12 bg-white rounded-full flex items-center justify-center">
                             <span class="text-blue-900 font-bold text-xl">TP</span>

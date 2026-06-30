@@ -361,7 +361,8 @@
                             <div class="source-image mb-4">
                                 <img src="{{ $source->getFirstMediaUrl('water_source_images') ?: $source->getFirstMediaUrl('photo') }}" 
                                      alt="{{ $source->name }}" 
-                                     class="w-full h-[200px] object-cover rounded-lg shadow-sm">
+                                     class="w-full h-[200px] object-cover rounded-lg shadow-sm"
+                                     loading="lazy" width="400" height="200">
                             </div>
                             @else
                             <div class="source-image-placeholder mb-4">

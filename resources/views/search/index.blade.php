@@ -196,13 +196,15 @@
                             <div class="ml-4 flex-shrink-0">
                                 <img src="{{ $result->getFirstMediaUrl('featured_image') }}"
                                      alt="{{ $result->title }}"
-                                     class="w-24 h-24 object-cover rounded-lg">
+                                     class="w-24 h-24 object-cover rounded-lg"
+                                     loading="lazy" width="96" height="96">
                             </div>
                             @elseif($result->result_type === 'service' && $result->getFirstMediaUrl('icons'))
                             <div class="ml-4 flex-shrink-0">
                                 <img src="{{ $result->getFirstMediaUrl('icons') }}"
                                      alt="{{ $result->title }}"
-                                     class="w-24 h-24 object-cover rounded-lg">
+                                     class="w-24 h-24 object-cover rounded-lg"
+                                     loading="lazy" width="96" height="96">
                             </div>
                             @endif
                         </div>

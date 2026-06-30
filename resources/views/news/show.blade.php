@@ -968,7 +968,8 @@
                     <div class="aspect-[16/9] w-full overflow-hidden relative">
                         <img src="{{ $article->getFirstMediaUrl('featured_image') }}"
                              alt="{{ $article->title }}"
-                             class="w-full h-full object-cover">
+                             class="w-full h-full object-cover"
+                             width="800" height="450">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     </div>
                     @endif
@@ -1043,7 +1044,7 @@
                                      title="Klik untuk memperbesar foto">
                                     <img src="{{ $media->getUrl() }}"
                                          alt="{{ $media->name ?? 'Foto galeri' }}"
-                                         loading="lazy"
+                                         loading="lazy" width="400" height="400"
                                          style="opacity: 0; transition: opacity 0.3s ease;"
                                          onload="this.style.opacity = '1'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('loading-placeholder')) this.nextElementSibling.remove();"
                                          >
@@ -1356,7 +1357,8 @@
                                     <div class="aspect-[4/3] w-full overflow-hidden rounded-xl mb-3 relative">
                                         <img src="{{ $related->getFirstMediaUrl('featured_image') }}"
                                              alt="{{ $related->title }}"
-                                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                             loading="lazy" width="400" height="300">
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </div>
                                     @endif
@@ -1455,9 +1457,9 @@
         <div class="lightbox-image-container">
             <div class="relative">
                 <img id="lightbox-image"
-                     src=""
-                     alt=""
-                     class="block transition-all duration-500">
+                     src="" 
+                     alt="Lightbox image" 
+                     class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl transition-transform duration-300 transform scale-95 opacity-0 rounded-lg" loading="lazy" width="800" height="600">
                 
                 <!-- Enhanced Loading indicator -->
                 <div id="lightbox-loading" class="absolute inset-0 flex items-center justify-center hidden">

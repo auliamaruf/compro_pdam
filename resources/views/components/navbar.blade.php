@@ -18,11 +18,13 @@
                 @if($company && $company->getFirstMediaUrl('logo'))
                 <img src="{{ $company->getFirstMediaUrl('logo') }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
-                     class="h-10 w-10 lg:h-12 lg:w-12 object-contain">
+                     class="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+                     width="48" height="48">
                 @elseif($company && $company->logo)
                 <img src="{{ asset('storage/' . $company->logo) }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
-                     class="h-10 w-10 lg:h-12 lg:w-12 object-contain">
+                     class="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+                     width="48" height="48">
                 @else
                 <div class="h-10 w-10 lg:h-12 lg:w-12 bg-blue-600 rounded-full flex items-center justify-center">
                     <span class="text-white font-bold text-lg">TP</span>
@@ -719,7 +721,7 @@ header {
         const sectionLinks = document.querySelectorAll('.home-section-link');
         const sectionDots = document.querySelectorAll('.section-dot');
 
-        // Smooth scroll functionality with multiple fallback methods
+        // Smooth scroll functionality with a single reliable calculation
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             
@@ -727,41 +729,18 @@ header {
                 return;
             }
             
-            // Method 1: Try scrollIntoView first (most reliable for modern browsers)
-            try {
-                section.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-                
-                // Adjust for navbar after a brief delay
-                setTimeout(() => {
-                    const navbar = document.querySelector('header');
-                    if (navbar) {
-                        const navbarHeight = navbar.getBoundingClientRect().height;
-                        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                        const adjustment = 20; // Extra padding
-                        
-                        window.scrollTo({
-                            top: currentScroll - navbarHeight - adjustment,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 100);
-                
-            } catch (error) {
-                // Fallback Method 2: Manual calculation
-                const navbar = document.querySelector('header');
-                const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
-                const sectionTop = section.offsetTop;
-                const scrollPosition = sectionTop - navbarHeight - 20;
-                
-                window.scrollTo({
-                    top: Math.max(0, scrollPosition),
-                    behavior: 'smooth'
-                });
-            }
+            const navbar = document.getElementById('main-navbar');
+            const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+            const adjustment = 20; // Extra padding
+            
+            // Get section position relative to viewport, then add current scroll position
+            const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+            const scrollPosition = sectionTop - navbarHeight - adjustment;
+            
+            window.scrollTo({
+                top: Math.max(0, scrollPosition),
+                behavior: 'smooth'
+            });
         }
 
         // Handle section link clicks
