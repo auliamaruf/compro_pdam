@@ -16,8 +16,8 @@
     <section id="hero" class="relative overflow-hidden" style="height: 100vh !important;">
         <div class="hero-carousel relative" style="height: 100vh !important;">
             @foreach($herobanners as $index => $banner)
-                <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out" 
-                     style="height: 100vh !important; width: 100vw !important;"
+                <div class="hero-slide {{ $index === 0 ? 'active' : '' }} absolute inset-0 flex items-center justify-center" 
+                     style="height: 100vh !important; width: 100vw !important;{{ $index === 0 ? ' opacity:1; visibility:visible;' : '' }}"
                      data-slide="{{ $index }}"
                      data-overlay-color="{{ $banner->overlay_color ?? '#1e3a8a' }}"
                      data-overlay-opacity="{{ $banner->overlay_opacity ?? 80 }}">

@@ -37,21 +37,7 @@
 
     <!-- Additional Styles for Enhanced Features -->
     <style>
-        /* font-display: swap for FontAwesome to fix Lighthouse warning */
-        @font-face {
-            font-family: 'Font Awesome 6 Free';
-            font-style: normal;
-            font-weight: 900;
-            font-display: swap;
-            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Font Awesome 6 Brands';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
-        }
+
         /* Enhanced smooth scrolling */
         html {
             scroll-behavior: smooth !important;
@@ -280,15 +266,23 @@
         .js-loaded .animation-delay-400 { animation-delay: 0.4s; }
         .js-loaded .animation-delay-600 { animation-delay: 0.6s; }
 
-        /* Hero carousel styles */
+        /* Hero carousel styles:
+           First slide is visible by default (has .active in HTML).
+           Transition added by JS after first paint so LCP is not delayed. */
         .hero-slide {
             opacity: 0;
             visibility: hidden;
+            /* No transition by default - added via JS after load */
         }
 
         .hero-slide.active {
             opacity: 1;
             visibility: visible;
+        }
+
+        /* Transition only applied after JS initializes the carousel */
+        .carousel-ready .hero-slide {
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
         }
 
         .hero-nav {
@@ -789,21 +783,32 @@
         });
     </script>
 
-    <!-- Font Awesome loaded async to prevent render-blocking -->
+    <!-- Font Awesome: loaded after page is interactive (non-render-blocking) -->
     <script>
-        (function() {
+        // Load FontAwesome after browser is idle (non-blocking)
+        function loadFA() {
             var fa = document.createElement('link');
             fa.rel = 'stylesheet';
             fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
             fa.crossOrigin = 'anonymous';
             document.head.appendChild(fa);
-        })();
+        }
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadFA, { timeout: 2000 });
+        } else {
+            setTimeout(loadFA, 200);
+        }
+
         // Mark document as JS-loaded so animations can play
-        document.documentElement.classList.add('js-loaded');
-        document.body && document.body.classList.add('js-loaded');
-        document.addEventListener('DOMContentLoaded', function() {
-            document.documentElement.classList.add('js-loaded');
-            document.body.classList.add('js-loaded');
+        // Use rAF to ensure it runs AFTER first paint (not during)
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                document.documentElement.classList.add('js-loaded');
+                document.body.classList.add('js-loaded');
+                // Add carousel transitions after first paint
+                var hero = document.getElementById('hero');
+                if (hero) hero.classList.add('carousel-ready');
+            });
         });
     </script>
 
