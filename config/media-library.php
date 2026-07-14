@@ -62,7 +62,7 @@ return [
      * and the in-code fallback (used when the config is cached without the
      * key) cannot drift. Override here to extend or shrink it.
      */
-    'disallowed_extensions' => FileAdder::$defaultDisallowedExtensions,
+    'disallowed_extensions' => ['php', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'phtml', 'phtm', 'pht', 'phps', 'phar', 'shtml', 'shtm', 'stm', 'htaccess', 'htpasswd', 'cgi', 'pl', 'asp', 'aspx', 'jsp', 'jspx'],
 
     /*
      * When this is set to an array of extensions, only uploads whose final
