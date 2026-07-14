@@ -24,9 +24,10 @@
 
                     <!-- Background Image -->
                     @if($banner->getFirstMediaUrl('hero_backgrounds'))
-                        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-                             style="background-image: url('{{ $banner->getFirstMediaUrl('hero_backgrounds') }}');">
-                        </div>
+                        <img src="{{ $banner->getFirstMediaUrl('hero_backgrounds') }}" 
+                             alt="{{ $banner->title ?? 'Hero Background' }}"
+                             class="absolute inset-0 w-full h-full object-cover object-center"
+                             {{ $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' }}>
                     @else
                         <div class="absolute inset-0 hero-gradient"></div>
                     @endif
@@ -39,20 +40,20 @@
                     <div class="relative z-10 container-custom text-white px-4 w-full">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
                             <div class="text-{{ $banner->text_position ?? 'left' }} {{ ($banner->text_position ?? 'left') === 'center' ? 'lg:text-center col-span-2' : (($banner->text_position ?? 'left') === 'right' ? 'lg:text-right lg:order-2' : 'lg:text-left') }}">
-                                <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp">
+                                <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight {{ $index === 0 ? '' : 'animate-fadeInUp' }}">
                                     {{ $banner->title ?? 'Default Title' }}
                                 </h1>
                                 @if($banner->subtitle)
-                                <p class="text-xl lg:text-2xl mb-4 text-blue-100 leading-relaxed animate-fadeInUp animation-delay-200">
+                                <p class="text-xl lg:text-2xl mb-4 text-blue-100 leading-relaxed {{ $index === 0 ? '' : 'animate-fadeInUp animation-delay-200' }}">
                                     {{ $banner->subtitle }}
                                 </p>
                                 @endif
                                 @if($banner->description)
-                                <p class="text-lg mb-8 text-blue-200 leading-relaxed animate-fadeInUp animation-delay-400">
+                                <p class="text-lg mb-8 text-blue-200 leading-relaxed {{ $index === 0 ? '' : 'animate-fadeInUp animation-delay-400' }}">
                                     {{ $banner->description }}
                                 </p>
                                 @endif
-                                <div class="flex flex-col sm:flex-row gap-4 justify-{{ $banner->text_position ?? 'left' === 'center' ? 'center' : (($banner->text_position ?? 'left') === 'right' ? 'end' : 'start') }} animate-fadeInUp animation-delay-600">
+                                <div class="flex flex-col sm:flex-row gap-4 justify-{{ $banner->text_position ?? 'left' === 'center' ? 'center' : (($banner->text_position ?? 'left') === 'right' ? 'end' : 'start') }} {{ $index === 0 ? '' : 'animate-fadeInUp animation-delay-600' }}">
                                     @if($banner->primary_cta_text)
                                     <a href="{{ $banner->primary_cta_link ?? '#' }}" class="btn-primary">
                                         {{ $banner->primary_cta_text }}
