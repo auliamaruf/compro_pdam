@@ -100,7 +100,7 @@ class Service extends Model implements HasMedia
     {
         $this->addMediaCollection('icons')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp']);
 
         $this->addMediaCollection('forms')
             ->acceptsMimeTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
