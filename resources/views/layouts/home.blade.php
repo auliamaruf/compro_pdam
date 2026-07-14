@@ -29,18 +29,29 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Additional Styles for Enhanced Features -->
     <style>
+        /* font-display: swap for FontAwesome to fix Lighthouse warning */
+        @font-face {
+            font-family: 'Font Awesome 6 Free';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Font Awesome 6 Brands';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
+        }
         /* Enhanced smooth scrolling */
         html {
             scroll-behavior: smooth !important;
@@ -248,15 +259,11 @@
         .animation-delay-400 { animation-delay: 400ms; }
         .animation-delay-600 { animation-delay: 600ms; }
 
-        /* Fade in animation */
-        .animate-fadeInUp {
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
+        /* Fade in animation - only active after page load to not block LCP */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -264,31 +271,14 @@
             }
         }
 
-        /* Animation classes */
-        .animate-fadeInUp {
+        /* animate-fadeInUp is added via JS after page load - no opacity:0 initial state */
+        .js-loaded .animate-fadeInUp {
             animation: fadeInUp 0.6s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
         }
 
-        .animation-delay-200 {
-            animation-delay: 0.2s;
-        }
-
-        .animation-delay-400 {
-            animation-delay: 0.4s;
-        }
-
-        .animation-delay-600 {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .js-loaded .animation-delay-200 { animation-delay: 0.2s; }
+        .js-loaded .animation-delay-400 { animation-delay: 0.4s; }
+        .js-loaded .animation-delay-600 { animation-delay: 0.6s; }
 
         /* Hero carousel styles */
         .hero-slide {
@@ -796,6 +786,24 @@
         // Observe elements for animation
         document.querySelectorAll('.card, .service-card, .news-card').forEach(el => {
             layoutObserver.observe(el);
+        });
+    </script>
+
+    <!-- Font Awesome loaded async to prevent render-blocking -->
+    <script>
+        (function() {
+            var fa = document.createElement('link');
+            fa.rel = 'stylesheet';
+            fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+            fa.crossOrigin = 'anonymous';
+            document.head.appendChild(fa);
+        })();
+        // Mark document as JS-loaded so animations can play
+        document.documentElement.classList.add('js-loaded');
+        document.body && document.body.classList.add('js-loaded');
+        document.addEventListener('DOMContentLoaded', function() {
+            document.documentElement.classList.add('js-loaded');
+            document.body.classList.add('js-loaded');
         });
     </script>
 
