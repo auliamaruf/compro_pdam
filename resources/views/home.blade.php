@@ -4,6 +4,11 @@
 @section('description', 'Perumda Air Minum Tirta Perwira Purbalingga melayani dengan hati untuk memberikan air bersih berkualitas. Temukan informasi layanan, tarif, dan berita terkini.')
 @section('keywords', 'PDAM Purbalingga, air bersih, pelayanan air, tarif air, Tirta Perwira, Perumda Air Minum Tirta Perwira Purbalingga')
 
+@section('meta')
+    @if(isset($herobanners) && $herobanners->count() > 0 && $herobanners->first()->getFirstMediaUrl('hero_backgrounds'))
+        <link rel="preload" as="image" href="{{ $herobanners->first()->getFirstMediaUrl('hero_backgrounds') }}" fetchpriority="high">
+    @endif
+@endsection
 @section('content')
 <!-- Hero Section -->
 @if($herobanners && $herobanners->count() > 0)
