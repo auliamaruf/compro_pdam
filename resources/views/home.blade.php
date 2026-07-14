@@ -389,7 +389,7 @@
                     </a>
 
                     <!-- Sejarah -->
-                    <a href="{{ route('about.history') }}" class="about-secondary-btn bg-white text-blue-600 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.history') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
@@ -397,7 +397,7 @@
                     </a>
 
                     <!-- Visi Misi -->
-                    <a href="{{ route('about.vision-mission') }}" class="about-secondary-btn bg-white text-blue-600 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.vision-mission') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
@@ -405,7 +405,7 @@
                     </a>
 
                     <!-- Struktur Organisasi -->
-                    <a href="{{ route('about.organization') }}" class="about-secondary-btn bg-white text-green-600 px-3 py-2 rounded-lg font-medium hover:bg-green-50 hover:text-green-700 transition-all duration-200 border border-green-200 hover:border-green-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.organization') }}" class="about-secondary-btn bg-white text-green-700 px-3 py-2 rounded-lg font-medium hover:bg-green-50 hover:text-green-800 transition-all duration-200 border border-green-200 hover:border-green-300 flex items-center justify-center group min-h-[44px]">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
                         </svg>
@@ -413,7 +413,7 @@
                     </a>
 
                     <!-- Cabang dan Unit IKK -->
-                    <a href="{{ route('about.branches') }}" class="about-secondary-btn bg-white text-purple-600 px-3 py-2 rounded-lg font-medium hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 border border-purple-200 hover:border-purple-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.branches') }}" class="about-secondary-btn bg-white text-purple-700 px-3 py-2 rounded-lg font-medium hover:bg-purple-50 hover:text-purple-800 transition-all duration-200 border border-purple-200 hover:border-purple-300 flex items-center justify-center group min-h-[44px]">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
                         </svg>
@@ -421,7 +421,7 @@
                     </a>
 
                     <!-- Sumber Mata Air -->
-                    <a href="{{ route('water-sources.index') }}" class="about-secondary-btn bg-white text-cyan-600 px-3 py-2 rounded-lg font-medium hover:bg-cyan-50 hover:text-cyan-700 transition-all duration-200 border border-cyan-200 hover:border-cyan-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('water-sources.index') }}" class="about-secondary-btn bg-white text-cyan-700 px-3 py-2 rounded-lg font-medium hover:bg-cyan-50 hover:text-cyan-800 transition-all duration-200 border border-cyan-200 hover:border-cyan-300 flex items-center justify-center group min-h-[44px]">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
                         </svg>
@@ -624,12 +624,14 @@ sampai sini -->
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
                                  title="{{ $partner->name }}"
-                                 onerror="this.style.display='none'">
+                                 onerror="this.style.display='none'"
+                                 loading="lazy" width="128" height="80">
                         @elseif($partner->getFirstMediaUrl('logo'))
                             <img src="{{ $partner->getFirstMediaUrl('logo', 'slider') }}" 
                                  alt="{{ $partner->name }}" 
                                  class="max-w-full max-h-full object-contain transition-all duration-300 opacity-80 hover:opacity-100"
-                                 title="{{ $partner->name }}">
+                                 title="{{ $partner->name }}"
+                                 loading="lazy" width="128" height="80">
                         @else
                             <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

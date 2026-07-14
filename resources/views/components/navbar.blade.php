@@ -19,11 +19,13 @@
                 <img src="{{ $company->getFirstMediaUrl('logo') }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
                      class="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+                     fetchpriority="high"
                      width="48" height="48">
                 @elseif($company && $company->logo)
                 <img src="{{ asset('storage/' . $company->logo) }}"
                      alt="Logo {{ $company->company_name ?? 'Tirta Perwira' }}"
                      class="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+                     fetchpriority="high"
                      width="48" height="48">
                 @else
                 <div class="h-10 w-10 lg:h-12 lg:w-12 bg-blue-600 rounded-full flex items-center justify-center">

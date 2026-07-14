@@ -6,7 +6,7 @@
 <!-- Floating Action Button -->
 <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
     <!-- Main FAB Button (blue theme) -->
-    <button id="fabButton" 
+    <button id="fabButton" aria-label="Hubungi Kami"
             style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; position: relative;">
         <i class="fas fa-headset" style="color: white; font-size: 18px;"></i>
         
