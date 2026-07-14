@@ -163,23 +163,23 @@ class CompanySetting extends Model implements HasMedia
     {
         $this->addMediaCollection('logo')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp']);
 
         $this->addMediaCollection('logo_white')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp']);
 
         $this->addMediaCollection('favicon')
             ->singleFile()
-            ->acceptsMimeTypes(['image/x-icon', 'image/png']);
+            ->acceptsMimeTypes(['image/x-icon', 'image/png', 'image/webp']);
 
         $this->addMediaCollection('about_image')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 
         $this->addMediaCollection('vision_image')
             ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
     }
 
     /**
