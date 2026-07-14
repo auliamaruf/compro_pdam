@@ -105,13 +105,15 @@ class WaterSource extends Model implements HasMedia
             ->width(300)
             ->height(200)
             ->sharpen(10)
-            ->performOnCollections('water_source_images', 'photo');
+            ->performOnCollections('water_source_images', 'photo')
+            ->nonOptimized();
 
         $this->addMediaConversion('large')
             ->width(800)
             ->height(600)
             ->sharpen(10)
-            ->performOnCollections('water_source_images', 'photo');
+            ->performOnCollections('water_source_images', 'photo')
+            ->nonOptimized();
     }
 
     /**

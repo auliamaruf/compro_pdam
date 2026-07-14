@@ -125,12 +125,14 @@ class News extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(300)
             ->height(200)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->nonOptimized();
 
         $this->addMediaConversion('medium')
             ->width(600)
             ->height(400)
-            ->quality(80);
+            ->quality(80)
+            ->nonOptimized();
     }
 
     // Helper methods

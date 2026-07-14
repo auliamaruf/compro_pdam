@@ -52,12 +52,14 @@ class Partnership extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(150)
             ->height(100)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->nonOptimized();
 
         $this->addMediaConversion('slider')
             ->width(200)
             ->height(120)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->nonOptimized();
     }
 
     protected static function boot()

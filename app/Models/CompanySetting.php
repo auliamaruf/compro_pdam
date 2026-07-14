@@ -190,7 +190,8 @@ class CompanySetting extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(150)
             ->height(150)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->nonOptimized();
     }
 
     /**
