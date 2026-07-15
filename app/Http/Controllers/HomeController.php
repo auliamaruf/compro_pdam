@@ -48,9 +48,14 @@ class HomeController extends Controller
             return Faq::where('is_active', true)->orderBy('order')->get();
         });
 
-        $customerInfos = \Illuminate\Support\Facades\Cache::remember('home_customer_infos', 3600, function () {
-            return \App\Models\CustomerInfo::where('is_active', true)->orderBy('published_date', 'desc')->take(3)->get();
-        });
+        $customerInfos = \App\Models\CustomerInfo::where('is_active', true)
+            ->where(function($query) {
+                $query->whereNull('display_until')
+                      ->orWhere('display_until', '>', now());
+            })
+            ->orderBy('published_date', 'desc')
+            ->take(3)
+            ->get();
 
         return view('home', compact('herobanners', 'newsByType', 'services', 'partnerships', 'faqs', 'customerInfos'));
     }

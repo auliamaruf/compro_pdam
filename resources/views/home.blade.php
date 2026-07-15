@@ -237,6 +237,24 @@
         </div>
         
         <!-- Info Pelanggan Ticker -->
+@php
+if (!function_exists('getCustomerInfoData')) {
+    function getCustomerInfoData($info) {
+        return base64_encode(json_encode([
+            'title' => $info->title,
+            'date' => \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB',
+            'description' => $info->description,
+            'category' => $info->category,
+            'repair_start' => $info->repair_start ? \Carbon\Carbon::parse($info->repair_start)->format('d M Y, H:i') : null,
+            'repair_end' => $info->repair_end ? \Carbon\Carbon::parse($info->repair_end)->format('d M Y, H:i') : null,
+            'promo_start' => $info->promo_start ? \Carbon\Carbon::parse($info->promo_start)->format('d M Y') : null,
+            'promo_end' => $info->promo_end ? \Carbon\Carbon::parse($info->promo_end)->format('d M Y') : null,
+            'affected_areas' => $info->affected_areas,
+            'image_url' => $info->getFirstMediaUrl('customer-info-images', 'webp') ?: null,
+        ]));
+    }
+}
+@endphp
         @if(isset($customerInfos) && $customerInfos->count() > 0)
         <div class="max-w-4xl mx-auto mt-6">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-red-100 dark:border-gray-700 overflow-hidden flex items-stretch h-16" id="ticker-wrapper">
@@ -249,7 +267,7 @@
                 <div class="flex-1 overflow-hidden relative bg-red-50/50 dark:bg-gray-900/50">
                     <div id="ticker-content" class="flex flex-col w-full absolute top-0 left-0">
                         @foreach($customerInfos as $info)
-                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ getCustomerInfoData($info) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
                                 <div class="flex flex-col items-center justify-center bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded md:rounded-md px-2 py-1 mr-4 shrink-0">
                                     <span style="font-size: 10px;" class="font-bold tracking-tight leading-none mb-0.5">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y') }}</span>
                                     <span style="font-size: 9px;" class="font-medium tracking-tight leading-none opacity-90">{{ \Carbon\Carbon::parse($info->created_at)->format('H:i') }} WIB</span>
@@ -263,7 +281,7 @@
                         
                         @if($customerInfos->count() > 1)
                             {{-- Clone first item for seamless vertical scroll --}}
-                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ getCustomerInfoData($customerInfos->first()) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
                                 <div class="flex flex-col items-center justify-center bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded md:rounded-md px-2 py-1 mr-4 shrink-0">
                                     <span style="font-size: 10px;" class="font-bold tracking-tight leading-none mb-0.5">{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y') }}</span>
                                     <span style="font-size: 9px;" class="font-medium tracking-tight leading-none opacity-90">{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('H:i') }} WIB</span>
@@ -917,7 +935,7 @@ sampai sini -->
             </div>
             <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto space-y-4">
                 @foreach($customerInfos as $info)
-                <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')">
+                <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ getCustomerInfoData($info) }}')">
                     <div class="flex justify-between items-start mb-2">
                         <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ $info->title }}</h4>
                         <span class="text-xs font-semibold px-2.5 py-1 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}</span>
@@ -954,7 +972,51 @@ sampai sini -->
                     </button>
                 </div>
             </div>
-            <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto text-gray-700 dark:text-gray-300 prose dark:prose-invert max-w-none" id="detail-modal-content">
+                        <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto text-gray-700 dark:text-gray-300 prose dark:prose-invert max-w-none">
+                <div id="detail-modal-image-container" class="mb-4 hidden">
+                    <img id="detail-modal-image" src="" alt="Info Poster" class="w-full rounded-lg object-contain max-h-64">
+                </div>
+                
+                <div id="detail-modal-category-badge" class="mb-2 hidden">
+                    <span id="detail-modal-category-text" class="text-xs font-bold px-2 py-1 rounded text-white bg-blue-600"></span>
+                </div>
+                
+                <div id="detail-modal-meta-container" class="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 sm:p-4 mb-4 hidden border border-gray-100 dark:border-gray-700">
+                    <!-- Repair / Maintenance Info -->
+                    <div id="detail-modal-repair-info" class="hidden text-sm">
+                        <div class="flex items-start mb-2">
+                            <span class="mr-2 mt-0.5"><i class="fas fa-clock text-orange-500"></i></span>
+                            <div>
+                                <span class="font-bold block text-gray-900 dark:text-white">Waktu Pengerjaan:</span>
+                                <span id="detail-modal-repair-time" class="text-gray-600 dark:text-gray-400"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Promo Info -->
+                    <div id="detail-modal-promo-info" class="hidden text-sm">
+                        <div class="flex items-start mb-2">
+                            <span class="mr-2 mt-0.5"><i class="fas fa-tags text-green-500"></i></span>
+                            <div>
+                                <span class="font-bold block text-gray-900 dark:text-white">Masa Berlaku Promo:</span>
+                                <span id="detail-modal-promo-time" class="text-gray-600 dark:text-gray-400"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Affected Areas -->
+                    <div id="detail-modal-affected-areas" class="hidden text-sm mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-start">
+                            <span class="mr-2 mt-0.5"><i class="fas fa-map-marker-alt text-red-500"></i></span>
+                            <div>
+                                <span class="font-bold block text-gray-900 dark:text-white">Wilayah Terdampak:</span>
+                                <span id="detail-modal-affected-areas-text" class="text-gray-600 dark:text-gray-400 whitespace-pre-line"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="detail-modal-content"></div>
             </div>
             <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 flex justify-end">
                 <button type="button" class="inline-flex justify-center rounded-lg border border-transparent shadow-sm px-6 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:text-sm" onclick="closeCustomerInfoDetailModal()">Tutup</button>
@@ -974,13 +1036,83 @@ sampai sini -->
         document.body.style.overflow = '';
     }
     
-    function openCustomerInfoDetailModal(title, date, contentBase64) {
-        document.getElementById('detail-modal-title').textContent = title;
-        document.getElementById('detail-modal-date').textContent = date;
+        function openCustomerInfoDetailModal(base64Payload) {
+        let data = {};
         try {
-            document.getElementById('detail-modal-content').innerHTML = decodeURIComponent(escape(atob(contentBase64)));
-        } catch (e) {
-            document.getElementById('detail-modal-content').innerHTML = atob(contentBase64);
+            data = JSON.parse(decodeURIComponent(escape(atob(base64Payload))));
+        } catch(e) {
+            data = JSON.parse(atob(base64Payload));
+        }
+
+        document.getElementById('detail-modal-title').textContent = data.title;
+        document.getElementById('detail-modal-date').textContent = data.date;
+        document.getElementById('detail-modal-content').innerHTML = data.description;
+        
+        // Image
+        const imgContainer = document.getElementById('detail-modal-image-container');
+        const imgEl = document.getElementById('detail-modal-image');
+        if (data.image_url) {
+            imgEl.src = data.image_url;
+            imgContainer.classList.remove('hidden');
+        } else {
+            imgContainer.classList.add('hidden');
+            imgEl.src = '';
+        }
+        
+        // Category Badge
+        const catBadge = document.getElementById('detail-modal-category-badge');
+        const catText = document.getElementById('detail-modal-category-text');
+        
+        let metaHasContent = false;
+        const metaContainer = document.getElementById('detail-modal-meta-container');
+        
+        const repairInfo = document.getElementById('detail-modal-repair-info');
+        const repairTime = document.getElementById('detail-modal-repair-time');
+        
+        const promoInfo = document.getElementById('detail-modal-promo-info');
+        const promoTime = document.getElementById('detail-modal-promo-time');
+        
+        const affectedAreas = document.getElementById('detail-modal-affected-areas');
+        const affectedAreasText = document.getElementById('detail-modal-affected-areas-text');
+        
+        // Hide all first
+        repairInfo.classList.add('hidden');
+        promoInfo.classList.add('hidden');
+        affectedAreas.classList.add('hidden');
+        metaContainer.classList.add('hidden');
+        
+        if (data.category === 'perbaikan' || data.category === 'gangguan') {
+            catBadge.classList.remove('hidden');
+            catText.textContent = data.category === 'gangguan' ? 'Gangguan' : 'Perbaikan';
+            catText.className = data.category === 'gangguan' ? 'text-xs font-bold px-2 py-1 rounded text-white bg-red-600' : 'text-xs font-bold px-2 py-1 rounded text-white bg-orange-500';
+            
+            if (data.repair_start || data.repair_end) {
+                repairInfo.classList.remove('hidden');
+                repairTime.textContent = (data.repair_start || 'Sekarang') + ' - ' + (data.repair_end || 'Selesai');
+                metaHasContent = true;
+            }
+        } else if (data.category === 'promo') {
+            catBadge.classList.remove('hidden');
+            catText.textContent = 'Promo';
+            catText.className = 'text-xs font-bold px-2 py-1 rounded text-white bg-green-600';
+            
+            if (data.promo_start || data.promo_end) {
+                promoInfo.classList.remove('hidden');
+                promoTime.textContent = (data.promo_start || 'Sekarang') + ' - ' + (data.promo_end || 'Selesai');
+                metaHasContent = true;
+            }
+        } else {
+            catBadge.classList.add('hidden');
+        }
+        
+        if (data.affected_areas) {
+            affectedAreas.classList.remove('hidden');
+            affectedAreasText.textContent = data.affected_areas;
+            metaHasContent = true;
+        }
+        
+        if (metaHasContent) {
+            metaContainer.classList.remove('hidden');
         }
         
         document.getElementById('customerInfoDetailModal').classList.remove('hidden');
