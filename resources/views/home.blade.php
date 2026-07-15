@@ -249,32 +249,32 @@
                 <div class="flex-1 overflow-hidden relative bg-blue-50/50 dark:bg-gray-900/50">
                     <div id="ticker-content" class="flex flex-col w-full absolute top-0 left-0">
                         @foreach($customerInfos as $info)
-                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left focus:outline-none">
                                 <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
                                     {{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}
                                 </span>
                                 <span class="font-semibold mr-2 shrink-0">{{ $info->title }}</span>
                                 <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($info->description) }}</span>
-                            </a>
+                            </button>
                         @endforeach
                         
                         @if($customerInfos->count() > 1)
                             {{-- Clone first item for seamless vertical scroll --}}
-                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left focus:outline-none">
                                 <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
                                     {{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}
                                 </span>
                                 <span class="font-semibold mr-2 shrink-0">{{ $customerInfos->first()->title }}</span>
                                 <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($customerInfos->first()->description) }}</span>
-                            </a>
+                            </button>
                         @endif
                     </div>
                 </div>
-                <a href="javascript:void(0)" onclick="openCustomerInfoListModal()" class="flex items-center justify-center px-4 bg-gray-50 dark:bg-gray-700 border-l border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shrink-0" title="Lihat Semua Info">
+                <button type="button" onclick="openCustomerInfoListModal()" class="flex items-center justify-center px-4 bg-gray-50 dark:bg-gray-700 border-l border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shrink-0 focus:outline-none" title="Lihat Semua Info">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
-                </a>
+                </button>
             </div>
         </div>
 
