@@ -239,33 +239,39 @@
         <!-- Info Pelanggan Ticker -->
         @if(isset($customerInfos) && $customerInfos->count() > 0)
         <div class="max-w-4xl mx-auto mt-6">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-blue-100 dark:border-gray-700 overflow-hidden flex items-stretch h-14" id="ticker-wrapper">
-                <div class="bg-blue-600 dark:bg-blue-800 text-white text-sm font-bold px-4 md:px-6 flex items-center shrink-0 z-10 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.1)] whitespace-nowrap">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-red-100 dark:border-gray-700 overflow-hidden flex items-stretch h-16" id="ticker-wrapper">
+                <div class="bg-red-600 dark:bg-red-800 text-white text-sm font-bold px-4 md:px-6 flex items-center shrink-0 z-10 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.1)] whitespace-nowrap">
+                    <svg class="w-4 h-4 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
                     </svg>
-                    Info Pelanggan
+                    <span class="hidden md:inline">Info Pelanggan</span>
                 </div>
-                <div class="flex-1 overflow-hidden relative bg-blue-50/50 dark:bg-gray-900/50">
+                <div class="flex-1 overflow-hidden relative bg-red-50/50 dark:bg-gray-900/50">
                     <div id="ticker-content" class="flex flex-col w-full absolute top-0 left-0">
                         @foreach($customerInfos as $info)
-                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left focus:outline-none">
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
-                                    {{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}
-                                </span>
-                                <span class="font-semibold mr-2 shrink-0">{{ $info->title }}</span>
-                                <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($info->description) }}</span>
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
+                                <div class="flex flex-col items-center justify-center bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded md:rounded-md px-2 py-1 mr-4 shrink-0">
+                                    <span style="font-size: 10px;" class="font-bold tracking-tight leading-none mb-0.5">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y') }}</span>
+                                    <span style="font-size: 9px;" class="font-medium tracking-tight leading-none opacity-90">{{ \Carbon\Carbon::parse($info->created_at)->format('H:i') }} WIB</span>
+                                </div>
+                                <div class="flex flex-col overflow-hidden w-full">
+                                    <span class="text-xs md:text-sm font-semibold truncate w-full">{{ $info->title }}</span>
+                                    <span class="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 truncate w-full">{{ strip_tags($info->description) }}</span>
+                                </div>
                             </button>
                         @endforeach
                         
                         @if($customerInfos->count() > 1)
                             {{-- Clone first item for seamless vertical scroll --}}
-                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full text-left focus:outline-none">
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
-                                    {{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}
-                                </span>
-                                <span class="font-semibold mr-2 shrink-0">{{ $customerInfos->first()->title }}</span>
-                                <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($customerInfos->first()->description) }}</span>
+                            <button type="button" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-16 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors w-full text-left focus:outline-none">
+                                <div class="flex flex-col items-center justify-center bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded md:rounded-md px-2 py-1 mr-4 shrink-0">
+                                    <span style="font-size: 10px;" class="font-bold tracking-tight leading-none mb-0.5">{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y') }}</span>
+                                    <span style="font-size: 9px;" class="font-medium tracking-tight leading-none opacity-90">{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('H:i') }} WIB</span>
+                                </div>
+                                <div class="flex flex-col overflow-hidden w-full">
+                                    <span class="text-xs md:text-sm font-semibold truncate w-full">{{ $customerInfos->first()->title }}</span>
+                                    <span class="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 truncate w-full">{{ strip_tags($customerInfos->first()->description) }}</span>
+                                </div>
                             </button>
                         @endif
                     </div>
@@ -286,7 +292,7 @@
                 if (totalItems > 1 && tickerContent) {
                     let currentIndex = 0;
                     let isHovered = false;
-                    const itemHeight = 56; // h-14 is 56px
+                    const itemHeight = 64; // h-16 is 64px
 
                     document.getElementById('ticker-wrapper').addEventListener('mouseenter', () => isHovered = true);
                     document.getElementById('ticker-wrapper').addEventListener('mouseleave', () => isHovered = false);
@@ -895,10 +901,10 @@ sampai sini -->
 @if(isset($customerInfos) && $customerInfos->count() > 0)
 <!-- Customer Info List Modal -->
 <div id="customerInfoListModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-4 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-10 dark:bg-gray-900 dark:bg-opacity-40 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeCustomerInfoListModal()"></div>
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div class="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+        <div class="relative inline-block align-middle bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full">
             <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-center">
                     <h3 class="text-xl leading-6 font-bold text-gray-900 dark:text-white" id="modal-title">Semua Info Pelanggan</h3>
@@ -914,7 +920,7 @@ sampai sini -->
                 <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')">
                     <div class="flex justify-between items-start mb-2">
                         <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ $info->title }}</h4>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}</span>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}</span>
                     </div>
                     <div class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                         {!! strip_tags($info->description) !!}
@@ -931,14 +937,14 @@ sampai sini -->
 
 <!-- Customer Info Detail Modal -->
 <div id="customerInfoDetailModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="detail-modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-4 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-10 dark:bg-gray-900 dark:bg-opacity-40 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeCustomerInfoDetailModal()"></div>
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div class="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+        <div class="relative inline-block align-middle bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-2xl sm:w-full">
             <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span id="detail-modal-date" class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mb-3 inline-block"></span>
+                        <span id="detail-modal-date" class="text-xs font-semibold px-2.5 py-1 bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 rounded-md mb-3 inline-block"></span>
                         <h3 class="text-2xl leading-6 font-bold text-gray-900 dark:text-white" id="detail-modal-title"></h3>
                     </div>
                     <button type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none ml-4" onclick="closeCustomerInfoDetailModal()">
