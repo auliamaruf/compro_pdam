@@ -743,59 +743,29 @@ sampai sini -->
         <!-- Tabs Navigation -->
         <div class="flex justify-center mb-10">
             <div class="inline-flex bg-white dark:bg-gray-900 rounded-full p-1 shadow-sm border border-gray-100 dark:border-gray-700">
-                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 bg-blue-600 text-white shadow-md" data-target="tab-berita">
-                    Berita
+                @foreach($newsByType as $type => $articles)
+                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 {{ $loop->first ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white dark:text-gray-400' }}" data-target="tab-{{ $type }}">
+                    {{ ucfirst($type) }}
                 </button>
-                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-200 dark:text-gray-400" data-target="tab-pengumuman">
-                    Pengumuman
-                </button>
-                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-200 dark:text-gray-400" data-target="tab-darurat">
-                    Darurat
-                </button>
+                @endforeach
             </div>
         </div>
 
-        <!-- Tab Content: Berita -->
-        <div id="tab-berita" class="news-tab-content">
+        @foreach($newsByType as $type => $articles)
+        <!-- Tab Content: {{ ucfirst($type) }} -->
+        <div id="tab-{{ $type }}" class="news-tab-content {{ $loop->first ? '' : 'hidden' }}">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($latestNews as $article)
+                @forelse($articles as $article)
                     @include('partials.news-card', ['article' => $article])
                 @empty
                     @include('partials.news-empty')
                 @endforelse
             </div>
             <div class="text-center mt-12">
-                <a href="{{ route('news', ['type' => 'berita']) }}" class="btn-primary">Lihat Semua Berita</a>
+                <a href="{{ route('news', ['type' => $type]) }}" class="btn-primary">Lihat Semua {{ ucfirst($type) }}</a>
             </div>
         </div>
-
-        <!-- Tab Content: Pengumuman -->
-        <div id="tab-pengumuman" class="news-tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($announcements as $article)
-                    @include('partials.news-card', ['article' => $article])
-                @empty
-                    @include('partials.news-empty')
-                @endforelse
-            </div>
-            <div class="text-center mt-12">
-                <a href="{{ route('news', ['type' => 'pengumuman']) }}" class="btn-primary">Lihat Semua Pengumuman</a>
-            </div>
-        </div>
-
-        <!-- Tab Content: Darurat -->
-        <div id="tab-darurat" class="news-tab-content hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($emergencies as $article)
-                    @include('partials.news-card', ['article' => $article])
-                @empty
-                    @include('partials.news-empty')
-                @endforelse
-            </div>
-            <div class="text-center mt-12">
-                <a href="{{ route('news', ['type' => 'darurat']) }}" class="btn-primary">Lihat Semua Info Darurat</a>
-            </div>
-        </div>
+        @endforeach
     </div>
 </section>
 

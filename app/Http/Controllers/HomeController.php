@@ -21,16 +21,19 @@ class HomeController extends Controller
             return HeroBanner::active()->orderBy('sort_order')->get();
         });
         
-        $latestNews = \Illuminate\Support\Facades\Cache::remember('home_news_berita', 3600, function () {
-            return News::where('type', 'berita')->published()->latest('published_at')->take(3)->get();
-        });
-        
-        $announcements = \Illuminate\Support\Facades\Cache::remember('home_news_pengumuman', 3600, function () {
-            return News::where('type', 'pengumuman')->published()->latest('published_at')->take(3)->get();
-        });
-        
-        $emergencies = \Illuminate\Support\Facades\Cache::remember('home_news_darurat', 3600, function () {
-            return News::where('type', 'darurat')->published()->latest('published_at')->take(3)->get();
+        $newsByType = \Illuminate\Support\Facades\Cache::remember('home_news_by_type', 3600, function () {
+            $types = News::published()->select('type')->whereNotNull('type')->distinct()->pluck('type');
+            $data = [];
+            foreach ($types as $type) {
+                $data[$type] = News::where('type', $type)->published()->latest('published_at')->take(3)->get();
+            }
+            
+            // If no types exist, fallback to getting latest news in general
+            if ($types->isEmpty()) {
+                $data['berita'] = News::published()->latest('published_at')->take(3)->get();
+            }
+            
+            return $data;
         });
         
         $services = \Illuminate\Support\Facades\Cache::rememberForever('home_services', function () {
@@ -49,7 +52,7 @@ class HomeController extends Controller
             return \App\Models\CustomerInfo::where('is_active', true)->orderBy('published_date', 'desc')->take(3)->get();
         });
 
-        return view('home', compact('herobanners', 'latestNews', 'announcements', 'emergencies', 'services', 'partnerships', 'faqs', 'customerInfos'));
+        return view('home', compact('herobanners', 'newsByType', 'services', 'partnerships', 'faqs', 'customerInfos'));
     }
 
     public function about()
