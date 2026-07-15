@@ -249,9 +249,9 @@
                 <div class="flex-1 overflow-hidden relative bg-blue-50/50 dark:bg-gray-900/50">
                     <div id="ticker-content" class="flex flex-col w-full absolute top-0 left-0">
                         @foreach($customerInfos as $info)
-                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
                                 <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
-                                    {{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}
                                 </span>
                                 <span class="font-semibold mr-2 shrink-0">{{ $info->title }}</span>
                                 <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($info->description) }}</span>
@@ -260,9 +260,9 @@
                         
                         @if($customerInfos->count() > 1)
                             {{-- Clone first item for seamless vertical scroll --}}
-                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->published_date)->format('d M Y') }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
                                 <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
-                                    {{ \Carbon\Carbon::parse($customerInfos->first()->published_date)->format('d M Y') }}
+                                    {{ \Carbon\Carbon::parse($customerInfos->first()->created_at)->format('d M Y, H:i') . ' WIB' }}
                                 </span>
                                 <span class="font-semibold mr-2 shrink-0">{{ $customerInfos->first()->title }}</span>
                                 <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($customerInfos->first()->description) }}</span>
@@ -911,10 +911,10 @@ sampai sini -->
             </div>
             <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto space-y-4">
                 @foreach($customerInfos as $info)
-                <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}', '{{ base64_encode($info->description) }}')">
+                <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}', '{{ base64_encode($info->description) }}')">
                     <div class="flex justify-between items-start mb-2">
                         <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ $info->title }}</h4>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}</span>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->created_at)->format('d M Y, H:i') . ' WIB' }}</span>
                     </div>
                     <div class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                         {!! strip_tags($info->description) !!}
