@@ -327,7 +327,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -347,8 +347,8 @@
             @if($waterSources->count() > 0)
                 <div class="max-w-7xl mx-auto">
                     <div class="text-center mb-12">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Sumber Mata Air Kami</h2>
-                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Sumber Mata Air Kami</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                             Sumber-sumber mata air berkualitas yang dikelola dengan standar tinggi untuk memastikan pasokan air bersih yang berkelanjutan.
                         </p>
                     </div>
@@ -402,8 +402,8 @@
                                 <div class="detail-item">
                                     <i class="fas fa-chart-line detail-icon text-blue-600"></i>
                                     <div class="detail-content">
-                                        <h4 class="font-semibold text-gray-800 mb-1">Kapasitas Produksi</h4>
-                                        <p class="text-gray-600 text-sm">{{ $source->formatted_production_capacity }}</p>
+                                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Kapasitas Produksi</h4>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $source->formatted_production_capacity }}</p>
                                     </div>
                                 </div>
 
@@ -411,8 +411,8 @@
                                 <div class="detail-item">
                                     <i class="fas fa-user-tie detail-icon text-green-600"></i>
                                     <div class="detail-content">
-                                        <h4 class="font-semibold text-gray-800 mb-1">Kepemilikan</h4>
-                                        <p class="text-gray-600 text-sm">{{ $source->ownership_label }}</p>
+                                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Kepemilikan</h4>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $source->ownership_label }}</p>
                                     </div>
                                 </div>
 
@@ -421,15 +421,15 @@
                                 <div class="detail-item">
                                     <i class="fas fa-map detail-icon text-purple-600"></i>
                                     <div class="detail-content">
-                                        <h4 class="font-semibold text-gray-800 mb-1">Wilayah Distribusi</h4>
-                                        <p class="text-gray-600 text-sm leading-relaxed">{{ $source->distribution_area }}</p>
+                                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Wilayah Distribusi</h4>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{{ $source->distribution_area }}</p>
                                     </div>
                                 </div>
                                 @endif
                             </div>
 
                             <!-- View Detail Button - Always at bottom -->
-                            <div class="mt-auto pt-4 border-t border-gray-100">
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
                                 <a href="{{ route('water-sources.show', $source) }}" 
                                    class="inline-flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
                                     <i class="fas fa-eye mr-2"></i>
@@ -464,7 +464,7 @@
                     <div class="text-gray-400 mb-4">
                         <i class="fas fa-tint text-6xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-600 mb-2">Belum Ada Data Sumber Mata Air</h3>
+                    <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">Belum Ada Data Sumber Mata Air</h3>
                     <p class="text-gray-500">Informasi sumber mata air akan segera tersedia.</p>
                 </div>
             @endif

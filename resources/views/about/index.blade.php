@@ -4,7 +4,7 @@
 @section('description', 'Profil perusahaan {{ $company->company_name ?? "PDAM Tirta Perwira" }} - {{ $company->company_tagline ?? "Air Bersih Untuk Kehidupan Yang Lebih Baik" }}')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -18,20 +18,20 @@
 
     <!-- Director Message Section -->
     @if($company->show_director_message && $company->director_message)
-    <section class="py-16 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+    <section class="py-16 bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div class="container-custom">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-8">
-                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">
                         {{ $company->message_title ?? 'Sambutan Direktur' }}
                     </h2>
                     <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mx-auto"></div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
                         <!-- Director Photo Section -->
-                        <div class="lg:col-span-1 relative overflow-hidden bg-white">
+                        <div class="lg:col-span-1 relative overflow-hidden bg-white dark:bg-gray-800">
                             @if($company->getFirstMediaUrl('director_photo'))
                                 <!-- Clean Full Photo Design -->
                                 <div class="relative w-full h-full min-h-[360px] lg:min-h-[400px]">
@@ -77,15 +77,15 @@
                             
                             <!-- Message -->
                             <div class="prose prose-base max-w-none mb-5">
-                                <div class="text-gray-700 leading-relaxed text-sm lg:text-base">
+                                <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm lg:text-base">
                                     {!! $company->director_message !!}
                                 </div>
                             </div>
                             
                             <!-- Director Info -->
-                            <div class="border-t border-gray-100 pt-4">
+                            <div class="border-t border-gray-100 dark:border-gray-700 pt-4">
                                 @if($company->director_name)
-                                <h4 class="text-lg font-bold text-gray-900 mb-1">{{ $company->director_name }}</h4>
+                                <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-1">{{ $company->director_name }}</h4>
                                 @endif
                                 @if($company->director_position)
                                 <p class="text-blue-600 font-medium text-sm">{{ $company->director_position }}</p>
@@ -105,17 +105,17 @@
         <div class="container-custom">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Profil Perusahaan</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Profil Perusahaan</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         {{ $company->company_tagline ?? 'PDAM Purbalingga berkomitmen memberikan pelayanan air bersih terbaik untuk masyarakat' }}
                     </p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg p-8 lg:p-12 mb-12">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 lg:p-12 mb-12">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ $company->company_name ?? 'Tirta Perwira' }}</h3>
-                            <div class="prose prose-lg max-w-none text-gray-600">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ $company->company_name ?? 'Tirta Perwira' }}</h3>
+                            <div class="prose prose-lg max-w-none text-gray-600 dark:text-gray-400">
                                 @if($company->company_description)
                                     {!! $company->company_description !!}
                                 @else
@@ -130,7 +130,7 @@
                         </div>
                         <div class="relative">
                             @if($company->getFirstMediaUrl('about_image'))
-                                <div class="relative bg-white p-2 rounded-xl shadow-lg">
+                                <div class="relative bg-white dark:bg-gray-800 p-2 rounded-xl shadow-lg">
                                     <img 
                                         src="{{ $company->getFirstMediaUrl('about_image') }}" 
                                         alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
@@ -150,7 +150,7 @@
                                     </div>
                                 </div>
                             @elseif($company->getFirstMediaUrl('company_photos') || $company->company_logo)
-                                <div class="relative bg-white p-2 rounded-xl shadow-lg">
+                                <div class="relative bg-white dark:bg-gray-800 p-2 rounded-xl shadow-lg">
                                     <img 
                                         src="{{ $company->getFirstMediaUrl('company_photos') ?: ($company->company_logo ? asset('storage/' . $company->company_logo) : asset('images/default-company.jpg')) }}" 
                                         alt="{{ $company->company_name ?? 'PDAM Tirta Perwira' }}"
@@ -204,7 +204,7 @@
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-blue-600 mb-2">{{ $company->years_experience }}+</h3>
-                        <p class="text-gray-600">Tahun Pengalaman</p>
+                        <p class="text-gray-600 dark:text-gray-400">Tahun Pengalaman</p>
                     </div>
                     @endif
 
@@ -216,7 +216,7 @@
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-green-600 mb-2">{{ number_format($company->customers_served / 1000) }}K+</h3>
-                        <p class="text-gray-600">Pelanggan Dilayani</p>
+                        <p class="text-gray-600 dark:text-gray-400">Pelanggan Dilayani</p>
                     </div>
                     @endif
 
@@ -228,7 +228,7 @@
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-orange-600 mb-2">{{ $company->water_quality_percentage }}%</h3>
-                        <p class="text-gray-600">Kualitas Air Terjamin</p>
+                        <p class="text-gray-600 dark:text-gray-400">Kualitas Air Terjamin</p>
                     </div>
                     @endif
 
@@ -240,7 +240,7 @@
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-purple-600 mb-2">{{ $company->service_availability }}</h3>
-                        <p class="text-gray-600">Pelayanan Siaga</p>
+                        <p class="text-gray-600 dark:text-gray-400">Pelayanan Siaga</p>
                     </div>
                     @endif
                 </div>
@@ -250,17 +250,17 @@
                 <!-- @if($company->core_values && count($company->core_values) > 0)
                 <div class="mb-12">
                     <div class="text-center mb-8">
-                        <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">Nilai-nilai Perusahaan</h3>
-                        <p class="text-lg text-gray-600">Prinsip dasar yang menjadi pedoman dalam setiap kegiatan</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4">Nilai-nilai Perusahaan</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">Prinsip dasar yang menjadi pedoman dalam setiap kegiatan</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($company->core_values as $value)
-                        <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-blue-100 hover:shadow-xl transition-shadow">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center border border-blue-100 hover:shadow-xl transition-shadow">
                             <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                                 {!! $value['icon'] ?? '<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>' !!}
                             </div>
-                            <h4 class="text-lg font-bold text-gray-900 mb-3">{{ strtoupper($value['name'] ?? '') }}</h4>
-                            <p class="text-gray-600 leading-relaxed">{{ $value['description'] ?? '' }}</p>
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-3">{{ strtoupper($value['name'] ?? '') }}</h4>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ $value['description'] ?? '' }}</p>
                         </div>
                         @endforeach
                     </div>
@@ -271,44 +271,44 @@
     </section> -->
 
     <!-- Navigation to Other Pages -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white dark:bg-gray-800">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
-                    <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">Pelajari Lebih Lanjut</h3>
-                    <p class="text-lg text-gray-600">Jelajahi berbagai aspek perusahaan kami</p>
+                    <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4">Pelajari Lebih Lanjut</h3>
+                    <p class="text-lg text-gray-600 dark:text-gray-400">Jelajahi berbagai aspek perusahaan kami</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <a href="{{ route('about.history') }}" class="group bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100 hover:shadow-lg transition-shadow">
-                        <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
+                    <a href="{{ route('about.history') }}" class="group bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-blue-100 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                        <div class="bg-blue-100 dark:bg-blue-900/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Sejarah Kami</h4>
-                        <p class="text-gray-600 text-sm">Perjalanan panjang melayani masyarakat Purbalingga dengan air bersih berkualitas</p>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Sejarah Kami</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Perjalanan panjang melayani masyarakat Purbalingga dengan air bersih berkualitas</p>
                     </a>
 
-                    <a href="{{ route('about.vision-mission') }}" class="group bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-100 hover:shadow-lg transition-shadow">
-                        <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
+                    <a href="{{ route('about.vision-mission') }}" class="group bg-gradient-to-r from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-green-100 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                        <div class="bg-blue-100 dark:bg-blue-900/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Visi & Misi</h4>
-                        <p class="text-gray-600 text-sm">Komitmen dan arah strategis kami dalam melayani masyarakat Purbalingga</p>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Visi & Misi</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Komitmen dan arah strategis kami dalam melayani masyarakat Purbalingga</p>
                     </a>
 
-                    <a href="{{ route('about.organization') }}" class="group bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100 hover:shadow-lg transition-shadow">
-                        <div class="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
+                    <a href="{{ route('about.organization') }}" class="group bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-purple-100 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                        <div class="bg-purple-100 dark:bg-purple-900/50 w-12 h-12 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
                             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Struktur Organisasi</h4>
-                        <p class="text-gray-600 text-sm">Kepemimpinan dan tim profesional yang menggerakkan {{ $company->company_name}} </p>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Struktur Organisasi</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Kepemimpinan dan tim profesional yang menggerakkan {{ $company->company_name}} </p>
                     </a>
                 </div>
             </div>
@@ -324,7 +324,7 @@
                     Mari bersama-sama mewujudkan akses air bersih berkualitas untuk seluruh masyarakat Purbalingga
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
+                    <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-800 text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                         <span>Lihat Layanan Kami</span>
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

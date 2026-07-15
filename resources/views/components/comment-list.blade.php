@@ -1,17 +1,17 @@
 {{-- Comments Display Component --}}
 <div class="comments-section mt-8">
-    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
         <i class="fas fa-comments text-blue-600 mr-2"></i>
         Komentar
         @if($comments->count() > 0)
-            <span class="text-gray-600 font-normal">({{ $comments->count() }})</span>
+            <span class="text-gray-600 dark:text-gray-400 font-normal">({{ $comments->count() }})</span>
         @endif
     </h3>
 
     @if($comments->count() > 0)
         <div class="space-y-6">
             @foreach($comments as $comment)
-                <div class="comment-item bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <div class="comment-item bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
                     {{-- Comment Header --}}
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex items-center">
@@ -19,7 +19,7 @@
                                 <i class="fas fa-user text-blue-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">{{ $comment->author_name }}</h4>
+                                <h4 class="font-semibold text-gray-800 dark:text-gray-100">{{ $comment->author_name }}</h4>
                                 <p class="text-sm text-gray-500">
                                     <i class="fas fa-clock mr-1"></i>
                                     {{ $comment->created_at->diffForHumans() }}
@@ -37,15 +37,15 @@
 
                     {{-- Comment Content --}}
                     <div class="comment-content mb-4">
-                        <p class="text-gray-700 leading-relaxed">{{ $comment->content }}</p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ $comment->content }}</p>
                     </div>
 
                     {{-- Replies --}}
                     @if($comment->replies->count() > 0)
                         <div class="replies-section ml-6 mt-4 space-y-4">
-                            <div class="border-l-2 border-gray-200 pl-4">
+                            <div class="border-l-2 border-gray-200 dark:border-gray-700 pl-4">
                                 @foreach($comment->replies as $reply)
-                                    <div class="reply-item bg-gray-50 rounded-lg p-4 mb-3">
+                                    <div class="reply-item bg-gray-50 dark:bg-gray-900 rounded-lg p-4 mb-3">
                                         {{-- Reply Header --}}
                                         <div class="flex items-start justify-between mb-2">
                                             <div class="flex items-center">
@@ -53,7 +53,7 @@
                                                     <i class="fas fa-user text-green-600 text-sm"></i>
                                                 </div>
                                                 <div>
-                                                    <h5 class="font-medium text-gray-800 text-sm">{{ $reply->author_name }}</h5>
+                                                    <h5 class="font-medium text-gray-800 dark:text-gray-100 text-sm">{{ $reply->author_name }}</h5>
                                                     <p class="text-xs text-gray-500">
                                                         <i class="fas fa-clock mr-1"></i>
                                                         {{ $reply->created_at->diffForHumans() }}
@@ -71,7 +71,7 @@
 
                                         {{-- Reply Content --}}
                                         <div class="reply-content">
-                                            <p class="text-gray-700 text-sm leading-relaxed">{{ $reply->content }}</p>
+                                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{{ $reply->content }}</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -84,10 +84,10 @@
     @else
         {{-- No comments yet --}}
         <div class="text-center py-8">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-comments text-gray-400 text-2xl"></i>
             </div>
-            <h4 class="text-gray-600 font-medium mb-2">Belum Ada Komentar</h4>
+            <h4 class="text-gray-600 dark:text-gray-400 font-medium mb-2">Belum Ada Komentar</h4>
             <p class="text-gray-500 text-sm">Jadilah yang pertama memberikan komentar pada artikel ini!</p>
         </div>
     @endif

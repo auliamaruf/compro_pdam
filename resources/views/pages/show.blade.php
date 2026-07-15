@@ -92,7 +92,7 @@
             </div>
             
             <!-- Page Meta Info -->
-            <div class="mt-12 pt-8 border-t border-gray-200">
+            <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-500">
                     <div>
                         <span>Dipublikasi pada {{ $page->published_at->format('d F Y') }}</span>
@@ -107,10 +107,10 @@
 </section>
 
 <!-- Related Pages CTA -->
-<section class="bg-gray-50 py-16">
+<section class="bg-gray-50 dark:bg-gray-900 py-16">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8">Butuh Informasi Lainnya?</h2>
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Butuh Informasi Lainnya?</h2>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ route('contact') }}" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                     Hubungi Kami

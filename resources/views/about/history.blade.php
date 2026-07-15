@@ -32,6 +32,11 @@
         position: relative;
     }
     
+    .dark .timeline-content {
+        background: #1f2937;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+    
     .timeline-content:hover {
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
@@ -55,6 +60,10 @@
         z-index: 10;
     }
     
+    .dark .timeline-dot {
+        border-color: #1f2937;
+    }
+    
     .timeline-year {
         display: inline-flex;
         align-items: center;
@@ -75,10 +84,18 @@
         line-height: 1.3;
     }
     
+    .dark .timeline-title {
+        color: #f3f4f6;
+    }
+    
     .timeline-description {
         color: #6b7280;
         line-height: 1.6;
         margin-bottom: 1rem;
+    }
+    
+    .dark .timeline-description {
+        color: #9ca3af;
     }
     
     .timeline-image {
@@ -105,6 +122,10 @@
         border-radius: 8px;
         margin-top: 0.75rem;
         font-size: 0.875rem;
+    }
+    
+    .dark .timeline-highlight {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
     }
     
     .timeline-line {
@@ -154,13 +175,13 @@
     </section>
 
     <!-- Compact Timeline Section -->
-    <section class="section-padding bg-white">
+    <section class="section-padding bg-white dark:bg-gray-800">
         <div class="container-custom">
             <div class="max-w-4xl mx-auto">
                 <!-- Section Title -->
                 <div class="text-center mb-12">
-                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Perjalanan Sejarah</h2>
-                    <p class="text-base text-gray-600 max-w-2xl mx-auto">
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-3">Perjalanan Sejarah</h2>
+                    <p class="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Kronologi perjalanan Tirta Perwira dalam melayani masyarakat Purbalingga
                     </p>
                 </div>
@@ -340,7 +361,7 @@
                     Dengan pengalaman puluhan tahun, PDAM Tirta Perwira terus berkomitmen memberikan pelayanan terbaik dan berkontribusi dalam pembangunan Kabupaten Purbalingga yang berkelanjutan.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('about.vision-mission') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
+                    <a href="{{ route('about.vision-mission') }}" class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-800 text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                         <span>Lihat Visi & Misi</span>
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

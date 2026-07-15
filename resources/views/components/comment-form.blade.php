@@ -1,6 +1,6 @@
 {{-- Comment Form Component --}}
-<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mt-8">
-    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mt-8">
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6">
         <i class="fas fa-comments text-blue-600 mr-2"></i>
         Tinggalkan Komentar
     </h3>
@@ -43,7 +43,7 @@
         <input type="hidden" name="parent_id" id="parent_id" value="">
         
         {{-- Reply indicator --}}
-        <div id="reply-indicator" class="hidden bg-blue-50 border-l-4 border-blue-400 p-3 mb-4 rounded">
+        <div id="reply-indicator" class="hidden bg-blue-50 dark:bg-gray-800 border-l-4 border-blue-400 p-3 mb-4 rounded">
             <div class="flex items-center justify-between">
                 <span class="text-blue-800">
                     <i class="fas fa-reply mr-2"></i>
@@ -61,7 +61,7 @@
         {{-- Name and Email Fields --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Nama Lengkap <span class="text-red-500">*</span>
                 </label>
                 <input type="text"
@@ -76,7 +76,7 @@
             </div>
 
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Email <span class="text-red-500">*</span>
                 </label>
                 <input type="email"
@@ -93,7 +93,7 @@
 
         {{-- Comment Content Field --}}
         <div>
-            <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="comment" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Komentar <span class="text-red-500">*</span>
             </label>
             <textarea name="comment"

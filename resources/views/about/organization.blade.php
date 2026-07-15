@@ -3,7 +3,7 @@
 @section('title', 'Struktur Organisasi - ' . config('app.name'))
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -25,9 +25,9 @@
             @if(isset($organizations[1]) || isset($organizations[2]))
             <div class="mb-16" data-aos="fade-up">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Direksi</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Direksi</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
-                    <p class="text-gray-600 mt-4 text-lg">Tim kepemimpinan tertinggi {{ $company->company_name ?? 'PDAM Tirta Perwira' }}</p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-lg">Tim kepemimpinan tertinggi {{ $company->company_name ?? 'PDAM Tirta Perwira' }}</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-start">
@@ -69,10 +69,10 @@
                                     
                                     <!-- Content -->
                                     <div class="text-center">
-                                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $structure->title }}</h3>
+                                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ $structure->title }}</h3>
                                         <p class="text-blue-700 font-semibold text-lg">{{ $structure->name }}</p>
                                         @if($structure->subtitle)
-                                            <p class="text-gray-600 text-sm mt-1">{{ $structure->subtitle }}</p>
+                                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ $structure->subtitle }}</p>
                                         @endif
                                         @if($structure->description)
                                             <p class="text-gray-500 text-xs mt-2 leading-relaxed">{{ Str::limit($structure->description, 100) }}</p>
@@ -124,10 +124,10 @@
                                     
                                     <!-- Content -->
                                     <div class="text-center">
-                                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $structure->title }}</h3>
+                                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ $structure->title }}</h3>
                                         <p class="text-emerald-700 font-semibold text-lg">{{ $structure->name }}</p>
                                         @if($structure->subtitle)
-                                            <p class="text-gray-600 text-sm mt-1">{{ $structure->subtitle }}</p>
+                                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ $structure->subtitle }}</p>
                                         @endif
                                         @if($structure->description)
                                             <p class="text-gray-500 text-xs mt-2 leading-relaxed">{{ Str::limit($structure->description, 100) }}</p>
@@ -148,15 +148,15 @@
             @if(isset($organizations[3]))
             <div class="mb-16" data-aos="fade-up" data-aos-delay="100">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Kepala Bagian</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Kepala Bagian</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
-                    <p class="text-gray-600 mt-4 text-lg">Pimpinan departemen dan divisi utama</p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-lg">Pimpinan departemen dan divisi utama</p>
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                     @foreach($organizations[3] as $structure)
                         <div class="group">
-                            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 relative overflow-hidden">
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700 relative overflow-hidden">
                                 <!-- Background Pattern -->
                                 <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-bl-full opacity-50"></div>
                                 
@@ -205,7 +205,7 @@
                                 
                                 <!-- Content -->
                                 <div class="text-center">
-                                    <h3 class="font-bold text-gray-900 text-sm mb-2 leading-tight min-h-[2.5rem]">{{ $structure->title }}</h3>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-2 leading-tight min-h-[2.5rem]">{{ $structure->title }}</h3>
                                     <p class="text-purple-600 font-medium text-xs">{{ $structure->name }}</p>
                                     @if($structure->subtitle)
                                         <p class="text-gray-500 text-xs mt-1">{{ $structure->subtitle }}</p>
@@ -222,9 +222,9 @@
             @if(isset($organizations[4]))
             <div class="mb-16" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Kepala Unit & Cabang</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Kepala Unit & Cabang</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-orange-500 to-red-500 mx-auto rounded-full"></div>
-                    <p class="text-gray-600 mt-4 text-lg">Unit operasional dan cabang layanan</p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-lg">Unit operasional dan cabang layanan</p>
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -274,7 +274,7 @@
                                 
                                 <!-- Content -->
                                 <div class="text-center">
-                                    <h3 class="font-semibold text-gray-900 text-xs mb-1 leading-tight min-h-[2rem]">{{ $structure->title }}</h3>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white text-xs mb-1 leading-tight min-h-[2rem]">{{ $structure->title }}</h3>
                                     <p class="text-orange-600 font-medium text-xs">{{ $structure->name }}</p>
                                     @if($structure->subtitle)
                                         <p class="text-gray-500 text-xs mt-1">{{ $structure->subtitle }}</p>
@@ -291,9 +291,9 @@
             @if(isset($organizations[5]) || isset($organizations[6]) || isset($organizations[7]) || isset($organizations[8]))
             <div class="space-y-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="text-center mb-8">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Sub Bagian</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Sub Bagian</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full"></div>
-                    <p class="text-gray-600 mt-4 text-lg">Unit kerja spesialisasi dan departemen pendukung</p>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-lg">Unit kerja spesialisasi dan departemen pendukung</p>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -304,13 +304,13 @@
                                 <i class="fas fa-layer-group text-white text-sm"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Umum</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Sub Bagian Umum</h3>
                                 <p class="text-teal-600 text-xs">Administrasi & Support</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             @foreach($organizations[5] as $structure)
-                                <div class="bg-white p-2 rounded-lg shadow-sm border border-teal-100 hover:shadow-md transition-shadow duration-200">
+                                <div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm border border-teal-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
                                         @if($structure->hasPhoto())
                                             <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-teal-200">
@@ -334,7 +334,7 @@
                                             </div>
                                         @endif
                                         <div>
-                                            <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
+                                            <h4 class="font-semibold text-gray-900 dark:text-white text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-teal-600 text-xs">{{ $structure->name }}</p>
                                         </div>
                                     </div>
@@ -351,13 +351,13 @@
                                 <i class="fas fa-tools text-white text-sm"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Teknik</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Sub Bagian Teknik</h3>
                                 <p class="text-indigo-600 text-xs">Engineering & Maintenance</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             @foreach($organizations[6] as $structure)
-                                <div class="bg-white p-2 rounded-lg shadow-sm border border-indigo-100 hover:shadow-md transition-shadow duration-200">
+                                <div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm border border-indigo-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
                                         @if($structure->hasPhoto())
                                             <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-indigo-200">
@@ -381,7 +381,7 @@
                                             </div>
                                         @endif
                                         <div>
-                                            <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
+                                            <h4 class="font-semibold text-gray-900 dark:text-white text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-indigo-600 text-xs">{{ $structure->name }}</p>
                                         </div>
                                     </div>
@@ -398,13 +398,13 @@
                                 <i class="fas fa-handshake text-white text-sm"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Hubungan Langganan</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Sub Bagian Hubungan Langganan</h3>
                                 <p class="text-rose-600 text-xs">Customer Relations</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             @foreach($organizations[7] as $structure)
-                                <div class="bg-white p-2 rounded-lg shadow-sm border border-rose-100 hover:shadow-md transition-shadow duration-200">
+                                <div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm border border-rose-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
                                         @if($structure->hasPhoto())
                                             <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-rose-200">
@@ -428,7 +428,7 @@
                                             </div>
                                         @endif
                                         <div>
-                                            <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
+                                            <h4 class="font-semibold text-gray-900 dark:text-white text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-rose-600 text-xs">{{ $structure->name }}</p>
                                         </div>
                                     </div>
@@ -445,13 +445,13 @@
                                 <i class="fas fa-calculator text-white text-sm"></i>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">Sub Bagian Keuangan</h3>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Sub Bagian Keuangan</h3>
                                 <p class="text-emerald-600 text-xs">Finance</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             @foreach($organizations[8] as $structure)
-                                <div class="bg-white p-2 rounded-lg shadow-sm border border-emerald-100 hover:shadow-md transition-shadow duration-200">
+                                <div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm border border-emerald-100 hover:shadow-md transition-shadow duration-200">
                                     <div class="flex items-center">
                                         @if($structure->hasPhoto())
                                             <div class="w-6 h-6 rounded-full overflow-hidden mr-2 border border-emerald-200">
@@ -475,7 +475,7 @@
                                             </div>
                                         @endif
                                         <div>
-                                            <h4 class="font-semibold text-gray-900 text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
+                                            <h4 class="font-semibold text-gray-900 dark:text-white text-xs leading-tight">{{ str_replace(['Kepala Sub Bagian ', 'Sub Bagian '], '', $structure->title) }}</h4>
                                             <p class="text-emerald-600 text-xs">{{ $structure->name }}</p>
                                         </div>
                                     </div>
@@ -492,11 +492,11 @@
             <!-- Empty State -->
             <div class="text-center py-16" data-aos="fade-up">
                 <div class="max-w-md mx-auto">
-                    <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-users text-gray-400 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Struktur Organisasi Belum Tersedia</h3>
-                    <p class="text-gray-600 mb-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Struktur Organisasi Belum Tersedia</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
                         Data sedang dalam proses pemutakhiran untuk memberikan informasi yang akurat
                     </p>
                     <a href="{{ route('home') }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">

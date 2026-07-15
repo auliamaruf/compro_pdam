@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             PartnershipSeeder::class,          // Partnership data
             PageSeeder::class,                 // Static pages
             OnlineComplaintSeeder::class,      // Online complaint samples
+            FaqSeeder::class,                  // FAQ items
         ]);
     }
 }

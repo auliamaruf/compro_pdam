@@ -38,6 +38,25 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    </script>
+
     <!-- Additional Styles for Enhanced Features -->
     <style>
         /* Search form animations */
@@ -132,7 +151,7 @@
     }
     </script>
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased">
     <!-- Navigation -->
     <x-navbar variant="internal" :company="$company" />
 
@@ -164,7 +183,7 @@
                              class="h-12 w-12 object-contain filter brightness-0 invert"
                              width="48" height="48" loading="lazy">
                         @else
-                        <div class="h-12 w-12 bg-white rounded-full flex items-center justify-center">
+                        <div class="h-12 w-12 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center">
                             <span class="text-blue-900 font-bold text-xl">TP</span>
                         </div>
                         @endif

@@ -4,7 +4,7 @@
 @section('description', 'Informasi lengkap tarif air minum dan biaya tetap berdasarkan kategori pelanggan dan volume pemakaian di Perumdam Tirta Perwira Purbalingga')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen">
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -22,9 +22,9 @@
     <section class="section-padding">
         <div class="container-custom">
             <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                     <!-- Tab Navigation -->
-                    <div class="border-b border-gray-200">
+                    <div class="border-b border-gray-200 dark:border-gray-700">
                         <nav class="-mb-px flex" aria-label="Tabs">
                             <button type="button" 
                                     class="tab-button active w-1/3 py-4 px-6 text-center border-b-2 font-medium text-sm focus:outline-none transition-colors duration-200"
@@ -67,14 +67,14 @@
                         <!-- Tariff Tab Content -->
                         <div id="tariff-content" class="tab-content">
                             <div class="mb-6">
-                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Tarif Air per m³</h2>
-                                <p class="text-gray-600">Tarif air berdasarkan kategori pelanggan dan volume pemakaian bulanan</p>
+                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Tarif Air per m³</h2>
+                                <p class="text-gray-600 dark:text-gray-400">Tarif air berdasarkan kategori pelanggan dan volume pemakaian bulanan</p>
                                 @if(isset($tariffs) && $tariffs->count() > 0 && $tariffs->first()->legal_basis)
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong> {{ $tariffs->first()->legal_basis }}</p>
                                     </div>
                                 @else
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong> Peraturan Bupati Purbalingga No.62 Tahun 2011 tanggal 14 Juni 2011 Tentang penyesuaian Tarif Dasar Air pada PDAM Kabupaten Purbalingga</p>
                                     </div>
                                 @endif
@@ -82,7 +82,7 @@
 
                             @if(isset($tariffs) && $tariffs->count() > 0)
                                 <div class="overflow-x-auto">
-                                    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                    <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
                                         <thead class="bg-blue-600 text-white">
                                             <tr>
                                                 <th class="px-4 py-3 text-center font-semibold border-r border-blue-400" rowspan="3">NO</th>
@@ -127,19 +127,19 @@
                                                         }
                                                     @endphp
                                                     
-                                                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                                    <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50">
                                                         @if($isFirstCustomerType && $loop->first)
-                                                            <td class="px-4 py-3 font-semibold text-center align-middle bg-gray-50 border-r border-gray-300" rowspan="{{ $subCategories->count() }}">{{ $no }}</td>
+                                                            <td class="px-4 py-3 font-semibold text-center align-middle bg-gray-50 dark:bg-gray-900 border-r border-gray-300" rowspan="{{ $subCategories->count() }}">{{ $no }}</td>
                                                         @endif
                                                         
                                                         @if($loop->first)
-                                                            <td class="px-4 py-3 font-semibold align-middle bg-blue-50 border-r border-gray-300" rowspan="{{ $subCategories->count() }}">{{ strtoupper($customerType) }}</td>
+                                                            <td class="px-4 py-3 font-semibold align-middle bg-blue-50 dark:bg-gray-800 border-r border-gray-300" rowspan="{{ $subCategories->count() }}">{{ strtoupper($customerType) }}</td>
                                                         @endif
                                                         
                                                         <td class="px-4 py-3 font-medium text-sm border-r border-gray-300">{{ $subCategory }}</td>
                                                         
                                                         @foreach($ranges as $range => $tariff)
-                                                            <td class="px-4 py-3 text-center border-r border-gray-200">
+                                                            <td class="px-4 py-3 text-center border-r border-gray-200 dark:border-gray-700">
                                                                 @if($tariff)
                                                                     <span class="font-semibold text-green-700">{{ number_format($tariff->rate_per_m3, 0, ',', '.') }}</span>
                                                                 @else
@@ -161,7 +161,7 @@
                                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
-                                        <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data tarif</h3>
+                                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Tidak ada data tarif</h3>
                                         <p class="mt-1 text-sm text-gray-500">Data tarif air belum tersedia.</p>
                                     </div>
                                 </div>
@@ -171,14 +171,14 @@
                         <!-- Fixed Cost Tab Content -->
                         <div id="fixed-cost-content" class="tab-content hidden">
                             <div class="mb-6">
-                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Tarif Biaya Tetap Perumda Air Minum Tirta Perwira Purbalingga</h2>
-                                <p class="text-gray-600">Biaya tetap bulanan berdasarkan kategori pelanggan</p>
+                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Tarif Biaya Tetap Perumda Air Minum Tirta Perwira Purbalingga</h2>
+                                <p class="text-gray-600 dark:text-gray-400">Biaya tetap bulanan berdasarkan kategori pelanggan</p>
                                 @if(isset($fixedCosts) && $fixedCosts->count() > 0 && $fixedCosts->first()->legal_basis)
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>{!! nl2br(e($fixedCosts->first()->legal_basis)) !!}</p>
                                     </div>
                                 @else
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>
                                         1. SK Direktur PDAM Kabupaten Purbalingga no.695.1/45.289/PDAM/XI/2010 tanggal 30 Nopember 2010<br>
                                         2. SK Direktur PDAM Kabupaten Purbalingga No.695.5/036.360/2016 Tanggal 29 Nopember 2016</p>
@@ -189,9 +189,9 @@
                             @if(isset($fixedCosts) && $fixedCosts->count() > 0)
                                 <!-- Tabel Tarif Abonemen -->
                                 <div class="mb-8">
-                                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Tarif Biaya Tetap</h3>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Tarif Biaya Tetap</h3>
                                     <div class="overflow-x-auto">
-                                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
                                             <thead class="bg-blue-600 text-white">
                                                 <tr>
                                                     <th class="px-4 py-3 text-center font-semibold border-r border-blue-400">NO</th>
@@ -221,10 +221,10 @@
                                                 @foreach($groupedAbonemen as $no => $group)
                                                     @if($group['items']->count() > 0)
                                                         @foreach($group['items'] as $item)
-                                                            <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                                            <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50">
                                                                 @if($loop->first)
-                                                                    <td class="px-4 py-3 font-semibold text-center align-middle bg-gray-50 border-r border-gray-300" rowspan="{{ $group['items']->count() }}">{{ $no }}</td>
-                                                                    <td class="px-4 py-3 font-semibold align-middle bg-blue-50 border-r border-gray-300" rowspan="{{ $group['items']->count() }}">{{ $group['category'] }}</td>
+                                                                    <td class="px-4 py-3 font-semibold text-center align-middle bg-gray-50 dark:bg-gray-900 border-r border-gray-300" rowspan="{{ $group['items']->count() }}">{{ $no }}</td>
+                                                                    <td class="px-4 py-3 font-semibold align-middle bg-blue-50 dark:bg-gray-800 border-r border-gray-300" rowspan="{{ $group['items']->count() }}">{{ $group['category'] }}</td>
                                                                 @endif
                                                                 <td class="px-4 py-3 font-medium border-r border-gray-300">{{ strtoupper($item->category_name) }}</td>
                                                                 <td class="px-4 py-3 text-center font-semibold text-green-700">{{ number_format($item->monthly_cost, 0, ',', '.') }}</td>
@@ -242,7 +242,7 @@
                                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                         </svg>
-                                        <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data biaya tetap</h3>
+                                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Tidak ada data biaya tetap</h3>
                                         <p class="mt-1 text-sm text-gray-500">Data biaya tetap belum tersedia.</p>
                                     </div>
                                 </div>
@@ -252,14 +252,14 @@
                         <!-- Service Cost Tab Content -->
                         <div id="service-cost-content" class="tab-content hidden">
                             <div class="mb-6">
-                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Biaya Layanan Lainnya</h2>
-                                <p class="text-gray-600">Biaya layanan tambahan dan administrasi PDAM Tirta Perwira Purbalingga</p>
+                                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">Biaya Layanan Lainnya</h2>
+                                <p class="text-gray-600 dark:text-gray-400">Biaya layanan tambahan dan administrasi PDAM Tirta Perwira Purbalingga</p>
                                 @if(isset($fixedCosts) && $fixedCosts->count() > 0 && $fixedCosts->first()->legal_basis)
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>{!! nl2br(e($fixedCosts->first()->legal_basis)) !!}</p>
                                     </div>
                                 @else
-                                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                                    <div class="mt-4 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                                         <p class="text-sm text-blue-800"><strong>Berdasarkan:</strong><br>
                                         1. SK Direktur PDAM Kabupaten Purbalingga no.695.1/45.289/PDAM/XI/2010 tanggal 30 Nopember 2010<br>
                                         2. SK Direktur PDAM Kabupaten Purbalingga No.695.5/036.360/2016 Tanggal 29 Nopember 2016</p>
@@ -286,47 +286,47 @@
                                     @endphp
 
                                     @foreach($serviceCosts as $service)
-                                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg p-6 border border-blue-100 hover:shadow-lg transition-all duration-300">
+                                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-6 border border-blue-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
                                             <div class="flex items-start justify-between mb-4">
                                                 <div>
-                                                    <h4 class="text-lg font-semibold text-gray-900 mb-1">{{ $service->category_name }}</h4>
+                                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">{{ $service->category_name }}</h4>
                                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                                        {{ $service->connection_type === 'new' ? 'bg-green-100 text-green-800' : ($service->connection_type === 'upgrade' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800') }}">
+                                                        {{ $service->connection_type === 'new' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : ($service->connection_type === 'upgrade' ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300' : 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300') }}">
                                                         {{ $service->connection_type === 'new' ? 'Sambungan Baru' : ($service->connection_type === 'upgrade' ? 'Upgrade' : 'Layanan') }}
                                                     </span>
                                                 </div>
                                             </div>
 
                                             @if($service->description)
-                                                <p class="text-gray-600 text-sm mb-4">{{ $service->description }}</p>
+                                                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">{{ $service->description }}</p>
                                             @endif
 
                                             <div class="space-y-3">
                                                 @if($service->monthly_cost > 0)
                                                     <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                        <span class="text-sm font-medium text-gray-700">Biaya Bulanan</span>
+                                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Bulanan</span>
                                                         <span class="text-lg font-bold text-blue-600">{{ $service->formatted_monthly_cost }}</span>
                                                     </div>
                                                 @endif
                                                 
                                                 @if($service->installation_cost > 0)
                                                     <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                        <span class="text-sm font-medium text-gray-700">Biaya Layanan</span>
+                                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Layanan</span>
                                                         <span class="text-lg font-bold text-green-600">{{ $service->formatted_installation_cost }}</span>
                                                     </div>
                                                 @endif
                                                 
                                                 @if($service->security_deposit > 0)
                                                     <div class="flex justify-between items-center py-2 border-b border-blue-200">
-                                                        <span class="text-sm font-medium text-gray-700">Uang Jaminan</span>
-                                                        <span class="text-sm font-semibold text-gray-900">{{ $service->formatted_security_deposit }}</span>
+                                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Uang Jaminan</span>
+                                                        <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ $service->formatted_security_deposit }}</span>
                                                     </div>
                                                 @endif
                                             </div>
 
                                             @if($service->notes)
-                                                <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                                    <p class="text-sm text-yellow-800">
+                                                <div class="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50 rounded-lg">
+                                                    <p class="text-sm text-yellow-800 dark:text-yellow-400">
                                                         <span class="font-medium">Catatan:</span> {{ $service->notes }}
                                                     </p>
                                                 </div>
@@ -340,7 +340,7 @@
                                         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                                         </svg>
-                                        <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data biaya layanan</h3>
+                                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Tidak ada data biaya layanan</h3>
                                         <p class="mt-1 text-sm text-gray-500">Data biaya layanan lainnya belum tersedia.</p>
                                     </div>
                                 </div>
@@ -350,7 +350,7 @@
                 </div>
 
                 <!-- Information Card -->
-                <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <div class="mt-8 bg-blue-50 dark:bg-gray-800 border border-blue-200 rounded-lg p-6">
                     <div class="flex items-start">
                         <div class="flex-shrink-0">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

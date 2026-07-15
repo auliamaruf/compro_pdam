@@ -113,7 +113,7 @@
         @if($herobanners->count() > 1)
         <div class="hero-dots absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
             @foreach($herobanners as $index => $banner)
-                <button class="hero-dot w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
+                <button class="hero-dot w-3 h-3 rounded-full bg-white dark:bg-gray-800 bg-opacity-50 hover:bg-opacity-75 transition-all duration-200 {{ $index === 0 ? 'active bg-opacity-100' : '' }}"
                         data-slide="{{ $index }}"></button>
             @endforeach
         </div>
@@ -159,7 +159,7 @@
 @endif
 
 <!-- Quick Actions -->
-<section class="bg-gray-50 py-12 lg:py-16 relative overflow-hidden">
+<section class="bg-gray-50 py-12 lg:py-16 relative overflow-hidden dark:bg-gray-800">
     <!-- Subtle decorative elements -->
     <div class="absolute top-10 left-10 w-20 h-20 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
     <div class="absolute bottom-10 right-10 w-16 h-16 bg-cyan-100 rounded-full opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
@@ -173,8 +173,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
             </div>
-            <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-gray-900">Akses Cepat</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Akses Cepat</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed dark:text-gray-400">
                 Layanan digital untuk kemudahan transaksi dan komunikasi Anda
             </p>
         </div>
@@ -183,8 +183,8 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch max-w-4xl mx-auto">
             <!-- Cek Tagihan -->
             <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer" 
-               class="group flex-1 sm:flex-none">
-                <div class="bg-white hover:bg-blue-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-100 hover:border-blue-200 hover:-translate-y-1 h-full">
+               class="group flex-1">
+                <div class="bg-white hover:bg-blue-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-100 hover:border-blue-200 dark:border-gray-700 dark:hover:border-gray-600 hover:-translate-y-1 h-full dark:bg-gray-900">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -192,8 +192,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">Cek Tagihan</h3>
-                            <p class="text-sm text-gray-600 mt-1">Lihat tagihan air bulanan</p>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 dark:text-white">Cek Tagihan</h3>
+                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-400">Lihat tagihan air bulanan</p>
                         </div>
                     </div>
                 </div>
@@ -201,8 +201,8 @@
 
             <!-- Pengaduan -->
             <a href="{{ route('services.pengaduan') }}" 
-               class="group flex-1 sm:flex-none">
-                <div class="bg-white hover:bg-red-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-red-100 hover:border-red-200 hover:-translate-y-1 h-full">
+               class="group flex-1">
+                <div class="bg-white hover:bg-red-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-red-100 hover:border-red-200 dark:border-gray-700 dark:hover:border-gray-600 hover:-translate-y-1 h-full dark:bg-gray-900">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -210,8 +210,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-200">Pengaduan</h3>
-                            <p class="text-sm text-gray-600 mt-1">Laporkan keluhan Anda</p>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-200 dark:text-white">Pengaduan</h3>
+                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-400">Laporkan keluhan Anda</p>
                         </div>
                     </div>
                 </div>
@@ -219,8 +219,8 @@
 
             <!-- Sambungan Baru -->
             <a href="{{ route('services') }}" 
-               class="group flex-1 sm:flex-none">
-                <div class="bg-white hover:bg-green-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-100 hover:border-green-200 hover:-translate-y-1 h-full">
+               class="group flex-1">
+                <div class="bg-white hover:bg-green-50 rounded-2xl px-6 py-5 transition-all duration-300 shadow-lg hover:shadow-xl border border-green-100 hover:border-green-200 dark:border-gray-700 dark:hover:border-gray-600 hover:-translate-y-1 h-full dark:bg-gray-900">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -228,18 +228,93 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200">Sambungan Baru</h3>
-                            <p class="text-sm text-gray-600 mt-1">Daftar pemasangan baru</p>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200 dark:text-white">Sambungan Baru</h3>
+                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-400">Daftar pemasangan baru</p>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
+        
+        <!-- Info Pelanggan Ticker -->
+        @if(isset($customerInfos) && $customerInfos->count() > 0)
+        <div class="max-w-4xl mx-auto mt-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-blue-100 dark:border-gray-700 overflow-hidden flex items-stretch h-14" id="ticker-wrapper">
+                <div class="bg-blue-600 dark:bg-blue-800 text-white text-sm font-bold px-4 md:px-6 flex items-center shrink-0 z-10 shadow-[4px_0_10px_-2px_rgba(0,0,0,0.1)] whitespace-nowrap">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                    </svg>
+                    Info Pelanggan
+                </div>
+                <div class="flex-1 overflow-hidden relative bg-blue-50/50 dark:bg-gray-900/50">
+                    <div id="ticker-content" class="flex flex-col w-full absolute top-0 left-0">
+                        @foreach($customerInfos as $info)
+                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}', '{{ base64_encode($info->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
+                                    {{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}
+                                </span>
+                                <span class="font-semibold mr-2 shrink-0">{{ $info->title }}</span>
+                                <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($info->description) }}</span>
+                            </a>
+                        @endforeach
+                        
+                        @if($customerInfos->count() > 1)
+                            {{-- Clone first item for seamless vertical scroll --}}
+                            <a href="javascript:void(0)" onclick="openCustomerInfoDetailModal('{{ addslashes($customerInfos->first()->title) }}', '{{ \Carbon\Carbon::parse($customerInfos->first()->published_date)->format('d M Y') }}', '{{ base64_encode($customerInfos->first()->description) }}')" class="h-14 flex items-center px-4 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full">
+                                <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mr-3 shrink-0">
+                                    {{ \Carbon\Carbon::parse($customerInfos->first()->published_date)->format('d M Y') }}
+                                </span>
+                                <span class="font-semibold mr-2 shrink-0">{{ $customerInfos->first()->title }}</span>
+                                <span class="text-sm truncate hidden sm:inline-block"> - {{ strip_tags($customerInfos->first()->description) }}</span>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+                <a href="javascript:void(0)" onclick="openCustomerInfoListModal()" class="flex items-center justify-center px-4 bg-gray-50 dark:bg-gray-700 border-l border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shrink-0" title="Lihat Semua Info">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tickerContent = document.getElementById('ticker-content');
+                const totalItems = {{ $customerInfos->count() }};
+                
+                if (totalItems > 1 && tickerContent) {
+                    let currentIndex = 0;
+                    let isHovered = false;
+                    const itemHeight = 56; // h-14 is 56px
+
+                    document.getElementById('ticker-wrapper').addEventListener('mouseenter', () => isHovered = true);
+                    document.getElementById('ticker-wrapper').addEventListener('mouseleave', () => isHovered = false);
+
+                    setInterval(() => {
+                        if (isHovered) return;
+                        
+                        currentIndex++;
+                        tickerContent.style.transition = 'transform 0.5s ease-in-out';
+                        tickerContent.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+
+                        if (currentIndex === totalItems) {
+                            setTimeout(() => {
+                                tickerContent.style.transition = 'none';
+                                tickerContent.style.transform = 'translateY(0)';
+                                currentIndex = 0;
+                            }, 500); // Matches transition duration
+                        }
+                    }, 3500);
+                }
+            });
+        </script>
+        @endif
     </div>
 </section>
 
 <!-- About Preview Section -->
-<section id="about-preview" class="bg-white section-padding">
+<section id="about-preview" class="bg-white section-padding dark:bg-gray-900">
     <div class="container-custom">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->
@@ -248,19 +323,19 @@
                     <span class="inline-block px-4 py-2 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full mb-4">
                         Tentang Kami
                     </span>
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 dark:text-white">
                         {{ $company->about_preview_title ?? 'PDAM Tirta Perwira Purbalingga' }}
                     </h2>
                 </div>
 
                 @if($company && $company->about_preview_content)
-                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                    <div class="space-y-4 text-gray-600 leading-relaxed dark:text-gray-400">
                         {!! $company->about_preview_content !!}
                     </div>
                 @else
-                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                    <div class="space-y-4 text-gray-600 leading-relaxed dark:text-gray-400">
                         <p class="text-lg">
-                            <strong class="text-gray-900">PDAM Tirta Perwira</strong> telah mengabdi kepada masyarakat Purbalingga selama lebih dari 50 tahun dalam menyediakan air bersih berkualitas. Kami berkomitmen melayani dengan hati dan memberikan pelayanan terbaik.
+                            <strong class="text-gray-900 dark:text-white">PDAM Tirta Perwira</strong> telah mengabdi kepada masyarakat Purbalingga selama lebih dari 50 tahun dalam menyediakan air bersih berkualitas. Kami berkomitmen melayani dengan hati dan memberikan pelayanan terbaik.
                         </p>
                         <p>
                             Dengan teknologi modern dan SDM yang kompeten, kami terus berinovasi untuk meningkatkan kualitas pelayanan. Saat ini kami melayani lebih dari <strong class="text-blue-600">150.000 pelanggan</strong> di seluruh Kabupaten Purbalingga.
@@ -281,7 +356,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">{{ $feature['title'] }}</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">{{ $feature['title'] }}</span>
                         </div>
                         @endforeach
                     @else
@@ -292,7 +367,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Air Berkualitas Tinggi</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">Air Berkualitas Tinggi</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -300,7 +375,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Pelayanan 24/7</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">Pelayanan 24/7</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center">
@@ -308,7 +383,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">150K+ Pelanggan</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">150K+ Pelanggan</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
@@ -316,7 +391,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">Teknologi Terdepan</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">Teknologi Terdepan</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
@@ -324,7 +399,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-gray-700 font-medium">99% Kualitas Air</span>
+                            <span class="text-gray-700 font-medium dark:text-gray-300">99% Kualitas Air</span>
                         </div>
                     @endif
                 </div>
@@ -395,7 +470,7 @@
                     </a>
 
                     <!-- Sejarah -->
-                    <a href="{{ route('about.history') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.history') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px] dark:bg-gray-900">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
@@ -403,7 +478,7 @@
                     </a>
 
                     <!-- Visi Misi -->
-                    <a href="{{ route('about.vision-mission') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.vision-mission') }}" class="about-secondary-btn bg-white text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 border border-blue-200 hover:border-blue-300 flex items-center justify-center group min-h-[44px] dark:bg-gray-900">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
@@ -411,7 +486,7 @@
                     </a>
 
                     <!-- Struktur Organisasi -->
-                    <a href="{{ route('about.organization') }}" class="about-secondary-btn bg-white text-green-700 px-3 py-2 rounded-lg font-medium hover:bg-green-50 hover:text-green-800 transition-all duration-200 border border-green-200 hover:border-green-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.organization') }}" class="about-secondary-btn bg-white text-green-700 px-3 py-2 rounded-lg font-medium hover:bg-green-50 hover:text-green-800 transition-all duration-200 border border-green-200 hover:border-green-300 flex items-center justify-center group min-h-[44px] dark:bg-gray-900">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
                         </svg>
@@ -419,7 +494,7 @@
                     </a>
 
                     <!-- Cabang dan Unit IKK -->
-                    <a href="{{ route('about.branches') }}" class="about-secondary-btn bg-white text-purple-700 px-3 py-2 rounded-lg font-medium hover:bg-purple-50 hover:text-purple-800 transition-all duration-200 border border-purple-200 hover:border-purple-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('about.branches') }}" class="about-secondary-btn bg-white text-purple-700 px-3 py-2 rounded-lg font-medium hover:bg-purple-50 hover:text-purple-800 transition-all duration-200 border border-purple-200 hover:border-purple-300 flex items-center justify-center group min-h-[44px] dark:bg-gray-900">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5"></path>
                         </svg>
@@ -427,7 +502,7 @@
                     </a>
 
                     <!-- Sumber Mata Air -->
-                    <a href="{{ route('water-sources.index') }}" class="about-secondary-btn bg-white text-cyan-700 px-3 py-2 rounded-lg font-medium hover:bg-cyan-50 hover:text-cyan-800 transition-all duration-200 border border-cyan-200 hover:border-cyan-300 flex items-center justify-center group min-h-[44px]">
+                    <a href="{{ route('water-sources.index') }}" class="about-secondary-btn bg-white text-cyan-700 px-3 py-2 rounded-lg font-medium hover:bg-cyan-50 hover:text-cyan-800 transition-all duration-200 border border-cyan-200 hover:border-cyan-300 flex items-center justify-center group min-h-[44px] dark:bg-gray-900">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5l-1-1z"></path>
                         </svg>
@@ -441,11 +516,11 @@
 
 <!-- Stats Section -->
 <!-- Bagian Prestasi kami
-<section id="stats" class="bg-gray-50 section-padding">
+<section id="stats" class="bg-gray-50 section-padding dark:bg-gray-800">
     <div class="container-custom">
         <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->stats_section_title ?? 'Prestasi Kami' }}</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 dark:text-white">{{ $company->stats_section_title ?? 'Prestasi Kami' }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-400">
                 {{ $company->stats_section_description ?? 'Komitmen nyata dalam memberikan pelayanan air bersih berkualitas untuk masyarakat Purbalingga' }}
             </p>
         </div>
@@ -457,7 +532,7 @@
                     </svg>
                 </div>
                 <div class="stat-number text-3xl font-bold text-blue-600 mb-2" data-count="{{ $company->customers_served ?? 45000 }}">0</div>
-                <div class="stat-label text-gray-600 font-medium">Pelanggan Aktif</div>
+                <div class="stat-label text-gray-600 font-medium dark:text-gray-400">Pelanggan Aktif</div>
             </div>
             <div class="stat-item text-center group">
                 <div class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors duration-200">
@@ -466,7 +541,7 @@
                     </svg>
                 </div>
                 <div class="stat-number text-3xl font-bold text-green-600 mb-2" data-count="{{ $company->years_experience ?? 38 }}">0</div>
-                <div class="stat-label text-gray-600 font-medium">Tahun Pengalaman</div>
+                <div class="stat-label text-gray-600 font-medium dark:text-gray-400">Tahun Pengalaman</div>
             </div>
             <div class="stat-item text-center group">
                 <div class="w-20 h-20 mx-auto mb-4 bg-cyan-100 rounded-full flex items-center justify-center group-hover:bg-cyan-200 transition-colors duration-200">
@@ -475,7 +550,7 @@
                     </svg>
                 </div>
                 <div class="stat-number text-3xl font-bold text-cyan-600 mb-2" data-count="{{ $company->service_availability ?? 99.5 }}">0</div>
-                <div class="stat-label text-gray-600 font-medium">% Ketersediaan Layanan</div>
+                <div class="stat-label text-gray-600 font-medium dark:text-gray-400">% Ketersediaan Layanan</div>
             </div>
             <div class="stat-item text-center group">
                 <div class="w-20 h-20 mx-auto mb-4 bg-yellow-100 rounded-full flex items-center justify-center group-hover:bg-yellow-200 transition-colors duration-200">
@@ -484,7 +559,7 @@
                     </svg>
                 </div>
                 <div class="stat-number text-3xl font-bold text-yellow-600 mb-2" data-count="{{ $company->water_quality_percentage ?? 99.8 }}">0</div>
-                <div class="stat-label text-gray-600 font-medium">% Kualitas Air</div>
+                <div class="stat-label text-gray-600 font-medium dark:text-gray-400">% Kualitas Air</div>
             </div>
         </div>
     </div>
@@ -492,17 +567,17 @@
 sampai sini -->
 
 <!-- Services Section -->
-<section id="services-preview" class="bg-gray-50 section-padding">
+<section id="services-preview" class="bg-gray-50 section-padding dark:bg-gray-800">
     <div class="container-custom">
         <div class="text-center mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->services_section_title ?? 'Layanan Utama' }}</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 dark:text-white">{{ $company->services_section_title ?? 'Layanan Utama' }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-400">
                 {{ $company->services_section_description ?? 'Kami menyediakan berbagai layanan air bersih berkualitas untuk memenuhi kebutuhan masyarakat Purbalingga' }}
             </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             @forelse($services->take(6) as $service)
-            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden h-full flex flex-col">
+            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden h-full flex flex-col dark:bg-gray-900">
                 @if($service->getFirstMediaUrl('icons'))
                     <img data-src="{{ $service->getFirstMediaUrl('icons') }}" alt="{{ $service->name }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy" width="400" height="192">
                 @elseif($service->icon)
@@ -515,8 +590,8 @@ sampai sini -->
                     </div>
                 @endif
                 <div class="p-6 flex-grow flex flex-col">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">{{ $service->name }}</h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">{{ Str::limit(strip_tags($service->description), 120) }}</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 dark:text-white">{{ $service->name }}</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3 flex-grow dark:text-gray-400">{{ Str::limit(strip_tags($service->description), 120) }}</p>
                     <a href="{{ route('services.show', $service->slug) }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mt-auto">
                         Selengkapnya
                         <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -527,13 +602,13 @@ sampai sini -->
             </div>
             @empty
             <div class="col-span-full text-center py-12">
-                <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center dark:bg-gray-700">
                     <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Layanan Akan Segera Tersedia</h3>
-                <p class="text-gray-600">Kami sedang mempersiapkan informasi layanan terbaik untuk Anda.</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 dark:text-white">Layanan Akan Segera Tersedia</h3>
+                <p class="text-gray-600 dark:text-gray-400">Kami sedang mempersiapkan informasi layanan terbaik untuk Anda.</p>
             </div>
             @endforelse
         </div>
@@ -548,11 +623,11 @@ sampai sini -->
 
 <!-- Partnership Section -->
 @if($partnerships && $partnerships->count() > 0)
-<section id="partnerships" class="bg-white section-padding">
+<section id="partnerships" class="bg-white section-padding dark:bg-gray-900">
     <div class="container-custom">
         <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Mitra Pembayaran</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 dark:text-white">Mitra Pembayaran</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-400">
                 Kami bangga bekerja sama dengan berbagai institusi dan organisasi terpercaya dalam memberikan pelayanan terbaik
             </p>
         </div>
@@ -581,14 +656,14 @@ sampai sini -->
                                  title="{{ $partner->name }}"
                                  loading="lazy" width="128" height="80">
                         @else
-                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60 dark:bg-gray-700">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
                                 </svg>
                             </div>
                         @endif
                     </div>
-                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium dark:text-gray-400">{{ $partner->name }}</p>
                 </div>
                 @endforeach
                 
@@ -610,14 +685,14 @@ sampai sini -->
                                  title="{{ $partner->name }}"
                                  loading="lazy" width="128" height="80">
                         @else
-                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60 dark:bg-gray-700">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
                                 </svg>
                             </div>
                         @endif
                     </div>
-                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium dark:text-gray-400">{{ $partner->name }}</p>
                 </div>
                 @endforeach
 
@@ -639,14 +714,14 @@ sampai sini -->
                                  title="{{ $partner->name }}"
                                  loading="lazy" width="128" height="80">
                         @else
-                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60">
+                            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center opacity-60 dark:bg-gray-700">
                                 <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H5m4 0v-2.5M9 13.5h2.5M7 9.5h6"></path>
                                 </svg>
                             </div>
                         @endif
                     </div>
-                    <p class="text-xs text-gray-600 text-center mt-2 font-medium">{{ $partner->name }}</p>
+                    <p class="text-xs text-gray-600 text-center mt-2 font-medium dark:text-gray-400">{{ $partner->name }}</p>
                 </div>
                 @endforeach
             </div>
@@ -656,73 +731,294 @@ sampai sini -->
 @endif
 
 <!-- News Section -->
-<section id="news-preview" class="bg-gray-50 section-padding">
+<section id="news-preview" class="bg-gray-50 dark:bg-gray-800 section-padding">
     <div class="container-custom">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{{ $company->news_section_title ?? 'Berita Terkini' }}</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">{{ $company->news_section_title ?? 'Berita & Informasi Terkini' }}</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto dark:text-gray-400">
                 {{ $company->news_section_description ?? 'Dapatkan informasi terbaru seputar pelayanan dan perkembangan PDAM Purbalingga' }}
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @forelse($news->take(6) as $article)
-            <article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden">
-                @if($article->getFirstMediaUrl('featured_image'))
-                    <img data-src="{{ $article->getFirstMediaUrl('featured_image') }}" alt="{{ $article->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 lazy-image" loading="lazy" width="400" height="192">
-                @else
-                    <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:from-blue-500 group-hover:to-blue-700 transition-all duration-300">
-                        <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                    </div>
-                @endif
-                <div class="p-6">
-                    <div class="flex items-center text-sm text-gray-500 mb-3">
-                        <time datetime="{{ $article->published_at->format('Y-m-d') }}">
-                            {{ $article->published_at->format('d M Y') }}
-                        </time>
-                        <span class="mx-2">•</span>
-                        <span class="inline-flex px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">{{ ucfirst($article->type) }}</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
-                        <a href="{{ route('news.show', $article->slug) }}">
-                            {{ $article->title }}
-                        </a>
-                    </h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{ Str::limit(strip_tags($article->content), 120) }}</p>
-                    <a href="{{ route('news.show', $article->slug) }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-sm transition-colors duration-200">
-                        Baca Selengkapnya
-                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            @empty
-            <div class="col-span-full text-center py-12">
-                <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Berita Akan Segera Tersedia</h3>
-                <p class="text-gray-600">Kami akan segera menyajikan berita dan informasi terkini untuk Anda.</p>
+
+        <!-- Tabs Navigation -->
+        <div class="flex justify-center mb-10">
+            <div class="inline-flex bg-white dark:bg-gray-900 rounded-full p-1 shadow-sm border border-gray-100 dark:border-gray-700">
+                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 bg-blue-600 text-white shadow-md" data-target="tab-berita">
+                    Berita
+                </button>
+                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-200 dark:text-gray-400" data-target="tab-pengumuman">
+                    Pengumuman
+                </button>
+                <button type="button" class="news-tab-btn px-6 py-2.5 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-200 dark:text-gray-400" data-target="tab-darurat">
+                    Darurat
+                </button>
             </div>
-            @endforelse
         </div>
 
-        <div class="text-center mt-12">
-            <a href="{{ route('news') }}" class="btn-primary">
-                Lihat Semua Berita
-            </a>
+        <!-- Tab Content: Berita -->
+        <div id="tab-berita" class="news-tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($latestNews as $article)
+                    @include('partials.news-card', ['article' => $article])
+                @empty
+                    @include('partials.news-empty')
+                @endforelse
+            </div>
+            <div class="text-center mt-12">
+                <a href="{{ route('news', ['type' => 'berita']) }}" class="btn-primary">Lihat Semua Berita</a>
+            </div>
+        </div>
+
+        <!-- Tab Content: Pengumuman -->
+        <div id="tab-pengumuman" class="news-tab-content hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($announcements as $article)
+                    @include('partials.news-card', ['article' => $article])
+                @empty
+                    @include('partials.news-empty')
+                @endforelse
+            </div>
+            <div class="text-center mt-12">
+                <a href="{{ route('news', ['type' => 'pengumuman']) }}" class="btn-primary">Lihat Semua Pengumuman</a>
+            </div>
+        </div>
+
+        <!-- Tab Content: Darurat -->
+        <div id="tab-darurat" class="news-tab-content hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($emergencies as $article)
+                    @include('partials.news-card', ['article' => $article])
+                @empty
+                    @include('partials.news-empty')
+                @endforelse
+            </div>
+            <div class="text-center mt-12">
+                <a href="{{ route('news', ['type' => 'darurat']) }}" class="btn-primary">Lihat Semua Info Darurat</a>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabBtns = document.querySelectorAll('.news-tab-btn');
+        const tabContents = document.querySelectorAll('.news-tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Remove active classes from all buttons
+                tabBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+                    b.classList.add('text-gray-600', 'dark:text-gray-300');
+                });
+
+                // Add active classes to clicked button
+                this.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+                this.classList.remove('text-gray-600', 'dark:text-gray-300');
+
+                // Hide all contents
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+
+                // Show target content
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+    });
+</script>
+
+<!-- FAQ Section -->
+@if(isset($faqs) && $faqs->count() > 0)
+<section id="faq-section" class="bg-white dark:bg-gray-900 section-padding">
+    <div class="container-custom">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Tanya Jawab (FAQ)</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Temukan jawaban untuk pertanyaan yang sering ditanyakan seputar layanan Perumda AM Tirta Perwira.
+            </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-4">
+            @foreach($faqs as $index => $faq)
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-hidden faq-item {{ $index >= 4 ? 'hidden faq-hidden-item' : '' }}">
+                <button type="button" class="faq-toggle flex justify-between items-center w-full px-6 py-4 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                    <span>{{ $faq->question }}</span>
+                    <svg class="faq-icon w-5 h-5 text-gray-500 dark:text-gray-400 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-content" style="display: none;">
+                    <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 prose dark:prose-invert max-w-none dark:text-gray-400">
+                        {!! $faq->answer !!}
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        
+        @if($faqs->count() > 4)
+        <div class="mt-8 text-center">
+            <button id="btn-toggle-faq" class="btn-primary inline-flex items-center">
+                <span id="text-toggle-faq">Lihat Selengkapnya</span>
+                <svg id="icon-toggle-faq" class="w-5 h-5 ml-2 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+        </div>
+        @endif
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggles = document.querySelectorAll('.faq-toggle');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.faq-icon');
+                
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    icon.classList.add('rotate-180');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.remove('rotate-180');
+                }
+            });
+        });
+
+        // View more functionality
+        const btnToggleFaq = document.getElementById('btn-toggle-faq');
+        if (btnToggleFaq) {
+            btnToggleFaq.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.faq-hidden-item');
+                const textSpan = document.getElementById('text-toggle-faq');
+                const iconSvg = document.getElementById('icon-toggle-faq');
+                
+                let isExpanded = false;
+                
+                hiddenItems.forEach(item => {
+                    if (item.classList.contains('hidden')) {
+                        item.classList.remove('hidden');
+                        isExpanded = true;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                
+                if (isExpanded) {
+                    textSpan.textContent = 'Tampilkan Lebih Sedikit';
+                    iconSvg.classList.add('rotate-180');
+                } else {
+                    textSpan.textContent = 'Lihat Selengkapnya';
+                    iconSvg.classList.remove('rotate-180');
+                }
+            });
+        }
+    });
+</script>
+@endif
 
 <!-- Progress Indicator -->
 <div id="scroll-progress" class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
     <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-150 ease-out" style="width: 0%"></div>
 </div>
+
+@if(isset($customerInfos) && $customerInfos->count() > 0)
+<!-- Customer Info List Modal -->
+<div id="customerInfoListModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-10 dark:bg-gray-900 dark:bg-opacity-40 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeCustomerInfoListModal()"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl leading-6 font-bold text-gray-900 dark:text-white" id="modal-title">Semua Info Pelanggan</h3>
+                    <button type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none" onclick="closeCustomerInfoListModal()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto space-y-4">
+                @foreach($customerInfos as $info)
+                <div class="border border-gray-100 dark:border-gray-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-gray-50 dark:bg-gray-900 cursor-pointer" onclick="openCustomerInfoDetailModal('{{ addslashes($info->title) }}', '{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}', '{{ base64_encode($info->description) }}')">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ $info->title }}</h4>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md shrink-0 ml-4">{{ \Carbon\Carbon::parse($info->published_date)->format('d M Y') }}</span>
+                    </div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                        {!! strip_tags($info->description) !!}
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 flex justify-end">
+                <button type="button" class="inline-flex justify-center rounded-lg border border-transparent shadow-sm px-6 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:text-sm" onclick="closeCustomerInfoListModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Info Detail Modal -->
+<div id="customerInfoDetailModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="detail-modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-10 dark:bg-gray-900 dark:bg-opacity-40 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeCustomerInfoDetailModal()"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+            <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span id="detail-modal-date" class="text-xs font-semibold px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-md mb-3 inline-block"></span>
+                        <h3 class="text-2xl leading-6 font-bold text-gray-900 dark:text-white" id="detail-modal-title"></h3>
+                    </div>
+                    <button type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none ml-4" onclick="closeCustomerInfoDetailModal()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="px-4 py-5 sm:p-6 max-h-[60vh] overflow-y-auto text-gray-700 dark:text-gray-300 prose dark:prose-invert max-w-none" id="detail-modal-content">
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 flex justify-end">
+                <button type="button" class="inline-flex justify-center rounded-lg border border-transparent shadow-sm px-6 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:text-sm" onclick="closeCustomerInfoDetailModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCustomerInfoListModal() {
+        document.getElementById('customerInfoListModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeCustomerInfoListModal() {
+        document.getElementById('customerInfoListModal').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    
+    function openCustomerInfoDetailModal(title, date, contentBase64) {
+        document.getElementById('detail-modal-title').textContent = title;
+        document.getElementById('detail-modal-date').textContent = date;
+        try {
+            document.getElementById('detail-modal-content').innerHTML = decodeURIComponent(escape(atob(contentBase64)));
+        } catch (e) {
+            document.getElementById('detail-modal-content').innerHTML = atob(contentBase64);
+        }
+        
+        document.getElementById('customerInfoDetailModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeCustomerInfoDetailModal() {
+        document.getElementById('customerInfoDetailModal').classList.add('hidden');
+        if(document.getElementById('customerInfoListModal').classList.contains('hidden')) {
+            document.body.style.overflow = '';
+        }
+    }
+</script>
+@endif
 
 @endsection
 

@@ -35,6 +35,25 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    </script>
+
     <!-- Additional Styles for Enhanced Features -->
     <style>
 
@@ -91,6 +110,9 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        }
+        html.dark .home-navbar {
+            background: rgba(17, 24, 39, 0.95); /* bg-gray-900 */
         }
 
         /* Ensure viewport height is respected */
@@ -415,9 +437,15 @@
         .partnership-fade-left {
             background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
         }
+        html.dark .partnership-fade-left {
+            background: linear-gradient(to right, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0) 100%);
+        }
 
         .partnership-fade-right {
             background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        html.dark .partnership-fade-right {
+            background: linear-gradient(to left, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0) 100%);
         }
     </style>
 
@@ -477,7 +505,7 @@
     }
     </script>
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased">
     <!-- Home Navigation -->
         <!-- Navigation -->
     <x-navbar variant="home" :company="$company" />
@@ -510,7 +538,7 @@
                              class="h-12 w-12 object-contain filter brightness-0 invert"
                              width="48" height="48" loading="lazy">
                         @else
-                        <div class="h-12 w-12 bg-white rounded-full flex items-center justify-center">
+                        <div class="h-12 w-12 bg-white rounded-full flex items-center justify-center dark:bg-gray-900">
                             <span class="text-blue-900 font-bold text-xl">TP</span>
                         </div>
                         @endif

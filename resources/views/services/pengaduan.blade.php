@@ -23,22 +23,22 @@
     <section class="section-padding">
         <div class="container-custom">
             <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Pilih Cara Pengaduan</h2>
-                <p class="text-lg text-gray-600">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">Pilih Cara Pengaduan</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
                     Kami menyediakan berbagai channel untuk memudahkan Anda menyampaikan pengaduan
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Online Complaint -->
-                <div class="bg-white rounded-xl shadow-lg p-8 text-center border-2 border-red-200 group hover:shadow-xl transition-shadow">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center border-2 border-red-200 group hover:shadow-xl transition-shadow">
                     <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-red-200 transition-colors">
                         <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2zM7 10a5 5 0 0110 0v1a1 1 0 11-2 0v-1a3 3 0 10-6 0v1a1 1 0 11-2 0v-1z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Pengaduan Online</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Pengaduan Online</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                         Platform pengaduan digital dengan sistem tiket dan tracking status. Mudah, cepat, dan dapat dipantau kapan saja.
                     </p>
                     <div class="space-y-3 mb-6">
@@ -70,15 +70,15 @@
                 </div>
 
                 <!-- Traditional Complaint -->
-                <div class="bg-white rounded-xl shadow-lg p-8 text-center border border-blue-200 group hover:shadow-xl transition-shadow">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center border border-blue-200 group hover:shadow-xl transition-shadow">
                     <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-200 transition-colors">
                         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Kunjungi Kantor</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Kunjungi Kantor</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                         Sampaikan pengaduan langsung di kantor kami. Tim customer service siap membantu dengan pelayanan terbaik.
                     </p>
                     <div class="space-y-3 mb-6">
@@ -113,12 +113,12 @@
     </section>
 
     <!-- Complaint Categories -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white dark:bg-gray-800">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Kategori Pengaduan</h2>
-                    <!-- <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Kategori Pengaduan</h2>
+                    <!-- <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Jenis pengaduan yang sering diterima dan cara penanganannya
                     </p> -->
                 </div>
@@ -131,8 +131,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Kualitas Air</h3>
-                        <p class="text-gray-600 text-sm mb-4">Air keruh, berbau, berasa, atau berwarna tidak normal</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Kualitas Air</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Air keruh, berbau, berasa, atau berwarna tidak normal</p>
                         <!-- <div class="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block">
                             Respon: 24 jam
                         </div> -->
@@ -145,8 +145,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Tekanan Air</h3>
-                        <p class="text-gray-600 text-sm mb-4">Air tidak mengalir, tekanan rendah, atau mati total</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Tekanan Air</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Air tidak mengalir, tekanan rendah, atau mati total</p>
                         <!-- <div class="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-full inline-block">
                             Respon: 12 jam
                         </div> -->
@@ -159,8 +159,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Tagihan</h3>
-                        <p class="text-gray-600 text-sm mb-4">Tagihan tidak sesuai, meteran rusak, atau kesalahan perhitungan</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Tagihan</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Tagihan tidak sesuai, meteran rusak, atau kesalahan perhitungan</p>
                         <!-- <div class="text-xs text-orange-600 bg-orange-100 px-3 py-1 rounded-full inline-block">
                             Respon: 3 hari kerja
                         </div> -->
@@ -173,8 +173,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Pelayanan</h3>
-                        <p class="text-gray-600 text-sm mb-4">Keluhan tentang petugas, proses administrasi, atau waktu layanan</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Pelayanan</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Keluhan tentang petugas, proses administrasi, atau waktu layanan</p>
                         <!-- <div class="text-xs text-purple-600 bg-purple-100 px-3 py-1 rounded-full inline-block">
                             Respon: 1 hari kerja
                         </div> -->
@@ -187,23 +187,23 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2L19 21z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Infrastruktur</h3>
-                        <p class="text-gray-600 text-sm mb-4">Pipa bocor, kerusakan meteran, atau masalah instalasi</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Infrastruktur</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Pipa bocor, kerusakan meteran, atau masalah instalasi</p>
                         <!-- <div class="text-xs text-red-600 bg-red-100 px-3 py-1 rounded-full inline-block">
                             Respon: 6 jam
                         </div> -->
                     </div>
 
                     <!-- Others -->
-                    <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 border border-gray-100">
-                        <div class="bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 border border-gray-100 dark:border-gray-700">
+                        <div class="bg-gray-100 dark:bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Lainnya</h3>
-                        <p class="text-gray-600 text-sm mb-4">Saran, masukan, atau pengaduan kategori lain</p>
-                        <!-- <div class="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full inline-block">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Lainnya</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Saran, masukan, atau pengaduan kategori lain</p>
+                        <!-- <div class="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full inline-block">
                             Respon: 2 hari kerja
                         </div> -->
                     </div>
@@ -217,8 +217,8 @@
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proses Penanganan Pengaduan</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Proses Penanganan Pengaduan</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Sistem penanganan yang terstruktur untuk memastikan setiap pengaduan ditangani dengan baik
                     </p>
                 </div>
@@ -229,66 +229,66 @@
                         <div class="flex items-start">
                             <div class="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full text-lg font-bold mr-4 flex-shrink-0">1</div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 mb-2">Penerimaan Pengaduan</h3>
-                                <p class="text-gray-600">Pengaduan diterima melalui berbagai channel dan dicatat dalam sistem dengan nomor tiket unik.</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Penerimaan Pengaduan</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Pengaduan diterima melalui berbagai channel dan dicatat dalam sistem dengan nomor tiket unik.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full text-lg font-bold mr-4 flex-shrink-0">2</div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 mb-2">Verifikasi & Kategorisasi</h3>
-                                <p class="text-gray-600">Tim customer service memverifikasi data dan mengkategorikan pengaduan berdasarkan jenis dan prioritas.</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Verifikasi & Kategorisasi</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Tim customer service memverifikasi data dan mengkategorikan pengaduan berdasarkan jenis dan prioritas.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full text-lg font-bold mr-4 flex-shrink-0">3</div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 mb-2">Penugasan Tim</h3>
-                                <p class="text-gray-600">Pengaduan diteruskan ke tim teknis atau bagian terkait sesuai dengan kategori masalah.</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Penugasan Tim</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Pengaduan diteruskan ke tim teknis atau bagian terkait sesuai dengan kategori masalah.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full text-lg font-bold mr-4 flex-shrink-0">4</div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 mb-2">Investigasi & Penyelesaian</h3>
-                                <p class="text-gray-600">Tim melakukan investigasi di lapangan dan mengambil tindakan perbaikan yang diperlukan.</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Investigasi & Penyelesaian</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Tim melakukan investigasi di lapangan dan mengambil tindakan perbaikan yang diperlukan.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
                             <div class="flex items-center justify-center w-12 h-12 bg-green-600 text-white rounded-full text-lg font-bold mr-4 flex-shrink-0">5</div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 mb-2">Konfirmasi & Penutupan</h3>
-                                <p class="text-gray-600">Setelah masalah terselesaikan, kami akan mengkonfirmasi kepada pelanggan dan menutup tiket pengaduan.</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Konfirmasi & Penutupan</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Setelah masalah terselesaikan, kami akan mengkonfirmasi kepada pelanggan dan menutup tiket pengaduan.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- SLA Commitment
-                    <div class="bg-white rounded-xl shadow-lg p-8 border border-blue-100">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Komitmen Waktu Penyelesaian</h3>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-blue-100">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Komitmen Waktu Penyelesaian</h3>
                         <div class="space-y-4">
                             <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
-                                <span class="text-gray-700 font-medium">Darurat (Air mati)</span>
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Darurat (Air mati)</span>
                                 <span class="text-red-600 font-bold">6 jam</span>
                             </div>
                             <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
-                                <span class="text-gray-700 font-medium">Kritis (Kualitas air)</span>
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Kritis (Kualitas air)</span>
                                 <span class="text-orange-600 font-bold">24 jam</span>
                             </div>
-                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                                <span class="text-gray-700 font-medium">Normal (Tagihan)</span>
+                            <div class="flex justify-between items-center p-3 bg-blue-50 dark:bg-gray-800 rounded-lg">
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Normal (Tagihan)</span>
                                 <span class="text-blue-600 font-bold">3 hari</span>
                             </div>
                             <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                                <span class="text-gray-700 font-medium">Rendah (Saran)</span>
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Rendah (Saran)</span>
                                 <span class="text-green-600 font-bold">7 hari</span>
                             </div>
                         </div>
-                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                             <p class="text-sm text-blue-800 text-center">
                                 <strong>Jaminan:</strong> Semua pengaduan akan mendapat respon dalam 1x24 jam
                             </p>
@@ -300,11 +300,11 @@
     </section>
 
     <!-- Track Complaint -->
-    <!-- <section class="py-16 bg-white">
+    <!-- <section class="py-16 bg-white dark:bg-gray-800">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Lacak Status Pengaduan</h2>
-                <p class="text-lg text-gray-600 mb-8">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">Lacak Status Pengaduan</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
                     Pantau perkembangan pengaduan Anda dengan memasukkan nomor tiket
                 </p>
 
@@ -339,7 +339,7 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white bg-opacity-10 rounded-lg p-6">
+                    <div class="bg-white dark:bg-gray-800 bg-opacity-10 rounded-lg p-6">
                         <div class="flex items-center justify-center mb-4">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
@@ -349,7 +349,7 @@
                         <p class="text-blue-100">(0281) 891234</p>
                     </div>
 
-                    <div class="bg-white bg-opacity-10 rounded-lg p-6">
+                    <div class="bg-white dark:bg-gray-800 bg-opacity-10 rounded-lg p-6">
                         <div class="flex items-center justify-center mb-4">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -359,7 +359,7 @@
                         <p class="text-blue-100">0812-3456-7890</p>
                     </div>
 
-                    <div class="bg-white bg-opacity-10 rounded-lg p-6">
+                    <div class="bg-white dark:bg-gray-800 bg-opacity-10 rounded-lg p-6">
                         <div class="flex items-center justify-center mb-4">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>

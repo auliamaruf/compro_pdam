@@ -10,6 +10,7 @@ use App\Models\FixedCost;
 use App\Models\HeroBanner;
 use App\Models\Branch;
 use App\Models\Partnership;
+use App\Models\Faq;
 
 class HomeController extends Controller
 {
@@ -20,8 +21,16 @@ class HomeController extends Controller
             return HeroBanner::active()->orderBy('sort_order')->get();
         });
         
-        $news = \Illuminate\Support\Facades\Cache::remember('home_news', 3600, function () {
-            return News::published()->latest('published_at')->take(6)->get();
+        $latestNews = \Illuminate\Support\Facades\Cache::remember('home_news_berita', 3600, function () {
+            return News::where('type', 'berita')->published()->latest('published_at')->take(3)->get();
+        });
+        
+        $announcements = \Illuminate\Support\Facades\Cache::remember('home_news_pengumuman', 3600, function () {
+            return News::where('type', 'pengumuman')->published()->latest('published_at')->take(3)->get();
+        });
+        
+        $emergencies = \Illuminate\Support\Facades\Cache::remember('home_news_darurat', 3600, function () {
+            return News::where('type', 'darurat')->published()->latest('published_at')->take(3)->get();
         });
         
         $services = \Illuminate\Support\Facades\Cache::rememberForever('home_services', function () {
@@ -32,7 +41,15 @@ class HomeController extends Controller
             return Partnership::active()->ordered()->get();
         });
 
-        return view('home', compact('herobanners', 'news', 'services', 'partnerships'));
+        $faqs = \Illuminate\Support\Facades\Cache::rememberForever('home_faqs', function () {
+            return Faq::where('is_active', true)->orderBy('order')->get();
+        });
+
+        $customerInfos = \Illuminate\Support\Facades\Cache::remember('home_customer_infos', 3600, function () {
+            return \App\Models\CustomerInfo::where('is_active', true)->orderBy('published_date', 'desc')->take(3)->get();
+        });
+
+        return view('home', compact('herobanners', 'latestNews', 'announcements', 'emergencies', 'services', 'partnerships', 'faqs', 'customerInfos'));
     }
 
     public function about()

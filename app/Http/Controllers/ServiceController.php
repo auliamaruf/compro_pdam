@@ -41,8 +41,7 @@ class ServiceController extends Controller
 
     public function pembayaran()
     {
-        // Company data is now provided globally by CompanyDataServiceProvider
-        return view('services.pembayaran');
+        abort(404);
     }
 
     public function downloadForm(Service $service, $mediaId)

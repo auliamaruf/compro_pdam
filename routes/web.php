@@ -10,6 +10,7 @@ use App\Http\Controllers\OnlineComplaintController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WaterSourceController;
 
+
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

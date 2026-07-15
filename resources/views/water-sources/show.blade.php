@@ -224,7 +224,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -258,15 +258,15 @@
                                 $mainImageUrl = $waterSource->getFirstMediaUrl('water_source_images');
                             @endphp
                             <div class="text-center mb-6">
-                                <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center">
+                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2 flex items-center justify-center">
                                     <i class="fas fa-camera mr-3 text-blue-600"></i>
                                     Foto Sumber Mata Air
                                 </h2>
-                                <p class="text-gray-600">{{ $waterSource->name }}</p>
+                                <p class="text-gray-600 dark:text-gray-400">{{ $waterSource->name }}</p>
                             </div>
                             
                             <div class="main-photo-container group cursor-pointer" onclick="openImageModal()">
-                                <div class="relative overflow-hidden rounded-xl bg-gray-50 shadow-lg">
+                                <div class="relative overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-900 shadow-lg">
                                     <img src="{{ $mainImageUrl }}" 
                                          alt="{{ $waterSource->name }}" 
                                          class="w-full h-96 md:h-[500px] lg:h-[600px] object-cover transition-all duration-300 group-hover:scale-105"
@@ -279,8 +279,8 @@
                                             <div class="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg">
                                                 <div class="flex items-center justify-between">
                                                     <div>
-                                                        <h3 class="font-bold text-gray-800">{{ $waterSource->name }}</h3>
-                                                        <p class="text-sm text-gray-600 flex items-center mt-1">
+                                                        <h3 class="font-bold text-gray-800 dark:text-gray-100">{{ $waterSource->name }}</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center mt-1">
                                                             <i class="fas fa-map-marker-alt mr-2"></i>
                                                             {{ $waterSource->location }}
                                                         </p>
@@ -295,7 +295,7 @@
                                 </div>
                                 
                                 <div class="mt-4 text-center">
-                                    <p class="text-sm text-gray-600 font-medium flex items-center justify-center">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 font-medium flex items-center justify-center">
                                         <i class="fas fa-search-plus mr-2"></i>
                                         Klik gambar untuk melihat ukuran penuh
                                     </p>
@@ -303,7 +303,7 @@
                             </div>
                             @else
                             <div class="text-center">
-                                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
+                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center justify-center">
                                     <i class="fas fa-camera mr-3 text-gray-400"></i>
                                     Foto Sumber Mata Air
                                 </h2>
@@ -327,7 +327,7 @@
                     <!-- Sidebar -->
                     <div class="space-y-4">
                         <!-- Details Information -->
-                        <div class="bg-white rounded-lg shadow-lg border border-gray-200 sidebar-info-height">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 sidebar-info-height">
                             <div class="p-3 bg-gradient-to-r from-blue-600 to-blue-700">
                                 <h3 class="text-base font-bold text-white flex items-center">
                                     <i class="fas fa-info-circle mr-2 text-sm"></i>
@@ -402,7 +402,7 @@
 
                                 <!-- Distribution Area -->
                                 @if($waterSource->distribution_area)
-                                <div class="detail-item border-t border-gray-100 pt-3">
+                                <div class="detail-item border-t border-gray-100 dark:border-gray-700 pt-3">
                                     <i class="fas fa-map detail-icon text-indigo-600"></i>
                                     <div class="detail-content">
                                         <h4>Wilayah Distribusi</h4>

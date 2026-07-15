@@ -10,7 +10,7 @@
     $headerClass = 'fixed';
 @endphp
 
-<header id="main-navbar" class="bg-white shadow-lg {{ $headerClass }} top-0 z-50 transition-all duration-300 {{ $navbarClass }} w-full {{ $isHomePage ? 'bg-opacity-90 backdrop-blur-sm' : '' }}">
+<header id="main-navbar" class="bg-white dark:bg-gray-900 shadow-lg {{ $headerClass }} top-0 z-50 transition-all duration-300 {{ $navbarClass }} w-full {{ $isHomePage ? 'bg-opacity-90 dark:bg-opacity-90 backdrop-blur-sm' : '' }}">
     <div class="container-custom">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <!-- Logo -->
@@ -75,7 +75,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 opacity-0 group-hover:opacity-100 transition-all duration-200 invisible group-hover:visible border border-gray-100">
+                        <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 opacity-0 group-hover:opacity-100 transition-all duration-200 invisible group-hover:visible border border-gray-100 dark:border-gray-700 dark:bg-gray-900">
                             <a href="{{ route('about') }}" class="dropdown-link">
                                 <svg class="w-4 h-4 mr-2 inline text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
@@ -124,14 +124,14 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
-                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 opacity-0 group-hover:opacity-100 transition-all duration-200 invisible group-hover:visible border border-gray-100">
+                        <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-2 opacity-0 group-hover:opacity-100 transition-all duration-200 invisible group-hover:visible border border-gray-100 dark:border-gray-700 dark:bg-gray-900">
                             <a href="{{ route('services') }}" class="dropdown-link">
                                 <svg class="w-4 h-4 mr-2 inline text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                                 </svg>
                                 Semua Layanan
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
                             <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" rel="noopener noreferrer" class="dropdown-link">
                                 <svg class="w-4 h-4 mr-2 inline text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -166,6 +166,12 @@
                         Kontak
                     </a>
                 @endif
+                
+                <!-- Dark Mode Toggle Desktop -->
+                <button type="button" onclick="toggleDarkMode()" class="flex items-center justify-center p-2.5 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 transition-all duration-200 ml-2 focus:outline-none">
+                    <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -173,7 +179,7 @@
                 <button 
                     type="button" 
                     id="mobile-menu-button" 
-                    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-400"
                     aria-expanded="false"
                     aria-controls="mobile-menu"
                     aria-label="Toggle mobile menu"
@@ -181,6 +187,11 @@
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
+                </button>
+                <!-- Dark Mode Toggle Mobile -->
+                <button type="button" onclick="toggleDarkMode()" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-all duration-200 ml-2 dark:text-gray-400">
+                    <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
         </div>
@@ -190,14 +201,14 @@
     <div class="lg:hidden hidden" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
         @if(!$isHomePage)
             <!-- Mobile Search - Only for internal pages -->
-            <div class="px-4 py-3 border-b bg-gray-50">
+            <div class="px-4 py-3 border-b dark:border-gray-700 bg-gray-50 dark:bg-gray-900 dark:bg-gray-800">
                 <form action="{{ route('search') }}" method="GET" class="relative">
                     <input
                         type="text"
                         name="q"
                         value="{{ request('q') }}"
                         placeholder="Cari berita, layanan, informasi..."
-                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                        class="w-full pl-10 pr-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:border-gray-600 dark:bg-gray-900"
                     >
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +219,7 @@
             </div>
         @endif
 
-        <div class="bg-white border-t border-gray-200">
+        <div class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             @if($isHomePage)
                 <!-- Home Page Mobile Navigation - with smooth scroll -->
                 <div class="space-y-1 p-2">
@@ -235,43 +246,43 @@
                 </div>
 
                 <!-- Divider -->
-                <div class="border-t border-gray-200"></div>
+                <div class="border-t border-gray-200 dark:border-gray-700"></div>
 
                 <!-- Quick Links untuk Home Page -->
                 <div class="p-2">
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3">Menu Lengkap</div>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3 dark:text-gray-400">Menu Lengkap</div>
                     
                     <!-- Tentang Kami Group -->
                     <div class="mobile-dropdown mb-2">
-                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="about-menu">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300" data-target="about-menu">
                             <div class="flex items-center">
                                 <i class="fas fa-building w-5 text-blue-600 mr-3"></i>
                                 <span class="font-medium">Tentang Kami</span>
                             </div>
                             <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
                         </button>
-                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="about-menu">
-                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                        <div class="mobile-dropdown-content hidden bg-gray-50 dark:bg-gray-900 rounded-lg mt-1 ml-6 overflow-hidden dark:bg-gray-800" id="about-menu">
+                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-info-circle w-4 text-blue-500 mr-2"></i>
                                 Profil Perusahaan
                             </a>
-                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-history w-4 text-green-500 mr-2"></i>
                                 Sejarah
                             </a>
-                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-eye w-4 text-purple-500 mr-2"></i>
                                 Visi & Misi
                             </a>
-                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-sitemap w-4 text-orange-500 mr-2"></i>
                                 Struktur Organisasi
                             </a>
-                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-map-marker-alt w-4 text-red-500 mr-2"></i>
                                 Cabang & Unit IKK
                             </a>
-                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-tint w-4 text-cyan-500 mr-2"></i>
                                 Sumber Mata Air
                             </a>
@@ -280,31 +291,31 @@
 
                     <!-- Layanan Group -->
                     <div class="mobile-dropdown mb-2">
-                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="services-menu">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300" data-target="services-menu">
                             <div class="flex items-center">
                                 <i class="fas fa-cogs w-5 text-purple-600 mr-3"></i>
                                 <span class="font-medium">Layanan</span>
                             </div>
                             <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
                         </button>
-                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="services-menu">
-                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                        <div class="mobile-dropdown-content hidden bg-gray-50 dark:bg-gray-900 rounded-lg mt-1 ml-6 overflow-hidden dark:bg-gray-800" id="services-menu">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-list w-4 text-blue-500 mr-2"></i>
                                 Semua Layanan
                             </a>
-                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-credit-card w-4 text-green-500 mr-2"></i>
                                 Cek Tagihan
                             </a>
-                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-plus-circle w-4 text-purple-500 mr-2"></i>
                                 Sambungan Baru
                             </a>
-                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-exclamation-triangle w-4 text-red-500 mr-2"></i>
                                 Pengaduan Online
                             </a>
-                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-dollar-sign w-4 text-indigo-500 mr-2"></i>
                                 Tarif Air
                             </a>
@@ -313,19 +324,19 @@
 
                     <!-- Informasi Group -->
                     <div class="mobile-dropdown mb-2">
-                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg" data-target="info-menu">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg dark:text-gray-300" data-target="info-menu">
                             <div class="flex items-center">
                                 <i class="fas fa-newspaper w-5 text-orange-600 mr-3"></i>
                                 <span class="font-medium">Informasi</span>
                             </div>
                             <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
                         </button>
-                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="info-menu">
-                            <a href="{{ route('news') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                        <div class="mobile-dropdown-content hidden bg-gray-50 dark:bg-gray-900 rounded-lg mt-1 ml-6 overflow-hidden dark:bg-gray-800" id="info-menu">
+                            <a href="{{ route('news') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-newspaper w-4 text-purple-500 mr-2"></i>
                                 Semua Berita
                             </a>
-                            <a href="{{ route('contact') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('contact') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-envelope w-4 text-blue-500 mr-2"></i>
                                 Kontak Kami
                             </a>
@@ -342,35 +353,35 @@
 
                     <!-- Tentang Kami Dropdown -->
                     <div class="mobile-dropdown">
-                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('about*') || request()->routeIs('water-sources*') ? 'bg-blue-50 text-blue-700' : '' }}" data-target="about-internal-menu">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('about*') || request()->routeIs('water-sources*') ? 'bg-blue-50 text-blue-700' : '' }} dark:text-gray-300" data-target="about-internal-menu">
                             <div class="flex items-center">
                                 <i class="fas fa-building w-5 text-green-600 mr-3"></i>
                                 <span class="font-medium">Tentang Kami</span>
                             </div>
                             <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
                         </button>
-                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="about-internal-menu">
-                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                        <div class="mobile-dropdown-content hidden bg-gray-50 dark:bg-gray-900 rounded-lg mt-1 ml-6 overflow-hidden dark:bg-gray-800" id="about-internal-menu">
+                            <a href="{{ route('about') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-info-circle w-4 text-blue-500 mr-2"></i>
                                 Profil Perusahaan
                             </a>
-                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.history') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.history') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-history w-4 text-green-500 mr-2"></i>
                                 Sejarah
                             </a>
-                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.vision-mission') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('about.vision-mission') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.vision-mission') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-eye w-4 text-purple-500 mr-2"></i>
                                 Visi & Misi
                             </a>
-                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.organization') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('about.organization') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.organization') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-sitemap w-4 text-orange-500 mr-2"></i>
                                 Struktur Organisasi
                             </a>
-                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.branches') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('about.branches') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('about.branches') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-map-marker-alt w-4 text-red-500 mr-2"></i>
                                 Cabang & Unit IKK
                             </a>
-                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('water-sources*') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('water-sources.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('water-sources*') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-tint w-4 text-cyan-500 mr-2"></i>
                                 Sumber Mata Air
                             </a>
@@ -379,31 +390,31 @@
 
                     <!-- Layanan Dropdown -->
                     <div class="mobile-dropdown">
-                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('services*') || request()->routeIs('tariff') ? 'bg-blue-50 text-blue-700' : '' }}" data-target="services-internal-menu">
+                        <button class="mobile-dropdown-trigger w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 rounded-lg {{ request()->routeIs('services*') || request()->routeIs('tariff') ? 'bg-blue-50 text-blue-700' : '' }} dark:text-gray-300" data-target="services-internal-menu">
                             <div class="flex items-center">
                                 <i class="fas fa-cogs w-5 text-purple-600 mr-3"></i>
                                 <span class="font-medium">Layanan</span>
                             </div>
                             <i class="fas fa-chevron-down w-4 transition-transform duration-200"></i>
                         </button>
-                        <div class="mobile-dropdown-content hidden bg-gray-50 rounded-lg mt-1 ml-6 overflow-hidden" id="services-internal-menu">
-                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('services') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                        <div class="mobile-dropdown-content hidden bg-gray-50 dark:bg-gray-900 rounded-lg mt-1 ml-6 overflow-hidden dark:bg-gray-800" id="services-internal-menu">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('services') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-list w-4 text-blue-500 mr-2"></i>
                                 Semua Layanan
                             </a>
-                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="https://tagihan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-credit-card w-4 text-green-500 mr-2"></i>
                                 Cek Tagihan
                             </a>
-                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="{{ route('services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-plus-circle w-4 text-purple-500 mr-2"></i>
                                 Sambungan Baru
                             </a>
-                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                            <a href="https://pengaduan.pdampurbalingga.co.id/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 dark:text-gray-300">
                                 <i class="fas fa-exclamation-triangle w-4 text-red-500 mr-2"></i>
                                 Pengaduan Online
                             </a>
-                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('tariff') ? 'bg-blue-100 text-blue-800 font-medium' : '' }}">
+                            <a href="{{ route('tariff') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 {{ request()->routeIs('tariff') ? 'bg-blue-100 text-blue-800 font-medium' : '' }} dark:text-gray-300">
                                 <i class="fas fa-dollar-sign w-4 text-indigo-500 mr-2"></i>
                                 Tarif Air
                             </a>
@@ -460,15 +471,15 @@ header {
 
 /* Navigation link styles */
 .nav-link {
-    @apply text-gray-700 hover:text-blue-600 font-medium transition-all duration-200 relative px-3 py-2 rounded-lg;
+    @apply text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-all duration-200 relative px-3 py-2 rounded-lg;
 }
 
 .nav-link:hover {
-    @apply bg-blue-50 text-blue-600;
+    @apply bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400;
 }
 
 .nav-link.active {
-    @apply text-blue-600 bg-blue-50;
+    @apply text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-gray-800;
 }
 
 .nav-link.active::after {
@@ -496,41 +507,41 @@ header {
 
 /* Dropdown styles */
 .dropdown-link {
-    @apply block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-150 rounded-md mx-2;
+    @apply block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-150 rounded-md mx-2;
 }
 
 /* Mobile navigation styles */
 .mobile-nav-link {
-    @apply block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-150 rounded-lg mx-2;
+    @apply block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 transition-all duration-150 rounded-lg mx-2;
 }
 
 .mobile-nav-link.active {
-    @apply text-blue-600 bg-blue-50;
+    @apply text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-gray-800;
 }
 
 .mobile-nav-sublink {
-    @apply block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-150 rounded-lg mx-2 my-1;
+    @apply block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 transition-all duration-150 rounded-lg mx-2 my-1;
 }
 
 /* Section Indicator Dots (untuk home page) */
 .section-dot {
-    @apply w-3 h-3 rounded-full border-2 border-gray-300 bg-white cursor-pointer transition-all duration-200 hover:border-blue-400 relative group;
+    @apply w-3 h-3 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 cursor-pointer transition-all duration-200 hover:border-b dark:border-gray-700lue-400 dark:hover:border-b dark:border-gray-700lue-500 relative group;
 }
 
 .section-dot.active {
-    @apply border-blue-600 bg-blue-600;
+    @apply border-b dark:border-gray-700lue-600 dark:border-b dark:border-gray-700lue-500 bg-blue-600 dark:bg-blue-500;
 }
 
 .section-dot-inner {
-    @apply w-1 h-1 rounded-full bg-gray-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200;
+    @apply w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200;
 }
 
 .section-dot.active .section-dot-inner {
-    @apply bg-white;
+    @apply bg-white dark:bg-gray-900;
 }
 
 .section-dot:hover .section-dot-inner {
-    @apply bg-blue-400;
+    @apply bg-blue-400 dark:bg-blue-400;
 }
 
 /* Tooltip untuk section dots */

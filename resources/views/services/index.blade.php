@@ -3,7 +3,7 @@
 @section('title', 'Layanan - ' . ($company->company_name ?? 'PDAM Tirta Perwira'))
 
 @section('content')
-<div class="bg-gray-50 min-h-screen">
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -40,7 +40,7 @@
                             @endif
                         </div>
                         <div>
-                            <h2 class="text-3xl font-bold text-gray-900">
+                            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
                                 @if($categoryName === 'new_connection')
                                     Sambungan Baru
                                 @elseif($categoryName === 'billing')
@@ -53,7 +53,7 @@
                                     {{ ucfirst($categoryName) }}
                                 @endif
                             </h2>
-                            <p class="text-gray-600 mt-1">
+                            <p class="text-gray-600 dark:text-gray-400 mt-1">
                                 @if($categoryName === 'new_connection')
                                     Layanan pemasangan sambungan air baru
                                 @elseif($categoryName === 'billing')
@@ -72,7 +72,7 @@
                     <!-- Services Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         @foreach($categoryServices as $service)
-                        <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200">
+                        <div class="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-blue-200">
                             <!-- Service Icon/Image -->
                             <div class="relative overflow-hidden">
                                 @if($service->getFirstMediaUrl('icons'))
@@ -119,14 +119,14 @@
                             <!-- Service Content -->
                             <div class="p-6">
                                 <!-- Service Title -->
-                                <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
                                     <a href="{{ route('services.show', $service->slug) }}">
                                         {{ $service->name }}
                                     </a>
                                 </h3>
 
                                 <!-- Service Description -->
-                                <p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
+                                <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed">
                                     {{ Str::limit(strip_tags($service->description), 120) }}
                                 </p>
 
@@ -164,7 +164,7 @@
                     <h2 class="text-3xl font-bold mb-8 text-center">Akses Cepat Layanan</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <a href="{{ route('services.show', 'pemasangan-sambungan-baru-rumah-tangga') }}"
-                           class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
+                           class="bg-white dark:bg-gray-800 bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
@@ -172,7 +172,7 @@
                             <p class="text-sm text-white opacity-90">Daftar sambungan air bersih baru</p>
                         </a>
                         <a href="https://tagihan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
-                           class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
+                           class="bg-white dark:bg-gray-800 bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
@@ -180,7 +180,7 @@
                             <p class="text-sm text-white opacity-90">Periksa tagihan air bulanan</p>
                         </a>
                         <a href="https://pengaduan.pdampurbalingga.co.id" target="_blank" rel="noopener noreferrer"
-                           class="bg-white bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
+                           class="bg-white dark:bg-gray-800 bg-opacity-15 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-opacity-25 transition-all duration-300 border border-white border-opacity-20">
                             <svg class="w-12 h-12 mx-auto mb-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                             </svg>
@@ -192,13 +192,13 @@
 
             @else
                 <div class="text-center py-16">
-                    <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
                         <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Layanan Akan Segera Tersedia</h2>
-                    <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Layanan Akan Segera Tersedia</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
                         Kami sedang mempersiapkan informasi layanan terbaik untuk Anda. Silakan hubungi kami untuk informasi lebih lanjut.
                     </p>
                     <a href="{{ route('contact') }}" class="btn-primary">

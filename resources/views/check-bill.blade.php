@@ -3,7 +3,7 @@
 @section('title', 'Cek Tagihan - Tirta Perwira PDAM Purbalingga')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen">
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container-custom">
@@ -20,8 +20,8 @@
     <section class="section-padding">
         <div class="container-custom">
             <div class="max-w-2xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Masukkan Nomor Pelanggan</h2>
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Masukkan Nomor Pelanggan</h2>
 
                     <form class="space-y-6">
                         <div>
@@ -35,7 +35,7 @@
                         </button>
                     </form>
 
-                    <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                    <div class="mt-8 p-4 bg-blue-50 dark:bg-gray-800 rounded-lg">
                         <h3 class="font-semibold text-blue-900 mb-2">Informasi Penting:</h3>
                         <ul class="text-sm text-blue-800 space-y-1">
                             <li>• Tagihan diupdate setiap hari pada pukul 08.00 WIB</li>

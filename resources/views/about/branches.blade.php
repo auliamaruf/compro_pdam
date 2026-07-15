@@ -24,6 +24,11 @@
         height: fit-content;
     }
     
+    .dark .branch-card {
+        background: #1f2937;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    
     .branch-card.animate {
         opacity: 1;
         transform: translateY(0);
@@ -67,10 +72,18 @@
         line-height: 1.2;
     }
     
+    .dark .branch-name {
+        color: #f3f4f6;
+    }
+    
     .branch-code {
         color: #6b7280;
         font-weight: 500;
         font-size: 0.875rem;
+    }
+    
+    .dark .branch-code {
+        color: #9ca3af;
     }
     
     .branch-head {
@@ -79,6 +92,10 @@
         padding: 0.75rem;
         margin-bottom: 1rem;
         border-left: 3px solid #10b981;
+    }
+    
+    .dark .branch-head {
+        background: #374151;
     }
     
     .head-title {
@@ -90,11 +107,19 @@
         margin-bottom: 0.25rem;
     }
     
+    .dark .head-title {
+        color: #9ca3af;
+    }
+    
     .head-name {
         font-size: 1rem;
         font-weight: 600;
         color: #1f2937;
         line-height: 1.2;
+    }
+    
+    .dark .head-name {
+        color: #f3f4f6;
     }
     
     .branch-details {
@@ -220,7 +245,7 @@
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -241,8 +266,8 @@
         @if($branches->count() > 0)
             <div class="max-w-7xl mx-auto mb-16">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Cabang Kami</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Cabang Kami</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Cabang-cabang utama {{ (($company && $company->company_name && is_string($company->company_name)) ? $company->company_name : 'PDAM Tirta Perwira') }} yang tersebar strategis di wilayah {{ (($company && $company->address && is_string($company->address) && Str::contains($company->address, 'Purbalingga')) ? 'Purbalingga' : (($company && $company->address && is_string($company->address)) ? last(explode(',', $company->address)) : 'Purbalingga')) }} untuk kemudahan akses pelayanan.
                     </p>
                 </div>
@@ -275,8 +300,8 @@
                             <div class="detail-item">
                                 <i class="fas fa-map-marker-alt detail-icon text-blue-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Alamat</h4>
-                                    <p class="text-gray-600 text-sm leading-relaxed">{{ $branch->address }}</p>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Alamat</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{{ $branch->address }}</p>
                                     @if($branch->google_maps_url)
                                         <a href="{{ $branch->google_maps_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium mt-1 inline-flex items-center">
                                             <i class="fas fa-external-link-alt mr-1"></i>
@@ -291,12 +316,12 @@
                             <div class="detail-item">
                                 <i class="fas fa-phone detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Kontak</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Kontak</h4>
                                     @if($branch->phone)
-                                        <p class="text-gray-600 text-sm"><strong>Telepon:</strong> {{ $branch->phone }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Telepon:</strong> {{ $branch->phone }}</p>
                                     @endif
                                     @if($branch->email)
-                                        <p class="text-gray-600 text-sm"><strong>Email:</strong> {{ $branch->email }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Email:</strong> {{ $branch->email }}</p>
                                     @endif
                                 </div>
                             </div>
@@ -307,30 +332,30 @@
                             <div class="detail-item">
                                 <i class="fas fa-clock detail-icon text-purple-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Jam Operasional</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Jam Operasional</h4>
                                     <div class="space-y-1">
                                         @if($branch->office_hours_weekday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Senin - Kamis:</span>
-                                                <span class="text-gray-600">{{ $branch->office_hours_weekday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Senin - Kamis:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $branch->office_hours_weekday }}</span>
                                             </div>
                                         @endif
                                         @if($branch->office_hours_friday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Jumat:</span>
-                                                <span class="text-gray-600">{{ $branch->office_hours_friday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Jumat:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $branch->office_hours_friday }}</span>
                                             </div>
                                         @endif
                                         @if($branch->office_hours_saturday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Sabtu:</span>
-                                                <span class="text-gray-600">{{ $branch->office_hours_saturday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Sabtu:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $branch->office_hours_saturday }}</span>
                                             </div>
                                         @endif
                                         @if($branch->office_hours_sunday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Minggu:</span>
-                                                <span class="text-gray-600">{{ $branch->office_hours_sunday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Minggu:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $branch->office_hours_sunday }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -343,7 +368,7 @@
                             <div class="detail-item">
                                 <i class="fas fa-cogs detail-icon text-indigo-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Layanan</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Layanan</h4>
                                     <div class="flex flex-wrap gap-1">
                                         @foreach(array_slice($branch->services, 0, 3) as $service)
                                             <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{{ $service }}</span>
@@ -366,8 +391,8 @@
         @if($unitIkk->count() > 0)
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Unit IKK</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Unit IKK</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Unit Ibukota Kecamatan (IKK) yang melayani wilayah-wilayah strategis dengan fokus distribusi air bersih dan pelayanan masyarakat.
                     </p>
                 </div>
@@ -400,8 +425,8 @@
                             <div class="detail-item">
                                 <i class="fas fa-map-marker-alt detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Alamat</h4>
-                                    <p class="text-gray-600 text-sm leading-relaxed">{{ $unit->address }}</p>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Alamat</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{{ $unit->address }}</p>
                                     @if($unit->google_maps_url)
                                         <a href="{{ $unit->google_maps_url }}" target="_blank" class="text-green-600 hover:text-green-800 text-sm font-medium mt-1 inline-flex items-center">
                                             <i class="fas fa-external-link-alt mr-1"></i>
@@ -416,12 +441,12 @@
                             <div class="detail-item">
                                 <i class="fas fa-phone detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Kontak</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Kontak</h4>
                                     @if($unit->phone)
-                                        <p class="text-gray-600 text-sm"><strong>Telepon:</strong> {{ $unit->phone }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Telepon:</strong> {{ $unit->phone }}</p>
                                     @endif
                                     @if($unit->email)
-                                        <p class="text-gray-600 text-sm"><strong>Email:</strong> {{ $unit->email }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm"><strong>Email:</strong> {{ $unit->email }}</p>
                                     @endif
                                 </div>
                             </div>
@@ -432,30 +457,30 @@
                             <div class="detail-item">
                                 <i class="fas fa-clock detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Jam Operasional</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Jam Operasional</h4>
                                     <div class="space-y-1">
                                         @if($unit->office_hours_weekday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Senin - Kamis:</span>
-                                                <span class="text-gray-600">{{ $unit->office_hours_weekday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Senin - Kamis:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $unit->office_hours_weekday }}</span>
                                             </div>
                                         @endif
                                         @if($unit->office_hours_friday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Jumat:</span>
-                                                <span class="text-gray-600">{{ $unit->office_hours_friday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Jumat:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $unit->office_hours_friday }}</span>
                                             </div>
                                         @endif
                                         @if($unit->office_hours_saturday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Sabtu:</span>
-                                                <span class="text-gray-600">{{ $unit->office_hours_saturday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Sabtu:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $unit->office_hours_saturday }}</span>
                                             </div>
                                         @endif
                                         @if($unit->office_hours_sunday)
                                             <div class="text-sm">
-                                                <span class="text-gray-600 font-medium">Minggu:</span>
-                                                <span class="text-gray-600">{{ $unit->office_hours_sunday }}</span>
+                                                <span class="text-gray-600 dark:text-gray-400 font-medium">Minggu:</span>
+                                                <span class="text-gray-600 dark:text-gray-400">{{ $unit->office_hours_sunday }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -468,7 +493,7 @@
                             <div class="detail-item">
                                 <i class="fas fa-map detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Area Cakupan</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Area Cakupan</h4>
                                     <div class="flex flex-wrap gap-1">
                                         @foreach(array_slice($unit->coverage_areas, 0, 2) as $area)
                                             <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">{{ $area }}</span>
@@ -486,7 +511,7 @@
                             <div class="detail-item">
                                 <i class="fas fa-cogs detail-icon text-green-600"></i>
                                 <div class="detail-content">
-                                    <h4 class="font-semibold text-gray-800 mb-1">Layanan</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Layanan</h4>
                                     <div class="flex flex-wrap gap-1">
                                         @foreach(array_slice($unit->services, 0, 3) as $service)
                                             <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">{{ $service }}</span>
@@ -511,7 +536,7 @@
                 <div class="text-gray-400 mb-4">
                     <i class="fas fa-building text-6xl"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-600 mb-2">Belum Ada Data Cabang & Unit IKK</h3>
+                <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">Belum Ada Data Cabang & Unit IKK</h3>
                 <p class="text-gray-500">Informasi cabang dan unit IKK akan segera tersedia.</p>
             </div>
         @endif
@@ -526,7 +551,7 @@
             Tim customer service kami siap membantu Anda di kantor pusat atau cabang terdekat
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('contact') }}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <a href="{{ route('contact') }}" class="bg-white dark:bg-gray-800 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                 Hubungi Kami
             </a>
             <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">

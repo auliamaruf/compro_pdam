@@ -4,7 +4,7 @@
 @section('description', 'Visi, Misi, dan Nilai-nilai PDAM Tirta Perwira Purbalingga dalam melayani masyarakat dengan air bersih berkualitas')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-900 dark:to-gray-900">
     <!-- Hero Section -->
         <!-- Hero Section -->
     <section class="hero-section">
@@ -23,7 +23,7 @@
     <section class="section-padding">
         <div class="container-custom">
             <div class="max-w-6xl mx-auto">
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
                     <div class="lg:grid lg:grid-cols-2">
                         <!-- Vision Content -->
                         <div class="p-8 lg:p-12">
@@ -34,9 +34,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
                                 </div>
-                                <h2 class="text-3xl font-bold text-gray-900">VISI</h2>
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">VISI</h2>
                             </div>
-                            <div class="text-xl text-gray-700 leading-relaxed mb-6">
+                            <div class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                                 "{{ $company->vision_description ?? 'Menjadi perusahaan daerah air minum yang terdepan di Jawa Tengah dalam memberikan pelayanan air bersih berkualitas, berkelanjutan, dan terjangkau untuk meningkatkan kualitas hidup masyarakat Purbalingga.' }}"
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
-                                            <span class="text-sm font-semibold text-gray-800">VISI</span>
+                                            <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">VISI</span>
                                         </div>
                                     </div>
                                 </div> -->
@@ -95,7 +95,7 @@
     </section>
 
     <!-- Mission Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white dark:bg-gray-800">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
@@ -105,9 +105,9 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                             </svg>
                         </div>
-                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">MISI</h2>
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">MISI</h2>
                     </div>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Langkah strategis untuk mewujudkan visi perusahaan dalam melayani masyarakat
                     </p>
                 </div>
@@ -115,35 +115,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     @if($company && $company->mission_points)
                         @foreach($company->mission_points as $index => $mission)
-                            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+                            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-blue-100 dark:border-gray-700">
                                 <div class="flex items-start">
                                     <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1 flex-shrink-0">{{ $index + 1 }}</div>
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $mission['title'] ?? '' }}</h3>
-                                        <p class="text-gray-600 leading-relaxed">{{ $mission['description'] ?? '' }}</p>
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ $mission['title'] ?? '' }}</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ $mission['description'] ?? '' }}</p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     @else
                         <!-- Default mission if no data -->
-                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-blue-100 dark:border-gray-700">
                             <div class="flex items-start">
                                 <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1 flex-shrink-0">1</div>
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Penyediaan Air Berkualitas</h3>
-                                    <p class="text-gray-600 leading-relaxed">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Penyediaan Air Berkualitas</h3>
+                                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                                         Menyediakan air bersih yang memenuhi standar kesehatan dan kualitas nasional dengan sistem pengolahan yang modern dan terpercaya.
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6 border border-blue-100 dark:border-gray-700">
                             <div class="flex items-start">
                                 <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1 flex-shrink-0">2</div>
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Pelayanan Prima</h3>
-                                    <p class="text-gray-600 leading-relaxed">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Pelayanan Prima</h3>
+                                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                                         Memberikan pelayanan yang responsif, profesional, dan berorientasi pada kepuasan pelanggan dengan dukungan teknologi digital.
                                     </p>
                                 </div>
@@ -160,8 +160,8 @@
         <div class="container mx-auto px-4 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">NILAI-NILAI PERUSAHAAN</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">NILAI-NILAI PERUSAHAAN</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                         Prinsip dasar yang menjadi pedoman dalam setiap kegiatan dan pelayanan
                     </p>
                 </div>
@@ -169,46 +169,46 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @if($company && $company->core_values)
                         @foreach($company->core_values as $value)
-                            <div class="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
+                            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
                                 <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors text-blue-600 text-2xl">
                                     {!! $value['icon'] ?? '<i class="fas fa-check"></i>' !!}
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ strtoupper($value['name'] ?? '') }}</h3>
-                                <p class="text-gray-600 leading-relaxed">{{ $value['description'] ?? '' }}</p>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ strtoupper($value['name'] ?? '') }}</h3>
+                                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ $value['description'] ?? '' }}</p>
                             </div>
                         @endforeach
                     @else
                         <!-- Default values if no data -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
                             <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
                                 <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">PEDULI</h3>
-                            <p class="text-gray-600 leading-relaxed">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">PEDULI</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                                 Mengutamakan kepentingan masyarakat dan lingkungan dalam setiap pengambilan keputusan dan tindakan.
                             </p>
                         </div>
-                        <div class="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
                             <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
                                 <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">AMANAH</h3>
-                            <p class="text-gray-600 leading-relaxed">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">AMANAH</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                                 Menjalankan tugas dan tanggung jawab dengan penuh integritas, kejujuran, dan dapat dipercaya.
                             </p>
                         </div>
-                        <div class="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-shadow">
                             <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
                                 <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">INOVATIF</h3>
-                            <p class="text-gray-600 leading-relaxed">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">INOVATIF</h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                                 Senantiasa mencari cara-cara baru yang lebih baik dalam memberikan pelayanan dan mengelola sumber daya.
                             </p>
                         </div>
@@ -227,7 +227,7 @@
                     Mari bersama-sama mewujudkan akses air bersih berkualitas untuk seluruh masyarakat Purbalingga
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
+                    <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-800 text-blue-900 font-medium rounded-lg hover:bg-blue-50 transition-colors">
                         <span>Lihat Layanan Kami</span>
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

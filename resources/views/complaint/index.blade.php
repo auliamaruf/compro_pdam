@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-<div class="bg-gray-50 min-h-screen">
+<div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="bg-red-600 text-white py-16">
         <div class="container-custom">
@@ -24,7 +24,7 @@
     <div class="container-custom py-8">
         <!-- Quick Actions -->
         <div class="mb-8">
-            <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -32,8 +32,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Ajukan Keluhan Baru</h3>
-                        <p class="text-gray-600 mb-4">Isi form di bawah ini untuk mengajukan keluhan terkait layanan air</p>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Ajukan Keluhan Baru</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Isi form di bawah ini untuk mengajukan keluhan terkait layanan air</p>
                     </div>
                     <div class="text-center">
                         <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -41,8 +41,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Lacak Status Keluhan</h3>
-                        <p class="text-gray-600 mb-4">Cek progres penanganan keluhan Anda dengan nomor tiket</p>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Lacak Status Keluhan</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Cek progres penanganan keluhan Anda dengan nomor tiket</p>
                         <a href="{{ route('complaint.track.alt') }}" class="btn-secondary">Lacak Keluhan</a>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Complaint Form -->
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-lg p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Form Pengaduan</h2>
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Form Pengaduan</h2>
 
                     <!-- Success/Error Messages -->
                     @if(session('success'))
@@ -86,8 +86,8 @@
                         @csrf
 
                         <!-- Customer Information -->
-                        <div class="border-b border-gray-200 pb-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Informasi Pelanggan</h3>
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Informasi Pelanggan</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="customer_name" class="form-label">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -157,8 +157,8 @@
                         </div>
 
                         <!-- Complaint Details -->
-                        <div class="border-b border-gray-200 pb-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Detail Keluhan</h3>
+                        <div class="border-b border-gray-200 dark:border-gray-700 pb-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Detail Keluhan</h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>                                    <label for="complaint_type" class="form-label">Jenis Keluhan <span class="text-red-500">*</span></label>
@@ -228,7 +228,7 @@
 
                         <!-- File Attachments -->
                         <div class="pb-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Lampiran (Opsional)</h3>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Lampiran (Opsional)</h3>
 
                             <div>
                                 <label for="attachments" class="form-label">Upload File</label>
@@ -277,9 +277,9 @@
             <!-- Sidebar Info -->
             <div class="lg:col-span-1">
                 <!-- Contact Info -->
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informasi Penting</h3>
-                    <div class="space-y-4 text-sm text-gray-600">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Informasi Penting</h3>
+                    <div class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
                         <div class="flex items-start space-x-3">
                             <svg class="w-5 h-5 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>

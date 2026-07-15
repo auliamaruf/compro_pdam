@@ -963,9 +963,9 @@
 </style>
 
 <!-- Breadcrumb -->
-<nav class="bg-blue-50 py-4" aria-label="Breadcrumb">
+<nav class="bg-blue-50 dark:bg-gray-800 py-4" aria-label="Breadcrumb">
     <div class="container-custom">
-        <ol class="flex items-center space-x-2 text-sm text-gray-600">
+        <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
             <li>
                 <a href="{{ route('home') }}" class="text-blue-600 hover:text-blue-800">Beranda</a>
             </li>
@@ -990,7 +990,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- Main Content -->
             <div class="lg:col-span-3">
-                <article class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
                     <!-- Featured Image -->
                     @if($article->getFirstMediaUrl('featured_image'))
                     <div class="aspect-[16/9] w-full overflow-hidden relative">
@@ -1012,13 +1012,13 @@
                                         @if($article->type === 'news') bg-blue-100 text-blue-800 border border-blue-200
                                         @elseif($article->type === 'announcement') bg-cyan-100 text-cyan-800 border border-cyan-200
                                         @elseif($article->type === 'event') bg-purple-100 text-purple-800 border border-purple-200
-                                        @else bg-gray-100 text-gray-800 border border-gray-200
+                                        @else bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-200
                                         @endif">
                                         <i class="fas fa-tag mr-2"></i>
                                         {{ ucfirst($article->type) }}
                                     </span>
                                     <time datetime="{{ $article->published_at->format('Y-m-d') }}"
-                                          class="text-gray-600 font-medium">
+                                          class="text-gray-600 dark:text-gray-400 font-medium">
                                         <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>
                                         {{ $article->published_at->format('d F Y') }}
                                     </time>
@@ -1036,14 +1036,14 @@
                             </div>
 
                             <!-- Article Title -->
-                            <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                            <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                                 {{ $article->title }}
                             </h1>
 
                             <!-- Article Excerpt -->
                             @if($article->excerpt)
                             <div class="relative">
-                                <div class="text-lg text-gray-700 mb-8 leading-relaxed bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 pl-6 pr-6 py-4 rounded-r-lg">
+                                <div class="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 pl-6 pr-6 py-4 rounded-r-lg">
                                     <i class="fas fa-quote-left text-blue-400 mr-2"></i>
                                     {{ $article->excerpt }}
                                 </div>
@@ -1053,7 +1053,7 @@
 
                         <!-- Article Content -->
                         <div class="max-w-none mb-12">
-                            <div class="prose-content text-gray-800 leading-relaxed space-y-4 text-base">
+                            <div class="prose-content text-gray-800 dark:text-gray-100 leading-relaxed space-y-4 text-base">
                                 {!! $article->content !!}
                             </div>
                         </div>
@@ -1063,7 +1063,7 @@
                         <section class="mb-12">
                             <div class="flex items-center mb-6">
                                 <i class="fas fa-images text-2xl text-blue-600 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-900">Galeri Foto</h3>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Galeri Foto</h3>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                 @foreach($article->getMedia('gallery') as $index => $media)
@@ -1095,20 +1095,20 @@
                         <section class="mb-12">
                             <div class="flex items-center mb-6">
                                 <i class="fas fa-paperclip text-xl text-green-600 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-900">Dokumen Terkait</h3>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Dokumen Terkait</h3>
                             </div>
                             
-                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                                 <!-- Uploaded Documents -->
                                 @if($article->getMedia('documents')->count() > 0)
                                 <div class="mb-4 last:mb-0">
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                                    <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
                                         <i class="fas fa-file-alt text-green-600 mr-2 text-sm"></i>
                                         File Lampiran
                                     </h4>
                                     <div class="space-y-3">
                                         @foreach($article->getMedia('documents') as $document)
-                                        <div class="document-card bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-colors group">
+                                        <div class="document-card bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:bg-gray-100 transition-colors group">
                                             <!-- Mobile Layout -->
                                             <div class="sm:hidden">
                                                 <div class="flex items-start space-x-3 mb-3">
@@ -1128,7 +1128,7 @@
                                                         <i class="{{ $iconClass }} text-xl"></i>
                                                     </div>
                                                     <div class="flex-1 min-w-0">
-                                                        <h5 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 leading-snug">
+                                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 leading-snug">
                                                             {{ $document->name ?: $document->file_name }}
                                                         </h5>
                                                         <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 mt-1">
@@ -1174,7 +1174,7 @@
                                                     <i class="{{ $iconClass }} text-lg"></i>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <h5 class="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600">
+                                                    <h5 class="text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-blue-600">
                                                         {{ $document->name ?: $document->file_name }}
                                                     </h5>
                                                     <div class="flex items-center space-x-2 text-xs text-gray-500 mt-1">
@@ -1211,22 +1211,22 @@
                                 <!-- External Document Links -->
                                 @if($article->document_links && count($article->document_links) > 0)
                                 <div>
-                                    <h4 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                                    <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
                                         <i class="fas fa-globe text-green-600 mr-2 text-sm"></i>
                                         Tautan Dokumen
                                     </h4>
                                     <div class="space-y-3">
                                         @foreach($article->document_links as $doc)
                                         @if($doc['type'] === 'url')
-                                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                                        <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:bg-gray-100 transition-colors">
                                             <!-- Mobile Layout -->
                                             <div class="sm:hidden">
                                                 <div class="mb-3">
-                                                    <h5 class="text-sm font-medium text-gray-900 leading-snug">
+                                                    <h5 class="text-sm font-medium text-gray-900 dark:text-white leading-snug">
                                                         {{ $doc['title'] }}
                                                     </h5>
                                                     @if(isset($doc['description']) && $doc['description'])
-                                                    <p class="text-xs text-gray-600 mt-1 leading-relaxed">{{ $doc['description'] }}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">{{ $doc['description'] }}</p>
                                                     @endif
                                                 </div>
                                                 <div class="flex flex-wrap gap-2">
@@ -1238,7 +1238,7 @@
                                                         Buka Link
                                                     </a>
                                                     <button onclick="copyToClipboard('{{ $doc['url'] }}')"
-                                                            class="flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-md">
+                                                            class="flex-1 min-w-0 inline-flex items-center justify-center px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-md">
                                                         <i class="fas fa-copy mr-1"></i>
                                                         Salin
                                                     </button>
@@ -1248,11 +1248,11 @@
                                             <!-- Desktop Layout -->
                                             <div class="hidden sm:flex items-center justify-between">
                                                 <div class="flex-1 min-w-0">
-                                                    <h5 class="text-sm font-medium text-gray-900 truncate">
+                                                    <h5 class="text-sm font-medium text-gray-900 dark:text-white truncate">
                                                         {{ $doc['title'] }}
                                                     </h5>
                                                     @if(isset($doc['description']) && $doc['description'])
-                                                    <p class="text-xs text-gray-600 mt-1">{{ $doc['description'] }}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ $doc['description'] }}</p>
                                                     @endif
                                                 </div>
                                                 <div class="flex space-x-1 ml-3">
@@ -1264,7 +1264,7 @@
                                                         Buka
                                                     </a>
                                                     <button onclick="copyToClipboard('{{ $doc['url'] }}')"
-                                                            class="inline-flex items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded">
+                                                            class="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 text-gray-700 dark:text-gray-300 text-xs font-medium rounded">
                                                         <i class="fas fa-copy mr-1"></i>
                                                         Salin
                                                     </button>
@@ -1281,17 +1281,17 @@
                         @endif
 
                         <!-- Article Footer -->
-                        <footer class="border-t border-gray-200 pt-8">
+                        <footer class="border-t border-gray-200 dark:border-gray-700 pt-8">
                             <!-- Tags -->
                             @if($article->tags)
                             <div class="mb-8">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-tags text-lg text-gray-600 mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-900">Tags</h3>
+                                    <i class="fas fa-tags text-lg text-gray-600 dark:text-gray-400 mr-3"></i>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Tags</h3>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     @foreach(explode(',', $article->tags) as $tag)
-                                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200">
+                                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200 dark:border-gray-700">
                                         <i class="fas fa-hashtag mr-1 text-xs"></i>
                                         {{ trim($tag) }}
                                     </span>
@@ -1303,8 +1303,8 @@
                             <!-- Share Buttons -->
                             <div class="mb-8">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-share-alt text-lg text-gray-600 mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-900">Bagikan Artikel</h3>
+                                    <i class="fas fa-share-alt text-lg text-gray-600 dark:text-gray-400 mr-3"></i>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Bagikan Artikel</h3>
                                 </div>
                                 <div class="flex flex-wrap gap-3">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
@@ -1356,11 +1356,11 @@
                             'commentableId' => $article->id
                         ])
                     @else
-                        <div class="bg-gray-100 border border-gray-200 rounded-lg p-6 mt-8 text-center">
+                        <div class="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 mt-8 text-center">
                             <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-comment-slash text-gray-400 text-2xl"></i>
                             </div>
-                            <h4 class="text-gray-600 font-medium mb-2">Komentar Tidak Diaktifkan</h4>
+                            <h4 class="text-gray-600 dark:text-gray-400 font-medium mb-2">Komentar Tidak Diaktifkan</h4>
                             <p class="text-gray-500 text-sm">Komentar tidak tersedia untuk artikel ini.</p>
                         </div>
                     @endif
@@ -1372,14 +1372,14 @@
                 <div class="sticky top-8 space-y-6">
                     <!-- Related News -->
                     @if($relatedNews->count() > 0)
-                    <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
                         <div class="flex items-center mb-6">
                             <i class="fas fa-newspaper text-2xl text-blue-600 mr-3"></i>
-                            <h3 class="text-xl font-bold text-gray-900">Berita Terkait</h3>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Berita Terkait</h3>
                         </div>
                         <div class="space-y-4">
                             @foreach($relatedNews as $related)
-                            <article class="group border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
+                            <article class="group border-b border-gray-100 dark:border-gray-700 pb-4 last:border-b-0 last:pb-0">
                                 <a href="{{ route('news.show', $related->slug) }}" class="block">
                                     @if($related->getFirstMediaUrl('featured_image'))
                                     <div class="aspect-[4/3] w-full overflow-hidden rounded-xl mb-3 relative">
@@ -1390,7 +1390,7 @@
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     </div>
                                     @endif
-                                    <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-snug">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-snug">
                                         {{ $related->title }}
                                     </h4>
                                     <div class="flex items-center text-sm text-gray-500">
@@ -1401,7 +1401,7 @@
                             </article>
                             @endforeach
                         </div>
-                        <div class="mt-6 pt-4 border-t border-gray-100">
+                        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
                             <a href="{{ route('news') }}"
                                class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
                                 <span>Lihat Semua Berita</span>
@@ -1412,10 +1412,10 @@
                     @endif
 
                     <!-- Latest News -->
-                    <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
                         <div class="flex items-center mb-6">
                             <i class="fas fa-clock text-2xl text-blue-600 mr-3"></i>
-                            <h3 class="text-xl font-bold text-gray-900">Berita Terbaru</h3>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Berita Terbaru</h3>
                         </div>
                         <div class="space-y-4">
                             @php
@@ -1426,9 +1426,9 @@
                                     ->get();
                             @endphp
                             @foreach($latestNews as $latest)
-                            <article class="group border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
+                            <article class="group border-b border-gray-100 dark:border-gray-700 pb-4 last:border-b-0 last:pb-0">
                                 <a href="{{ route('news.show', $latest->slug) }}" class="block">
-                                    <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-3 text-sm leading-relaxed mb-2">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-3 text-sm leading-relaxed mb-2">
                                         {{ $latest->title }}
                                     </h4>
                                     <div class="flex items-center justify-between text-xs text-gray-500">
