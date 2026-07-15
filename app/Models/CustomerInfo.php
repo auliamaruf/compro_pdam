@@ -38,6 +38,7 @@ class CustomerInfo extends Model implements HasMedia
     {
         $this->addMediaConversion('webp')
              ->format('webp')
+             ->nonOptimized()
              ->nonQueued();
     }
 }
